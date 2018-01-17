@@ -1,0 +1,34 @@
+{
+  "name": "resume-builder",
+  "version": "1.0.0",
+  "description": "Resume Builder",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run build",
+    "build": "webpack -d && cp src/index.html dist/index.html && webpack-dev-server --content-base src/ --inline --hot",
+    "build:prod": "webpack -p && cp src/index.html dist/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blopa/Resume-Builder.git"
+  },
+  "author": "Pablo Montenegro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blopa/Resume-Builder/issues"
+  },
+  "homepage": "https://github.com/blopa/Resume-Builder#readme",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.0"
+  }
+}
