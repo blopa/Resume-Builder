@@ -21,7 +21,8 @@
   "dependencies": {
     "babel-core": "^6.26.0",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-router": "^4.2.0"
   },
   "devDependencies": {
     "babel-loader": "^7.1.2",
