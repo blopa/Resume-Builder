@@ -9,3 +9,7 @@ export class Home extends React.Component {
         );
     }
 }
+
+Home.propTypes = {
+    // https://reactjs.org/docs/typechecking-with-proptypes.html
+};
