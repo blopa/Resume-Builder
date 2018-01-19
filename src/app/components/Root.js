@@ -1,6 +1,5 @@
 import React from 'react';
 import { Header } from './Header'
-import { Home } from './Home'
 
 export class Root extends React.Component {
     render() {
@@ -10,7 +9,8 @@ export class Root extends React.Component {
                     <Header/>
                 </div>
                 <div className="row">
-                    <Home/>
+                    <p>Nothing here</p>
+                    {this.props.children}
                 </div>
             </div>
         );
