@@ -1,15 +1,15 @@
 import React from 'react';
 
-export class Resume extends React.Component {
+export class Contact extends React.Component {
     render() {
         return(
             <div>
-                <p>Resume</p>
+                <p>Contact component</p>
             </div>
         );
     }
 }
 
-Resume.propTypes = {
+Contact.propTypes = {
     // https://reactjs.org/docs/typechecking-with-proptypes.html
 };
