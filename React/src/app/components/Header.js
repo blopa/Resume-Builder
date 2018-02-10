@@ -8,7 +8,7 @@ export class Header extends React.Component {
                 <ul>
                     <li>
                         <a href="#" className="nav-disabled">
-                            <img className="logo" src="./assets/logo.png" title="Made with squarespace.com"/>
+                            <img className="logo" src="../logo.png" title="Made with squarespace.com"/>
                         </a>
                     </li>
                     <li>

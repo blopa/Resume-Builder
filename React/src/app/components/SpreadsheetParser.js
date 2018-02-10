@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../styles/SpreadsheetParser.css'
+
 export class SpreadsheetParser extends React.Component {
     parseUpload(event){
         console.log(event);

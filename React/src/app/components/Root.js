@@ -6,6 +6,7 @@ import {Home} from "./Home";
 import {SpreadsheetParser} from "./SpreadsheetParser";
 import {Contact} from "./Contact";
 import {Resume} from "./Resume";
+import "../styles/Root.css";
 
 export class Root extends React.Component {
     render() {

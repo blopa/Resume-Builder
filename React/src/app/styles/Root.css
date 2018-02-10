@@ -1,0 +1,16 @@
+body {
+    background-color: #18bc9c
+}
+
+a {
+    color: #8dc6ff
+}
+
+a:hover {
+    color: #1301ff
+}
+
+.logo {
+    width: 211px;
+    margin: -38px
+}

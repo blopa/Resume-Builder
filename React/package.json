@@ -20,9 +20,11 @@
   "homepage": "https://github.com/blopa/Resume-Builder#readme",
   "dependencies": {
     "babel-core": "^6.26.0",
+    "css-loader": "^0.28.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "style-loader": "^0.20.1"
   },
   "devDependencies": {
     "babel-loader": "^7.1.2",
