@@ -5,7 +5,7 @@ a {
     width: 211px;
     margin: -38px;
 }
-.router-link-exact-active {
+.router-link-active {
     background-color: #25313e !important;
 }
 .nav-menu{

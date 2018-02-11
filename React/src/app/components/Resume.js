@@ -57,9 +57,20 @@ export class Resume extends React.Component {
         }
         return <CustomTemplate resume={this.state.resume} />;
     }
+    preparePrint() {
+        window.print();
+    }
     render() {
         return(
-            this.renderTemplate()
+            <div className="main-container">
+                <h1 className="no-print">Your Resume</h1>
+                <div id="print-button" className="no-print">
+                    <button type="button" className="btn btn-info btn-menu" onClick={this.preparePrint}>Print</button>
+                </div>
+                <div id="resume-content">
+                    {this.renderTemplate()}
+                </div>
+            </div>
         );
     }
 }

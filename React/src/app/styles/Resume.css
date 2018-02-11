@@ -10,3 +10,14 @@
     display: table;
     table-layout: fixed;
 }
+
+#print-button {
+    right: 0;
+    margin-right: 2%;
+    position: fixed;
+}
+
+#print-button button {
+    height: 50px;
+    width: 100px;
+}

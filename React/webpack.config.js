@@ -26,7 +26,7 @@ var config = {
                 loaders: ['style-loader', 'css-loader'],
             },
             {
-                test: /\.(png|jpg)$/,
+                test: /\.(png|jpg|ico)$/,
                 include: SRC_DIR,
                 loader: 'file-loader'
             }
