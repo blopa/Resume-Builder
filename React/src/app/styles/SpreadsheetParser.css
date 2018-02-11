@@ -60,11 +60,15 @@ li {
 }
 
 #choose-template h4{
-    width: 30%;
+    width: 28%;
 }
 
 #choose-template select{
-    width: 70%;
+    width: 72%;
     float: right;
     margin-top: -5px;
+}
+
+#data-input .custom-file {
+    width: 78%;
 }
