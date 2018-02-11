@@ -9,6 +9,7 @@ export class SpreadsheetParser extends React.Component {
         this.parseURL = this.parseURL.bind(this);
         this.parseDataFromURL = this.parseDataFromURL.bind(this);
         this.parseSpreadsheetData = this.parseSpreadsheetData.bind(this);
+        this.redirect = this.redirect.bind(this);
     }
     parseUpload(event) {
         console.log(event.target);
@@ -17,7 +18,7 @@ export class SpreadsheetParser extends React.Component {
     parseURL(event) {
         event.preventDefault();
         let spreadsheetURL = event.target.spreadsheet.value;
-        debugger;
+        // debugger;
         let spreadsheetId = new RegExp('/spreadsheets/d/([a-zA-Z0-9-_]+)').exec(spreadsheetURL);
         if ((spreadsheetId !== null) && (spreadsheetId !== undefined)) {
             spreadsheetId = spreadsheetId[1];
@@ -52,7 +53,22 @@ export class SpreadsheetParser extends React.Component {
         xhr.send(null);
     }
     parseSpreadsheetData(e, data) {
-        debugger;
+        // debugger;
+        let workbook = XLSX.read(data, {type: 'binary'});
+        let sheetName = workbook.SheetNames[0];
+        let jsonObject = workbook.Sheets[sheetName];
+        jsonObject = XLSX.utils.sheet_to_row_object_array(jsonObject);
+        this.redirect('/resume', {sheetObject: jsonObject});
+    }
+    redirect(path, param) {
+        if (param) {
+            this.props.history.push({
+                pathname: path,
+                param: param
+            });
+        } else {
+            this.props.history.push(path);
+        }
     }
     render() {
         return(
