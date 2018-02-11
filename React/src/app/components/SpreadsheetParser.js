@@ -68,34 +68,61 @@ export class SpreadsheetParser extends React.Component {
         this.buildResumeObject(jsonObject);
     }
     buildResumeObject(sheetObject) {
+        const idAttr = 'id'.toUpperCase();
+        const typeAttr = 'type'.toUpperCase();
+        const contentAttr = 'content'.toUpperCase();
+        const dataForAttr = 'data-for'.toUpperCase();
+        const disabledAttr = 'disabled'.toUpperCase();
+
+        const fromAttr = 'from';
+        const toAttr = 'to';
+        const localAttr = 'local';
+        const itemAttr = 'item';
+        const fullNameAttr = 'full-name';
+        const jobTitleAttr = 'job-title';
+        const websiteAttr = 'website';
+        const githubAttr = 'github';
+        const emailAttr = 'email';
+        const phoneAttr = 'phone';
+        const cityAttr = 'city';
+        const countryAttr = 'country';
+        const skillsAttr = 'skills';
+        const languagesAttr = 'languages';
+        const experienceAttr = 'experience';
+        const companyAttr = 'company';
+        const sideProjectAttr = 'side-project';
+        const descriptionAttr = 'description';
+        const urlAttr = 'url';
+        const educationAttr = 'education';
+
         let finalObj = {};
         let fathers = [];
         let sons = [];
         sheetObject.map(function(value) {
-            if (value['type'] === 'full-name') {
-                finalObj.fullName = value['content'];
-            } else if (value['type'] === 'job-title') {
-                finalObj.jobTitle = value['content'];
-            } else if (value['type'] === 'website') {
-                finalObj.website = value['content'];
-            } else if (value['type'] === 'github') {
-                finalObj.github = value['content'];
-            } else if (value['type'] === 'email') {
-                finalObj.email = value['content'];
-            } else if (value['type'] === 'phone') {
-                finalObj.phone = value['content'];
-            } else if (value['type'] === 'city') {
-                finalObj.city = value['content'];
-            } else if (value['type'] === 'country') {
-                finalObj.country = value['content'];
-            } else if (value['type'] === 'skills') {
-                finalObj.skills = value['content'];
-            } else if (value['type'] === 'languages') {
-                finalObj.languages = value['content'];
+            if (value[typeAttr] === fullNameAttr.toLowerCase()) {
+                finalObj.fullName = value[contentAttr];
+            } else if (value[typeAttr] === jobTitleAttr.toLowerCase()) {
+                finalObj.jobTitle = value[contentAttr];
+            } else if (value[typeAttr] === websiteAttr.toLowerCase()) {
+                finalObj.website = value[contentAttr];
+            } else if (value[typeAttr] === githubAttr.toLowerCase()) {
+                finalObj.github = value[contentAttr];
+            } else if (value[typeAttr] === emailAttr.toLowerCase()) {
+                finalObj.email = value[contentAttr];
+            } else if (value[typeAttr] === phoneAttr.toLowerCase()) {
+                finalObj.phone = value[contentAttr];
+            } else if (value[typeAttr] === cityAttr.toLowerCase()) {
+                finalObj.city = value[contentAttr];
+            } else if (value[typeAttr] === countryAttr.toLowerCase()) {
+                finalObj.country = value[contentAttr];
+            } else if (value[typeAttr] === skillsAttr.toLowerCase()) {
+                finalObj.skills = value[contentAttr];
+            } else if (value[typeAttr] === languagesAttr.toLowerCase()) {
+                finalObj.languages = value[contentAttr];
             }
-            if (value['id']) {
+            if (value[idAttr]) {
                 fathers.push(value);
-            } else if(value['data-for']) {
+            } else if (value[dataForAttr]) {
                 sons.push(value);
             }
         });
@@ -105,62 +132,63 @@ export class SpreadsheetParser extends React.Component {
         finalObj.education = [];
 
         fathers.map(function(value) {
-            let id = value.id;
+            let id = value[idAttr];
             let tempObj = {};
             tempObj.id = id;
             let childs = sons.filter(function(value) {
                 // debugger;
-                if (value['data-for'] === id) {
+                if (value[dataForAttr] === id) {
                     return value;
                 }
             });
 
-            if (value.type === 'experience') {
-                tempObj.jobTitle = value.content;
+            if (value[typeAttr] === experienceAttr.toLowerCase()) {
+                tempObj.jobTitle = value[contentAttr];
                 let items = [];
                 childs.map(function(value) {
-                    if (value['type'] === 'company') {
-                        tempObj.company = value['content'];
-                    } else if (value['type'] === 'from') {
-                        tempObj.from = value['content'];
-                    } else if (value['type'] === 'to') {
-                        tempObj.to = value['content'];
-                    } else if (value['type'] === 'local') {
-                        tempObj.local = value['content'];
-                    } else if (value['type'] === 'item') {
-                        items.push(value['content']);
+                    if (value[typeAttr] === companyAttr.toLowerCase()) {
+                        tempObj.company = value[contentAttr];
+                    } else if (value[typeAttr] === fromAttr.toLowerCase()) {
+                        tempObj.from = value[contentAttr];
+                    } else if (value[typeAttr] === toAttr.toLowerCase()) {
+                        tempObj.to = value[contentAttr];
+                    } else if (value[typeAttr] === localAttr.toLowerCase()) {
+                        tempObj.local = value[contentAttr];
+                    } else if (value[typeAttr] === itemAttr.toLowerCase()) {
+                        items.push(value[contentAttr]);
                     }
                 });
                 tempObj.items = items;
                 finalObj.experience.push(tempObj);
-            } else if (value.type === 'side-project') {
-                tempObj.projectName = value.content;
+            } else if (value[typeAttr] === sideProjectAttr.toLowerCase()) {
+                tempObj.projectName = value[contentAttr];
                 childs.map(function(value) {
-                    if (value['type'] === 'url') {
-                        tempObj.url = value['content'];
-                    } else if (value['type'] === 'description') {
-                        tempObj.description = value['content'];
+                    if (value[typeAttr] === urlAttr.toLowerCase()) {
+                        tempObj.url = value[contentAttr];
+                    } else if (value[typeAttr] === descriptionAttr.toLowerCase()) {
+                        tempObj.description = value[contentAttr];
                     }
                 });
                 finalObj.sideProject.push(tempObj);
-            } else if (value.type === 'education') {
-                tempObj.degree = value.content;
+            } else if (value[typeAttr] === educationAttr.toLowerCase()) {
+                tempObj.degree = value[contentAttr];
                 let items = [];
                 childs.map(function(value) {
-                    if (value['type'] === 'local') {
-                        tempObj.local = value['content'];
-                    } else if (value['type'] === 'from') {
-                        tempObj.from = value['content'];
-                    } else if (value['type'] === 'to') {
-                        tempObj.to = value['content'];
-                    } else if (value['type'] === 'item') {
-                        items.push(value['content']);
+                    if (value[typeAttr] === localAttr.toLowerCase()) {
+                        tempObj.local = value[contentAttr];
+                    } else if (value[typeAttr] === fromAttr.toLowerCase()) {
+                        tempObj.from = value[contentAttr];
+                    } else if (value[typeAttr] === toAttr.toLowerCase()) {
+                        tempObj.to = value[contentAttr];
+                    } else if (value[typeAttr] === itemAttr.toLowerCase()) {
+                        items.push(value[contentAttr]);
                     }
                 });
                 tempObj.items = items;
                 finalObj.education.push(tempObj);
             }
         });
+        debugger;
         this.redirect('/resume', {sheetObject: finalObj, template: this.state.template});
     }
     redirect(path, param) {
