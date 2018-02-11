@@ -24,6 +24,11 @@ var config = {
                 test: /\.css$/,
                 include: SRC_DIR,
                 loaders: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.(png|jpg)$/,
+                include: SRC_DIR,
+                loader: 'file-loader'
             }
         ]
     }
