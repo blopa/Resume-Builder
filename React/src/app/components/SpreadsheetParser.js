@@ -109,25 +109,35 @@ export class SpreadsheetParser extends React.Component {
         let sons = [];
         sheetObject.map(function(value) {
             if (value[typeAttr] === fullNameAttr.toLowerCase()) {
-                finalObj.fullName = value[contentAttr];
+                finalObj.fullName = {};
+                finalObj.fullName.content = value[contentAttr];
             } else if (value[typeAttr] === jobTitleAttr.toLowerCase()) {
-                finalObj.jobTitle = value[contentAttr];
+                finalObj.jobTitle = {};
+                finalObj.jobTitle.content = value[contentAttr];
             } else if (value[typeAttr] === websiteAttr.toLowerCase()) {
-                finalObj.website = value[contentAttr];
+                finalObj.website = {};
+                finalObj.website.content = value[contentAttr];
             } else if (value[typeAttr] === githubAttr.toLowerCase()) {
-                finalObj.github = value[contentAttr];
+                finalObj.github = {};
+                finalObj.github.content = value[contentAttr];
             } else if (value[typeAttr] === emailAttr.toLowerCase()) {
-                finalObj.email = value[contentAttr];
+                finalObj.email = {};
+                finalObj.email.content = value[contentAttr];
             } else if (value[typeAttr] === phoneAttr.toLowerCase()) {
-                finalObj.phone = value[contentAttr];
+                finalObj.phone = {};
+                finalObj.phone.content = value[contentAttr];
             } else if (value[typeAttr] === cityAttr.toLowerCase()) {
-                finalObj.city = value[contentAttr];
+                finalObj.city = {};
+                finalObj.city.content = value[contentAttr];
             } else if (value[typeAttr] === countryAttr.toLowerCase()) {
-                finalObj.country = value[contentAttr];
+                finalObj.country = {};
+                finalObj.country.content = value[contentAttr];
             } else if (value[typeAttr] === skillsAttr.toLowerCase()) {
-                finalObj.skills = value[contentAttr];
+                finalObj.skills = {};
+                finalObj.skills.content = value[contentAttr];
             } else if (value[typeAttr] === languagesAttr.toLowerCase()) {
-                finalObj.languages = value[contentAttr];
+                finalObj.languages = {};
+                finalObj.languages.content = value[contentAttr];
             }
             if (value[idAttr]) {
                 fathers.push(value);
@@ -136,9 +146,12 @@ export class SpreadsheetParser extends React.Component {
             }
         });
 
-        finalObj.experience = [];
-        finalObj.sideProject = [];
-        finalObj.education = [];
+        finalObj.experience = {};
+        finalObj.experience.content = [];
+        finalObj.sideProject = {};
+        finalObj.sideProject.content = [];
+        finalObj.education = {};
+        finalObj.education.content = [];
 
         fathers.map(function(value) {
             let id = value[idAttr];
@@ -152,49 +165,67 @@ export class SpreadsheetParser extends React.Component {
             });
 
             if (value[typeAttr] === experienceAttr.toLowerCase()) {
-                tempObj.jobTitle = value[contentAttr];
+                tempObj.jobTitle = {};
+                tempObj.jobTitle.content = value[contentAttr];
                 let items = [];
                 childs.map(function(value) {
                     if (value[typeAttr] === companyAttr.toLowerCase()) {
-                        tempObj.company = value[contentAttr];
+                        tempObj.company = {};
+                        tempObj.company.content = value[contentAttr];
                     } else if (value[typeAttr] === fromAttr.toLowerCase()) {
-                        tempObj.from = value[contentAttr];
+                        tempObj.from = {};
+                        tempObj.from.content = value[contentAttr];
                     } else if (value[typeAttr] === toAttr.toLowerCase()) {
-                        tempObj.to = value[contentAttr];
+                        tempObj.to = {};
+                        tempObj.to.content = value[contentAttr];
                     } else if (value[typeAttr] === localAttr.toLowerCase()) {
-                        tempObj.local = value[contentAttr];
+                        tempObj.local = {};
+                        tempObj.local.content = value[contentAttr];
                     } else if (value[typeAttr] === itemAttr.toLowerCase()) {
-                        items.push(value[contentAttr]);
+                        let auxObj = {};
+                        auxObj.content = value[contentAttr];
+                        items.push(auxObj);
                     }
                 });
-                tempObj.items = items;
-                finalObj.experience.push(tempObj);
+                tempObj.items = {};
+                tempObj.items.content = items;
+                finalObj.experience.content.push(tempObj);
             } else if (value[typeAttr] === sideProjectAttr.toLowerCase()) {
-                tempObj.projectName = value[contentAttr];
+                tempObj.projectName = {};
+                tempObj.projectName.content = value[contentAttr];
                 childs.map(function(value) {
                     if (value[typeAttr] === urlAttr.toLowerCase()) {
-                        tempObj.url = value[contentAttr];
+                        tempObj.url = {};
+                        tempObj.url.content = value[contentAttr];
                     } else if (value[typeAttr] === descriptionAttr.toLowerCase()) {
-                        tempObj.description = value[contentAttr];
+                        tempObj.description = {};
+                        tempObj.description.content = value[contentAttr];
                     }
                 });
-                finalObj.sideProject.push(tempObj);
+                finalObj.sideProject.content.push(tempObj);
             } else if (value[typeAttr] === educationAttr.toLowerCase()) {
-                tempObj.degree = value[contentAttr];
+                tempObj.degree = {};
+                tempObj.degree.content = value[contentAttr];
                 let items = [];
                 childs.map(function(value) {
                     if (value[typeAttr] === localAttr.toLowerCase()) {
-                        tempObj.local = value[contentAttr];
+                        tempObj.local = {};
+                        tempObj.local.content = value[contentAttr];
                     } else if (value[typeAttr] === fromAttr.toLowerCase()) {
-                        tempObj.from = value[contentAttr];
+                        tempObj.from = {};
+                        tempObj.from.content = value[contentAttr];
                     } else if (value[typeAttr] === toAttr.toLowerCase()) {
-                        tempObj.to = value[contentAttr];
+                        tempObj.to = {};
+                        tempObj.to.content = value[contentAttr];
                     } else if (value[typeAttr] === itemAttr.toLowerCase()) {
-                        items.push(value[contentAttr]);
+                        let auxObj = {};
+                        auxObj.content = value[contentAttr];
+                        items.push(auxObj);
                     }
                 });
-                tempObj.items = items;
-                finalObj.education.push(tempObj);
+                tempObj.items = {};
+                tempObj.items.content = items;
+                finalObj.education.content.push(tempObj);
             }
         });
         debugger;

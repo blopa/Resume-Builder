@@ -10,17 +10,19 @@ export class Resume extends React.Component {
         this.state = {
             template: null,
             resume: {
-                fullName: '',
-                jobTitle: '',
-                website: '',
-                github: '',
-                city: '',
-                country: '',
-                email: '',
-                phone: '',
-                experience: [],
-                sideProject: [],
-                education: []
+                fullName: {content: '', display: false},
+                jobTitle: {content: '', display: false},
+                website: {content: '', display: false},
+                github: {content: '', display: false},
+                city: {content: '', display: false},
+                country: {content: '', display: false},
+                email: {content: '', display: false},
+                phone: {content: '', display: false},
+                experience: {content: [], display: false},
+                sideProject: {content: [], display: false},
+                education: {content: [], display: false},
+                skills: {content: '', display: false},
+                languages: {content: '', display: false},
             }
         };
     }
