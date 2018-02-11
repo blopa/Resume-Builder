@@ -6,6 +6,7 @@ export class Resume extends React.Component {
     constructor() {
         super();
         this.redirect = this.redirect.bind(this);
+        this.handler = this.handler.bind(this);
 
         this.state = {
             template: null,
@@ -62,6 +63,10 @@ export class Resume extends React.Component {
     preparePrint() {
         window.print();
     }
+    handler(model) {
+        model.display = !model.display;
+        this.forceUpdate();
+    }
     render() {
         return(
             <div className="main-container">
@@ -72,6 +77,17 @@ export class Resume extends React.Component {
                 <div id="toggle-menu" className="no-print">
                     <div>
                         <h2>Toggle Menu</h2>
+                        <ul>
+                            {Object.keys(this.state.resume).map(function (key, arrayKey) {
+                                let htmlId = `toggle-${key}`;
+                                return (
+                                    <li key={htmlId + '-' + arrayKey}>
+                                        <input id={htmlId} type="checkbox" onChange={() => this.handler(this.state.resume[key])} checked={this.state.resume[key].display} />
+                                        <label htmlFor={htmlId}>Display {key}?</label>
+                                    </li>
+                                );
+                            }.bind(this))}
+                        </ul>
                     </div>
                 </div>
                 <div id="resume-content">
