@@ -31,17 +31,23 @@ export class VanhackTemplate extends React.Component {
                         {resume.experience.content.length > 0 ? <h4>WORK EXPERIENCE</h4> : null}
                         <ul className="resume-list">
                             {resume.experience.content.map(function(value, key){
-                                return (
-                                    <li key={key}>
-                                        <p className="resume-job-title-company">{value.jobTitle.content}, {value.company.content}</p>
-                                        <p className="resume-local-time">{value.from.content} - {value.to.content} - {value.local.content}</p>
-                                        <ul className="resume-list">
-                                            {value.items.content.map(function (value, key) {
-                                                return <li key={key} className="resume-job-achievements">{value.content}</li>
-                                            })}
-                                        </ul>
-                                    </li>
-                                );
+                                if (value.company.display) {
+                                    return (
+                                        <li key={key}>
+                                            <p className="resume-job-title-company">{value.jobTitle.content}, {value.company.content}</p>
+                                            <p className="resume-local-time">{value.from.content} - {value.to.content} - {value.local.content}</p>
+                                            <ul className="resume-list">
+                                                {value.items.display ? (
+                                                    value.items.content.map(function (value, key) {
+                                                        if (value.display) {
+                                                            return <li key={key} className="resume-job-achievements">{value.content}</li>
+                                                        }
+                                                    })
+                                                ) : null}
+                                            </ul>
+                                        </li>
+                                    );
+                                }
                             })}
                         </ul>
                     </div>
@@ -51,11 +57,13 @@ export class VanhackTemplate extends React.Component {
                         {resume.sideProject.content.length > 0 ? <h4>SIDE PROJECTS</h4> : null}
                         <ul className="resume-list">
                             {resume.sideProject.content.map(function(value, key){
-                                return (
-                                    <li key={key} className="resume-side-job">
-                                        <p><a href={value.url.content} target="_blank">{value.projectName.content}</a>: {value.description.content}</p>
-                                    </li>
-                                );
+                                if (value.projectName.display) {
+                                    return (
+                                        <li key={key} className="resume-side-job">
+                                            <p><a href={value.url.content} target="_blank">{value.projectName.content}</a>: {value.description.content}</p>
+                                        </li>
+                                    );
+                                }
                             })}
                         </ul>
                     </div>
@@ -65,16 +73,20 @@ export class VanhackTemplate extends React.Component {
                         {resume.education.content.length > 0 ? <h4>EDUCATION</h4> : null}
                         <ul className="resume-list">
                         {resume.education.content.map(function(value, key){
-                            return (
-                                <li key={key}>
-                                    <p>{value.degree.content}, {value.local.content}</p>
-                                    <ul className="resume-list">
-                                        {value.items.content.map(function (value, key) {
-                                            return <li key={key} className="resume-education-achievements">{value.content}</li>
-                                        })}
-                                    </ul>
-                                </li>
-                            );
+                            if (value.degree.display) {
+                                return (
+                                    <li key={key}>
+                                        <p>{value.degree.content}, {value.local.content}</p>
+                                        <ul className="resume-list">
+                                            {value.items.content.map(function (value, key) {
+                                                if (value.display) {
+                                                    return <li key={key} className="resume-education-achievements">{value.content}</li>
+                                                }
+                                            })}
+                                        </ul>
+                                    </li>
+                                );
+                            }
                         })}
                         </ul>
                     </div>
