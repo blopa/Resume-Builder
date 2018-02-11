@@ -2,6 +2,16 @@ body {
     background-color: #18bc9c
 }
 
+h2 {
+    font-size: 20pt;
+}
+h1 {
+    font-size: 30pt;
+}
+p {
+    font-size: 10pt;
+}
+
 a {
     color: #8dc6ff
 }
@@ -21,7 +31,22 @@ a:hover {
 
 @media print
 {
-    .no-print, .no-print * {
-        display: none !important;
+    body * {
+        visibility: hidden;
     }
+
+    #resume-content, #resume-content * {
+        padding: 0 !important;
+        visibility: visible !important;
+    }
+    #resume-content {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
+
+li {
+    color: #000000;
 }

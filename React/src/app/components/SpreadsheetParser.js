@@ -198,6 +198,9 @@ export class SpreadsheetParser extends React.Component {
                         </div>
                         <h4>... or choose a file from your computer</h4>
                         <p>(<a href="https://docs.google.com/spreadsheets/d/1Mrgu6dOTyEBkzHtoSSH2BhRNd8n8tuupVlcQUJhUY-0/export?format=xlsx&gid=0">download sample</a>)</p>
+                        <div id="button-go">
+                            <button type="submit" className="btn btn-primary btn-menu">Go!</button>
+                        </div>
                         <div className="data-upload-input">
                             <label className="custom-file">
                                 <input type="file" className="custom-file-input" onChange={this.parseUpload} />

@@ -19,3 +19,12 @@ li {
     padding: 20px;
     color: #FFFFFF;
 }
+
+#button-go button{
+    height: 100px;
+    width: 200px;
+    margin-top: -58px;
+}
+#button-go {
+    float: right;
+}
