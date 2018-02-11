@@ -49,7 +49,7 @@ export class VanhackTemplate extends React.Component {
                         {resume.experience.content.length > 0 ? <h4>WORK EXPERIENCE</h4> : null}
                         <ul className="resume-list">
                             {resume.experience.content.map(function(value, key){
-                                if (value.company.display) {
+                                if (value.display) {
                                     return (
                                         <li key={key}>
                                             <p className="resume-job-title-company">{value.jobTitle.content}, {value.company.content}</p>
@@ -75,7 +75,7 @@ export class VanhackTemplate extends React.Component {
                         {resume.sideProject.content.length > 0 ? <h4>SIDE PROJECTS</h4> : null}
                         <ul className="resume-list">
                             {resume.sideProject.content.map(function(value, key){
-                                if (value.projectName.display) {
+                                if (value.display) {
                                     return (
                                         <li key={key} className="resume-side-job">
                                             <p><a href={value.url.content} target="_blank">{value.projectName.content}</a>: {value.description.content}</p>
@@ -91,7 +91,7 @@ export class VanhackTemplate extends React.Component {
                         {resume.education.content.length > 0 ? <h4>EDUCATION</h4> : null}
                         <ul className="resume-list">
                         {resume.education.content.map(function(value, key){
-                            if (value.degree.display) {
+                            if (value.display) {
                                 return (
                                     <li key={key}>
                                         <p>{value.degree.content}, {value.local.content}</p>

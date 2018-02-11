@@ -64,6 +64,7 @@ export class Resume extends React.Component {
         window.print();
     }
     handler(model) {
+        debugger;
         model.display = !model.display;
         this.forceUpdate();
     }
@@ -77,13 +78,58 @@ export class Resume extends React.Component {
                 <div id="toggle-menu" className="no-print">
                     <div>
                         <h2>Toggle Menu</h2>
-                        <ul>
+                        <ul className="list-group">
                             {Object.keys(this.state.resume).map(function (key, arrayKey) {
                                 let htmlId = `toggle-${key}`;
+                                let elementKey = htmlId + '-' + arrayKey;
                                 return (
-                                    <li key={htmlId + '-' + arrayKey}>
-                                        <input id={htmlId} type="checkbox" onChange={() => this.handler(this.state.resume[key])} checked={this.state.resume[key].display} />
-                                        <label htmlFor={htmlId}>Display {key}?</label>
+                                    <li className="list-group-item" key={elementKey}>
+                                        <div className="checkbox checkbox-primary">
+                                            <input id={htmlId} type="checkbox" onChange={() => this.handler(this.state.resume[key])} checked={this.state.resume[key].display} />
+                                            <label htmlFor={htmlId}>Display {key}?</label>
+                                            {this.state.resume[key].display ? (
+                                                this.state.resume[key].content.constructor === Array ? (
+                                                    <ul className="list-group">
+                                                        {this.state.resume[key].content.map(function (value, key) {
+                                                            if (value.hasOwnProperty('company')) {
+                                                                return (
+                                                                    <li className="list-group-item" key={elementKey + '-' + key}>
+                                                                        <div className="checkbox checkbox-primary">
+                                                                            <input id={htmlId + '-' + key} type="checkbox" onChange={() => this.handler(this.state.resume.experience.content[key])} checked={this.state.resume.experience.content[key].display} />
+                                                                            <label htmlFor={htmlId + '-' + key}>Display {value.jobTitle.content} @ {value.company.content}?</label>
+                                                                        </div>
+                                                                    </li>
+                                                                );
+                                                            } else if (value.hasOwnProperty('projectName')) {
+                                                                return (
+                                                                    <li className="list-group-item" key={elementKey + '-' + key}>
+                                                                        <div className="checkbox checkbox-primary">
+                                                                            <input id={htmlId + '-' + key} type="checkbox" onChange={() => this.handler(this.state.resume.sideProject.content[key])} checked={this.state.resume.sideProject.content[key].display} />
+                                                                            <label htmlFor={htmlId + '-' + key}>Display {value.projectName.content}?</label>
+                                                                        </div>
+                                                                    </li>
+                                                                );
+                                                            } else if (value.hasOwnProperty('degree')) {
+                                                                return (
+                                                                    <li className="list-group-item" key={elementKey + '-' + key}>
+                                                                        <div className="checkbox checkbox-primary">
+                                                                            <input id={htmlId + '-' + key} type="checkbox" onChange={() => this.handler(this.state.resume.education.content[key])} checked={this.state.resume.education.content[key].display} />
+                                                                            <label htmlFor={htmlId + '-' + key}>Display {value.degree.content} @ {value.local.content}?</label>
+                                                                        </div>
+                                                                    </li>
+                                                                );
+                                                            }
+                                                            // if (Object.keys(value).length > 1) {
+                                                            //     return Object.keys(value).map(function (value, key) {
+                                                            //         debugger;
+                                                            //         // TODO
+                                                            //     });
+                                                            // }
+                                                        }.bind(this))}
+                                                    </ul>
+                                                ) : null
+                                            ) : null}
+                                        </div>
                                     </li>
                                 );
                             }.bind(this))}

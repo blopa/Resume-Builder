@@ -205,6 +205,7 @@ export class SpreadsheetParser extends React.Component {
                         auxObj.content = value[contentAttr];
                         items.push(auxObj);
                     }
+                    tempObj.display = true;
                 });
                 tempObj.items = {};
                 tempObj.items.display = true;
@@ -224,6 +225,7 @@ export class SpreadsheetParser extends React.Component {
                         tempObj.description.display = true;
                         tempObj.description.content = value[contentAttr];
                     }
+                    tempObj.display = true;
                 });
                 finalObj.sideProject.content.push(tempObj);
             } else if (value[typeAttr] === educationAttr.toLowerCase()) {
@@ -250,6 +252,7 @@ export class SpreadsheetParser extends React.Component {
                         auxObj.content = value[contentAttr];
                         items.push(auxObj);
                     }
+                    tempObj.display = true;
                 });
                 tempObj.items = {};
                 tempObj.items.display = true;

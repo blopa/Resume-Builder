@@ -26,5 +26,23 @@
     left: 0;
     margin-left: 2%;
     position: fixed;
-    width: 230px;
+    width: 400px;
+    padding: 10px;
+    background-color: #17a2b8;
+    max-height: 550px;
+    overflow-y: auto;
+}
+
+#toggle-menu label{
+    font-weight: bold;
+    float: right;
+}
+
+#toggle-menu li{
+    background-color: #3b9faf;
+}
+
+#toggle-menu .checkbox input{
+    zoom: 1.5;
+    margin-top: 5px;
 }
