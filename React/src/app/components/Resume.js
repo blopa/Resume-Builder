@@ -160,7 +160,7 @@ export class Resume extends React.Component {
                         </div>
                     </div>
                     <div id="work-experience">
-                        <h4>WORK EXPERIENCE</h4>
+                        {this.state.resume.experience.length > 0 ? <h4>WORK EXPERIENCE</h4> : null}
                         <ul className="resume-list">
                             {this.state.resume.experience.map(function(value, key){
                                 return (
@@ -178,7 +178,7 @@ export class Resume extends React.Component {
                         </ul>
                     </div>
                     <div id="side-projects">
-                        <h4>SIDE PROJECTS</h4>
+                        {this.state.resume.sideProject.length > 0 ? <h4>SIDE PROJECTS</h4> : null}
                         <ul className="resume-list">
                             {this.state.resume.sideProject.map(function(value, key){
                                 return (
@@ -190,7 +190,7 @@ export class Resume extends React.Component {
                         </ul>
                     </div>
                     <div id="education">
-                        <h4>EDUCATION</h4>
+                        {this.state.resume.education.length > 0 ? <h4>EDUCATION</h4> : null}
                         <ul className="resume-list">
                             {this.state.resume.education.map(function(value, key){
                                 return (
@@ -207,11 +207,11 @@ export class Resume extends React.Component {
                         </ul>
                     </div>
                     <div id="skills">
-                        <h4>TECHNICAL SKILLS</h4>
+                        {this.state.resume.skills ? <h4>TECHNICAL SKILLS</h4> : null}
                         <p>{this.state.resume.skills}</p>
                     </div>
                     <div id="languages">
-                        <h4>LANGUAGES</h4>
+                        {this.state.resume.languages ? <h4>LANGUAGES</h4> : null}
                         <p>{this.state.resume.languages}</p>
                     </div>
                 </div>
