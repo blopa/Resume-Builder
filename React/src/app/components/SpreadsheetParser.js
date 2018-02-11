@@ -219,8 +219,7 @@ export class SpreadsheetParser extends React.Component {
                 ) : null}
                 <form onSubmit={this.parseURL}>
                     {this.state.templateList.length > 0 ? (
-                        <div>
-                            <h4>Choose your template: </h4>
+                        <div id="choose-template">
                             <select className="selectpicker form-control" name="template">
                                 {this.state.templateList.map(function (value, key) {
                                     return (
@@ -228,6 +227,7 @@ export class SpreadsheetParser extends React.Component {
                                     )
                                 })}
                             </select>
+                            <h4>Choose your template: </h4>
                             <hr/>
                         </div>
                         ) : null}

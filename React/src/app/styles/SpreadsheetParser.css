@@ -50,3 +50,21 @@ li {
     text-overflow: ellipsis;
     height: 50px;
 }
+
+#choose-template {
+    width: 100%;
+}
+
+#choose-template hr{
+    margin-top: 2rem;
+}
+
+#choose-template h4{
+    width: 30%;
+}
+
+#choose-template select{
+    width: 70%;
+    float: right;
+    margin-top: -5px;
+}
