@@ -12,7 +12,7 @@ export class Root extends React.Component {
     render() {
         return(
             <div>
-                <Header/>
+                <Header className="no-print"/>
                 <Switch>
                     <Route path="/home" component={Home} />
                     <Route path="/parser" component={SpreadsheetParser} />

@@ -14,3 +14,14 @@ a:hover {
     width: 211px;
     margin: -38px
 }
+
+.main-container h1{
+    text-align: center;
+}
+
+@media print
+{
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}

@@ -3,8 +3,8 @@ import React from 'react';
 export class Contact extends React.Component {
     render() {
         return(
-            <div>
-                <p>Contact component</p>
+            <div className="main-container">
+                <h1>Contact component</h1>
             </div>
         );
     }

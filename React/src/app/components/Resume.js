@@ -5,7 +5,6 @@ export class Resume extends React.Component {
     constructor() {
         super();
         this.redirect = this.redirect.bind(this);
-        this.buildResume = this.buildResume.bind(this);
 
         this.state = {
             resume: {
@@ -32,104 +31,7 @@ export class Resume extends React.Component {
             return;
         }
 
-        this.buildResume(sheetObject);
-    }
-    buildResume(sheetObject) {
-        let finalObj = {};
-        let fathers = [];
-        let sons = [];
-        sheetObject.map(function(value) {
-            if (value['type'] === 'full-name') {
-                finalObj.fullName = value['content'];
-            } else if (value['type'] === 'job-title') {
-                finalObj.jobTitle = value['content'];
-            } else if (value['type'] === 'website') {
-                finalObj.website = value['content'];
-            } else if (value['type'] === 'github') {
-                finalObj.github = value['content'];
-            } else if (value['type'] === 'email') {
-                finalObj.email = value['content'];
-            } else if (value['type'] === 'phone') {
-                finalObj.phone = value['content'];
-            } else if (value['type'] === 'city') {
-                finalObj.city = value['content'];
-            } else if (value['type'] === 'country') {
-                finalObj.country = value['content'];
-            } else if (value['type'] === 'skills') {
-                finalObj.skills = value['content'];
-            } else if (value['type'] === 'languages') {
-                finalObj.languages = value['content'];
-            }
-            if (value['id']) {
-                fathers.push(value);
-            } else if(value['data-for']) {
-                sons.push(value);
-            }
-        });
-
-        finalObj.experience = [];
-        finalObj.sideProject = [];
-        finalObj.education = [];
-
-        fathers.map(function(value) {
-            let id = value.id;
-            let tempObj = {};
-            tempObj.id = id;
-            let childs = sons.filter(function(value) {
-                // debugger;
-                if (value['data-for'] === id) {
-                    return value;
-                }
-            });
-
-            if (value.type === 'experience') {
-                tempObj.jobTitle = value.content;
-                let items = [];
-                childs.map(function(value) {
-                    if (value['type'] === 'company') {
-                        tempObj.company = value['content'];
-                    } else if (value['type'] === 'from') {
-                        tempObj.from = value['content'];
-                    } else if (value['type'] === 'to') {
-                        tempObj.to = value['content'];
-                    } else if (value['type'] === 'local') {
-                        tempObj.local = value['content'];
-                    } else if (value['type'] === 'item') {
-                        items.push(value['content']);
-                    }
-                });
-                tempObj.items = items;
-                finalObj.experience.push(tempObj);
-            } else if (value.type === 'side-project') {
-                tempObj.projectName = value.content;
-                childs.map(function(value) {
-                    if (value['type'] === 'url') {
-                        tempObj.url = value['content'];
-                    } else if (value['type'] === 'description') {
-                        tempObj.description = value['content'];
-                    }
-                });
-                finalObj.sideProject.push(tempObj);
-            } else if (value.type === 'education') {
-                tempObj.degree = value.content;
-                let items = [];
-                childs.map(function(value) {
-                    if (value['type'] === 'local') {
-                        tempObj.local = value['content'];
-                    } else if (value['type'] === 'from') {
-                        tempObj.from = value['content'];
-                    } else if (value['type'] === 'to') {
-                        tempObj.to = value['content'];
-                    } else if (value['type'] === 'item') {
-                        items.push(value['content']);
-                    }
-                });
-                tempObj.items = items;
-                finalObj.education.push(tempObj);
-            }
-        });
-        this.state.resume = finalObj;
-        // debugger;
+        this.state.resume = sheetObject;
     }
     redirect(path, param) {
         if (param) {
@@ -143,8 +45,8 @@ export class Resume extends React.Component {
     }
     render() {
         return(
-            <div>
-                <p>Your Resume</p>
+            <div className="main-container">
+                <h1 className="no-print">Your Resume</h1>
                 <div id="resume-content">
                     <div id="resume-header">
                         <h2 id="resume-full-name">{this.state.resume.fullName}</h2>
