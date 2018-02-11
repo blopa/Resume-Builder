@@ -21,3 +21,9 @@
     height: 50px;
     width: 100px;
 }
+
+#toggle-menu {
+    left: 0;
+    margin-left: 2%;
+    position: fixed;
+}

@@ -69,6 +69,11 @@ export class Resume extends React.Component {
                 <div id="print-button" className="no-print">
                     <button type="button" className="btn btn-info btn-menu" onClick={this.preparePrint}>Print</button>
                 </div>
+                <div id="toggle-menu" className="no-print">
+                    <div>
+                        <h2>Toggle Menu</h2>
+                    </div>
+                </div>
                 <div id="resume-content">
                     {this.renderTemplate()}
                 </div>

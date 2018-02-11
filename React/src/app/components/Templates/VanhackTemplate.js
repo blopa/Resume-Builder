@@ -14,16 +14,34 @@ export class VanhackTemplate extends React.Component {
         return(
             <div>
                 <div id="resume-header">
-                    <h2 id="resume-full-name">{resume.fullName.content}</h2>
+                    {resume.fullName.display ? (
+                        <h2 id="resume-full-name">{resume.fullName.content}</h2>
+                    ) : null}
                     <div id="resume-contact">
-                        <p id="resume-city-country">{resume.city.content}, {resume.country.content}</p>
-                        <p id="resume-email">{resume.email.content}</p>
-                        <p id="resume-phone">{resume.phone.content}</p>
+                        {(resume.city.display && resume.country.display) ? (
+                            <p id="resume-city-country">{resume.city.content}, {resume.country.content}</p>
+                        ) : (resume.city.display ? (
+                            <p id="resume-city-country">{resume.city.content}</p>
+                        ) : (resume.country.display ? (
+                            <p id="resume-city-country">{resume.country.content}</p>
+                        ) : null))}
+                        {resume.email.display ? (
+                            <p id="resume-email">{resume.email.content}</p>
+                        ) : null}
+                        {resume.phone.display ? (
+                            <p id="resume-phone">{resume.phone.content}</p>
+                        ) : null}
                     </div>
                     <div id="resume-title">
-                        <p id="resume-job-title">{resume.jobTitle.content}</p>
-                        <p id="resume-website"><a href={resume.website.content} target="_blank">{resume.website.content}</a></p>
-                        <p id="resume-github"><a href={resume.github.content} target="_blank">{resume.github.content}</a></p>
+                        {resume.jobTitle.display ? (
+                            <p id="resume-job-title">{resume.jobTitle.content}</p>
+                        ) : null}
+                        {resume.website.display ? (
+                            <p id="resume-website"><a href={resume.website.content} target="_blank">{resume.website.content}</a></p>
+                        ) : null}
+                        {resume.github.display ? (
+                            <p id="resume-github"><a href={resume.github.content} target="_blank">{resume.github.content}</a></p>
+                        ) : null}
                     </div>
                 </div>
                 {resume.experience.display ? (
