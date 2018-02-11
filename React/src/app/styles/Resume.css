@@ -2,11 +2,15 @@
     font-family: Times New Roman,Times,serif;
     font-size: 12pt;
     white-space: pre-wrap;
-    padding: 20mm 20mm 20mm 40mm;
+    padding: 20mm;
     width: 210mm;
     margin: 0 auto;
     text-align: justify;
     background-color: #fff;
     display: table;
     table-layout: fixed;
+}
+
+#resume-contact {
+    float: right;
 }

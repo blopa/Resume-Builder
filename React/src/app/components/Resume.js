@@ -147,29 +147,29 @@ export class Resume extends React.Component {
                 <p>Your Resume</p>
                 <div id="resume-content">
                     <div id="resume-header">
-                        <div>
-                            <p>{this.state.resume.fullName}</p>
-                            <p>{this.state.resume.jobTitle}</p>
-                            <p>{this.state.resume.website}</p>
-                            <p>{this.state.resume.github}</p>
+                        <div id="resume-contact">
+                            <p id="resume-city-country">{this.state.resume.city}, {this.state.resume.country}</p>
+                            <p id="resume-email">{this.state.resume.email}</p>
+                            <p id="resume-phone">{this.state.resume.phone}</p>
                         </div>
-                        <div>
-                            <p>{this.state.resume.city}, {this.state.resume.country}</p>
-                            <p>{this.state.resume.email}</p>
-                            <p>{this.state.resume.phone}</p>
+                        <div id="resume-title">
+                            <p id="resume-full-name">{this.state.resume.fullName}</p>
+                            <p id="resume-job-title">{this.state.resume.jobTitle}</p>
+                            <p id="resume-website">{this.state.resume.website}</p>
+                            <p id="resume-github">{this.state.resume.github}</p>
                         </div>
                     </div>
                     <div id="work-experience">
                         <h1>WORK EXPERIENCE</h1>
-                        <ul>
+                        <ul className="resume-list">
                             {this.state.resume.experience.map(function(value, key){
                                 return (
                                     <li key={key}>
-                                        <p>{value.jobTitle}, {value.company}</p>
-                                        <p>{value.from} - {value.to} - {value.local}</p>
-                                        <ul>
+                                        <p className="resume-job-title-company">{value.jobTitle}, {value.company}</p>
+                                        <p className="resume-local-time">{value.from} - {value.to} - {value.local}</p>
+                                        <ul className="resume-list">
                                             {value.items.map(function (value, key) {
-                                                return <li key={key}>{value}</li>
+                                                return <li key={key} className="resume-job-achievements">{value}</li>
                                             })}
                                         </ul>
                                     </li>
@@ -179,10 +179,10 @@ export class Resume extends React.Component {
                     </div>
                     <div id="side-projects">
                         <h1>SIDE PROJECTS</h1>
-                        <ul>
+                        <ul className="resume-list">
                             {this.state.resume.sideProject.map(function(value, key){
                                 return (
-                                    <li key={key}>
+                                    <li key={key} className="resume-side-job">
                                         <p>{value.projectName}: {value.description}</p>
                                         <p>URL: {value.url}</p>
                                     </li>
@@ -192,14 +192,14 @@ export class Resume extends React.Component {
                     </div>
                     <div id="education">
                         <h1>EDUCATION</h1>
-                        <ul>
+                        <ul className="resume-list">
                             {this.state.resume.education.map(function(value, key){
                                 return (
                                     <li key={key}>
                                         <p>{value.degree}, {value.local}</p>
-                                        <ul>
+                                        <ul className="resume-list">
                                             {value.items.map(function (value, key) {
-                                                return <li key={key}>{value}</li>
+                                                return <li key={key} className="resume-education-achievements">{value}</li>
                                             })}
                                         </ul>
                                     </li>
