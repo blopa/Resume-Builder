@@ -110,33 +110,43 @@ export class SpreadsheetParser extends React.Component {
         sheetObject.map(function(value) {
             if (value[typeAttr] === fullNameAttr.toLowerCase()) {
                 finalObj.fullName = {};
+                finalObj.fullName.display = true;
                 finalObj.fullName.content = value[contentAttr];
             } else if (value[typeAttr] === jobTitleAttr.toLowerCase()) {
                 finalObj.jobTitle = {};
+                finalObj.jobTitle.display = true;
                 finalObj.jobTitle.content = value[contentAttr];
             } else if (value[typeAttr] === websiteAttr.toLowerCase()) {
                 finalObj.website = {};
+                finalObj.website.display = true;
                 finalObj.website.content = value[contentAttr];
             } else if (value[typeAttr] === githubAttr.toLowerCase()) {
                 finalObj.github = {};
+                finalObj.github.display = true;
                 finalObj.github.content = value[contentAttr];
             } else if (value[typeAttr] === emailAttr.toLowerCase()) {
                 finalObj.email = {};
+                finalObj.email.display = true;
                 finalObj.email.content = value[contentAttr];
             } else if (value[typeAttr] === phoneAttr.toLowerCase()) {
                 finalObj.phone = {};
+                finalObj.phone.display = true;
                 finalObj.phone.content = value[contentAttr];
             } else if (value[typeAttr] === cityAttr.toLowerCase()) {
                 finalObj.city = {};
+                finalObj.city.display = true;
                 finalObj.city.content = value[contentAttr];
             } else if (value[typeAttr] === countryAttr.toLowerCase()) {
                 finalObj.country = {};
+                finalObj.country.display = true;
                 finalObj.country.content = value[contentAttr];
             } else if (value[typeAttr] === skillsAttr.toLowerCase()) {
                 finalObj.skills = {};
+                finalObj.skills.display = true;
                 finalObj.skills.content = value[contentAttr];
             } else if (value[typeAttr] === languagesAttr.toLowerCase()) {
                 finalObj.languages = {};
+                finalObj.languages.display = true;
                 finalObj.languages.content = value[contentAttr];
             }
             if (value[idAttr]) {
@@ -147,10 +157,13 @@ export class SpreadsheetParser extends React.Component {
         });
 
         finalObj.experience = {};
+        finalObj.experience.display = true;
         finalObj.experience.content = [];
         finalObj.sideProject = {};
+        finalObj.sideProject.display = true;
         finalObj.sideProject.content = [];
         finalObj.education = {};
+        finalObj.education.display = true;
         finalObj.education.content = [];
 
         fathers.map(function(value) {
@@ -166,64 +179,80 @@ export class SpreadsheetParser extends React.Component {
 
             if (value[typeAttr] === experienceAttr.toLowerCase()) {
                 tempObj.jobTitle = {};
+                tempObj.jobTitle.display = true;
                 tempObj.jobTitle.content = value[contentAttr];
                 let items = [];
                 childs.map(function(value) {
                     if (value[typeAttr] === companyAttr.toLowerCase()) {
                         tempObj.company = {};
+                        tempObj.company.display = true;
                         tempObj.company.content = value[contentAttr];
                     } else if (value[typeAttr] === fromAttr.toLowerCase()) {
                         tempObj.from = {};
+                        tempObj.from.display = true;
                         tempObj.from.content = value[contentAttr];
                     } else if (value[typeAttr] === toAttr.toLowerCase()) {
                         tempObj.to = {};
+                        tempObj.to.display = true;
                         tempObj.to.content = value[contentAttr];
                     } else if (value[typeAttr] === localAttr.toLowerCase()) {
                         tempObj.local = {};
+                        tempObj.local.display = true;
                         tempObj.local.content = value[contentAttr];
                     } else if (value[typeAttr] === itemAttr.toLowerCase()) {
                         let auxObj = {};
+                        auxObj.display = true;
                         auxObj.content = value[contentAttr];
                         items.push(auxObj);
                     }
                 });
                 tempObj.items = {};
+                tempObj.items.display = true;
                 tempObj.items.content = items;
                 finalObj.experience.content.push(tempObj);
             } else if (value[typeAttr] === sideProjectAttr.toLowerCase()) {
                 tempObj.projectName = {};
+                tempObj.projectName.display = true;
                 tempObj.projectName.content = value[contentAttr];
                 childs.map(function(value) {
                     if (value[typeAttr] === urlAttr.toLowerCase()) {
                         tempObj.url = {};
+                        tempObj.url.display = true;
                         tempObj.url.content = value[contentAttr];
                     } else if (value[typeAttr] === descriptionAttr.toLowerCase()) {
                         tempObj.description = {};
+                        tempObj.description.display = true;
                         tempObj.description.content = value[contentAttr];
                     }
                 });
                 finalObj.sideProject.content.push(tempObj);
             } else if (value[typeAttr] === educationAttr.toLowerCase()) {
                 tempObj.degree = {};
+                tempObj.degree.display = true;
                 tempObj.degree.content = value[contentAttr];
                 let items = [];
                 childs.map(function(value) {
                     if (value[typeAttr] === localAttr.toLowerCase()) {
                         tempObj.local = {};
+                        tempObj.local.display = true;
                         tempObj.local.content = value[contentAttr];
                     } else if (value[typeAttr] === fromAttr.toLowerCase()) {
                         tempObj.from = {};
+                        tempObj.from.display = true;
                         tempObj.from.content = value[contentAttr];
                     } else if (value[typeAttr] === toAttr.toLowerCase()) {
                         tempObj.to = {};
+                        tempObj.to.display = true;
                         tempObj.to.content = value[contentAttr];
                     } else if (value[typeAttr] === itemAttr.toLowerCase()) {
                         let auxObj = {};
+                        auxObj.display = true;
                         auxObj.content = value[contentAttr];
                         items.push(auxObj);
                     }
                 });
                 tempObj.items = {};
+                tempObj.items.display = true;
                 tempObj.items.content = items;
                 finalObj.education.content.push(tempObj);
             }
