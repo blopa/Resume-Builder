@@ -8,7 +8,7 @@ var config = {
     output: {
         path: DIST_DIR + '/app',
         filename: 'bundle.js',
-        publicPath: '/app/'
+        publicPath: '/resume_builder/app/'
     },
     module: {
         loaders: [
