@@ -7,6 +7,7 @@ export class SpreadsheetParser extends React.Component {
     constructor() {
         super();
         this.parseURL = this.parseURL.bind(this);
+        this.parseUpload = this.parseUpload.bind(this);
         this.parseDataFromURL = this.parseDataFromURL.bind(this);
         this.parseSpreadsheetData = this.parseSpreadsheetData.bind(this);
         this.buildResumeObject = this.buildResumeObject.bind(this);
@@ -15,11 +16,17 @@ export class SpreadsheetParser extends React.Component {
         this.state = {
             template: null,
             templateList: ['VanHack'],
+            loading: false,
         };
     }
     parseUpload(event) {
-        console.log(event.target);
-        window.alert('something 1');
+        let file = event.target.files[0];
+        let reader = new FileReader();
+        let $this = this;
+        reader.onload = function (e) {
+            $this.parseSpreadsheetData(e, e.target.result);
+        };
+        reader.readAsBinaryString(file);
     }
     parseURL(event) {
         event.preventDefault();
@@ -42,6 +49,8 @@ export class SpreadsheetParser extends React.Component {
         this.parseDataFromURL(spreadsheetId, sheetId);
     }
     parseDataFromURL(spreadsheetId, sheetId) {
+        this.state.loading = true;
+        this.forceUpdate();
         let url = 'https://docs.google.com/spreadsheets/d/' + spreadsheetId + '/export?format=xlsx&gid=' + sheetId;
         let $this = this;
 
@@ -188,7 +197,6 @@ export class SpreadsheetParser extends React.Component {
                 finalObj.education.push(tempObj);
             }
         });
-        debugger;
         this.redirect('/resume', {sheetObject: finalObj, template: this.state.template});
     }
     redirect(path, param) {
@@ -204,6 +212,11 @@ export class SpreadsheetParser extends React.Component {
     render() {
         return(
             <div id="data-input">
+                {this.state.loading ? (
+                    <div id="loading">
+                        <h2>Loading...</h2>
+                    </div>
+                ) : null}
                 <form onSubmit={this.parseURL}>
                     {this.state.templateList.length > 0 ? (
                         <div>
