@@ -11,6 +11,11 @@ export class SpreadsheetParser extends React.Component {
         this.parseSpreadsheetData = this.parseSpreadsheetData.bind(this);
         this.buildResumeObject = this.buildResumeObject.bind(this);
         this.redirect = this.redirect.bind(this);
+
+        this.state = {
+            template: null,
+            templateList: ['VanHack'],
+        };
     }
     parseUpload(event) {
         console.log(event.target);
@@ -19,7 +24,8 @@ export class SpreadsheetParser extends React.Component {
     parseURL(event) {
         event.preventDefault();
         let spreadsheetURL = event.target.spreadsheet.value;
-        // debugger;
+        this.state.template = event.target.template.value;
+
         let spreadsheetId = new RegExp('/spreadsheets/d/([a-zA-Z0-9-_]+)').exec(spreadsheetURL);
         if ((spreadsheetId !== null) && (spreadsheetId !== undefined)) {
             spreadsheetId = spreadsheetId[1];
@@ -155,7 +161,7 @@ export class SpreadsheetParser extends React.Component {
                 finalObj.education.push(tempObj);
             }
         });
-        this.redirect('/resume', {sheetObject: finalObj});
+        this.redirect('/resume', {sheetObject: finalObj, template: this.state.template});
     }
     redirect(path, param) {
         if (param) {
@@ -170,23 +176,36 @@ export class SpreadsheetParser extends React.Component {
     render() {
         return(
             <div id="data-input">
-                <h4>Paste your Google Spreadsheet URL...</h4>
-                <p>(<a href="https://docs.google.com/spreadsheets/d/1Mrgu6dOTyEBkzHtoSSH2BhRNd8n8tuupVlcQUJhUY-0/copy" target="_blank">make a copy</a>)</p>
-                <div className="input-container">
-                    <div className="data-link-input">
-                        <form onSubmit={this.parseURL}>
+                <form onSubmit={this.parseURL}>
+                    {this.state.templateList.length > 0 ? (
+                        <div>
+                            <h4>Choose your template: </h4>
+                            <select className="selectpicker form-control" name="template">
+                                {this.state.templateList.map(function (value, key) {
+                                    return (
+                                        <option key={key} value={key}>{value}</option>
+                                    )
+                                })}
+                            </select>
+                            <hr/>
+                        </div>
+                        ) : null}
+                    <h4>Paste your Google Spreadsheet URL...</h4>
+                    <p>(<a href="https://docs.google.com/spreadsheets/d/1Mrgu6dOTyEBkzHtoSSH2BhRNd8n8tuupVlcQUJhUY-0/copy" target="_blank">make a copy</a>)</p>
+                    <div className="input-container">
+                        <div className="data-link-input">
                             <input type="text" className="form-control" placeholder="Paste your Google Spreadsheet URL here." name="spreadsheet"/>
-                        </form>
+                        </div>
+                        <h4>... or choose a file from your computer</h4>
+                        <p>(<a href="https://docs.google.com/spreadsheets/d/1Mrgu6dOTyEBkzHtoSSH2BhRNd8n8tuupVlcQUJhUY-0/export?format=xlsx&gid=0">download sample</a>)</p>
+                        <div className="data-upload-input">
+                            <label className="custom-file">
+                                <input type="file" className="custom-file-input" onChange={this.parseUpload} />
+                                    <span className="custom-file-control">Choose file...</span>
+                            </label>
+                        </div>
                     </div>
-                    <h4>... or choose a file from your computer</h4>
-                    <p>(<a href="https://docs.google.com/spreadsheets/d/1Mrgu6dOTyEBkzHtoSSH2BhRNd8n8tuupVlcQUJhUY-0/export?format=xlsx&gid=0">download sample</a>)</p>
-                    <div className="data-upload-input">
-                        <label className="custom-file">
-                            <input type="file" className="custom-file-input" onChange={this.parseUpload} />
-                                <span className="custom-file-control">Choose file...</span>
-                        </label>
-                    </div>
-                </div>
+                </form>
             </div>
         );
     }
