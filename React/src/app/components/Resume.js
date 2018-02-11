@@ -129,7 +129,7 @@ export class Resume extends React.Component {
             }
         });
         this.state.resume = finalObj;
-        debugger;
+        // debugger;
     }
     redirect(path, param) {
         if (param) {
@@ -147,20 +147,20 @@ export class Resume extends React.Component {
                 <p>Your Resume</p>
                 <div id="resume-content">
                     <div id="resume-header">
+                        <h2 id="resume-full-name">{this.state.resume.fullName}</h2>
                         <div id="resume-contact">
                             <p id="resume-city-country">{this.state.resume.city}, {this.state.resume.country}</p>
                             <p id="resume-email">{this.state.resume.email}</p>
                             <p id="resume-phone">{this.state.resume.phone}</p>
                         </div>
                         <div id="resume-title">
-                            <p id="resume-full-name">{this.state.resume.fullName}</p>
                             <p id="resume-job-title">{this.state.resume.jobTitle}</p>
-                            <p id="resume-website">{this.state.resume.website}</p>
-                            <p id="resume-github">{this.state.resume.github}</p>
+                            <p id="resume-website"><a href={this.state.resume.website} target="_blank">{this.state.resume.website}</a></p>
+                            <p id="resume-github"><a href={this.state.resume.github} target="_blank">{this.state.resume.github}</a></p>
                         </div>
                     </div>
                     <div id="work-experience">
-                        <h1>WORK EXPERIENCE</h1>
+                        <h4>WORK EXPERIENCE</h4>
                         <ul className="resume-list">
                             {this.state.resume.experience.map(function(value, key){
                                 return (
@@ -178,20 +178,19 @@ export class Resume extends React.Component {
                         </ul>
                     </div>
                     <div id="side-projects">
-                        <h1>SIDE PROJECTS</h1>
+                        <h4>SIDE PROJECTS</h4>
                         <ul className="resume-list">
                             {this.state.resume.sideProject.map(function(value, key){
                                 return (
                                     <li key={key} className="resume-side-job">
-                                        <p>{value.projectName}: {value.description}</p>
-                                        <p>URL: {value.url}</p>
+                                        <p><a href={value.url} target="_blank">{value.projectName}</a>: {value.description}</p>
                                     </li>
                                 );
                             })}
                         </ul>
                     </div>
                     <div id="education">
-                        <h1>EDUCATION</h1>
+                        <h4>EDUCATION</h4>
                         <ul className="resume-list">
                             {this.state.resume.education.map(function(value, key){
                                 return (
@@ -208,11 +207,11 @@ export class Resume extends React.Component {
                         </ul>
                     </div>
                     <div id="skills">
-                        <h1>TECHNICAL SKILLS</h1>
+                        <h4>TECHNICAL SKILLS</h4>
                         <p>{this.state.resume.skills}</p>
                     </div>
                     <div id="languages">
-                        <h1>LANGUAGES</h1>
+                        <h4>LANGUAGES</h4>
                         <p>{this.state.resume.languages}</p>
                     </div>
                 </div>
