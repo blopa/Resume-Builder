@@ -2,7 +2,7 @@
 
 **Gotta find a job!** Already, let's make a new resume with this awesome template I found on Google, the problem is, this template might not be as awesome next month, or you might need to constantly add your new experience to the document. Gosh. Wouldn't be better to focus on adding new experiences in a raw format and let a atomization process handle the layout? I agreed, and that's why Resume Builder is here.
 
-####You take care of the data and we take care of the template.
+#### You take care of the data and we take care of the template.
 
 > "Imagine you're an employer, and you have two resumes in front of you. One is filled wall-to-wall with text and uses four different fonts. It's also peppered with dozens of bolded, italicized, and underlined words and phrases.
    The second resume also offers a lot of information, but you can quickly scan the document because it makes good use of white space, features clear and consistent section headings, and uses bullets to make important items stand out.
