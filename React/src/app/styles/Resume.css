@@ -26,11 +26,12 @@
     left: 0;
     margin-left: 2%;
     position: fixed;
-    width: 400px;
+    width: 620px;
     padding: 10px;
     background-color: #17a2b8;
     max-height: 550px;
     overflow-y: auto;
+    opacity: 0.9;
 }
 
 #toggle-menu label{

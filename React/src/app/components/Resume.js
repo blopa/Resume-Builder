@@ -85,7 +85,7 @@ export class Resume extends React.Component {
                                     <li className="list-group-item" key={elementKey}>
                                         <div className="checkbox checkbox-primary">
                                             <input id={htmlId} type="checkbox" onChange={() => this.handler(this.state.resume[key])} checked={this.state.resume[key].display} />
-                                            <label htmlFor={htmlId}>Display {key}?</label>
+                                            <label htmlFor={htmlId}>Display '{key}'?</label>
                                             {this.state.resume[key].display ? (
                                                 this.state.resume[key].content.constructor === Array ? (
                                                     <ul className="list-group">
@@ -95,7 +95,21 @@ export class Resume extends React.Component {
                                                                     <li className="list-group-item" key={elementKey + '-' + key}>
                                                                         <div className="checkbox checkbox-primary">
                                                                             <input id={htmlId + '-' + key} type="checkbox" onChange={() => this.handler(this.state.resume.experience.content[key])} checked={this.state.resume.experience.content[key].display} />
-                                                                            <label htmlFor={htmlId + '-' + key}>Display {value.jobTitle.content} @ {value.company.content}?</label>
+                                                                            <label htmlFor={htmlId + '-' + key}>Display '{value.jobTitle.content} @ {value.company.content}'?</label>
+                                                                            {this.state.resume.experience.content[key].display ? (
+                                                                                value.hasOwnProperty('items') ? (
+                                                                                    value.items.content.map(function (value, index) {
+                                                                                        return (
+                                                                                            <li className="list-group-item" key={elementKey + '-' + key + '-' + index}>
+                                                                                                <div className="checkbox checkbox-primary">
+                                                                                                    <input id={htmlId + '-' + key + '-' + index} type="checkbox" onChange={() => this.handler(this.state.resume.experience.content[key].items.content[index])} checked={this.state.resume.experience.content[key].items.content[index].display} />
+                                                                                                    <label htmlFor={htmlId + '-' + key + '-' + index}>Display '{value.content.substr(0, 25)} (...)'?</label>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        );
+                                                                                    }.bind(this))
+                                                                                ) : null
+                                                                            ) : null}
                                                                         </div>
                                                                     </li>
                                                                 );
@@ -104,16 +118,31 @@ export class Resume extends React.Component {
                                                                     <li className="list-group-item" key={elementKey + '-' + key}>
                                                                         <div className="checkbox checkbox-primary">
                                                                             <input id={htmlId + '-' + key} type="checkbox" onChange={() => this.handler(this.state.resume.sideProject.content[key])} checked={this.state.resume.sideProject.content[key].display} />
-                                                                            <label htmlFor={htmlId + '-' + key}>Display {value.projectName.content}?</label>
+                                                                            <label htmlFor={htmlId + '-' + key}>Display '{value.projectName.content}'?</label>
                                                                         </div>
                                                                     </li>
                                                                 );
                                                             } else if (value.hasOwnProperty('degree')) {
+                                                                let educationDescription = value.degree.content + ' @ ' + value.local.content;
                                                                 return (
                                                                     <li className="list-group-item" key={elementKey + '-' + key}>
                                                                         <div className="checkbox checkbox-primary">
                                                                             <input id={htmlId + '-' + key} type="checkbox" onChange={() => this.handler(this.state.resume.education.content[key])} checked={this.state.resume.education.content[key].display} />
-                                                                            <label htmlFor={htmlId + '-' + key}>Display {value.degree.content} @ {value.local.content}?</label>
+                                                                            <label htmlFor={htmlId + '-' + key}>Display '{educationDescription.substr(0, 25)}'?</label>
+                                                                            {this.state.resume.education.content[key].display ? (
+                                                                                value.hasOwnProperty('items') ? (
+                                                                                    value.items.content.map(function (value, index) {
+                                                                                        return (
+                                                                                            <li className="list-group-item" key={elementKey + '-' + key + '-' + index}>
+                                                                                                <div className="checkbox checkbox-primary">
+                                                                                                    <input id={htmlId + '-' + key + '-' + index} type="checkbox" onChange={() => this.handler(this.state.resume.education.content[key].items.content[index])} checked={this.state.resume.education.content[key].items.content[index].display} />
+                                                                                                    <label htmlFor={htmlId + '-' + key + '-' + index}>Display '{value.content.substr(0, 25)} (...)'?</label>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        );
+                                                                                    }.bind(this))
+                                                                                ) : null
+                                                                            ) : null}
                                                                         </div>
                                                                     </li>
                                                                 );
