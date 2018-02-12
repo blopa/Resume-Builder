@@ -64,7 +64,6 @@ export class Resume extends React.Component {
         window.print();
     }
     handler(model) {
-        debugger;
         model.display = !model.display;
         this.forceUpdate();
     }
