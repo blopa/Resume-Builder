@@ -108,16 +108,18 @@ export class Resume extends React.Component {
                                                                                 <label htmlFor={htmlId + '-' + key}>Display '{value.jobTitle.content} @ {value.company.content}'?</label>
                                                                                 {this.state.resume.experience.content[key].display ? (
                                                                                     value.hasOwnProperty('items') ? (
-                                                                                        value.items.content.map(function (value, index) {
-                                                                                            return (
-                                                                                                <li className="list-group-item" key={elementKey + '-' + key + '-' + index}>
-                                                                                                    <div className="checkbox checkbox-primary">
-                                                                                                        <input id={htmlId + '-' + key + '-' + index} type="checkbox" onChange={() => this.handler(this.state.resume.experience.content[key].items.content[index])} checked={this.state.resume.experience.content[key].items.content[index].display} />
-                                                                                                        <label htmlFor={htmlId + '-' + key + '-' + index}>Display '{value.content.substr(0, 25)} (...)'?</label>
-                                                                                                    </div>
-                                                                                                </li>
-                                                                                            );
-                                                                                        }.bind(this))
+                                                                                        <ul className="list-group">
+                                                                                            {value.items.content.map(function (value, index) {
+                                                                                                return (
+                                                                                                    <li className="list-group-item" key={elementKey + '-' + key + '-' + index}>
+                                                                                                        <div className="checkbox checkbox-primary">
+                                                                                                            <input id={htmlId + '-' + key + '-' + index} type="checkbox" onChange={() => this.handler(this.state.resume.experience.content[key].items.content[index])} checked={this.state.resume.experience.content[key].items.content[index].display} />
+                                                                                                            <label htmlFor={htmlId + '-' + key + '-' + index}>Display '{value.content.substr(0, 25)} (...)'?</label>
+                                                                                                        </div>
+                                                                                                    </li>
+                                                                                                );
+                                                                                            }.bind(this))}
+                                                                                        </ul>
                                                                                     ) : null
                                                                                 ) : null}
                                                                             </div>
@@ -141,16 +143,18 @@ export class Resume extends React.Component {
                                                                                 <label htmlFor={htmlId + '-' + key}>Display '{educationDescription.substr(0, 25)}'?</label>
                                                                                 {this.state.resume.education.content[key].display ? (
                                                                                     value.hasOwnProperty('items') ? (
-                                                                                        value.items.content.map(function (value, index) {
-                                                                                            return (
-                                                                                                <li className="list-group-item" key={elementKey + '-' + key + '-' + index}>
-                                                                                                    <div className="checkbox checkbox-primary">
-                                                                                                        <input id={htmlId + '-' + key + '-' + index} type="checkbox" onChange={() => this.handler(this.state.resume.education.content[key].items.content[index])} checked={this.state.resume.education.content[key].items.content[index].display} />
-                                                                                                        <label htmlFor={htmlId + '-' + key + '-' + index}>Display '{value.content.substr(0, 25)} (...)'?</label>
-                                                                                                    </div>
-                                                                                                </li>
-                                                                                            );
-                                                                                        }.bind(this))
+                                                                                        <ul className="list-group">
+                                                                                            {value.items.content.map(function (value, index) {
+                                                                                                return (
+                                                                                                    <li className="list-group-item" key={elementKey + '-' + key + '-' + index}>
+                                                                                                        <div className="checkbox checkbox-primary">
+                                                                                                            <input id={htmlId + '-' + key + '-' + index} type="checkbox" onChange={() => this.handler(this.state.resume.education.content[key].items.content[index])} checked={this.state.resume.education.content[key].items.content[index].display} />
+                                                                                                            <label htmlFor={htmlId + '-' + key + '-' + index}>Display '{value.content.substr(0, 25)} (...)'?</label>
+                                                                                                        </div>
+                                                                                                    </li>
+                                                                                                );
+                                                                                            }.bind(this))}
+                                                                                        </ul>
                                                                                     ) : null
                                                                                 ) : null}
                                                                             </div>
