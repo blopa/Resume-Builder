@@ -83,6 +83,7 @@ export class SpreadsheetParser extends React.Component {
         const dataForAttr = 'data-for'.toUpperCase();
         const disabledAttr = 'disabled'.toUpperCase();
 
+        const trueAttr = 'true'.toUpperCase();
         const fromAttr = 'from';
         const toAttr = 'to';
         const localAttr = 'local';
@@ -110,43 +111,43 @@ export class SpreadsheetParser extends React.Component {
         sheetObject.map(function(value) {
             if (value[typeAttr] === fullNameAttr.toLowerCase()) {
                 finalObj.fullName = {};
-                finalObj.fullName.display = true;
+                finalObj.fullName.display = value[disabledAttr] !== trueAttr;
                 finalObj.fullName.content = value[contentAttr];
             } else if (value[typeAttr] === jobTitleAttr.toLowerCase()) {
                 finalObj.jobTitle = {};
-                finalObj.jobTitle.display = true;
+                finalObj.jobTitle.display = value[disabledAttr] !== trueAttr;
                 finalObj.jobTitle.content = value[contentAttr];
             } else if (value[typeAttr] === websiteAttr.toLowerCase()) {
                 finalObj.website = {};
-                finalObj.website.display = true;
+                finalObj.website.display = value[disabledAttr] !== trueAttr;
                 finalObj.website.content = value[contentAttr];
             } else if (value[typeAttr] === githubAttr.toLowerCase()) {
                 finalObj.github = {};
-                finalObj.github.display = true;
+                finalObj.github.display = value[disabledAttr] !== trueAttr;
                 finalObj.github.content = value[contentAttr];
             } else if (value[typeAttr] === emailAttr.toLowerCase()) {
                 finalObj.email = {};
-                finalObj.email.display = true;
+                finalObj.email.display = value[disabledAttr] !== trueAttr;
                 finalObj.email.content = value[contentAttr];
             } else if (value[typeAttr] === phoneAttr.toLowerCase()) {
                 finalObj.phone = {};
-                finalObj.phone.display = true;
+                finalObj.phone.display = value[disabledAttr] !== trueAttr;
                 finalObj.phone.content = value[contentAttr];
             } else if (value[typeAttr] === cityAttr.toLowerCase()) {
                 finalObj.city = {};
-                finalObj.city.display = true;
+                finalObj.city.display = value[disabledAttr] !== trueAttr;
                 finalObj.city.content = value[contentAttr];
             } else if (value[typeAttr] === countryAttr.toLowerCase()) {
                 finalObj.country = {};
-                finalObj.country.display = true;
+                finalObj.country.display = value[disabledAttr] !== trueAttr;
                 finalObj.country.content = value[contentAttr];
             } else if (value[typeAttr] === skillsAttr.toLowerCase()) {
                 finalObj.skills = {};
-                finalObj.skills.display = true;
+                finalObj.skills.display = value[disabledAttr] !== trueAttr;
                 finalObj.skills.content = value[contentAttr];
             } else if (value[typeAttr] === languagesAttr.toLowerCase()) {
                 finalObj.languages = {};
-                finalObj.languages.display = true;
+                finalObj.languages.display = value[disabledAttr] !== trueAttr;
                 finalObj.languages.content = value[contentAttr];
             }
             if (value[idAttr]) {
@@ -179,29 +180,29 @@ export class SpreadsheetParser extends React.Component {
 
             if (value[typeAttr] === experienceAttr.toLowerCase()) {
                 tempObj.jobTitle = {};
-                tempObj.jobTitle.display = true;
+                tempObj.jobTitle.display = value[disabledAttr] !== trueAttr;
                 tempObj.jobTitle.content = value[contentAttr];
                 let items = [];
                 childs.map(function(value) {
                     if (value[typeAttr] === companyAttr.toLowerCase()) {
                         tempObj.company = {};
-                        tempObj.company.display = true;
+                        tempObj.company.display = value[disabledAttr] !== trueAttr;
                         tempObj.company.content = value[contentAttr];
                     } else if (value[typeAttr] === fromAttr.toLowerCase()) {
                         tempObj.from = {};
-                        tempObj.from.display = true;
+                        tempObj.from.display = value[disabledAttr] !== trueAttr;
                         tempObj.from.content = value[contentAttr];
                     } else if (value[typeAttr] === toAttr.toLowerCase()) {
                         tempObj.to = {};
-                        tempObj.to.display = true;
+                        tempObj.to.display = value[disabledAttr] !== trueAttr;
                         tempObj.to.content = value[contentAttr];
                     } else if (value[typeAttr] === localAttr.toLowerCase()) {
                         tempObj.local = {};
-                        tempObj.local.display = true;
+                        tempObj.local.display = value[disabledAttr] !== trueAttr;
                         tempObj.local.content = value[contentAttr];
                     } else if (value[typeAttr] === itemAttr.toLowerCase()) {
                         let auxObj = {};
-                        auxObj.display = true;
+                        auxObj.display = value[disabledAttr] !== trueAttr;
                         auxObj.content = value[contentAttr];
                         items.push(auxObj);
                     }
@@ -213,16 +214,16 @@ export class SpreadsheetParser extends React.Component {
                 finalObj.experience.content.push(tempObj);
             } else if (value[typeAttr] === sideProjectAttr.toLowerCase()) {
                 tempObj.projectName = {};
-                tempObj.projectName.display = true;
+                tempObj.projectName.display = value[disabledAttr] !== trueAttr;
                 tempObj.projectName.content = value[contentAttr];
                 childs.map(function(value) {
                     if (value[typeAttr] === urlAttr.toLowerCase()) {
                         tempObj.url = {};
-                        tempObj.url.display = true;
+                        tempObj.url.display = value[disabledAttr] !== trueAttr;
                         tempObj.url.content = value[contentAttr];
                     } else if (value[typeAttr] === descriptionAttr.toLowerCase()) {
                         tempObj.description = {};
-                        tempObj.description.display = true;
+                        tempObj.description.display = value[disabledAttr] !== trueAttr;
                         tempObj.description.content = value[contentAttr];
                     }
                     tempObj.display = true;
@@ -230,25 +231,25 @@ export class SpreadsheetParser extends React.Component {
                 finalObj.sideProject.content.push(tempObj);
             } else if (value[typeAttr] === educationAttr.toLowerCase()) {
                 tempObj.degree = {};
-                tempObj.degree.display = true;
+                tempObj.degree.display = value[disabledAttr] !== trueAttr;
                 tempObj.degree.content = value[contentAttr];
                 let items = [];
                 childs.map(function(value) {
                     if (value[typeAttr] === localAttr.toLowerCase()) {
                         tempObj.local = {};
-                        tempObj.local.display = true;
+                        tempObj.local.display = value[disabledAttr] !== trueAttr;
                         tempObj.local.content = value[contentAttr];
                     } else if (value[typeAttr] === fromAttr.toLowerCase()) {
                         tempObj.from = {};
-                        tempObj.from.display = true;
+                        tempObj.from.display = value[disabledAttr] !== trueAttr;
                         tempObj.from.content = value[contentAttr];
                     } else if (value[typeAttr] === toAttr.toLowerCase()) {
                         tempObj.to = {};
-                        tempObj.to.display = true;
+                        tempObj.to.display = value[disabledAttr] !== trueAttr;
                         tempObj.to.content = value[contentAttr];
                     } else if (value[typeAttr] === itemAttr.toLowerCase()) {
                         let auxObj = {};
-                        auxObj.display = true;
+                        auxObj.display = value[disabledAttr] !== trueAttr;
                         auxObj.content = value[contentAttr];
                         items.push(auxObj);
                     }
