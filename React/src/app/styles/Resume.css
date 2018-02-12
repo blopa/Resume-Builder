@@ -1,0 +1,56 @@
+#resume-content {
+    font-family: Montserrat,Times,serif;
+    font-size: 12pt;
+    white-space: pre-wrap;
+    padding: 20mm;
+    width: 210mm;
+    margin: 0 auto;
+    text-align: justify;
+    background-color: #fff;
+    display: table;
+    table-layout: fixed;
+}
+
+#print-button {
+    right: 0;
+    margin-right: 2%;
+    position: fixed;
+}
+
+#print-button button {
+    height: 100px;
+    width: 200px;
+}
+
+#toggle-menu {
+    left: 0;
+    margin-left: 2%;
+    position: fixed;
+    width: 620px;
+    padding: 10px;
+    background-color: #17a2b8;
+    max-height: 550px;
+    overflow-y: auto;
+    opacity: 0.9;
+}
+
+#toggle-menu label{
+    font-weight: bold;
+    float: right;
+}
+
+#toggle-menu li{
+    background-color: #3b9faf;
+}
+
+#toggle-menu .checkbox input{
+    zoom: 1.5;
+    margin-top: 5px;
+}
+
+#toggle-menu-button {
+    position: fixed;
+    margin-top: -50px;
+    left: 0;
+    margin-left: 2%;
+}

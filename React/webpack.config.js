@@ -8,7 +8,7 @@ var config = {
     output: {
         path: DIST_DIR + '/app',
         filename: 'bundle.js',
-        publicPath: '/app/'
+        publicPath: '/resume_builder/app/'
     },
     module: {
         loaders: [
@@ -19,6 +19,16 @@ var config = {
                 query: {
                     presets: ['react', 'es2015', 'stage-2']
                 }
+            },
+            {
+                test: /\.css$/,
+                include: SRC_DIR,
+                loaders: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.(png|jpg|ico)$/,
+                include: SRC_DIR,
+                loader: 'file-loader'
             }
         ]
     }
