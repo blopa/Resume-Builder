@@ -55,6 +55,7 @@ h2#resume-full-name{
     color: #8e7cc3;
     font-weight: 600;
     font-size: 1.8rem;
+    text-align: left;
 }
 
 .resume-side-job a{

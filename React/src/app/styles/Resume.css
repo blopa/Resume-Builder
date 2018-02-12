@@ -47,3 +47,10 @@
     zoom: 1.5;
     margin-top: 5px;
 }
+
+#toggle-menu-button {
+    position: fixed;
+    margin-top: -50px;
+    left: 0;
+    margin-left: 2%;
+}
