@@ -263,6 +263,7 @@ export class SpreadsheetParser extends React.Component {
                 finalObj.education.content.push(tempObj);
             }
         });
+        debugger;
         this.redirect('/resume', {sheetObject: finalObj, template: this.state.template});
     }
     redirect(path, param) {
