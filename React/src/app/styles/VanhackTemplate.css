@@ -70,18 +70,18 @@ h2#resume-full-name{
 
 @media print {
     #resume-content p {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
 
     #resume-content li {
-        font-size: 1.3rem;
+        font-size: 1.7rem;
     }
 
     #resume-content h4 {
-        font-size: 1.3rem;
+        font-size: 1.7rem;
     }
 
     #resume-content h2 {
-        font-size: 2.2rem;
+        font-size: 2.9rem;
     }
 }

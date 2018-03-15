@@ -20,6 +20,7 @@
 #print-button button {
     height: 100px;
     width: 200px;
+    font-size: 2rem;
 }
 
 #toggle-menu {
@@ -46,6 +47,10 @@
 #toggle-menu .checkbox input{
     zoom: 1.5;
     margin-top: 5px;
+}
+
+#toggle-menu-button button{
+    font-size: 1.5rem;
 }
 
 #toggle-menu-button {
