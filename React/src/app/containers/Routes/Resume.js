@@ -31,16 +31,11 @@ export class Resume extends React.Component {
     };
   }
   componentWillMount() {
-    const urlString = window.location.href;
-    const url = new URL(urlString);
-    const paramObject = url.searchParams.get('resume');
-    const paramTemplate = url.searchParams.get('template');
-    debugger;
-    if (paramObject && (paramTemplate !== null)) {
+    if (this.props.match.params.resume && (this.props.match.params.template !== null)) {
       try {
         this.setState({
-          template: paramTemplate,
-          resume: JSON.parse(decodeURIComponent(atob(paramObject)))
+          template: this.props.match.params.template,
+          resume: JSON.parse(decodeURIComponent(atob(this.props.match.params.resume)))
         });
       } catch (e) {
         this.redirect('/home');
@@ -211,5 +206,6 @@ export class Resume extends React.Component {
 Resume.propTypes = {
   // https://reactjs.org/docs/typechecking-with-proptypes.html
   location: PropTypes.object,
-  history: PropTypes.object
+  history: PropTypes.object,
+  match: PropTypes.object
 };

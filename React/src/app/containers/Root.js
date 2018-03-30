@@ -18,6 +18,7 @@ export class Root extends React.Component {
           <Route exact path="/home" component={Home} />
           <Route exact path="/parser" component={SpreadsheetParser} />
           <Route exact path="/resume" component={Resume} />
+          <Route path="/resume/:template/:resume" component={Resume} />
           <Route exact path="/contact" component={Contact} />
           <Redirect to="/" />
         </Switch>
