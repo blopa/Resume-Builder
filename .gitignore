@@ -1,4 +1,5 @@
 # General
+.DS_Store
 .vscode
 .idea
 *.suo
