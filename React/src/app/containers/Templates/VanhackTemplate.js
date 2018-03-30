@@ -1,10 +1,10 @@
 import React from 'react';
 import '../../styles/VanhackTemplate.css';
-import {Resume} from '../routes/Resume';
+import PropTypes from 'prop-types';
 
 export class VanhackTemplate extends React.Component {
   componentWillMount() {
-    if (!this.props.hasOwnProperty('resume')) {
+    if (!Object.prototype.hasOwnProperty.call(this.props, 'resume')) {
       this.redirect('/home');
       return;
     }
@@ -78,7 +78,7 @@ export class VanhackTemplate extends React.Component {
           <div id="side-projects">
             {resume.sideProject.content.length > 0 ? <h4>SIDE PROJECTS</h4> : null}
             <ul className="resume-list">
-              {resume.sideProject.content.map(function(value, key){
+              {resume.sideProject.content.map(function(value, key) {
                 if (value.display) {
                   return (
                     <li key={key} className="resume-side-job">
@@ -98,7 +98,7 @@ export class VanhackTemplate extends React.Component {
           <div id="education">
             {resume.education.content.length > 0 ? <h4>EDUCATION</h4> : null}
             <ul className="resume-list">
-              {resume.education.content.map(function(value, key){
+              {resume.education.content.map(function(value, key) {
                 if (value.display) {
                   return (
                     <li key={key}>
@@ -136,4 +136,5 @@ export class VanhackTemplate extends React.Component {
 
 VanhackTemplate.propTypes = {
   // https://reactjs.org/docs/typechecking-with-proptypes.html
+  resume: PropTypes.object
 };

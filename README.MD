@@ -270,7 +270,8 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 
 ## Release Notes
 - **v0.0.3:**
-	- Linter
+	- Cleaning code to fit ESLint standards
+	- Get JSON object from URL to parse a Resume
 - **v0.0.2:**
 	- Tiny changes on template layout
 - **v0.0.1:**

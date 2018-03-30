@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../styles/Resume.css';
 import {VanhackTemplate} from './../Templates/VanhackTemplate';
+import PropTypes from 'prop-types';
 
 export class Resume extends React.Component {
   constructor() {
@@ -24,24 +25,40 @@ export class Resume extends React.Component {
         sideProject: {content: [], display: false},
         education: {content: [], display: false},
         skills: {content: '', display: false},
-        languages: {content: '', display: false},
+        languages: {content: '', display: false}
       },
       showMenu: true
     };
   }
   componentWillMount() {
-    let sheetObject;
-    let template;
-    try {
-      sheetObject = this.props.location.param.sheetObject;
-      template = this.props.location.param.template;
-    } catch (e) {
-      this.redirect('/home');
-      return;
+    const urlString = window.location.href;
+    const url = new URL(urlString);
+    const paramObject = url.searchParams.get('resume');
+    const paramTemplate = url.searchParams.get('template');
+    debugger;
+    if (paramObject && (paramTemplate !== null)) {
+      try {
+        this.setState({
+          template: paramTemplate,
+          resume: JSON.parse(decodeURIComponent(atob(paramObject)))
+        });
+      } catch (e) {
+        this.redirect('/home');
+      }
+    } else {
+      let sheetObject;
+      let template;
+      try {
+        sheetObject = this.props.location.param.sheetObject;
+        template = this.props.location.param.template;
+        this.setState({
+          template: template,
+          resume: sheetObject
+        });
+      } catch (e) {
+        this.redirect('/home');
+      }
     }
-
-    this.state.template = template;
-    this.state.resume = sheetObject;
   }
   redirect(path, param) {
     if (param) {
@@ -70,7 +87,9 @@ export class Resume extends React.Component {
     this.forceUpdate();
   }
   toggleMenu() {
-    this.state.showMenu = !this.state.showMenu;
+    this.setState({
+      showMenu: !this.state.showMenu
+    });
     this.forceUpdate();
   }
   render() {
@@ -90,33 +109,33 @@ export class Resume extends React.Component {
               <ul className="list-group">
                 {Object.keys(this.state.resume).map(function (key, arrayKey) {
                   const htmlId = `toggle-${key}`;
-                  const elementKey = htmlId + '-' + arrayKey;
+                  const elementKey = `${htmlId}-${arrayKey}`;
                   return (
                     <li className="list-group-item" key={elementKey}>
                       <div className="checkbox checkbox-primary">
                         <input id={htmlId} type="checkbox" onChange={() => this.handler(this.state.resume[key])}
                           checked={this.state.resume[key].display}
                         />
-                        <label htmlFor={htmlId}>Display '{key}'?</label>
+                        <label htmlFor={htmlId}>{`Display '${key}'?`}</label>
                         {this.state.resume[key].display ? (
                           this.state.resume[key].content.constructor === Array ? (
                             <ul className="list-group">
                               {this.state.resume[key].content.map(function (value, key) {
-                                if (value.hasOwnProperty('company')) {
+                                if (Object.prototype.hasOwnProperty.call(value, 'company')) {
                                   return (
-                                    <li className="list-group-item" key={elementKey + '-' + key}>
+                                    <li className="list-group-item" key={`${elementKey}-${key}`}>
                                       <div className="checkbox checkbox-primary">
-                                        <input id={htmlId + '-' + key} type="checkbox" onChange={() => this.handler(this.state.resume.experience.content[key])} checked={this.state.resume.experience.content[key].display} />
-                                        <label htmlFor={htmlId + '-' + key}>Display '{value.jobTitle.content} @ {value.company.content}'?</label>
+                                        <input id={`${htmlId}-${key}`} type="checkbox" onChange={() => this.handler(this.state.resume.experience.content[key])} checked={this.state.resume.experience.content[key].display} />
+                                        <label htmlFor={`${htmlId}-${key}`}>{`Display '${value.jobTitle.content} @ ${value.company.content}'?`}</label>
                                         {this.state.resume.experience.content[key].display ? (
-                                          value.hasOwnProperty('items') ? (
+                                          Object.prototype.hasOwnProperty.call(value, 'items') ? (
                                             <ul className="list-group">
                                               {value.items.content.map(function (value, index) {
                                                 return (
-                                                  <li className="list-group-item" key={elementKey + '-' + key + '-' + index}>
+                                                  <li className="list-group-item" key={`${elementKey}-${key}-${index}`}>
                                                     <div className="checkbox checkbox-primary">
-                                                      <input id={htmlId + '-' + key + '-' + index} type="checkbox" onChange={() => this.handler(this.state.resume.experience.content[key].items.content[index])} checked={this.state.resume.experience.content[key].items.content[index].display} />
-                                                      <label htmlFor={htmlId + '-' + key + '-' + index}>Display '{value.content.substr(0, 25)} (...)'?</label>
+                                                      <input id={`${htmlId}-${key}-${index}`} type="checkbox" onChange={() => this.handler(this.state.resume.experience.content[key].items.content[index])} checked={this.state.resume.experience.content[key].items.content[index].display} />
+                                                      <label htmlFor={`${htmlId}-${key}-${index}`}>{`Display '${value.content.substr(0, 25)} (...)'?`}</label>
                                                     </div>
                                                   </li>
                                                 );
@@ -127,31 +146,31 @@ export class Resume extends React.Component {
                                       </div>
                                     </li>
                                   );
-                                } else if (value.hasOwnProperty('projectName')) {
+                                } else if (Object.prototype.hasOwnProperty.call(value, 'projectName')) {
                                   return (
-                                    <li className="list-group-item" key={elementKey + '-' + key}>
+                                    <li className="list-group-item" key={`${elementKey}-${key}`}>
                                       <div className="checkbox checkbox-primary">
-                                        <input id={htmlId + '-' + key} type="checkbox" onChange={() => this.handler(this.state.resume.sideProject.content[key])} checked={this.state.resume.sideProject.content[key].display} />
-                                        <label htmlFor={htmlId + '-' + key}>Display '{value.projectName.content}'?</label>
+                                        <input id={`${htmlId}-${key}`} type="checkbox" onChange={() => this.handler(this.state.resume.sideProject.content[key])} checked={this.state.resume.sideProject.content[key].display} />
+                                        <label htmlFor={`${htmlId}-${key}`}>{`Display '${value.projectName.content}'?`}</label>
                                       </div>
                                     </li>
                                   );
-                                } else if (value.hasOwnProperty('degree')) {
-                                  let educationDescription = value.degree.content + ' @ ' + value.local.content;
+                                } else if (Object.prototype.hasOwnProperty.call(value, 'degree')) {
+                                  const educationDescription = `${value.degree.content} @ ${value.local.content}`;
                                   return (
-                                    <li className="list-group-item" key={elementKey + '-' + key}>
+                                    <li className="list-group-item" key={`${elementKey}-${key}`}>
                                       <div className="checkbox checkbox-primary">
-                                        <input id={htmlId + '-' + key} type="checkbox" onChange={() => this.handler(this.state.resume.education.content[key])} checked={this.state.resume.education.content[key].display} />
-                                        <label htmlFor={htmlId + '-' + key}>Display '{educationDescription.substr(0, 25)}'?</label>
+                                        <input id={`${htmlId}-${key}`} type="checkbox" onChange={() => this.handler(this.state.resume.education.content[key])} checked={this.state.resume.education.content[key].display} />
+                                        <label htmlFor={`${htmlId}-${key}`}>{`Display '${educationDescription.substr(0, 25)}'?`}</label>
                                         {this.state.resume.education.content[key].display ? (
-                                          value.hasOwnProperty('items') ? (
+                                          Object.prototype.hasOwnProperty.call(value, 'items') ? (
                                             <ul className="list-group">
                                               {value.items.content.map(function (value, index) {
                                                 return (
-                                                  <li className="list-group-item" key={elementKey + '-' + key + '-' + index}>
+                                                  <li className="list-group-item" key={`${elementKey}-${key}-${index}`}>
                                                     <div className="checkbox checkbox-primary">
-                                                      <input id={htmlId + '-' + key + '-' + index} type="checkbox" onChange={() => this.handler(this.state.resume.education.content[key].items.content[index])} checked={this.state.resume.education.content[key].items.content[index].display} />
-                                                      <label htmlFor={htmlId + '-' + key + '-' + index}>Display '{value.content.substr(0, 25)} (...)'?</label>
+                                                      <input id={`${htmlId}-${key}-${index}`} type="checkbox" onChange={() => this.handler(this.state.resume.education.content[key].items.content[index])} checked={this.state.resume.education.content[key].items.content[index].display} />
+                                                      <label htmlFor={`${htmlId}-${key}-${index}`}>{`Display '${value.content.substr(0, 25)} (...)'?`}</label>
                                                     </div>
                                                   </li>
                                                 );
@@ -191,4 +210,6 @@ export class Resume extends React.Component {
 
 Resume.propTypes = {
   // https://reactjs.org/docs/typechecking-with-proptypes.html
+  location: PropTypes.object,
+  history: PropTypes.object
 };

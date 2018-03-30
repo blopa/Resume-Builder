@@ -1,6 +1,7 @@
 import React from 'react';
 import XLSX from 'xlsx';
 import '../../styles/SpreadsheetParser.css';
+import PropTypes from 'prop-types';
 
 export class SpreadsheetParser extends React.Component {
   constructor() {
@@ -30,7 +31,9 @@ export class SpreadsheetParser extends React.Component {
   parseURL(event) {
     event.preventDefault();
     const spreadsheetURL = event.target.spreadsheet.value;
-    this.state.template = event.target.template.value;
+    this.setState({
+      template: event.target.template.value
+    });
 
     let spreadsheetId = new RegExp('/spreadsheets/d/([a-zA-Z0-9-_]+)').exec(spreadsheetURL);
     if ((spreadsheetId !== null) && (spreadsheetId !== undefined)) {
@@ -48,15 +51,17 @@ export class SpreadsheetParser extends React.Component {
     this.parseDataFromURL(spreadsheetId, sheetId);
   }
   parseDataFromURL(spreadsheetId, sheetId) {
-    this.state.loading = true;
+    this.setState({
+      loading: true
+    });
     this.forceUpdate();
-    const url = 'https://docs.google.com/spreadsheets/d/' + spreadsheetId + '/export?format=xlsx&gid=' + sheetId;
+    const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/export?format=xlsx&gid=${sheetId}`;
     const $this = this;
 
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
     xhr.overrideMimeType('text/plain; charset=x-user-defined');
-    xhr.onload = function (e) {
+    xhr.onload = function () {
       const data = xhr.responseText;
       const f = new File([], 'sample.xlsx', {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
       const reader = new FileReader();
@@ -170,10 +175,10 @@ export class SpreadsheetParser extends React.Component {
       const id = value[idAttr];
       const tempObj = {};
       tempObj.id = id;
-      const childs = sons.filter(function(value) {
+      const childs = sons.filter(function(val) {
         // debugger;
-        if (value[dataForAttr] === id) {
-          return value;
+        if (val[dataForAttr] === id) {
+          return val;
         }
       });
 
@@ -182,27 +187,27 @@ export class SpreadsheetParser extends React.Component {
         tempObj.jobTitle.display = value[disabledAttr] !== trueAttr;
         tempObj.jobTitle.content = value[contentAttr];
         const items = [];
-        childs.map(function(value) {
-          if (value[typeAttr] === companyAttr.toLowerCase()) {
+        childs.map(function(val) {
+          if (val[typeAttr] === companyAttr.toLowerCase()) {
             tempObj.company = {};
-            tempObj.company.display = value[disabledAttr] !== trueAttr;
-            tempObj.company.content = value[contentAttr];
-          } else if (value[typeAttr] === fromAttr.toLowerCase()) {
+            tempObj.company.display = val[disabledAttr] !== trueAttr;
+            tempObj.company.content = val[contentAttr];
+          } else if (val[typeAttr] === fromAttr.toLowerCase()) {
             tempObj.from = {};
-            tempObj.from.display = value[disabledAttr] !== trueAttr;
-            tempObj.from.content = value[contentAttr];
-          } else if (value[typeAttr] === toAttr.toLowerCase()) {
+            tempObj.from.display = val[disabledAttr] !== trueAttr;
+            tempObj.from.content = val[contentAttr];
+          } else if (val[typeAttr] === toAttr.toLowerCase()) {
             tempObj.to = {};
-            tempObj.to.display = value[disabledAttr] !== trueAttr;
-            tempObj.to.content = value[contentAttr];
-          } else if (value[typeAttr] === localAttr.toLowerCase()) {
+            tempObj.to.display = val[disabledAttr] !== trueAttr;
+            tempObj.to.content = val[contentAttr];
+          } else if (val[typeAttr] === localAttr.toLowerCase()) {
             tempObj.local = {};
-            tempObj.local.display = value[disabledAttr] !== trueAttr;
-            tempObj.local.content = value[contentAttr];
-          } else if (value[typeAttr] === itemAttr.toLowerCase()) {
-            let auxObj = {};
-            auxObj.display = value[disabledAttr] !== trueAttr;
-            auxObj.content = value[contentAttr];
+            tempObj.local.display = val[disabledAttr] !== trueAttr;
+            tempObj.local.content = val[contentAttr];
+          } else if (val[typeAttr] === itemAttr.toLowerCase()) {
+            const auxObj = {};
+            auxObj.display = val[disabledAttr] !== trueAttr;
+            auxObj.content = val[contentAttr];
             items.push(auxObj);
           }
           tempObj.display = true;
@@ -216,17 +221,17 @@ export class SpreadsheetParser extends React.Component {
         tempObj.projectName = {};
         tempObj.projectName.display = value[disabledAttr] !== trueAttr;
         tempObj.projectName.content = value[contentAttr];
-        childs.map(function(value) {
-          if (value[typeAttr] === urlAttr.toLowerCase()) {
+        childs.map(function(val) {
+          if (val[typeAttr] === urlAttr.toLowerCase()) {
             tempObj.url = {};
-            tempObj.url.display = value[disabledAttr] !== trueAttr;
-            tempObj.url.content = value[contentAttr];
-          } else if (value[typeAttr] === descriptionAttr.toLowerCase()) {
+            tempObj.url.display = val[disabledAttr] !== trueAttr;
+            tempObj.url.content = val[contentAttr];
+          } else if (val[typeAttr] === descriptionAttr.toLowerCase()) {
             tempObj.description = {};
-            tempObj.description.display = value[disabledAttr] !== trueAttr;
-            tempObj.description.content = value[contentAttr];
+            tempObj.description.display = val[disabledAttr] !== trueAttr;
+            tempObj.description.content = val[contentAttr];
           }
-          tempObj.display = value[disabledAttr] !== trueAttr;
+          tempObj.display = val[disabledAttr] !== trueAttr;
         });
         finalObj.sideProject.content.push(tempObj);
       } else if (value[typeAttr] === educationAttr.toLowerCase()) {
@@ -234,23 +239,23 @@ export class SpreadsheetParser extends React.Component {
         tempObj.degree.display = value[disabledAttr] !== trueAttr;
         tempObj.degree.content = value[contentAttr];
         const items = [];
-        childs.map(function(value) {
-          if (value[typeAttr] === localAttr.toLowerCase()) {
+        childs.map(function(val) {
+          if (val[typeAttr] === localAttr.toLowerCase()) {
             tempObj.local = {};
-            tempObj.local.display = value[disabledAttr] !== trueAttr;
-            tempObj.local.content = value[contentAttr];
-          } else if (value[typeAttr] === fromAttr.toLowerCase()) {
+            tempObj.local.display = val[disabledAttr] !== trueAttr;
+            tempObj.local.content = val[contentAttr];
+          } else if (val[typeAttr] === fromAttr.toLowerCase()) {
             tempObj.from = {};
-            tempObj.from.display = value[disabledAttr] !== trueAttr;
-            tempObj.from.content = value[contentAttr];
-          } else if (value[typeAttr] === toAttr.toLowerCase()) {
+            tempObj.from.display = val[disabledAttr] !== trueAttr;
+            tempObj.from.content = val[contentAttr];
+          } else if (val[typeAttr] === toAttr.toLowerCase()) {
             tempObj.to = {};
-            tempObj.to.display = value[disabledAttr] !== trueAttr;
-            tempObj.to.content = value[contentAttr];
-          } else if (value[typeAttr] === itemAttr.toLowerCase()) {
-            let auxObj = {};
-            auxObj.display = value[disabledAttr] !== trueAttr;
-            auxObj.content = value[contentAttr];
+            tempObj.to.display = val[disabledAttr] !== trueAttr;
+            tempObj.to.content = val[contentAttr];
+          } else if (val[typeAttr] === itemAttr.toLowerCase()) {
+            const auxObj = {};
+            auxObj.display = val[disabledAttr] !== trueAttr;
+            auxObj.content = val[contentAttr];
             items.push(auxObj);
           }
           tempObj.display = true;
@@ -328,4 +333,5 @@ export class SpreadsheetParser extends React.Component {
 
 SpreadsheetParser.propTypes = {
   // https://reactjs.org/docs/typechecking-with-proptypes.html
+  history: PropTypes.object
 };
