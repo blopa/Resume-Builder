@@ -11,7 +11,7 @@ const config = {
     publicPath: '/resume_builder/app/'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js?/,
         include: SRC_DIR,
