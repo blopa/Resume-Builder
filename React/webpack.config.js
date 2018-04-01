@@ -23,6 +23,10 @@ module.exports = function (env, argv) {
     plugins: [
       new HtmlWebpackPlugin({
         hash: true,
+        minify: {
+          collapseWhitespace: true,
+          preserveLineBreaks: false
+        },
         title: 'Resume Builder',
         favicon: `${SRC_DIR}/app/favicon.ico`,
         publicPath: `${PUBLIC_PATH}app/`,
