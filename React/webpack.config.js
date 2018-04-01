@@ -30,7 +30,7 @@ module.exports = function (env, argv) {
         favicon: `${SRC_DIR}/app/favicon.ico`,
         publicPath: `${PUBLIC_PATH}app/`,
         template: `${SRC_DIR}/template.html`,
-        filename: `${HTML_PATH}/index.html` // relative to root of the application
+        filename: `${HTML_PATH}/index.html`
       })
     ],
     module: {
