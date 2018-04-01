@@ -4,10 +4,9 @@
   "description": "Resume Builder",
   "main": "index.js",
   "scripts": {
-    "gen": "cp src/index.html dist/index.html",
     "start": "npm run dev",
     "dev": "webpack -d && webpack-dev-server --content-base src/ --inline --hot  --progress --profile --colors",
-    "build": "webpack -p && npm run gen"
+    "build": "webpack -p"
   },
   "repository": {
     "type": "git",

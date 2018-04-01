@@ -32,6 +32,7 @@ React/.vscode
 React/*.swp
 React/*.swo
 React/dist
+React/src/index.html
 
 # Vue https://raw.githubusercontent.com/vuejs-templates/webpack-simple/master/template/.gitignore
 Vue/.DS_STORE
