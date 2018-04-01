@@ -289,6 +289,8 @@ A: Thank you! You can help by codding more features, creating pull requests, or 
 ## TODO
 - Add list of recent used documents
 - Add option to save a built resume
+- Remove bootstrap include from template.html
+- Make build.js smaller / add lazyloader
 
 ## License
 MIT License

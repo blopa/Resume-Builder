@@ -6,7 +6,7 @@
   "scripts": {
     "gen": "cp src/index.html dist/index.html",
     "start": "npm run dev",
-    "dev": "webpack -d && npm run gen && webpack-dev-server --content-base src/ --inline --hot  --progress --profile --colors",
+    "dev": "webpack -d && webpack-dev-server --content-base src/ --inline --hot  --progress --profile --colors",
     "build": "webpack -p && npm run gen"
   },
   "repository": {
@@ -40,6 +40,7 @@
     "eslint": "^4.19.1",
     "eslint-loader": "^2.0.0",
     "eslint-plugin-react": "^7.7.0",
+    "html-webpack-plugin": "^3.1.0",
     "prop-types": "^15.6.1",
     "style-loader": "^0.20.3",
     "webpack": "^4.4.1",
