@@ -13,11 +13,28 @@ module.exports = function (env, argv) {
   }
 
   return {
-    entry: `${SRC_DIR}/app/index.js`,
+    entry: {
+      player: `${SRC_DIR}/app/index.js`,
+      vendor: ['react', 'react-dom', 'react-redux', 'react-router-dom', 'redux', 'xlsx']
+    },
     output: {
       path: `${DIST_DIR}/app`,
-      filename: 'bundle.js',
-      publicPath: `${PUBLIC_PATH}app/`
+      publicPath: `${PUBLIC_PATH}app/`,
+      filename: 'bundle.js'
+    },
+    optimization: {
+      minimize: true,
+      splitChunks: {
+        cacheGroups: {
+          default: false,
+          common: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendor',
+            filename: 'vendor.js',
+            chunks: 'all'
+          }
+        }
+      }
     },
     plugins: [
       new HtmlWebpackPlugin({
