@@ -272,6 +272,7 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 - **v0.0.3:**
 	- Cleaning code to fit ESLint standards
 	- Get JSON object from URL to parse a Resume
+	- Replace CSS for SASS
 - **v0.0.2:**
 	- Tiny changes on template layout
 - **v0.0.1:**

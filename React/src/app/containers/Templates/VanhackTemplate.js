@@ -1,6 +1,9 @@
 import React from 'react';
 import styles from '../../styles/VanhackTemplate.scss';
 import PropTypes from 'prop-types';
+import {Loop} from '../../components/Loop';
+import {WorkExperience} from './Vanhack/WorkExperience';
+import {Education} from './Vanhack/Education';
 
 export class VanhackTemplate extends React.Component {
   componentWillMount() {
@@ -11,6 +14,149 @@ export class VanhackTemplate extends React.Component {
   }
   render() {
     const resume = this.props.resume;
+    const resumeLocation = function (r) {
+      if (r.city.display && r.country.display) {
+        return (<p className={styles['resume-city-country']}>{r.city.content}, {r.country.content}</p>);
+      } else if (r.city.display) {
+        return (<p className={styles['resume-city-country']}>{r.city.content}</p>);
+      } else if (r.country.display) {
+        return (<p className={styles['resume-city-country']}>{r.country.content}</p>);
+      }
+      return null;
+    };
+    const resumeEmail = function (r) {
+      return (
+        r.email.display ? (
+          <p className={styles['resume-email']}>{r.email.content}</p>
+        ) : null
+      );
+    };
+    const resumePhone = function (r) {
+      return (
+        r.phone.display ? (
+          <p className={styles['resume-phone']}>{r.phone.content}</p>
+        ) : null
+      );
+    };
+    const resumeJobTitle = function (r) {
+      return (
+        r.jobTitle.display ? (
+          <p className={styles['resume-job-title']}>{r.jobTitle.content}</p>
+        ) : null
+      );
+    };
+    const resumeWebsite = function (r) {
+      return (
+        r.website.display ? (
+          <p className={styles['resume-website']}><a href={r.website.content} target="_blank">{r.website.content}</a></p>
+        ) : null
+      );
+    };
+    const resumeGithub = function (r) {
+      return (
+        r.github.display ? (
+          <p className={styles['resume-github']}><a href={r.github.content} target="_blank">{r.github.content}</a></p>
+        ) : null
+      );
+    };
+    const resumeWorkExperience = function (r) {
+      if (r.experience.display && r.experience.content.length > 0) {
+        return (
+          <div className={styles['work-experience']}>
+            <h4>WORK EXPERIENCE</h4>
+            <div className={styles['resume-list']}>
+              <ul>
+                {r.experience.content.map((o, k) => {
+                  if (o.display) {
+                    return (
+                      <li key={k}>
+                        <WorkExperience data={o}/>
+                      </li>
+                    );
+                  }
+                  return null;
+                }, this)}
+              </ul>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    };
+    const resumeSideProjects = function (r) {
+      if (r.sideProject.display && r.sideProject.content.length > 0) {
+        return (
+          <div className={styles['side-projects']}>
+            <h4>SIDE PROJECTS</h4>
+            <div className={styles['resume-list']}>
+              <ul>
+                {r.sideProject.content.map((o, k) => {
+                  if (o.display) {
+                    return (
+                      <li key={k} className={styles['resume-side-job']}>
+                        <p>
+                          <a href={o.url.content} target="_blank">
+                            {o.projectName.content}
+                          </a>: {o.description.content}
+                        </p>
+                      </li>
+                    );
+                  }
+                  return null;
+                }, this)}
+              </ul>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    };
+    const resumeEducation = function (r) {
+      if (r.education.display && r.education.content.length > 0) {
+        return (
+          <div className={styles.education}>
+            <h4>EDUCATION</h4>
+            <div className={styles['resume-list']}>
+              <ul>
+                {r.education.content.map((o, k) => {
+                  if (o.display) {
+                    return (
+                      <li key={k}>
+                        <Education data={o} />
+                      </li>
+                    );
+                  }
+                  return null;
+                }, this)}
+              </ul>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    };
+    const resumeSkills = function (r) {
+      if (r.skills.display && r.skills.content) {
+        return (
+          <div className={styles.skills}>
+            <h4>TECHNICAL SKILLS</h4>
+            <p>{r.skills.content}</p>
+          </div>
+        );
+      }
+      return null;
+    };
+    const resumeLanguages = function (r) {
+      if (r.languages.display && r.languages.content) {
+        return (
+          <div className={styles.languages}>
+            <h4>LANGUAGES</h4>
+            <p>{r.languages.content}</p>
+          </div>
+        );
+      }
+      return null;
+    };
     return (
       <div className={styles['resume-content']}>
         <div className={styles['resume-header']}>
@@ -18,117 +164,21 @@ export class VanhackTemplate extends React.Component {
             <h2 className={styles['resume-full-name']}>{resume.fullName.content}</h2>
           ) : null}
           <div className={styles['resume-contact']}>
-            {(resume.city.display && resume.country.display) ? (
-              <p className={styles['resume-city-country']}>{resume.city.content}, {resume.country.content}</p>
-            ) : (resume.city.display ? (
-              <p className={styles['resume-city-country']}>{resume.city.content}</p>
-            ) : (resume.country.display ? (
-              <p className={styles['resume-city-country']}>{resume.country.content}</p>
-            ) : null))}
-            {resume.email.display ? (
-              <p className={styles['resume-email']}>{resume.email.content}</p>
-            ) : null}
-            {resume.phone.display ? (
-              <p className={styles['resume-phone']}>{resume.phone.content}</p>
-            ) : null}
+            {resumeLocation(resume)}
+            {resumeEmail(resume)}
+            {resumePhone(resume)}
           </div>
           <div className={styles['resume-title']}>
-            {resume.jobTitle.display ? (
-              <p className={styles['resume-job-title']}>{resume.jobTitle.content}</p>
-            ) : null}
-            {resume.website.display ? (
-              <p className={styles['resume-website']}><a href={resume.website.content} target="_blank">{resume.website.content}</a></p>
-            ) : null}
-            {resume.github.display ? (
-              <p className={styles['resume-github']}><a href={resume.github.content} target="_blank">{resume.github.content}</a></p>
-            ) : null}
+            {resumeJobTitle(resume)}
+            {resumeWebsite(resume)}
+            {resumeGithub(resume)}
           </div>
         </div>
-        {resume.experience.display ? (
-          <div className={styles['work-experience']}>
-            {resume.experience.content.length > 0 ? <h4>WORK EXPERIENCE</h4> : null}
-            <ul className={styles['resume-list']}>
-              {resume.experience.content.map(function(value, key) {
-                if (value.display) {
-                  return (
-                    <li key={key}>
-                      <p className={styles['resume-job-title-company']}>{value.jobTitle.content}, {value.company.content}</p>
-                      <p className={styles['resume-local-time']}>
-                        {value.from.content} - {value.to.content} - {value.local.content}
-                      </p>
-                      <ul className={styles['resume-list']}>
-                        {value.items.display ? (
-                          value.items.content.map(function (value, key) {
-                            if (value.display) {
-                              return (
-                                <li key={key} className={styles['resume-job-achievements']}>{value.content}</li>
-                              );
-                            }
-                          })
-                        ) : null}
-                      </ul>
-                    </li>
-                  );
-                }
-              })}
-            </ul>
-          </div>
-        ) : null}
-        {resume.sideProject.display ? (
-          <div className={styles['side-projects']}>
-            {resume.sideProject.content.length > 0 ? <h4>SIDE PROJECTS</h4> : null}
-            <ul className={styles['resume-list']}>
-              {resume.sideProject.content.map(function(value, key) {
-                if (value.display) {
-                  return (
-                    <li key={key} className={styles['resume-side-job']}>
-                      <p>
-                        <a href={value.url.content} target="_blank">
-                          {value.projectName.content}
-                        </a>: {value.description.content}
-                      </p>
-                    </li>
-                  );
-                }
-              })}
-            </ul>
-          </div>
-        ) : null}
-        {resume.education.display ? (
-          <div className={styles.education}>
-            {resume.education.content.length > 0 ? <h4>EDUCATION</h4> : null}
-            <ul className={styles['resume-list']}>
-              {resume.education.content.map(function(value, key) {
-                if (value.display) {
-                  return (
-                    <li key={key}>
-                      <p>{value.degree.content}, {value.local.content}</p>
-                      <ul className={styles['resume-list']}>
-                        {value.items.content.map(function (value, key) {
-                          if (value.display) {
-                            return <li key={key} className={styles['resume-education-achievements']}>{value.content}</li>
-                          }
-                        })}
-                      </ul>
-                    </li>
-                  );
-                }
-              })}
-            </ul>
-          </div>
-        ) : null}
-        {resume.skills.display ? (
-          <div className={styles.skills}>
-            {resume.skills.content ? <h4>TECHNICAL SKILLS</h4> : null}
-            <p>{resume.skills.content}</p>
-          </div>
-        ) : null}
-        {resume.languages.display ? (
-          <div className={styles.languages}>
-            {resume.languages.content ? <h4>LANGUAGES</h4> : null}
-            <p>{resume.languages.content}</p>
-          </div>
-        ) : null}
+        {resumeWorkExperience(resume)}
+        {resumeSideProjects(resume)}
+        {resumeEducation(resume)}
+        {resumeSkills(resume)}
+        {resumeLanguages(resume)}
       </div>
     );
   }

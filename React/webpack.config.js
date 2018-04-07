@@ -6,9 +6,11 @@ module.exports = function (env, argv) {
   const DIST_DIR = path.resolve(__dirname, 'dist');
   const PUBLIC_PATH = '';
   let HTML_PATH;
+  let minimize = false;
 
   if (argv.mode === 'production') {
     HTML_PATH = DIST_DIR;
+    minimize = true;
   } else {
     HTML_PATH = SRC_DIR;
   }
@@ -24,7 +26,7 @@ module.exports = function (env, argv) {
       filename: 'bundle.js'
     },
     optimization: {
-      minimize: true,
+      minimize: minimize,
       splitChunks: {
         cacheGroups: {
           default: false,

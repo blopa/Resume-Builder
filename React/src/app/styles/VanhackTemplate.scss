@@ -1,12 +1,12 @@
-.resume-content div{
+.resume-content div {
   margin-bottom: 30px;
 }
 
-.resume-job-title-company{
+.resume-job-title-company {
   font-weight: 600;
 }
 
-.resume-job-achievements:before, .resume-education-achievements:before{
+.resume-job-achievements:before, .resume-education-achievements:before {
   content: '⤑';
   margin-right: 10px
 }
@@ -15,19 +15,19 @@
   font-style: italic;
 }
 
-.resume-content .resume-job-title-company, #resume-content .resume-local-time{
+.resume-content .resume-job-title-company, #resume-content .resume-local-time {
   display: inline-block;
 }
 
-.resume-content .resume-job-title-company:after{
+.resume-content .resume-job-title-company:after {
   content: ' - ';
 }
 
-.resume-content ul{
+.resume-content ul {
   margin-bottom: 25px;
 }
 
-.resume-content p{
+.resume-content p {
   font-size: 1.2rem;
   color: #000000;
   margin-bottom: 5px;
@@ -37,7 +37,7 @@
   font-size: 1.1rem;
 }
 
-.resume-content h4{
+.resume-content h4 {
   font-size: 1.1rem;
   color: rgb(153, 153, 153);
 }
@@ -47,28 +47,28 @@
   text-align: right;
 }
 
-.work-experience p{
+.work-experience p {
   display: inline-block;
 }
 
-.resume-title a{
+.resume-title a {
   color: #000000;
 }
 
-h2.resume-full-name{
+h2.resume-full-name {
   color: #8e7cc3;
   font-weight: 600;
   font-size: 1.8rem;
   text-align: left;
 }
 
-.resume-side-job a{
+.resume-side-job a {
   font-weight: 600;
   color: #000000;
   text-decoration: underline;
 }
 
-.education li > p{
+.education-title {
   font-weight: 600;
 }
 
@@ -106,12 +106,12 @@ h2.resume-full-name{
   }
 }
 
-.resume-list li{
+.resume-list li {
   display: inline-block;
   margin: 0 10px;
 }
 
-.resume-list {
+.resume-list ul {
   list-style-type: none;
   padding: 0;
 }
