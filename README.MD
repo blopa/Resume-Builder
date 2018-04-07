@@ -269,6 +269,10 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/screenshot_3.png)
 
 ## Release Notes
+- **v0.0.3:**
+	- Cleaning code to fit ESLint standards
+	- Get JSON object from URL to parse a Resume
+	- Replace CSS for SASS
 - **v0.0.2:**
 	- Tiny changes on template layout
 - **v0.0.1:**
@@ -286,6 +290,8 @@ A: Thank you! You can help by codding more features, creating pull requests, or 
 ## TODO
 - Add list of recent used documents
 - Add option to save a built resume
+- Remove bootstrap include from template.html
+- Make build.js smaller / add lazyloader
 
 ## License
 MIT License

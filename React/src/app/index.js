@@ -1,17 +1,18 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {HashRouter as Router, Route} from 'react-router-dom'
-
-import {Root} from './components/Root'
+import {HashRouter as Router, Route} from 'react-router-dom';
+import {Provider} from 'react-redux';
+import store from './store.js';
+import Root from './containers/Root';
 
 class App extends React.Component {
-    render() {
-        return (
-            <Router>
-                <Route component={Root} />
-            </Router>
-        );
-    }
+  render() {
+    return (
+      <Router>
+        <Route component={Root} />
+      </Router>
+    );
+  }
 }
 
-render(<App/>, window.document.getElementById('app'));
+render(<Provider store={store}><App/></Provider>, window.document.getElementById('app'));

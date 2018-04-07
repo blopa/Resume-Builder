@@ -1,0 +1,42 @@
+a {
+  color: #8dc6ff;
+}
+.logo {
+  width: 211px;
+  margin: -38px;
+}
+.router-link-active {
+  background-color: #25313e !important;
+}
+.nav-menu{
+  background-color: #2C3E50;
+}
+.nav-menu ul {
+  height: 100%;
+  text-align: left;
+}
+.nav-menu li {
+  display: inline-flex;
+  height: 100%;
+}
+.nav-menu a {
+  padding: 38px;
+  font-size: 20px;
+  text-decoration: none;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  text-align: center;
+  background: #2c3e50;
+}
+.nav-menu a:hover {
+  background-color: #25313e;
+  color: #FFFFFF;
+}
+.nav-current {
+  background-color: #25313e;
+}
+.nav-disabled {
+  background-color: rgb(57, 71, 82) !important;
+  color: #787d82 !important;
+  cursor: context-menu;
+}

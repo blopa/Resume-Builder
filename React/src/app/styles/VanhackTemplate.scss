@@ -1,0 +1,131 @@
+.resume-content div {
+  margin-bottom: 15px;
+}
+
+.resume-header {
+  margin-bottom: 30px !important;
+}
+
+.resume-job-title-company {
+  font-weight: 600;
+}
+
+.resume-job-achievements:before, .resume-education-achievements:before {
+  content: '⤑';
+  margin-right: 10px
+}
+
+.resume-local-time {
+  font-style: italic;
+}
+
+.resume-content .resume-job-title-company, #resume-content .resume-local-time {
+  display: inline-block;
+}
+
+.resume-content .resume-job-title-company:after {
+  content: ' - ';
+}
+
+.resume-content ul {
+  margin-bottom: 10px;
+}
+
+.resume-content p {
+  font-size: 1.2rem;
+  color: #000000;
+  margin-bottom: 5px;
+}
+
+.resume-content li {
+  font-size: 1.1rem;
+}
+
+.resume-content h4 {
+  font-size: 1.1rem;
+  color: rgb(153, 153, 153);
+}
+
+.resume-contact {
+  float: right;
+  text-align: right;
+}
+
+.work-experience p {
+  display: inline-block;
+}
+
+.resume-title a {
+  color: #000000;
+}
+
+h2.resume-full-name {
+  color: #8e7cc3;
+  font-weight: 600;
+  font-size: 1.8rem;
+  text-align: left;
+}
+
+.resume-side-job a {
+  font-weight: 600;
+  color: #000000;
+  text-decoration: underline;
+}
+
+.education-title {
+  font-weight: 600;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .resume-content, .resume-content * {
+    padding: 0 !important;
+    visibility: visible !important;
+  }
+
+  .resume-content {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .resume-content h4 {
+    font-size: 1.45rem;
+  }
+
+  .resume-content p {
+    font-size: 1.4rem;
+  }
+
+  .resume-content li {
+    font-size: 1.4rem;
+  }
+
+  .resume-content h2 {
+    font-size: 2.2rem;
+  }
+}
+
+.resume-list li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.resume-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.languages {}
+.skills {}
+.resume-city-country {}
+.resume-email {}
+.resume-phone {}
+.resume-website {}
+.side-projects {}
+.resume-github {}
+.resume-job-title {}

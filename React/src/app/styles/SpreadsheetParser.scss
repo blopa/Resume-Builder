@@ -1,0 +1,75 @@
+.data-input h1, h2 {
+  font-weight: normal;
+}
+
+.data-input ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.data-input li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.data-input {
+  margin: 0 auto;
+  width: 1024px;
+  background-color: rgba(44, 62, 80, 0.51);
+  padding: 20px;
+  color: #FFFFFF;
+}
+
+.button-go button {
+  height: 100px;
+  width: 200px;
+  margin-top: -58px;
+}
+.button-go {
+  float: right;
+}
+
+.loading {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: #2a3e33b8;
+}
+
+.loading h2 {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  margin-top: -0.5em;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  text-overflow: ellipsis;
+  height: 50px;
+}
+
+.choose-template {
+  width: 100%;
+}
+
+.choose-template hr {
+  margin-top: 2rem;
+}
+
+.choose-template h4 {
+  width: 28%;
+}
+
+.choose-template select {
+  height: 100% !important;
+  width: 72%;
+  float: right;
+  margin-top: -5px;
+}
+
+.data-input label {
+  width: 78%;
+}
