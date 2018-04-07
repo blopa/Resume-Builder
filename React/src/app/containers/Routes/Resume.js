@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../../styles/Resume.scss';
 import {VanhackTemplate} from './../Templates/VanhackTemplate';
+import {RegularTemplate} from './../Templates/RegularTemplate';
 import PropTypes from 'prop-types';
 
 export class Resume extends React.Component {
@@ -66,9 +67,12 @@ export class Resume extends React.Component {
     }
   }
   renderTemplate() {
+    debugger;
     let CustomTemplate;
     if (this.state.template == 0) {
       CustomTemplate = VanhackTemplate;
+    } else if (this.state.template == 1) {
+      CustomTemplate = RegularTemplate;
     } else {
       CustomTemplate = VanhackTemplate;
     }

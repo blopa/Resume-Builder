@@ -16,7 +16,7 @@ export class SpreadsheetParser extends React.Component {
 
     this.state = {
       template: null,
-      templateList: ['VanHack'],
+      templateList: ['VanHack', 'Regular'],
       loading: false
     };
   }

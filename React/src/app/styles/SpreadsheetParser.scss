@@ -12,7 +12,7 @@
   margin: 0 10px;
 }
 
-.data-input{
+.data-input {
   margin: 0 auto;
   width: 1024px;
   background-color: rgba(44, 62, 80, 0.51);
@@ -20,7 +20,7 @@
   color: #FFFFFF;
 }
 
-.button-go button{
+.button-go button {
   height: 100px;
   width: 200px;
   margin-top: -58px;
@@ -55,15 +55,16 @@
   width: 100%;
 }
 
-.choose-template hr{
+.choose-template hr {
   margin-top: 2rem;
 }
 
-.choose-template h4{
+.choose-template h4 {
   width: 28%;
 }
 
-.choose-template select{
+.choose-template select {
+  height: 100% !important;
   width: 72%;
   float: right;
   margin-top: -5px;
