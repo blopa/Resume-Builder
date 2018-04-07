@@ -1,6 +1,6 @@
 import React from 'react';
 import XLSX from 'xlsx';
-import '../../styles/SpreadsheetParser.css';
+import styles from '../../styles/SpreadsheetParser.scss';
 import PropTypes from 'prop-types';
 
 export class SpreadsheetParser extends React.Component {
@@ -282,16 +282,16 @@ export class SpreadsheetParser extends React.Component {
   }
   render() {
     return (
-      <div id="data-input">
+      <div className={styles['data-input']}>
         {this.state.loading ? (
-          <div id="loading">
+          <div className={styles.loading}>
             <h2>Loading...</h2>
           </div>
         ) : null}
         <form onSubmit={this.parseURL}>
           {this.state.templateList.length > 0 ? (
-            <div id="choose-template">
-              <select className="selectpicker form-control" name="template">
+            <div className={styles['choose-template']}>
+              <select className={['selectpicker', 'form-control'].join(' ')} name="template">
                 {this.state.templateList.map(function (value, key) {
                   return (
                     <option key={key} value={key}>{value}</option>
@@ -307,21 +307,21 @@ export class SpreadsheetParser extends React.Component {
             href="https://docs.google.com/spreadsheets/d/1Mrgu6dOTyEBkzHtoSSH2BhRNd8n8tuupVlcQUJhUY-0/copy"
             target="_blank" rel="noopener noreferrer">make a copy</a>)
           </p>
-          <div className="input-container">
-            <div className="data-link-input">
-              <input type="text" className="form-control" placeholder="Paste your Google Spreadsheet URL here."
+          <div className={'input-container'}>
+            <div className={'data-link-input'}>
+              <input type="text" className={'form-control'} placeholder="Paste your Google Spreadsheet URL here."
                 name="spreadsheet"
               />
             </div>
             <h4>... or choose a file from your computer</h4>
             <p>(<a href="https://docs.google.com/spreadsheets/d/1Mrgu6dOTyEBkzHtoSSH2BhRNd8n8tuupVlcQUJhUY-0/export?format=xlsx&gid=0">download sample</a>)</p>
-            <div id="button-go">
-              <button type="submit" className="btn btn-primary btn-menu">Go!</button>
+            <div className={styles['button-go']}>
+              <button type="submit" className={['btn', 'btn-primary', 'btn-menu'].join(' ')}>Go!</button>
             </div>
-            <div className="data-upload-input">
-              <label className="custom-file">
-                <input type="file" className="custom-file-input" onChange={this.parseUpload} />
-                <span className="custom-file-control">Choose file...</span>
+            <div className={'data-upload-input'}>
+              <label className={['custom-file']}>
+                <input type="file" className={'custom-file-input'} onChange={this.parseUpload} />
+                <span className={'custom-file-control'}>Choose file...</span>
               </label>
             </div>
           </div>

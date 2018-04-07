@@ -6,13 +6,13 @@ import {Home} from './routes/Home';
 import {SpreadsheetParser} from './routes/SpreadsheetParser';
 import {Contact} from './routes/Contact';
 import {Resume} from './routes/Resume';
-import '../styles/Root.css';
+import '../styles/Root.scss';
 
 export class Root extends React.Component {
   render() {
     return (
       <div>
-        <Header className="no-print"/>
+        <Header/>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/home" component={Home} />

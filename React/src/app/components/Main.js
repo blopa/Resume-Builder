@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import '../styles/Main.css';
+import styles from '../styles/Main.scss';
 
 export class Main extends React.Component {
   render() {
     return (
-      <div className="main-container">
+      <div className={styles['main-container']}>
         <section>
           {this.props.children}
         </section>

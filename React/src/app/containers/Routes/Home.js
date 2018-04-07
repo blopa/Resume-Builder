@@ -1,10 +1,10 @@
 import React from 'react';
-import '../../styles/Home.css';
+import styles from '../../styles/Home.scss';
 
 export class Home extends React.Component {
   render() {
     return (
-      <div className="main-container">
+      <div className={styles['main-container']}>
         <section>
           <h2>What is Resume Builder?</h2>
           <p>
