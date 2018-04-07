@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from '../../styles/VanhackTemplate.scss';
 import PropTypes from 'prop-types';
-import {Loop} from '../../components/Loop';
 import {WorkExperience} from './Vanhack/WorkExperience';
 import {Education} from './Vanhack/Education';
 

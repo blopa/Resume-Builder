@@ -2,6 +2,7 @@ import React from 'react';
 import XLSX from 'xlsx';
 import styles from '../../styles/SpreadsheetParser.scss';
 import PropTypes from 'prop-types';
+const sheetURL = 'https://docs.google.com/spreadsheets/d/1Mrgu6dOTyEBkzHtoSSH2BhRNd8n8tuupVlcQUJhUY-0';
 
 export class SpreadsheetParser extends React.Component {
   constructor() {
@@ -112,7 +113,7 @@ export class SpreadsheetParser extends React.Component {
     const finalObj = {};
     const fathers = [];
     const sons = [];
-    sheetObject.map(function(value) {
+    sheetObject.map(value => {
       if (value[typeAttr] === fullNameAttr.toLowerCase()) {
         finalObj.fullName = {};
         finalObj.fullName.display = value[disabledAttr] !== trueAttr;
@@ -171,15 +172,16 @@ export class SpreadsheetParser extends React.Component {
     finalObj.education.display = true;
     finalObj.education.content = [];
 
-    fathers.map(function(value) {
+    fathers.map(value => {
       const id = value[idAttr];
       const tempObj = {};
       tempObj.id = id;
-      const childs = sons.filter(function(val) {
+      const childs = sons.filter(val => {
         // debugger;
         if (val[dataForAttr] === id) {
           return val;
         }
+        return null;
       });
 
       if (value[typeAttr] === experienceAttr.toLowerCase()) {
@@ -187,7 +189,7 @@ export class SpreadsheetParser extends React.Component {
         tempObj.jobTitle.display = value[disabledAttr] !== trueAttr;
         tempObj.jobTitle.content = value[contentAttr];
         const items = [];
-        childs.map(function(val) {
+        childs.map(val => {
           if (val[typeAttr] === companyAttr.toLowerCase()) {
             tempObj.company = {};
             tempObj.company.display = val[disabledAttr] !== trueAttr;
@@ -221,7 +223,7 @@ export class SpreadsheetParser extends React.Component {
         tempObj.projectName = {};
         tempObj.projectName.display = value[disabledAttr] !== trueAttr;
         tempObj.projectName.content = value[contentAttr];
-        childs.map(function(val) {
+        childs.map(val => {
           if (val[typeAttr] === urlAttr.toLowerCase()) {
             tempObj.url = {};
             tempObj.url.display = val[disabledAttr] !== trueAttr;
@@ -239,7 +241,7 @@ export class SpreadsheetParser extends React.Component {
         tempObj.degree.display = value[disabledAttr] !== trueAttr;
         tempObj.degree.content = value[contentAttr];
         const items = [];
-        childs.map(function(val) {
+        childs.map(val => {
           if (val[typeAttr] === localAttr.toLowerCase()) {
             tempObj.local = {};
             tempObj.local.display = val[disabledAttr] !== trueAttr;
@@ -292,11 +294,10 @@ export class SpreadsheetParser extends React.Component {
           {this.state.templateList.length > 0 ? (
             <div className={styles['choose-template']}>
               <select className={['selectpicker', 'form-control'].join(' ')} name="template">
-                {this.state.templateList.map(function (value, key) {
-                  return (
-                    <option key={key} value={key}>{value}</option>
-                  );
-                })}
+                {this.state.templateList.map((value, key) => (
+                  <option key={key} value={key}>{value}</option>
+                )
+                )}
               </select>
               <h4>Choose your template: </h4>
               <hr/>
@@ -304,7 +305,7 @@ export class SpreadsheetParser extends React.Component {
           ) : null}
           <h4>Paste your Google Spreadsheet URL...</h4>
           <p>(<a
-            href="https://docs.google.com/spreadsheets/d/1Mrgu6dOTyEBkzHtoSSH2BhRNd8n8tuupVlcQUJhUY-0/copy"
+            href={`${sheetURL}/copy`}
             target="_blank" rel="noopener noreferrer">make a copy</a>)
           </p>
           <div className={'input-container'}>
@@ -314,7 +315,7 @@ export class SpreadsheetParser extends React.Component {
               />
             </div>
             <h4>... or choose a file from your computer</h4>
-            <p>(<a href="https://docs.google.com/spreadsheets/d/1Mrgu6dOTyEBkzHtoSSH2BhRNd8n8tuupVlcQUJhUY-0/export?format=xlsx&gid=0">download sample</a>)</p>
+            <p>(<a href={`${sheetURL}/export?format=xlsx&gid=0`}>download sample</a>)</p>
             <div className={styles['button-go']}>
               <button type="submit" className={['btn', 'btn-primary', 'btn-menu'].join(' ')}>Go!</button>
             </div>
