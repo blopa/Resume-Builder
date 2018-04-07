@@ -2,7 +2,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import loader from '../loader.gif';
 
-import '../styles/Loading.css';
+import '../styles/Loading.scss';
 
 export class Loading extends React.Component {
   render() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import XLSX from 'xlsx';
-import '../../styles/SpreadsheetParser.css';
+import '../../styles/SpreadsheetParser.scss';
 import PropTypes from 'prop-types';
 
 export class SpreadsheetParser extends React.Component {

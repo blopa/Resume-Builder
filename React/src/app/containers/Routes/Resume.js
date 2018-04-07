@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/Resume.css';
+import '../../styles/Resume.scss';
 import {VanhackTemplate} from './../Templates/VanhackTemplate';
 import PropTypes from 'prop-types';
 

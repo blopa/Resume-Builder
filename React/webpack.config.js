@@ -1,6 +1,7 @@
 module.exports = function (env, argv) {
   const path = require('path');
   const HtmlWebpackPlugin = require('html-webpack-plugin');
+  const MiniCssExtractPlugin = require('mini-css-extract-plugin');
   const SRC_DIR = path.resolve(__dirname, 'src');
   const DIST_DIR = path.resolve(__dirname, 'dist');
   const PUBLIC_PATH = '';
@@ -48,6 +49,10 @@ module.exports = function (env, argv) {
         publicPath: `${PUBLIC_PATH}app/`,
         template: `${SRC_DIR}/template.html`,
         filename: `${HTML_PATH}/index.html`
+      }),
+      new MiniCssExtractPlugin({
+        filename: `${PUBLIC_PATH}style.css`,
+        chunkFilename: `${PUBLIC_PATH}[id].css`
       })
     ],
     module: {
@@ -61,9 +66,21 @@ module.exports = function (env, argv) {
           }
         },
         {
-          test: /\.css$/,
+          test: /\.scss$/,
           include: SRC_DIR,
-          loaders: ['style-loader', 'css-loader']
+          // loaders: ['style-loader', 'css-loader', 'sass-loader']
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                sourceMap: true,
+                importLoader: 2
+              }
+            },
+            'sass-loader'
+          ]
         },
         {
           test: /\.(png|jpg|ico|gif)$/,

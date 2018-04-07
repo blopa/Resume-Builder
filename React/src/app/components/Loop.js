@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import '../styles/Loop.css';
+import '../styles/Loop.scss';
 
 export class Loop extends React.Component {
   render() {

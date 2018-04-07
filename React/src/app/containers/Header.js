@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import '../styles/Header.css';
+import '../styles/Header.scss';
 import logo from '../logo.png';
 
 export class Header extends React.Component {

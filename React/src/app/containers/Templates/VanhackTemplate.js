@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/VanhackTemplate.css';
+import '../../styles/VanhackTemplate.scss';
 import PropTypes from 'prop-types';
 
 export class VanhackTemplate extends React.Component {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import '../styles/Main.css';
+import '../styles/Main.scss';
 
 export class Main extends React.Component {
   render() {
