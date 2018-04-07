@@ -12,42 +12,42 @@ export class VanhackTemplate extends React.Component {
   render() {
     const resume = this.props.resume;
     return (
-      <div>
-        <div id="resume-header">
+      <div className={styles['resume-content']}>
+        <div className={styles['resume-header']}>
           {resume.fullName.display ? (
-            <h2 id="resume-full-name">{resume.fullName.content}</h2>
+            <h2 className={styles['resume-full-name']}>{resume.fullName.content}</h2>
           ) : null}
-          <div id="resume-contact">
+          <div className={styles['resume-contact']}>
             {(resume.city.display && resume.country.display) ? (
-              <p id="resume-city-country">{resume.city.content}, {resume.country.content}</p>
+              <p className={styles['resume-city-country']}>{resume.city.content}, {resume.country.content}</p>
             ) : (resume.city.display ? (
-              <p id="resume-city-country">{resume.city.content}</p>
+              <p className={styles['resume-city-country']}>{resume.city.content}</p>
             ) : (resume.country.display ? (
-              <p id="resume-city-country">{resume.country.content}</p>
+              <p className={styles['resume-city-country']}>{resume.country.content}</p>
             ) : null))}
             {resume.email.display ? (
-              <p id="resume-email">{resume.email.content}</p>
+              <p className={styles['resume-email']}>{resume.email.content}</p>
             ) : null}
             {resume.phone.display ? (
-              <p id="resume-phone">{resume.phone.content}</p>
+              <p className={styles['resume-phone']}>{resume.phone.content}</p>
             ) : null}
           </div>
-          <div id="resume-title">
+          <div className={styles['resume-title']}>
             {resume.jobTitle.display ? (
-              <p id="resume-job-title">{resume.jobTitle.content}</p>
+              <p className={styles['resume-job-title']}>{resume.jobTitle.content}</p>
             ) : null}
             {resume.website.display ? (
-              <p id="resume-website"><a href={resume.website.content} target="_blank">{resume.website.content}</a></p>
+              <p className={styles['resume-website']}><a href={resume.website.content} target="_blank">{resume.website.content}</a></p>
             ) : null}
             {resume.github.display ? (
-              <p id="resume-github"><a href={resume.github.content} target="_blank">{resume.github.content}</a></p>
+              <p className={styles['resume-github']}><a href={resume.github.content} target="_blank">{resume.github.content}</a></p>
             ) : null}
           </div>
         </div>
         {resume.experience.display ? (
-          <div id="work-experience">
+          <div className={styles['work-experience']}>
             {resume.experience.content.length > 0 ? <h4>WORK EXPERIENCE</h4> : null}
-            <ul className={'resume-list'}>
+            <ul className={styles['resume-list']}>
               {resume.experience.content.map(function(value, key) {
                 if (value.display) {
                   return (
@@ -56,7 +56,7 @@ export class VanhackTemplate extends React.Component {
                       <p className={styles['resume-local-time']}>
                         {value.from.content} - {value.to.content} - {value.local.content}
                       </p>
-                      <ul className={'resume-list'}>
+                      <ul className={styles['resume-list']}>
                         {value.items.display ? (
                           value.items.content.map(function (value, key) {
                             if (value.display) {
@@ -75,9 +75,9 @@ export class VanhackTemplate extends React.Component {
           </div>
         ) : null}
         {resume.sideProject.display ? (
-          <div id="side-projects">
+          <div className={styles['side-projects']}>
             {resume.sideProject.content.length > 0 ? <h4>SIDE PROJECTS</h4> : null}
-            <ul className={'resume-list'}>
+            <ul className={styles['resume-list']}>
               {resume.sideProject.content.map(function(value, key) {
                 if (value.display) {
                   return (
@@ -95,15 +95,15 @@ export class VanhackTemplate extends React.Component {
           </div>
         ) : null}
         {resume.education.display ? (
-          <div id="education">
+          <div className={styles.education}>
             {resume.education.content.length > 0 ? <h4>EDUCATION</h4> : null}
-            <ul className={'resume-list'}>
+            <ul className={styles['resume-list']}>
               {resume.education.content.map(function(value, key) {
                 if (value.display) {
                   return (
                     <li key={key}>
                       <p>{value.degree.content}, {value.local.content}</p>
-                      <ul className={'resume-list'}>
+                      <ul className={styles['resume-list']}>
                         {value.items.content.map(function (value, key) {
                           if (value.display) {
                             return <li key={key} className={styles['resume-education-achievements']}>{value.content}</li>
@@ -118,13 +118,13 @@ export class VanhackTemplate extends React.Component {
           </div>
         ) : null}
         {resume.skills.display ? (
-          <div id="skills">
+          <div className={styles.skills}>
             {resume.skills.content ? <h4>TECHNICAL SKILLS</h4> : null}
             <p>{resume.skills.content}</p>
           </div>
         ) : null}
         {resume.languages.display ? (
-          <div id="languages">
+          <div className={styles.languages}>
             {resume.languages.content ? <h4>LANGUAGES</h4> : null}
             <p>{resume.languages.content}</p>
           </div>
