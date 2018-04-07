@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/VanhackTemplate.scss';
+import styles from '../../styles/VanhackTemplate.scss';
 import PropTypes from 'prop-types';
 
 export class VanhackTemplate extends React.Component {
@@ -47,21 +47,21 @@ export class VanhackTemplate extends React.Component {
         {resume.experience.display ? (
           <div id="work-experience">
             {resume.experience.content.length > 0 ? <h4>WORK EXPERIENCE</h4> : null}
-            <ul className="resume-list">
+            <ul className={'resume-list'}>
               {resume.experience.content.map(function(value, key) {
                 if (value.display) {
                   return (
                     <li key={key}>
-                      <p className="resume-job-title-company">{value.jobTitle.content}, {value.company.content}</p>
-                      <p className="resume-local-time">
+                      <p className={styles['resume-job-title-company']}>{value.jobTitle.content}, {value.company.content}</p>
+                      <p className={styles['resume-local-time']}>
                         {value.from.content} - {value.to.content} - {value.local.content}
                       </p>
-                      <ul className="resume-list">
+                      <ul className={'resume-list'}>
                         {value.items.display ? (
                           value.items.content.map(function (value, key) {
                             if (value.display) {
                               return (
-                                <li key={key} className="resume-job-achievements">{value.content}</li>
+                                <li key={key} className={styles['resume-job-achievements']}>{value.content}</li>
                               );
                             }
                           })
@@ -77,11 +77,11 @@ export class VanhackTemplate extends React.Component {
         {resume.sideProject.display ? (
           <div id="side-projects">
             {resume.sideProject.content.length > 0 ? <h4>SIDE PROJECTS</h4> : null}
-            <ul className="resume-list">
+            <ul className={'resume-list'}>
               {resume.sideProject.content.map(function(value, key) {
                 if (value.display) {
                   return (
-                    <li key={key} className="resume-side-job">
+                    <li key={key} className={styles['resume-side-job']}>
                       <p>
                         <a href={value.url.content} target="_blank">
                           {value.projectName.content}
@@ -97,16 +97,16 @@ export class VanhackTemplate extends React.Component {
         {resume.education.display ? (
           <div id="education">
             {resume.education.content.length > 0 ? <h4>EDUCATION</h4> : null}
-            <ul className="resume-list">
+            <ul className={'resume-list'}>
               {resume.education.content.map(function(value, key) {
                 if (value.display) {
                   return (
                     <li key={key}>
                       <p>{value.degree.content}, {value.local.content}</p>
-                      <ul className="resume-list">
+                      <ul className={'resume-list'}>
                         {value.items.content.map(function (value, key) {
                           if (value.display) {
-                            return <li key={key} className="resume-education-achievements">{value.content}</li>
+                            return <li key={key} className={styles['resume-education-achievements']}>{value.content}</li>
                           }
                         })}
                       </ul>

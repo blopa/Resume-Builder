@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/Resume.scss';
+import styles from '../../styles/Resume.scss';
 import {VanhackTemplate} from './../Templates/VanhackTemplate';
 import PropTypes from 'prop-types';
 
@@ -89,46 +89,46 @@ export class Resume extends React.Component {
   }
   render() {
     return (
-      <div className="main-container">
-        <h1 className="no-print">Your Resume</h1>
-        <div id="print-button" className="no-print">
-          <button type="button" className="btn btn-info btn-menu" onClick={this.preparePrint}>Print</button>
+      <div className={styles['main-container']}>
+        <h1>Your Resume</h1>
+        <div id="print-button">
+          <button type="button" className={['btn', 'btn-info', 'btn-menu']} onClick={this.preparePrint}>Print</button>
         </div>
         <div id="toggle-menu-button">
-          <button type="button" className="btn btn-info btn-menu" onClick={this.toggleMenu}>Toggle Menu</button>
+          <button type="button" className={['btn', 'btn-info', 'btn-menu']} onClick={this.toggleMenu}>Toggle Menu</button>
         </div>
         {this.state.showMenu ? (
-          <div id="toggle-menu" className="no-print">
+          <div id="toggle-menu">
             <div>
               <h2>Toggle Menu</h2>
-              <ul className="list-group">
+              <ul className={'list-group'}>
                 {Object.keys(this.state.resume).map(function (key, arrayKey) {
                   const htmlId = `toggle-${key}`;
                   const elementKey = `${htmlId}-${arrayKey}`;
                   return (
-                    <li className="list-group-item" key={elementKey}>
-                      <div className="checkbox checkbox-primary">
+                    <li className={'list-group-item'} key={elementKey}>
+                      <div className={[styles.checkbox, 'checkbox-primary']}>
                         <input id={htmlId} type="checkbox" onChange={() => this.handler(this.state.resume[key])}
                           checked={this.state.resume[key].display}
                         />
                         <label htmlFor={htmlId}>{`Display '${key}'?`}</label>
                         {this.state.resume[key].display ? (
                           this.state.resume[key].content.constructor === Array ? (
-                            <ul className="list-group">
+                            <ul className={'list-group'}>
                               {this.state.resume[key].content.map(function (value, key) {
                                 if (Object.prototype.hasOwnProperty.call(value, 'company')) {
                                   return (
-                                    <li className="list-group-item" key={`${elementKey}-${key}`}>
-                                      <div className="checkbox checkbox-primary">
+                                    <li className={'list-group-item'} key={`${elementKey}-${key}`}>
+                                      <div className={[styles.checkbox, 'checkbox-primary']}>
                                         <input id={`${htmlId}-${key}`} type="checkbox" onChange={() => this.handler(this.state.resume.experience.content[key])} checked={this.state.resume.experience.content[key].display} />
                                         <label htmlFor={`${htmlId}-${key}`}>{`Display '${value.jobTitle.content} @ ${value.company.content}'?`}</label>
                                         {this.state.resume.experience.content[key].display ? (
                                           Object.prototype.hasOwnProperty.call(value, 'items') ? (
-                                            <ul className="list-group">
+                                            <ul className={'list-group'}>
                                               {value.items.content.map(function (value, index) {
                                                 return (
-                                                  <li className="list-group-item" key={`${elementKey}-${key}-${index}`}>
-                                                    <div className="checkbox checkbox-primary">
+                                                  <li className={'list-group-item'} key={`${elementKey}-${key}-${index}`}>
+                                                    <div className={[styles.checkbox, 'checkbox-primary']}>
                                                       <input id={`${htmlId}-${key}-${index}`} type="checkbox" onChange={() => this.handler(this.state.resume.experience.content[key].items.content[index])} checked={this.state.resume.experience.content[key].items.content[index].display} />
                                                       <label htmlFor={`${htmlId}-${key}-${index}`}>{`Display '${value.content.substr(0, 25)} (...)'?`}</label>
                                                     </div>
@@ -143,8 +143,8 @@ export class Resume extends React.Component {
                                   );
                                 } else if (Object.prototype.hasOwnProperty.call(value, 'projectName')) {
                                   return (
-                                    <li className="list-group-item" key={`${elementKey}-${key}`}>
-                                      <div className="checkbox checkbox-primary">
+                                    <li className={'list-group-item'} key={`${elementKey}-${key}`}>
+                                      <div className={[styles.checkbox, 'checkbox-primary']}>
                                         <input id={`${htmlId}-${key}`} type="checkbox" onChange={() => this.handler(this.state.resume.sideProject.content[key])} checked={this.state.resume.sideProject.content[key].display} />
                                         <label htmlFor={`${htmlId}-${key}`}>{`Display '${value.projectName.content}'?`}</label>
                                       </div>
@@ -153,17 +153,17 @@ export class Resume extends React.Component {
                                 } else if (Object.prototype.hasOwnProperty.call(value, 'degree')) {
                                   const educationDescription = `${value.degree.content} @ ${value.local.content}`;
                                   return (
-                                    <li className="list-group-item" key={`${elementKey}-${key}`}>
-                                      <div className="checkbox checkbox-primary">
+                                    <li className={'list-group-item'} key={`${elementKey}-${key}`}>
+                                      <div className={[styles.checkbox, 'checkbox-primary']}>
                                         <input id={`${htmlId}-${key}`} type="checkbox" onChange={() => this.handler(this.state.resume.education.content[key])} checked={this.state.resume.education.content[key].display} />
                                         <label htmlFor={`${htmlId}-${key}`}>{`Display '${educationDescription.substr(0, 25)}'?`}</label>
                                         {this.state.resume.education.content[key].display ? (
                                           Object.prototype.hasOwnProperty.call(value, 'items') ? (
-                                            <ul className="list-group">
+                                            <ul className={'list-group'}>
                                               {value.items.content.map(function (value, index) {
                                                 return (
-                                                  <li className="list-group-item" key={`${elementKey}-${key}-${index}`}>
-                                                    <div className="checkbox checkbox-primary">
+                                                  <li className={'list-group-item'} key={`${elementKey}-${key}-${index}`}>
+                                                    <div className={[styles.checkbox, 'checkbox-primary']}>
                                                       <input id={`${htmlId}-${key}-${index}`} type="checkbox" onChange={() => this.handler(this.state.resume.education.content[key].items.content[index])} checked={this.state.resume.education.content[key].items.content[index].display} />
                                                       <label htmlFor={`${htmlId}-${key}-${index}`}>{`Display '${value.content.substr(0, 25)} (...)'?`}</label>
                                                     </div>

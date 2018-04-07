@@ -1,11 +1,11 @@
 import React from 'react';
 
-import '../../styles/Contact.scss';
+import styles from '../../styles/Contact.scss';
 
 export class Contact extends React.Component {
   render() {
     return (
-      <div className="main-container">
+      <div className={styles['main-container']}>
         <section>
           <h2>Contact</h2>
           <p>

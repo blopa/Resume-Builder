@@ -12,7 +12,7 @@ export class Root extends React.Component {
   render() {
     return (
       <div>
-        <Header className="no-print"/>
+        <Header/>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/home" component={Home} />
