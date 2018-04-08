@@ -9,8 +9,8 @@ export class Contact extends React.Component {
         <section>
           <h2>Contact</h2>
           <p>
-            To get in contact please access our GitHub project page
-            <a href="https://github.com/blopa/Resume-Builder">here</a>
+            To get in contact please access our GitHub project page <a href="https://github.com/blopa/Resume-Builder">
+            here</a>.
           </p>
           <p>And please dont forget to git the project a star, that will help me a lot :D</p>
           <iframe
