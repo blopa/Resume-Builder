@@ -3,6 +3,7 @@ import styles from '../../styles/Resume.scss';
 import {VanhackTemplate} from './../Templates/VanhackTemplate';
 import {RegularTemplate} from './../Templates/RegularTemplate';
 import PropTypes from 'prop-types';
+import {excerpt} from '../../helper/functions';
 
 export class Resume extends React.Component {
   constructor() {
@@ -124,14 +125,14 @@ export class Resume extends React.Component {
                                   <li className={'list-group-item'} key={`${elementKey}-${resKey}`}>
                                     <div className={[styles.checkbox, 'checkbox-primary'].join(' ')}>
                                       <input id={`${htmlId}-${resKey}`} type="checkbox" onChange={() => this.handler(this.state.resume.experience.content[resKey])} checked={this.state.resume.experience.content[resKey].display} />
-                                      <label htmlFor={`${htmlId}-${resKey}`}>{`Display '${value.jobTitle.content} @ ${value.company.content}'?`}</label>
+                                      <label htmlFor={`${htmlId}-${resKey}`}>{`Display '${excerpt(value.jobTitle.content, 20)} @ ${excerpt(value.company.content, 20)}'?`}</label>
                                       {(this.state.resume.experience.content[resKey].display && Object.prototype.hasOwnProperty.call(value, 'items')) ? (
                                         <ul className={'list-group'}>
                                           {value.items.content.map((val, index) => (
                                             <li className={'list-group-item'} key={`${elementKey}-${resKey}-${index}`}>
                                               <div className={[styles.checkbox, 'checkbox-primary'].join(' ')}>
                                                 <input id={`${htmlId}-${resKey}-${index}`} type="checkbox" onChange={() => this.handler(this.state.resume.experience.content[resKey].items.content[index])} checked={this.state.resume.experience.content[resKey].items.content[index].display} />
-                                                <label htmlFor={`${htmlId}-${resKey}-${index}`}>{`Display '${val.content.substr(0, 25)} (...)'?`}</label>
+                                                <label htmlFor={`${htmlId}-${resKey}-${index}`}>{`Display '${excerpt(val.content, 25)}'?`}</label>
                                               </div>
                                             </li>
                                           ), this)}
@@ -145,24 +146,24 @@ export class Resume extends React.Component {
                                   <li className={'list-group-item'} key={`${elementKey}-${resKey}`}>
                                     <div className={[styles.checkbox, 'checkbox-primary'].join(' ')}>
                                       <input id={`${htmlId}-${resKey}`} type="checkbox" onChange={() => this.handler(this.state.resume.sideProject.content[resKey])} checked={this.state.resume.sideProject.content[resKey].display} />
-                                      <label htmlFor={`${htmlId}-${resKey}`}>{`Display '${value.projectName.content}'?`}</label>
+                                      <label htmlFor={`${htmlId}-${resKey}`}>{`Display '${excerpt(value.projectName.content, 25)}'?`}</label>
                                     </div>
                                   </li>
                                 );
                               } else if (Object.prototype.hasOwnProperty.call(value, 'degree')) {
-                                const educationDescription = `${value.degree.content} @ ${value.local.content}`;
+                                const educationDescription = `${excerpt(value.degree.content, 20)} @ ${excerpt(value.local.content, 20)}`;
                                 return (
                                   <li className={'list-group-item'} key={`${elementKey}-${resKey}`}>
                                     <div className={[styles.checkbox, 'checkbox-primary'].join(' ')}>
                                       <input id={`${htmlId}-${resKey}`} type="checkbox" onChange={() => this.handler(this.state.resume.education.content[resKey])} checked={this.state.resume.education.content[resKey].display} />
-                                      <label htmlFor={`${htmlId}-${resKey}`}>{`Display '${educationDescription.substr(0, 25)}'?`}</label>
+                                      <label htmlFor={`${htmlId}-${resKey}`}>{`Display '${educationDescription}'?`}</label>
                                       {(this.state.resume.education.content[resKey].display && Object.prototype.hasOwnProperty.call(value, 'items')) ? (
                                         <ul className={'list-group'}>
                                           {value.items.content.map((val, index) => (
                                             <li className={'list-group-item'} key={`${elementKey}-${resKey}-${index}`}>
                                               <div className={[styles.checkbox, 'checkbox-primary'].join(' ')}>
                                                 <input id={`${htmlId}-${resKey}-${index}`} type="checkbox" onChange={() => this.handler(this.state.resume.education.content[resKey].items.content[index])} checked={this.state.resume.education.content[resKey].items.content[index].display} />
-                                                <label htmlFor={`${htmlId}-${resKey}-${index}`}>{`Display '${val.content.substr(0, 25)} (...)'?`}</label>
+                                                <label htmlFor={`${htmlId}-${resKey}-${index}`}>{`Display '${excerpt(val.content, 25)}'?`}</label>
                                               </div>
                                             </li>
                                           ), this)}

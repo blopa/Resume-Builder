@@ -269,6 +269,8 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/screenshot_3.png)
 
 ## Release Notes
+- **v0.0.4:**
+	- New resume display style
 - **v0.0.3:**
 	- Cleaning code to fit ESLint standards
 	- Get JSON object from URL to parse a Resume
