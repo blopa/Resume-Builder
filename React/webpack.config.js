@@ -46,7 +46,7 @@ module.exports = function (env, argv) {
           collapseWhitespace: true,
           preserveLineBreaks: false
         },
-        title: 'Resume Builder',
+        title: 'Resume Builder v1.0.4',
         favicon: `${SRC_DIR}/app/favicon.ico`,
         publicPath: `${PUBLIC_PATH}app/`,
         template: `${SRC_DIR}/template.html`,
