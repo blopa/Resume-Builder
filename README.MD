@@ -1,6 +1,6 @@
 # Resume Builder
 
-**Gotta find a job!** Already, let's make a new resume with this awesome template I found on Google, the problem is, this template might not be as awesome next month, or you might need to constantly add your new experience to the document. Gosh. Wouldn't be better to focus on adding new experiences in a raw format and let a atomization process handle the layout? I agreed, and that's why Resume Builder is here.
+**Gotta find a job!** Alright, let's make a new resume with this awesome template I found on Google, the problem is, this template might not be as awesome next month, or you might need to constantly add your new experience to the document. Gosh. Wouldn't be better to focus on adding new experiences in a raw format and let a atomization process handle the layout? I agreed, and that's why Resume Builder is here.
 
 #### You take care of the data and we take care of the template.
 
