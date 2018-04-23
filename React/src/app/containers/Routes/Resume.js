@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../styles/Resume.scss';
-import {VanhackTemplate} from './../Templates/VanhackTemplate';
-import {RegularTemplate} from './../Templates/RegularTemplate';
+import {VanhackTemplate} from './../templates/VanhackTemplate';
+import {RegularTemplate} from './../templates/RegularTemplate';
 import PropTypes from 'prop-types';
 import {excerpt} from '../../helper/functions';
 

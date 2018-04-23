@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from '../../styles/VanhackTemplate.scss';
 import PropTypes from 'prop-types';
-import {WorkExperience} from './Vanhack/WorkExperience';
-import {Education} from './Vanhack/Education';
+import {WorkExperience} from './vanhack/WorkExperience';
+import {Education} from './vanhack/Education';
 
 export class VanhackTemplate extends React.Component {
   componentWillMount() {
