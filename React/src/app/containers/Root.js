@@ -2,10 +2,10 @@ import React from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {Header} from './Header';
-import {Home} from './Routes/Home';
-import {SpreadsheetParser} from './Routes/SpreadsheetParser';
-import {Contact} from './Routes/Contact';
-import {Resume} from './Routes/Resume';
+import {Home} from './routes/Home';
+import {SpreadsheetParser} from './routes/SpreadsheetParser';
+import {Contact} from './routes/Contact';
+import {Resume} from './routes/Resume';
 import '../styles/Root.scss';
 
 export class Root extends React.Component {
