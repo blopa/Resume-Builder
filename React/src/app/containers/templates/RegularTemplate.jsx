@@ -4,13 +4,13 @@ import React from 'react';
 // import styles from '../styles/RegularTemplate.scss';
 
 export class RegularTemplate extends React.Component {
-  render() {
-    return (
-      <p>Template in development</p>
-    );
-  }
+    render() {
+        return (
+            <p>Template in development</p>
+        );
+    }
 }
 
 RegularTemplate.propTypes = {
-  // https://reactjs.org/docs/typechecking-with-proptypes.html
+    // https://reactjs.org/docs/typechecking-with-proptypes.html
 };

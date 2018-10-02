@@ -4,13 +4,13 @@ import React from 'react';
 // import styles from '../styles/ToggleMenu.scss';
 
 export class ToggleMenu extends React.Component {
-  render() {
-    return (
-      <p>Toggle</p>
-    );
-  }
+    render() {
+        return (
+            <p>Toggle</p>
+        );
+    }
 }
 
 ToggleMenu.propTypes = {
-  // https://reactjs.org/docs/typechecking-with-proptypes.html
+    // https://reactjs.org/docs/typechecking-with-proptypes.html
 };
