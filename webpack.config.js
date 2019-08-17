@@ -1,95 +1,143 @@
-module.exports = function (env, argv) {
-  const path = require('path');
-  const HtmlWebpackPlugin = require('html-webpack-plugin');
-  const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-  const SRC_DIR = path.resolve(__dirname, 'src');
-  const DIST_DIR = path.resolve(__dirname, 'dist');
-  const PUBLIC_PATH = '';
-  let HTML_PATH;
-  let minimize = false;
+const path = require('path');
+const getRepositoryName = require('git-repo-name').sync;
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-  if (argv.mode === 'production') {
-    HTML_PATH = DIST_DIR;
-    minimize = true;
-  } else {
-    HTML_PATH = SRC_DIR;
-  }
+const SETTINGS = require('./settings');
 
-  return {
-    entry: {
-      player: `${SRC_DIR}/app/index.js`,
-      vendor: ['react', 'react-dom', 'react-redux', 'react-router-dom', 'redux', 'xlsx']
-    },
-    output: {
-      path: `${DIST_DIR}/app`,
-      publicPath: `${PUBLIC_PATH}app/`,
-      filename: 'bundle.js'
-    },
-    optimization: {
-      minimize: minimize,
-      splitChunks: {
-        cacheGroups: {
-          default: false,
-          common: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendor',
-            filename: 'vendor.js',
-            chunks: 'all'
-          }
-        }
-      }
-    },
-    plugins: [
-      new HtmlWebpackPlugin({
-        hash: true,
-        minify: {
-          collapseWhitespace: true,
-          preserveLineBreaks: false
-        },
-        title: 'Resume Builder v1.0.4',
-        favicon: `${SRC_DIR}/app/favicon.ico`,
-        publicPath: `${PUBLIC_PATH}app/`,
-        template: `${SRC_DIR}/template.html`,
-        filename: `${HTML_PATH}/index.html`
-      }),
-      new MiniCssExtractPlugin({
-        filename: `${PUBLIC_PATH}style.css`,
-        chunkFilename: `${PUBLIC_PATH}[id].css`
-      })
-    ],
-    module: {
-      rules: [
-        {
-          test: /\.js?/,
-          include: SRC_DIR,
-          loader: 'babel-loader',
-          query: {
-            presets: ['react', 'es2015', 'stage-2']
-          }
-        },
-        {
-          test: /\.scss$/,
-          include: SRC_DIR,
-          // loaders: ['style-loader', 'css-loader', 'sass-loader']
-          use: [
-            MiniCssExtractPlugin.loader,
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                sourceMap: true,
-                importLoader: 2
-              }
+const production = process.env.NODE_ENV === 'production';
+const pagesBuild = process.env.BUILD === 'pages';
+const analizer = process.env.ANALYZE === '1';
+
+const stylesLoaders = [
+    {
+        loader: 'css-loader',
+        options: {
+            modules: {
+                localIdentName: production ? '[hash:base64:7]' : '[path]__[local]--[hash:base64:5]',
             },
-            'sass-loader'
-          ]
+        },
+    },
+    'postcss-loader',
+    {
+        loader: 'sass-loader',
+        options: {
+            data: '@import "styles/globals";',
+            includePaths: [path.join(__dirname, 'src')],
+        },
+    },
+];
+
+const rules = [
+    {
+        test: /\.(js|jsx)$/,
+        loader: 'babel-loader',
+        include: path.join(__dirname, 'src'),
+        exclude: /node_modules/,
+    },
+
+    {
+        test: /\.(css|scss)$/,
+        include: path.join(__dirname, './src'),
+        loader: production ?
+            ExtractTextPlugin.extract({ fallback: 'style-loader', use: stylesLoaders })
+            : ['style-loader', ...stylesLoaders],
+    },
+
+    {
+    // do not load styles as css modules from other direcroies (e.g. node_modules) but src
+        test: /\.(css)$/,
+        loaders: production ?
+            ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: ['css-loader', 'postcss-loader'],
+            })
+            : ['style-loader', 'css-loader', 'postcss-loader'],
+        exclude: path.resolve(__dirname, '../src'),
+    },
+
+    {
+        test: /\.(svg|png|jpg|gif|woff|woff2|otf|ttf|eot)$/,
+        loader: 'file-loader',
+    },
+];
+
+const pluginsBase = [
+    new HtmlWebpackPlugin({ template: 'template.ejs' }),
+    new FaviconsWebpackPlugin(SETTINGS.FAVICONS),
+    new BundleAnalyzerPlugin({ analyzerMode: analizer ? 'server' : 'disabled' }),
+    new webpack.DefinePlugin({
+        'process.env': {
+            NODE_ENV: JSON.stringify(process.env.NODE_ENV || ''),
+        },
+    }),
+];
+
+const developmentPlugins = [
+    ...pluginsBase,
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new BrowserSyncPlugin(
+        {
+            host: 'localhost',
+            port: SETTINGS.PORT,
+            proxy: `http://localhost:${SETTINGS.PORT}`,
+            notify: false,
         },
         {
-          test: /\.(png|jpg|ico|gif)$/,
-          include: SRC_DIR,
-          loader: 'file-loader'
+            reload: false,
         }
-      ]
-    }
-  };
+    ),
+];
+
+const productionPlugins = [
+    new CleanWebpackPlugin(),
+    ...pluginsBase,
+    new LodashModuleReplacementPlugin(),
+    new ExtractTextPlugin('[name].css'),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+];
+
+module.exports = {
+    devtool: production ? false : 'eval',
+
+    mode: production ? 'production' : 'development',
+
+    optimization: {
+        minimize: production,
+    },
+
+    /*
+     * devServer: {
+     *     disableHostCheck: true,
+     * },
+     */
+
+    entry: production ?
+        path.join(__dirname, './src/index')
+        : [
+            `webpack-dev-server/client?http://localhost:${SETTINGS.PORT}`,
+            'webpack/hot/only-dev-server',
+            path.join(__dirname, './src/index'),
+        ],
+
+    output: {
+        path: SETTINGS.PUBLIC_PATH,
+        filename: 'bundle.js',
+        publicPath: pagesBuild ? `/${getRepositoryName()}/` : '/',
+    },
+
+    resolve: {
+        modules: [path.join(__dirname, 'src'), 'node_modules'],
+        extensions: ['.js', '.jsx'],
+    },
+
+    module: { rules },
+    plugins: production ? productionPlugins : developmentPlugins,
 };
