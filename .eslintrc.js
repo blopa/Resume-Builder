@@ -1,6 +1,6 @@
 module.exports = {
   'parser': 'babel-eslint',
-  'extends': ['airbnb', 'plugin:jest/recommended'],
+  'extends': ['plugin:jest/recommended'],
   'env': {
     'es6': true,
     'browser': true,
@@ -310,13 +310,6 @@ module.exports = {
     'react/jsx-closing-bracket-location': 'warn',
     'react/jsx-closing-tag-location': 'warn',
     'react/jsx-curly-brace-presence': 'warn',
-    'import/no-extraneous-dependencies': [
-      'warn',
-      {
-        'devDependencies': true,
-        'optionalDependencies': true
-      }
-    ],
     'react/jsx-curly-spacing': [
       'warn',
       {

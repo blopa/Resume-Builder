@@ -8,7 +8,9 @@ module.exports = function build() {
 
     return new Promise((resolve, reject) => {
         webpack(config).run((err) => {
-            if (err) { return reject(err); }
+            if (err) {
+                return reject(err);
+            }
             console.log(chalk.green.bold`✔ Bundle was successfully built!`);
             return resolve();
         });
