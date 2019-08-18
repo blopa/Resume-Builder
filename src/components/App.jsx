@@ -4,6 +4,7 @@ import { hot } from 'react-hot-loader';
 
 // Components
 import HomePage from './routes/HomePage';
+import UploadPage from './routes/UploadPage';
 import BuildPage from './routes/BuildPage';
 import NavBar from './ui/NavBar/NavBar';
 
@@ -14,6 +15,7 @@ function App() {
             <HashRouter>
                 <Switch>
                     <Route exact path="/" component={HomePage} />
+                    <Route exact path="/upload" component={UploadPage} />
                     <Route exact path="/build" component={BuildPage} />
                 </Switch>
             </HashRouter>

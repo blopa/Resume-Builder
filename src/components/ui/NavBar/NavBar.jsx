@@ -38,7 +38,7 @@ const NavBar = () => (
                             variant="inherit"
                             color="inherit"
                         >
-                            <HashLink to="build">
+                            <HashLink to="upload">
                                     Build
                             </HashLink>
                         </Typography>

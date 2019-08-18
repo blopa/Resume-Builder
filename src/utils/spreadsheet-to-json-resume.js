@@ -172,5 +172,6 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     jsonResume.interests = [...interestsArray, interests];
     jsonResume.references = [...referencesArray, references];
 
-    console.log(jsonResume);
+    // console.log(jsonResume);
+    return jsonResume;
 }
