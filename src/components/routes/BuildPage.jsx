@@ -1,6 +1,7 @@
 import React from 'react';
 import DropZone from '../ui/DropZone/DropZone';
 import readSpreadsheet from '../../utils/spreadsheet-parser';
+import spreadsheetToJsonResume from '../../utils/spreadsheet-to-json-resume';
 
 export default function BuildPage() {
     return (
@@ -11,8 +12,8 @@ export default function BuildPage() {
             <DropZone
                 maxLength={1}
                 handleFile={(file) => {
-                    readSpreadsheet(file, (obj) => {
-                        console.log(obj);
+                    readSpreadsheet(file, (jsonSpreadsheet) => {
+                        spreadsheetToJsonResume(jsonSpreadsheet);
                     });
                 }}
                 disabled={false}
