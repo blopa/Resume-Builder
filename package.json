@@ -1,7 +1,7 @@
 {
-  "name": "my-react-base-project",
-  "version": "1.0.0",
-  "description": "Simple boilerplate for working with React, redux, react-router and Github Pages",
+  "name": "resume-builder",
+  "version": "2.0.0",
+  "description": "Resume Builder",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -19,14 +19,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/blopa/my-react-base-project.git"
+    "url": "git+https://github.com/blopa/Resume-Builder.git"
   },
   "author": "Pablo Montenegro",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/blopa/my-react-base-project/issues"
+    "url": "https://github.com/blopa/Resume-Builder/issues"
   },
-  "homepage": "https://github.com/blopa/my-react-base-project#readme",
+  "homepage": "https://github.com/blopa/Resume-Builder#readme",
   "dependencies": {
     "@material-ui/core": "^4.3.2",
     "@storybook/addon-actions": "^5.1.11",
