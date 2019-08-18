@@ -3,7 +3,8 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 
 // Components
-import HomePage from 'components/routes/home/HomePage';
+import HomePage from './routes/HomePage';
+import BuildPage from './routes/BuildPage';
 import NavBar from './ui/NavBar/NavBar';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
             <HashRouter>
                 <Switch>
                     <Route exact path="/" component={HomePage} />
+                    <Route exact path="/build" component={BuildPage} />
                 </Switch>
             </HashRouter>
         </Fragment>

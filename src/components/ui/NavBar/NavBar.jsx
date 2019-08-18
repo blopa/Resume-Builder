@@ -3,12 +3,13 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { Link as RouterLink } from 'react-router-dom';
 import { MemoryRouter as Router } from 'react-router';
+import HashLink from '../HashLink/HashLink';
+
+// Styles
+import style from '../../../styles/navbar.scss';
 
 const NavBar = () => (
     <Router>
@@ -22,50 +23,36 @@ const NavBar = () => (
                 >
                     Resume Builder
                 </Typography>
-                <List component="nav">
-                    <ListItem component="div">
-                        <ListItemText inset>
-                            <Typography
-                                variant="inherit"
-                                color="inherit"
-                            >
-                                <Link
-                                    component={RouterLink}
-                                    to="/"
-                                    color="inherit"
-                                >
+                <List component="nav" className={style['navbar-list']}>
+                    <ListItem component="div" selected>
+                        <Typography
+                            variant="inherit"
+                            color="inherit"
+                        >
+                            <HashLink to="">
                                     Home
-                                </Link>
-                            </Typography>
-                        </ListItemText>
-                        <ListItemText inset>
-                            <Typography
-                                variant="inherit"
-                                color="inherit"
-                            >
-                                <Link
-                                    component={RouterLink}
-                                    to="/"
-                                    color="inherit"
-                                >
-                                    Posts
-                                </Link>
-                            </Typography>
-                        </ListItemText>
-                        <ListItemText inset>
-                            <Typography
-                                variant="inherit"
-                                color="inherit"
-                            >
-                                <Link
-                                    component={RouterLink}
-                                    to="/"
-                                    color="inherit"
-                                >
+                            </HashLink>
+                        </Typography>
+                    </ListItem>
+                    <ListItem component="div">
+                        <Typography
+                            variant="inherit"
+                            color="inherit"
+                        >
+                            <HashLink to="build">
+                                    Build
+                            </HashLink>
+                        </Typography>
+                    </ListItem>
+                    <ListItem component="div">
+                        <Typography
+                            variant="inherit"
+                            color="inherit"
+                        >
+                            <HashLink to="contact">
                                     Contact
-                                </Link>
-                            </Typography>
-                        </ListItemText>
+                            </HashLink>
+                        </Typography>
                     </ListItem>
                 </List>
             </Toolbar>
