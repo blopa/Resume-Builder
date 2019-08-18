@@ -45,6 +45,7 @@
     "ramda": "^0.26.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-dropzone": "^10.1.7",
     "react-hot-loader": "^4.12.11",
     "react-icons": "^3.7.0",
     "react-redux": "^7.1.0",
@@ -55,7 +56,8 @@
     "redux-axios-middleware": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "storybook-router": "^0.3.4",
-    "webpack-bundle-analyzer": "^3.4.1"
+    "webpack-bundle-analyzer": "^3.4.1",
+    "xlsx": "^0.15.1"
   },
   "devDependencies": {
     "autoprefixer": "^9.6.1",

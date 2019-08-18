@@ -2,14 +2,13 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import { MemoryRouter as Router } from 'react-router';
 import HashLink from '../HashLink/HashLink';
 
 // Styles
-import style from '../../../styles/navbar.scss';
+import style from './nav-bar.scss';
 
 const NavBar = () => (
     <Router>
