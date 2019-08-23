@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import style from 'default-sections.scss';
 
 const Basics = ({
     basics: {

@@ -3,7 +3,7 @@ import { read as xlsxRead, utils as xlsxUtils } from 'xlsx';
 export const readSpreadsheetData = (data, callback) => {
     const workbook = xlsxRead(data, { type: 'binary' });
     const sheetName = workbook.SheetNames[0];
-    const jsonObject = xlsxUtils.sheet_to_json(workbook.Sheets[sheetName]);
+    const jsonObject = xlsxUtils.sheet_to_json(workbook.Sheets[sheetName], { raw: false });
 
     callback(jsonObject);
 };
