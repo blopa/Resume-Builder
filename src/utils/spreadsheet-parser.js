@@ -11,6 +11,7 @@ export const readSpreadsheetData = (data, callback) => {
 export const readSpreadsheetFile = (file, callback) => {
     const reader = new FileReader();
     reader.onload = (e) => readSpreadsheetData(e.target.result, callback);
+    reader.onerror = () => callback([]);
     reader.readAsBinaryString(file);
 };
 

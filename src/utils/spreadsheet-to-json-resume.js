@@ -1,3 +1,5 @@
+import { isObjectNotEmpty } from './utils';
+
 export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     // attribute names
     const categoryAttr = 'category'.toUpperCase();
@@ -70,7 +72,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             jsonResume.basics.location[value[typeAttr]] = value[contentAttr];
         } else if (category === basicsProfilesCategory) {
             if (value[typeAttr] === 'network') {
-                if (Object.keys(profiles).length > 0 && profiles.constructor === Object) {
+                if (isObjectNotEmpty(profiles)) {
                     profilesArray.push({ ...profiles });
                     profiles = {};
                 }
@@ -79,34 +81,46 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             profiles[value[typeAttr]] = value[contentAttr];
         } else if (category === workCategory) {
             if (value[typeAttr] === 'company') {
-                if (Object.keys(work).length > 0 && work.constructor === Object) {
+                if (isObjectNotEmpty(work)) {
                     workArray.push({ ...work });
                     work = {};
                 }
             }
 
-            work[value[typeAttr]] = value[contentAttr];
+            if (value[typeAttr] === 'highlights') {
+                work[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+            } else {
+                work[value[typeAttr]] = value[contentAttr];
+            }
         } else if (category === volunteerCategory) {
             if (value[typeAttr] === 'organization') {
-                if (Object.keys(volunteer).length > 0 && volunteer.constructor === Object) {
+                if (isObjectNotEmpty(volunteer)) {
                     volunteerArray.push({ ...volunteer });
                     volunteer = {};
                 }
             }
 
-            volunteer[value[typeAttr]] = value[contentAttr];
+            if (value[typeAttr] === 'highlights') {
+                volunteer[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+            } else {
+                volunteer[value[typeAttr]] = value[contentAttr];
+            }
         } else if (category === educationCategory) {
             if (value[typeAttr] === 'institution') {
-                if (Object.keys(education).length > 0 && education.constructor === Object) {
+                if (isObjectNotEmpty(education)) {
                     educationArray.push({ ...education });
                     education = {};
                 }
             }
 
-            education[value[typeAttr]] = value[contentAttr];
+            if (value[typeAttr] === 'courses') {
+                education[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+            } else {
+                education[value[typeAttr]] = value[contentAttr];
+            }
         } else if (category === awardsCategory) {
             if (value[typeAttr] === 'title') {
-                if (Object.keys(awards).length > 0 && awards.constructor === Object) {
+                if (isObjectNotEmpty(awards)) {
                     awardsArray.push({ ...awards });
                     awards = {};
                 }
@@ -115,7 +129,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             awards[value[typeAttr]] = value[contentAttr];
         } else if (category === publicationsCategory) {
             if (value[typeAttr] === 'name') {
-                if (Object.keys(publications).length > 0 && publications.constructor === Object) {
+                if (isObjectNotEmpty(publications)) {
                     publicationsArray.push({ ...publications });
                     publications = {};
                 }
@@ -124,16 +138,20 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             publications[value[typeAttr]] = value[contentAttr];
         } else if (category === skillsCategory) {
             if (value[typeAttr] === 'name') {
-                if (Object.keys(skills).length > 0 && skills.constructor === Object) {
+                if (isObjectNotEmpty(skills)) {
                     skillsArray.push({ ...skills });
                     skills = {};
                 }
             }
 
-            skills[value[typeAttr]] = value[contentAttr];
+            if (value[typeAttr] === 'keywords') {
+                skills[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+            } else {
+                skills[value[typeAttr]] = value[contentAttr];
+            }
         } else if (category === languagesCategory) {
             if (value[typeAttr] === 'language') {
-                if (Object.keys(languages).length > 0 && languages.constructor === Object) {
+                if (isObjectNotEmpty(languages)) {
                     languagesArray.push({ ...languages });
                     languages = {};
                 }
@@ -142,16 +160,20 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             languages[value[typeAttr]] = value[contentAttr];
         } else if (category === interestsCategory) {
             if (value[typeAttr] === 'name') {
-                if (Object.keys(interests).length > 0 && interests.constructor === Object) {
+                if (isObjectNotEmpty(interests)) {
                     interestsArray.push({ ...interests });
                     interests = {};
                 }
             }
 
-            interests[value[typeAttr]] = value[contentAttr];
+            if (value[typeAttr] === 'keywords') {
+                interests[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+            } else {
+                interests[value[typeAttr]] = value[contentAttr];
+            }
         } else if (category === referencesCategory) {
             if (value[typeAttr] === 'name') {
-                if (Object.keys(references).length > 0 && references.constructor === Object) {
+                if (isObjectNotEmpty(references)) {
                     referencesArray.push({ ...references });
                     references = {};
                 }
