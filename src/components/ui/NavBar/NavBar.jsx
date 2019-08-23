@@ -3,9 +3,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import { MemoryRouter as Router } from 'react-router';
-import HashLink from '../HashLink/HashLink';
+import NavBarItem from './NavBarItem';
 
 // Styles
 import style from './nav-bar.scss';
@@ -22,37 +21,22 @@ const NavBar = () => (
                 >
                     Resume Builder
                 </Typography>
-                <List component="nav" className={style['navbar-list']}>
-                    <ListItem component="div" selected>
-                        <Typography
-                            variant="inherit"
-                            color="inherit"
-                        >
-                            <HashLink to="">
-                                    Home
-                            </HashLink>
-                        </Typography>
-                    </ListItem>
-                    <ListItem component="div">
-                        <Typography
-                            variant="inherit"
-                            color="inherit"
-                        >
-                            <HashLink to="upload">
-                                    Build
-                            </HashLink>
-                        </Typography>
-                    </ListItem>
-                    <ListItem component="div">
-                        <Typography
-                            variant="inherit"
-                            color="inherit"
-                        >
-                            <HashLink to="contact">
-                                    Contact
-                            </HashLink>
-                        </Typography>
-                    </ListItem>
+                <List
+                    component="nav"
+                    className={style['navbar-list']}
+                >
+                    <NavBarItem
+                        to=""
+                        title="Home"
+                    />
+                    <NavBarItem
+                        to="upload"
+                        title="Build"
+                    />
+                    <NavBarItem
+                        to="contact"
+                        title="Contact"
+                    />
                 </List>
             </Toolbar>
         </AppBar>
