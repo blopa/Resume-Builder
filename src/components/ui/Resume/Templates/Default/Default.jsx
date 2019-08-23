@@ -73,9 +73,11 @@ const Default = ({
                 interests={interests.value}
             />
         )}
-        <References
-            references={references.value}
-        />
+        {references && references.enabled && (
+            <References
+                references={references.value}
+            />
+        )}
     </Fragment>
 );
 
