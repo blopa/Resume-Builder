@@ -1,8 +1,9 @@
 import React from 'react';
+import style from './default-sections.scss';
 
 const References = ({ references }) => (
     <p>
-        Something
+        {JSON.stringify(references)}
     </p>
 );
 

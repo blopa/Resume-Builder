@@ -63,14 +63,16 @@ const Default = ({
                 publications={publications.value}
             />
         )}
-        {publications && languages.enabled && (
+        {languages && languages.enabled && (
             <Languages
                 languages={languages.value}
             />
         )}
-        <Interests
-            interests={interests.value}
-        />
+        {interests && interests.enabled && (
+            <Interests
+                interests={interests.value}
+            />
+        )}
         <References
             references={references.value}
         />
