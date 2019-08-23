@@ -2,7 +2,7 @@ import React from 'react';
 
 const Awards = ({ awards }) => (
     <p>
-        {JSON.stringify(awards)}
+        Something
     </p>
 );
 
