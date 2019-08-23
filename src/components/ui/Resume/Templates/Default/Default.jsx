@@ -38,9 +38,11 @@ const Default = ({
                 work={work.value}
             />
         )}
-        <Skills
-            skills={skills.value}
-        />
+        {skills && skills.enabled && (
+            <Skills
+                skills={skills.value}
+            />
+        )}
         <Education
             education={education.value}
         />

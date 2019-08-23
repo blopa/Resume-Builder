@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import style from 'default-sections.scss';
+import style from './default-sections.scss';
 
 const Work = ({ work: works }) =>
     works.length > 0 && (
