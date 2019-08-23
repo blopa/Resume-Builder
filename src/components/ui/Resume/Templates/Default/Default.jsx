@@ -53,9 +53,11 @@ const Default = ({
                 awards={awards.value}
             />
         )}
-        <Volunteer
-            volunteer={volunteer.value}
-        />
+        {volunteer && volunteer.enabled && (
+            <Volunteer
+                volunteer={volunteer.value}
+            />
+        )}
         <Publications
             publications={publications.value}
         />
