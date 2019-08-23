@@ -5,9 +5,9 @@ export default function BuildPage(props) {
     const { history } = props;
     const { jsonResume } = getPropsFromLocationHistory(props);
 
-    if (isObjectEmpty(jsonResume)) {
+    if (!jsonResume || isObjectEmpty(jsonResume)) {
         // if no resume, then return to home
-        history.push('/');
+        history.push('/upload');
     }
     console.log(jsonResume);
 

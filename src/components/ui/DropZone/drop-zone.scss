@@ -12,6 +12,8 @@
   color: #bdbdbd;
   outline: none;
   transition: border .24s ease-in-out;
+  margin: 0 5%;
+  height: 150px;
 
   &--active {
     border-color: #2196f3;
