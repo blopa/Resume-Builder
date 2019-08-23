@@ -58,9 +58,11 @@ const Default = ({
                 volunteer={volunteer.value}
             />
         )}
-        <Publications
-            publications={publications.value}
-        />
+        {publications && publications.enabled && (
+            <Publications
+                publications={publications.value}
+            />
+        )}
         <Languages
             languages={languages.value}
         />
