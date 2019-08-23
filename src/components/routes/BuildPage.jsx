@@ -1,4 +1,9 @@
 import React from 'react';
+
+// Components
+import DefaultTemplate from '../ui/Resume/Templates/Default/Default';
+
+// Utils
 import { getPropsFromLocationHistory, isObjectEmpty } from '../../utils/utils';
 
 export default function BuildPage(props) {
@@ -8,12 +13,13 @@ export default function BuildPage(props) {
     if (!jsonResume || isObjectEmpty(jsonResume)) {
         // if no resume, then return to home
         history.push('/upload');
+        return null;
     }
     console.log(jsonResume);
 
     return (
-        <div>
-            Check your log!!!
-        </div>
+        <DefaultTemplate
+            resume={jsonResume}
+        />
     );
 }
