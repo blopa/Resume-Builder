@@ -44,17 +44,6 @@ const BasicsInput = ({ onClick, label, checked }) => {
 };
 
 class Basics extends Component {
-    getNewBasicsDetailObject = (propName, newState) => ({
-        ...this.props.basics,
-        value: {
-            ...this.props.basics.value,
-            [propName]: {
-                ...this.props.basics.value[propName],
-                enabled: newState,
-            },
-        },
-    });
-
     toggleBasics = () => {
         const currentState = this.props.basics.enabled;
         this.props.setResumeBasics({
@@ -66,36 +55,21 @@ class Basics extends Component {
     toggleBasicsDetail = (propName) => {
         const currentState =
             this.props.basics.value[propName].enabled;
-        this.props.setResumeBasics(this.getNewBasicsDetailObject(
-            propName,
-            !currentState
-        ));
-    };
-
-    toggleAddress = () => {
-        const currentState =
-            this.props.basics.value.location.value.address.enabled;
         this.props.setResumeBasics({
             ...this.props.basics,
             value: {
                 ...this.props.basics.value,
-                location: {
-                    ...this.props.basics.value.location,
-                    value: {
-                        ...this.props.basics.value.location.value,
-                        address: {
-                            ...this.props.basics.value.location.value.address,
-                            enabled: !currentState,
-                        },
-                    },
+                [propName]: {
+                    ...this.props.basics.value[propName],
+                    enabled: !currentState,
                 },
             },
         });
     };
 
-    toggleCity = () => {
+    toggleBasicsLocationDetail = (propName) => {
         const currentState =
-            this.props.basics.value.location.value.city.enabled;
+            this.props.basics.value.location.value[propName].enabled;
         this.props.setResumeBasics({
             ...this.props.basics,
             value: {
@@ -104,71 +78,8 @@ class Basics extends Component {
                     ...this.props.basics.value.location,
                     value: {
                         ...this.props.basics.value.location.value,
-                        city: {
-                            ...this.props.basics.value.location.value.city,
-                            enabled: !currentState,
-                        },
-                    },
-                },
-            },
-        });
-    };
-
-    toggleRegion = () => {
-        const currentState =
-            this.props.basics.value.location.value.region.enabled;
-        this.props.setResumeBasics({
-            ...this.props.basics,
-            value: {
-                ...this.props.basics.value,
-                location: {
-                    ...this.props.basics.value.location,
-                    value: {
-                        ...this.props.basics.value.location.value,
-                        region: {
-                            ...this.props.basics.value.location.value.region,
-                            enabled: !currentState,
-                        },
-                    },
-                },
-            },
-        });
-    };
-
-    togglePortalCode = () => {
-        const currentState =
-            this.props.basics.value.location.value.postalCode.enabled;
-        this.props.setResumeBasics({
-            ...this.props.basics,
-            value: {
-                ...this.props.basics.value,
-                location: {
-                    ...this.props.basics.value.location,
-                    value: {
-                        ...this.props.basics.value.location.value,
-                        postalCode: {
-                            ...this.props.basics.value.location.value.postalCode,
-                            enabled: !currentState,
-                        },
-                    },
-                },
-            },
-        });
-    };
-
-    toggleCountryCode = () => {
-        const currentState =
-            this.props.basics.value.location.value.countryCode.enabled;
-        this.props.setResumeBasics({
-            ...this.props.basics,
-            value: {
-                ...this.props.basics.value,
-                location: {
-                    ...this.props.basics.value.location,
-                    value: {
-                        ...this.props.basics.value.location.value,
-                        countryCode: {
-                            ...this.props.basics.value.location.value.countryCode,
+                        [propName]: {
+                            ...this.props.basics.value.location.value[propName],
                             enabled: !currentState,
                         },
                     },
@@ -245,35 +156,45 @@ class Basics extends Component {
                                         <BasicsLi
                                             label={varNameToString({ address })}
                                             checked={address.enabled}
-                                            onClick={this.toggleAddress}
+                                            onClick={() => this.toggleBasicsLocationDetail(
+                                                varNameToString({ address })
+                                            )}
                                         />
                                     )}
                                     {city && (
                                         <BasicsLi
                                             label={varNameToString({ city })}
                                             checked={city.enabled}
-                                            onClick={this.toggleCity}
+                                            onClick={() => this.toggleBasicsLocationDetail(
+                                                varNameToString({ city })
+                                            )}
                                         />
                                     )}
                                     {region && (
                                         <BasicsLi
                                             label={varNameToString({ region })}
                                             checked={region.enabled}
-                                            onClick={this.toggleRegion}
+                                            onClick={() => this.toggleBasicsLocationDetail(
+                                                varNameToString({ region })
+                                            )}
                                         />
                                     )}
                                     {postalCode && (
                                         <BasicsLi
                                             label={varNameToString({ postalCode })}
                                             checked={postalCode.enabled}
-                                            onClick={this.togglePortalCode}
+                                            onClick={() => this.toggleBasicsLocationDetail(
+                                                varNameToString({ postalCode })
+                                            )}
                                         />
                                     )}
                                     {countryCode && (
                                         <BasicsLi
                                             label={varNameToString({ countryCode })}
                                             checked={countryCode.enabled}
-                                            onClick={this.toggleCountryCode}
+                                            onClick={() => this.toggleBasicsLocationDetail(
+                                                varNameToString({ countryCode })
+                                            )}
                                         />
                                     )}
                                 </ul>
