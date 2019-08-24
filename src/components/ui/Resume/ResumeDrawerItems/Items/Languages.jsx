@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import uuid from 'uuid';
 
-const Languages = (props) => (
-    <div>
-        <p>{JSON.stringify(props)}</p>
-    </div>
-);
+const mapDispatchToProps = (dispatch) => ({});
 
-export default Languages;
+class Languages extends Component {
+    render() {
+        return (
+            <div>
+                <p>{JSON.stringify(this.props)}</p>
+            </div>
+        );
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Languages);

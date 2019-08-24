@@ -8,7 +8,6 @@ import { varNameToString, capitalize } from '../../../../../utils/utils';
 // Actions
 import setResumeBasics from '../../../../../store/actions/setResumeBasics';
 
-const mapStateToProps = (state) => ({ storeData: state });
 const mapDispatchToProps = (dispatch) => ({
     setResumeBasics: (basics) => {
         dispatch(setResumeBasics(basics));
@@ -287,4 +286,4 @@ class Basics extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Basics);
+export default connect(null, mapDispatchToProps)(Basics);

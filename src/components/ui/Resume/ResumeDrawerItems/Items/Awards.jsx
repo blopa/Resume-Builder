@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import uuid from 'uuid';
 
-const Awards = (props) => (
-    <div>
-        <p>{JSON.stringify(props)}</p>
-    </div>
-);
+class Awards extends Component {
+    render() {
+        return (
+            <div>
+                <p>{JSON.stringify(this.props)}</p>
+            </div>
+        );
+    }
+}
 
 export default Awards;
