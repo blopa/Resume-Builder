@@ -7,9 +7,6 @@ export const isObjectEmpty = (obj) =>
 export const isObjectNotEmpty = (obj) =>
     isObject(obj) && Object.keys(obj).length > 0;
 
-export const getPropsFromLocationHistory = (props) =>
-    props.history && props.history.location && props.history.location.props || {};
-
 export const traverseObject = (obj) => {
     for (const property in obj) {
         if (obj.hasOwnProperty(property)) {

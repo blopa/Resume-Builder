@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 
 // Components
 import DefaultTemplate from '../ui/Resume/Templates/Default/Default';
@@ -6,7 +7,24 @@ import FloatingButton from '../ui/FloatingButton/FloatingButton';
 import Drawer from '../ui/Drawer/Drawer';
 
 // Utils
-import { getPropsFromLocationHistory, isObjectEmpty } from '../../utils/utils';
+import { isObjectEmpty } from '../../utils/utils';
+
+// Actions
+import setJsonResume from '../../store/actions/setJsonResume';
+import setTogglableJsonResume from '../../store/actions/setTogglableJsonResume';
+
+const mapStateToProps = (state) => ({
+    togglableJsonResume: state.resume.togglableJsonResume,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    setJsonResume: (resume) => {
+        dispatch(setJsonResume(resume));
+    },
+    setTogglableJsonResume: (resume) => {
+        dispatch(setTogglableJsonResume(resume));
+    },
+});
 
 class BuildPage extends Component {
     state = {
@@ -21,7 +39,7 @@ class BuildPage extends Component {
 
     render() {
         const { history } = this.props;
-        const { jsonResume } = getPropsFromLocationHistory(this.props);
+        const jsonResume = this.props.togglableJsonResume;
 
         if (!jsonResume || isObjectEmpty(jsonResume)) {
             // if no resume, then return to home
@@ -53,4 +71,4 @@ class BuildPage extends Component {
     }
 }
 
-export default BuildPage;
+export default connect(mapStateToProps, mapDispatchToProps)(BuildPage);

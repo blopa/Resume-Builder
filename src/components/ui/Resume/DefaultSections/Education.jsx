@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './default-sections.scss';
+import uuid from 'uuid';
 
 const Education = ({ education: educations }) =>
     educations.length > 0 && (
@@ -18,7 +19,7 @@ const Education = ({ education: educations }) =>
                             courses,
                         } = education.value;
                         return (
-                            <li>
+                            <li key={uuid()}>
                                 <p className={style['resume-education--type']}>
                                     {area && area.enabled && area.value}{', '}
                                     {studyType && studyType.enabled && studyType.value}
@@ -35,7 +36,7 @@ const Education = ({ education: educations }) =>
                                         <p>Courses: </p>
                                         <ul>
                                             {courses.value.map((course) => course.enabled && (
-                                                <li>
+                                                <li key={uuid()}>
                                                     {course.value}
                                                 </li>
                                             ))}

@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './default-sections.scss';
+import uuid from 'uuid';
 
 const References = ({ references }) =>
     references.length > 0 && (
@@ -10,7 +11,7 @@ const References = ({ references }) =>
                     if (ref.enabled) {
                         const { name, reference } = ref.value;
                         return (
-                            <li>
+                            <li key={uuid()}>
                                 {name && name.enabled && (
                                     <p className={style['resume-references--name']}>
                                         {name.value}

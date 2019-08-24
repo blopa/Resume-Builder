@@ -7,7 +7,7 @@ import rootReducer from './modules';
 
 const middlewares = [thunkMiddleware, axiosMiddleware(axios)];
 
-export default function configureStore(initialState) {
+export default function configureStore(initialState = {}) {
     const store = createStore(
         rootReducer,
         initialState,
@@ -23,7 +23,6 @@ export default function configureStore(initialState) {
      */
     if (module.hot) {
         module.hot.accept('./modules', () => {
-            // eslint-disable-next-line global-require
             const nextRootReducer = require('./modules/index');
 
             store.replaceReducer(nextRootReducer);

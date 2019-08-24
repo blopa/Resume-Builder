@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './default-sections.scss';
+import uuid from 'uuid';
 
 const Publications = ({ publications }) =>
     publications.length > 0 && (
@@ -16,7 +17,7 @@ const Publications = ({ publications }) =>
                             summary,
                         } = publication.value;
                         return (
-                            <li>
+                            <li key={uuid()}>
                                 {name && name.enabled && (
                                     <p className={style['resume-publications--publication']}>
                                         {name.value}

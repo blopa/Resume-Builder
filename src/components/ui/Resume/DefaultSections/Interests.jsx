@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './default-sections.scss';
+import uuid from 'uuid';
 
 const Interests = ({ interests }) =>
     interests.length > 0 && (
@@ -10,7 +11,7 @@ const Interests = ({ interests }) =>
                     if (interest.enabled) {
                         const { name, keywords } = interest.value;
                         return (
-                            <li>
+                            <li key={uuid()}>
                                 {name && name.enabled && (
                                     <p className={style['resume-interests--interest']}>
                                         {name.value}
@@ -20,7 +21,7 @@ const Interests = ({ interests }) =>
                                     <ul className={style['resume-interests--keywords']}>
                                         {keywords.value.map((keyword) =>
                                             keyword && keyword.enabled && (
-                                                <li>
+                                                <li key={uuid()}>
                                                     {keyword.value}
                                                 </li>
                                             ))}

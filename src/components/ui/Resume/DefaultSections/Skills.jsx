@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './default-sections.scss';
+import uuid from 'uuid';
 
 const Skills = ({ skills }) =>
     skills.length > 0 && (
@@ -10,7 +11,7 @@ const Skills = ({ skills }) =>
                     if (skill.enabled) {
                         const { name, level, keywords } = skill.value;
                         return (
-                            <li>
+                            <li key={uuid()}>
                                 <p className={style['resume-skills--title']}>
                                     {name && name.enabled && name.value}{', '}
                                     {level && level.enabled && level.value}
@@ -18,7 +19,7 @@ const Skills = ({ skills }) =>
                                 {keywords && keywords.enabled && (
                                     <ul className={style['resume-skills--keywords']}>
                                         {keywords.value.map((keyword) =>
-                                            keywords.enabled && <li>{keyword.value}</li>)
+                                            keywords.enabled && <li key={uuid()}>{keyword.value}</li>)
                                         }
                                     </ul>
                                 )}

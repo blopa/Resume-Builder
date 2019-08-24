@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './default-sections.scss';
+import uuid from 'uuid';
 
 const Languages = ({ languages }) =>
     languages.length > 0 && (
@@ -10,7 +11,7 @@ const Languages = ({ languages }) =>
                     if (lang.enabled) {
                         const { language, fluency } = lang.value;
                         return (
-                            <li>
+                            <li key={uuid()}>
                                 <p>
                                     {language && language.enabled && language.value}{', '}
                                     {fluency && fluency.enabled && fluency.value}

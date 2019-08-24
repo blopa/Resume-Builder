@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './default-sections.scss';
+import uuid from 'uuid';
 
 const Awards = ({ awards }) =>
     awards.length > 0 && (
@@ -10,7 +11,7 @@ const Awards = ({ awards }) =>
                     if (award.enabled) {
                         const { title, date, awarder, summary } = award.value;
                         return (
-                            <li>
+                            <li key={uuid()}>
                                 <p className={style['resume-awards--award']}>
                                     {title && title.enabled && title.value}
                                 </p>

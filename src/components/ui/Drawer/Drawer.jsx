@@ -15,4 +15,3 @@ const Drawer = (props) => (
 );
 
 export default Drawer;
-

@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './default-sections.scss';
+import uuid from 'uuid';
 
 const Work = ({ work: works }) =>
     works.length > 0 && (
@@ -19,7 +20,7 @@ const Work = ({ work: works }) =>
                         } = work.value;
 
                         return (
-                            <li>
+                            <li key={uuid()}>
                                 <p className={style['resume-work--position']}>
                                     {position && position.enabled && `${position.value}, `}
                                     {company && company.enabled && `${company.value}, `}
@@ -37,7 +38,7 @@ const Work = ({ work: works }) =>
                                     <ul className={style['resume-work--highlights']}>
                                         {highlights.value.map((highlight) =>
                                             highlight && highlight.enabled && (
-                                                <li>
+                                                <li key={uuid()}>
                                                     {highlight.value}
                                                 </li>
                                             ))}

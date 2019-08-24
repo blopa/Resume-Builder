@@ -57,6 +57,7 @@
     "redux-axios-middleware": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "storybook-router": "^0.3.4",
+    "uuid": "^3.3.3",
     "webpack-bundle-analyzer": "^3.4.1",
     "xlsx": "^0.15.1"
   },

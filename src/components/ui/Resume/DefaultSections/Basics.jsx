@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import style from './default-sections.scss';
+import uuid from 'uuid';
 
 const Basics = ({
     basics: {
@@ -33,16 +34,16 @@ const Basics = ({
             }
             {locationEnabled && (
                 <ul className={style['resume-basics--address']}>
-                    {address && address.enabled && <li>{address.value}</li>}
-                    {city && city.enabled && <li>{city.value}</li>}
-                    {region && region.enabled && <li>{region.value}</li>}
-                    {postalCode && postalCode.enabled && <li>{postalCode.value}</li>}
-                    {countryCode && countryCode.enabled && <li>{countryCode.value}</li>}
+                    {address && address.enabled && <li key={uuid()}>{address.value}</li>}
+                    {city && city.enabled && <li key={uuid()}>{city.value}</li>}
+                    {region && region.enabled && <li key={uuid()}>{region.value}</li>}
+                    {postalCode && postalCode.enabled && <li key={uuid()}>{postalCode.value}</li>}
+                    {countryCode && countryCode.enabled && <li key={uuid()}>{countryCode.value}</li>}
                 </ul>
             )}
             <ul className={style['resume-basics--contact-info']}>
                 {website && website.enabled && (
-                    <li>
+                    <li key={uuid()}>
                         <a
                             className={style['resume-basics--website']}
                             href={website.value}
@@ -52,8 +53,8 @@ const Basics = ({
                         </a>
                     </li>
                 )}
-                {phone && phone.enabled && <li>{phone.value}</li>}
-                {email && email.enabled && <li>{email.value}</li>}
+                {phone && phone.enabled && <li key={uuid()}>{phone.value}</li>}
+                {email && email.enabled && <li key={uuid()}>{email.value}</li>}
             </ul>
             {profiles && profiles.enabled && (
                 <ul className={style['resume-basics--social-media']}>
@@ -61,7 +62,7 @@ const Basics = ({
                         if (profile.enabled) {
                             const { url, network, username } = profile.value;
                             return url.enabled && network.enabled && username.enabled && (
-                                <li>
+                                <li key={uuid()}>
                                     <a
                                         href={url.value}
                                         title={username.value}
