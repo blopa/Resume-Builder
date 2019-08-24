@@ -8,14 +8,6 @@
     margin: 0;
   }
 
-  h4 {
-    margin: 0;
-  }
-
-  p {
-    margin: 0;
-  }
-
   &--address {
     margin: 0;
     padding: 0;
@@ -87,22 +79,25 @@
 .resume-summary {
   padding: 15px 0;
   border-bottom: 1px solid #ddd;
-
-  h4 {
-    margin: 0;
-  }
-
-  p {
-    margin: 0;
-  }
 }
 
 // WORK
 .resume-work {
+  padding: 15px 0;
   border-bottom: 1px solid #ddd;
 
-  &--position {
+  &--works {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 
+    li {
+      margin: 0 0 10px 0;
+    }
+  }
+
+  &--position {
+    font-weight: bold;
   }
 
   &--website {
@@ -114,29 +109,63 @@
   }
 
   &--highlights {
+    list-style: disc;
 
+    li {
+      font-style: italic;
+      margin: 0;
+    }
   }
 }
 
 // SKILLS
 .resume-skills {
+  padding: 15px 0;
   border-bottom: 1px solid #ddd;
 
-  &--title {
+  &--skills {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 
+    li {
+      margin: 0 0 10px 0;
+    }
+  }
+
+  &--title {
+    font-weight: bold;
   }
 
   &--keywords {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
 
+    li {
+      margin-right: 5px;
+
+      &:after {
+        content: ",";
+      }
+
+      &:last-child {
+        &:after {
+          content: "";
+        }
+      }
+    }
   }
 }
 
 // EDUCATION
 .resume-education {
+  padding: 15px 0;
   border-bottom: 1px solid #ddd;
 
   &--type {
-
+    font-weight: bold;
   }
 
   &--institution {
@@ -144,29 +173,78 @@
   }
 
   &--courses {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 
+    li {
+      margin: 0 0 10px 0;
+    }
+  }
+
+  &--courses-details {
+    display: flex;
+
+    ul {
+      margin: 0 0 0 5px;
+      padding: 0;
+      display: flex;
+      list-style: none;
+
+      li {
+        margin-right: 5px;
+
+        &:after {
+          content: ",";
+        }
+
+        &:last-child {
+          &:after {
+            content: "";
+          }
+        }
+      }
+    }
   }
 }
 
 // AWARDS
 .resume-awards {
+  padding: 15px 0;
   border-bottom: 1px solid #ddd;
 
-  &--awards {
+  &--award {
+    font-weight: bold;
+  }
 
+  &--awards {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0 0 10px 0;
+    }
   }
 }
 
 // VOLUNTEER
 .resume-volunteer {
+  padding: 15px 0;
   border-bottom: 1px solid #ddd;
 
   &--volunteers {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 
+    li {
+      margin: 0 0 10px 0;
+    }
   }
 
   &--position {
-
+    font-weight: bold;
   }
 
   &--website {
@@ -178,40 +256,117 @@
   }
 
   &--highlights {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
 
+    li {
+      margin-right: 5px;
+
+      &:after {
+        content: ",";
+      }
+
+      &:last-child {
+        &:after {
+          content: "";
+        }
+      }
+    }
   }
 }
 
 // PUBLICATIONS
 .resume-publications {
+  padding: 15px 0;
   border-bottom: 1px solid #ddd;
 
   &--publications {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 
+    li {
+      margin: 0 0 10px 0;
+    }
+  }
+
+  &--publication {
+    font-weight: bold;
   }
 }
 
 // LANGUAGES
 .resume-languages {
+  padding: 15px 0;
   border-bottom: 1px solid #ddd;
 
   &--languages {
+    margin: 0;
 
+    li {
+      margin: 0 0 10px 0;
+    }
   }
 }
 
 // INTERESTS
 .resume-interests {
+  padding: 15px 0;
   border-bottom: 1px solid #ddd;
 
   &--interests {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 
+    li {
+      margin: 0 0 10px 0;
+    }
+  }
+
+  &--interest {
+    font-weight: bold;
+  }
+
+  &--keywords {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+
+    li {
+      margin-right: 5px;
+
+      &:after {
+        content: ",";
+      }
+
+      &:last-child {
+        &:after {
+          content: "";
+        }
+      }
+    }
   }
 }
 
 // REFERENCES
 .resume-references {
-  &--references {
+  padding: 15px 0;
 
+  &--name {
+    font-weight: bold;
+  }
+
+  &--references {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0 0 10px 0;
+    }
   }
 }

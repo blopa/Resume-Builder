@@ -4,8 +4,8 @@ import style from './default-sections.scss';
 const Education = ({ education: educations }) =>
     educations.length > 0 && (
         <div className={style['resume-education']}>
-            <h4>Education</h4>
-            <ul>
+            <h3>Education</h3>
+            <ul className={style['resume-education--courses']}>
                 {educations.map((education) => {
                     if (education.enabled) {
                         const {
@@ -31,7 +31,7 @@ const Education = ({ education: educations }) =>
                                     {gpa && gpa.enabled && `GPA: ${gpa.value}`}
                                 </p>
                                 {courses && courses.enabled && (
-                                    <div className={style['resume-education--courses']}>
+                                    <div className={style['resume-education--courses-details']}>
                                         <p>Courses: </p>
                                         <ul>
                                             {courses.value.map((course) => course.enabled && (

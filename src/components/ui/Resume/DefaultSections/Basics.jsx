@@ -26,10 +26,10 @@ const Basics = ({
     <Fragment>
         <div className={style['resume-basics']}>
             {name && name.enabled
-            && <h3>{name.value}</h3>
+            && <h2>{name.value}</h2>
             }
             {label && label.enabled
-            && <h4>{label.value}</h4>
+            && <h3>{label.value}</h3>
             }
             {locationEnabled && (
                 <ul className={style['resume-basics--address']}>
@@ -75,7 +75,7 @@ const Basics = ({
         </div>
         {summary && summary.enabled && (
             <div className={style['resume-summary']}>
-                <h4>Summary</h4>
+                <h3>Summary</h3>
                 <p>{summary.value}</p>
             </div>
         )}

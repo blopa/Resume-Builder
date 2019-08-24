@@ -4,7 +4,7 @@ import style from './default-sections.scss';
 const Volunteer = ({ volunteer: volunteers }) =>
     volunteers.length > 0 && (
         <div className={style['resume-volunteer']}>
-            <h4>Volunteer</h4>
+            <h3>Volunteer</h3>
             <ul className={style['resume-volunteer--volunteers']}>
                 {volunteers.map((volunteer) => {
                     if (volunteer.enabled) {

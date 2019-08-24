@@ -4,7 +4,7 @@ import style from './default-sections.scss';
 const Publications = ({ publications }) =>
     publications.length > 0 && (
         <div className={style['resume-publications']}>
-            <h4>Publications</h4>
+            <h3>Publications</h3>
             <ul className={style['resume-publications--publications']}>
                 {publications.map((publication) => {
                     if (publication.enabled) {
@@ -17,11 +17,13 @@ const Publications = ({ publications }) =>
                         } = publication.value;
                         return (
                             <li>
-                                {name && name.enabled && <p>{name.value}</p>}
-                                {summary && summary.enabled && <p>{summary.value}</p>}
+                                {name && name.enabled && <p className={style['resume-publications--publication']}>
+                                    {name.value}
+                                </p>}
                                 {publisher && publisher.enabled && <p>{publisher.value}</p>}
                                 {website && website.enabled && <p>{website.value}</p>}
                                 {releaseDate && releaseDate.enabled && <p>{releaseDate.value}</p>}
+                                {summary && summary.enabled && <p>{summary.value}</p>}
                             </li>
                         );
                     }

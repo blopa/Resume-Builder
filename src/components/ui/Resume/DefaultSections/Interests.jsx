@@ -4,16 +4,18 @@ import style from './default-sections.scss';
 const Interests = ({ interests }) =>
     interests.length > 0 && (
         <div className={style['resume-interests']}>
-            <h4>Interests</h4>
+            <h3>Interests</h3>
             <ul className={style['resume-interests--interests']}>
                 {interests.map((interest) => {
                     if (interest.enabled) {
                         const { name, keywords } = interest.value;
                         return (
                             <li>
-                                {name && name.enabled && <p>{name.value}</p>}
+                                {name && name.enabled && <p className={style['resume-interests--interest']}>
+                                    {name.value}
+                                </p>}
                                 {keywords && keywords.enabled && (
-                                    <ul>
+                                    <ul className={style['resume-interests--keywords']}>
                                         {keywords.value.map((keyword) =>
                                             keyword && keyword.enabled && (
                                                 <li>

@@ -4,8 +4,8 @@ import style from './default-sections.scss';
 const Work = ({ work: works }) =>
     works.length > 0 && (
         <div className={style['resume-work']}>
-            <h4>Experience</h4>
-            <ul>
+            <h3>Experience</h3>
+            <ul className={style['resume-work--works']}>
                 {works.map((work) => {
                     if (work.enabled) {
                         const {

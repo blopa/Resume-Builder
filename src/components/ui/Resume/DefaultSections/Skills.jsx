@@ -4,8 +4,8 @@ import style from './default-sections.scss';
 const Skills = ({ skills }) =>
     skills.length > 0 && (
         <div className={style['resume-skills']}>
-            <h4>Skills</h4>
-            <ul>
+            <h3>Skills</h3>
+            <ul className={style['resume-skills--skills']}>
                 {skills.map((skill) => {
                     if (skill.enabled) {
                         const { name, level, keywords } = skill.value;
