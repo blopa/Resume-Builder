@@ -1,26 +1,26 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import style from './default-sections.scss';
 
 const References = ({ references }) =>
     references.length > 0 && (
-        <Fragment>
+        <div className={style['resume-references']}>
             <h4>References</h4>
-            <ul>
+            <ul className={style['resume-references']}>
                 {references.map((ref) => {
                     if (ref.enabled) {
                         const { name, reference } = ref.value;
                         return (
-                            <Fragment>
+                            <li>
                                 {name && name.enabled && <p>{name.value}</p>}
                                 {reference && reference.enabled && <p>{reference.value}</p>}
-                            </Fragment>
+                            </li>
                         );
                     }
 
                     return null;
                 })}
             </ul>
-        </Fragment>
+        </div>
     );
 
 export default References;

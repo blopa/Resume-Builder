@@ -1,28 +1,28 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import style from './default-sections.scss';
 
 const Languages = ({ languages }) =>
     languages.length > 0 && (
-        <Fragment>
+        <div className={style['resume-languages']}>
             <h4>Languages</h4>
-            <ul>
+            <ul className={style['resume-languages-languages']}>
                 {languages.map((lang) => {
                     if (lang.enabled) {
                         const { language, fluency } = lang.value;
                         return (
-                            <Fragment>
+                            <li>
                                 <p>
                                     {language && language.enabled && language.value}{', '}
                                     {fluency && fluency.enabled && fluency.value}
                                 </p>
-                            </Fragment>
+                            </li>
                         );
                     }
 
                     return null;
                 })}
             </ul>
-        </Fragment>
+        </div>
     );
 
 export default Languages;

@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import style from './default-sections.scss';
 
 const Education = ({ education: educations }) =>
     educations.length > 0 && (
-        <Fragment>
+        <div className={style['resume-education']}>
             <h4>Education</h4>
             <ul>
                 {educations.map((education) => {
@@ -18,12 +18,12 @@ const Education = ({ education: educations }) =>
                             courses,
                         } = education.value;
                         return (
-                            <Fragment>
-                                <p>
+                            <li>
+                                <p className={style['resume-education--type']}>
                                     {area && area.enabled && area.value}{', '}
                                     {studyType && studyType.enabled && studyType.value}
                                 </p>
-                                <p>
+                                <p className={style['resume-education--institution']}>
                                     {institution && institution.enabled && institution.value}{', '}
                                     {startDate && startDate.enabled && startDate.value}
                                     {' - '}
@@ -31,7 +31,7 @@ const Education = ({ education: educations }) =>
                                     {gpa && gpa.enabled && `GPA: ${gpa.value}`}
                                 </p>
                                 {courses && courses.enabled && (
-                                    <Fragment>
+                                    <div className={style['resume-education--courses']}>
                                         <p>Courses: </p>
                                         <ul>
                                             {courses.value.map((course) => course.enabled && (
@@ -40,16 +40,16 @@ const Education = ({ education: educations }) =>
                                                 </li>
                                             ))}
                                         </ul>
-                                    </Fragment>
+                                    </div>
                                 )}
-                            </Fragment>
+                            </li>
                         );
                     }
 
                     return null;
                 })}
             </ul>
-        </Fragment>
+        </div>
     );
 
 export default Education;

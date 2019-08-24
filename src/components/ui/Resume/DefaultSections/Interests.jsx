@@ -1,16 +1,16 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import style from './default-sections.scss';
 
 const Interests = ({ interests }) =>
     interests.length > 0 && (
-        <Fragment>
+        <div className={style['resume-interests']}>
             <h4>Interests</h4>
-            <ul>
+            <ul className={style['resume-interests--interests']}>
                 {interests.map((interest) => {
                     if (interest.enabled) {
                         const { name, keywords } = interest.value;
                         return (
-                            <Fragment>
+                            <li>
                                 {name && name.enabled && <p>{name.value}</p>}
                                 {keywords && keywords.enabled && (
                                     <ul>
@@ -22,14 +22,14 @@ const Interests = ({ interests }) =>
                                             ))}
                                     </ul>
                                 )}
-                            </Fragment>
+                            </li>
                         );
                     }
 
                     return null;
                 })}
             </ul>
-        </Fragment>
+        </div>
     );
 
 export default Interests;

@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import style from './default-template.scss';
 
 // Components
 import Basics from '../../DefaultSections/Basics';
@@ -26,8 +27,7 @@ const Default = ({
         references,
     },
 }) => (
-    <Fragment>
-        <h1>Resume</h1>
+    <div className={style['resume-default-template']}>
         {basics && basics.enabled && (
             <Basics
                 basics={basics.value}
@@ -78,7 +78,7 @@ const Default = ({
                 references={references.value}
             />
         )}
-    </Fragment>
+    </div>
 );
 
 export default Default;

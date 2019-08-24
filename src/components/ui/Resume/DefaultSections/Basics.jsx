@@ -23,56 +23,63 @@ const Basics = ({
         profiles,
     },
 }) => (
-    <div>
-        {name && name.enabled && <h3>{name.value}</h3>}
-        {label && label.enabled && <h4>{label.value}</h4>}
-        {locationEnabled && (
-            <p>
-                {address && address.enabled && `${address.value}, `}
-                {city && city.enabled && `${city.value}, `}
-                {region && region.enabled && `${region.value}, `}
-                {postalCode && postalCode.enabled && `${postalCode.value}, `}
-                {countryCode && countryCode.enabled && countryCode.value}
-            </p>
-        )}
-        <p>
-            {website && website.enabled && (
-                <Fragment>
-                    <a href={website.value}>{website.value}</a>{' | '}
-                </Fragment>
+    <Fragment>
+        <div className={style['resume-basics']}>
+            {name && name.enabled
+            && <h3>{name.value}</h3>
+            }
+            {label && label.enabled
+            && <h4>{label.value}</h4>
+            }
+            {locationEnabled && (
+                <ul className={style['resume-basics--address']}>
+                    {address && address.enabled && <li>{address.value}</li>}
+                    {city && city.enabled && <li>{city.value}</li>}
+                    {region && region.enabled && <li>{region.value}</li>}
+                    {postalCode && postalCode.enabled && <li>{postalCode.value}</li>}
+                    {countryCode && countryCode.enabled && <li>{countryCode.value}</li>}
+                </ul>
             )}
-            {phone && phone.enabled && `${phone.value} | `}
-            {email && email.enabled && email.value}
-        </p>
-        {profiles && profiles.enabled && (
-            <ul>
-                {profiles.value.map((profile) => {
-                    if (profile.enabled) {
-                        const { url, network, username } = profile.value;
-                        return url.enabled && network.enabled && username.enabled && (
-                            <li>
-                                <a
-                                    href={url.value}
-                                    title={network.value}
-                                >
-                                    {username.value}
-                                </a>
-                            </li>
-                        );
-                    }
-
-                    return null;
-                })}
+            <ul className={style['resume-basics--contact-info']}>
+                {website && website.enabled && (
+                    <li>
+                        <a className={style['resume-basics--website']} href={website.value}>
+                            {website.value}
+                        </a>
+                    </li>
+                )}
+                {phone && phone.enabled && <li>{phone.value}</li>}
+                {email && email.enabled && <li>{email.value}</li>}
             </ul>
-        )}
+            {profiles && profiles.enabled && (
+                <ul className={style['resume-basics--social-media']}>
+                    {profiles.value.map((profile) => {
+                        if (profile.enabled) {
+                            const { url, network, username } = profile.value;
+                            return url.enabled && network.enabled && username.enabled && (
+                                <li>
+                                    <a
+                                        href={url.value}
+                                        title={username.value}
+                                    >
+                                        {network.value}
+                                    </a>
+                                </li>
+                            );
+                        }
+
+                        return null;
+                    })}
+                </ul>
+            )}
+        </div>
         {summary && summary.enabled && (
-            <div>
-                <hr />
+            <div className={style['resume-summary']}>
                 <h4>Summary</h4>
                 <p>{summary.value}</p>
             </div>
         )}
-    </div>
+    </Fragment>
 );
 
 export default Basics;

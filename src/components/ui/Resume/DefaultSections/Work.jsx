@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import style from './default-sections.scss';
 
 const Work = ({ work: works }) =>
     works.length > 0 && (
-        <Fragment>
+        <div className={style['resume-work']}>
             <h4>Experience</h4>
             <ul>
                 {works.map((work) => {
@@ -20,21 +20,21 @@ const Work = ({ work: works }) =>
 
                         return (
                             <li>
-                                <p>
+                                <p className={style['resume-work--position']}>
                                     {position && position.enabled && `${position.value}, `}
                                     {company && company.enabled && `${company.value}, `}
                                     {startDate && startDate.enabled && startDate.value}
                                     {' - '}
                                     {endDate && endDate.enabled && endDate.value}
                                 </p>
-                                <p>
+                                <p className={style['resume-work--website']}>
                                     {website && website.enabled && website.value}
                                 </p>
-                                <p>
+                                <p className={style['resume-work--summary']}>
                                     {summary && summary.enabled && summary.value}
                                 </p>
                                 {highlights && highlights.enabled && (
-                                    <ul>
+                                    <ul className={style['resume-work--highlights']}>
                                         {highlights.value.map((highlight) =>
                                             highlight && highlight.enabled && (
                                                 <li>
@@ -50,7 +50,7 @@ const Work = ({ work: works }) =>
                     return null;
                 })}
             </ul>
-        </Fragment>
+        </div>
     );
 
 export default Work;

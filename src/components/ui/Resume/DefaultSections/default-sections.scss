@@ -1,0 +1,217 @@
+// BASICS
+.resume-basics {
+  padding: 15px 0;
+  border-bottom: 1px solid #ddd;
+
+  h3 {
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  h4 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  &--address {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+
+    li {
+      margin-right: 5px;
+
+      &:after {
+        content: ",";
+      }
+
+      &:last-child {
+        &:after {
+          content: "";
+        }
+      }
+    }
+  }
+
+  &--contact-info {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+
+    li {
+      margin-right: 5px;
+
+      &:after {
+        content: " |";
+      }
+
+      &:last-child {
+        &:after {
+          content: "";
+        }
+      }
+    }
+  }
+
+  &--social-media {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+
+    li {
+      margin-right: 5px;
+
+      &:after {
+        content: " |";
+      }
+
+      &:last-child {
+        &:after {
+          content: "";
+        }
+      }
+    }
+  }
+
+  &--website {
+
+  }
+}
+
+.resume-summary {
+  padding: 15px 0;
+  border-bottom: 1px solid #ddd;
+
+  h4 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+// WORK
+.resume-work {
+  border-bottom: 1px solid #ddd;
+
+  &--position {
+
+  }
+
+  &--website {
+
+  }
+
+  &--summary {
+
+  }
+
+  &--highlights {
+
+  }
+}
+
+// SKILLS
+.resume-skills {
+  border-bottom: 1px solid #ddd;
+
+  &--title {
+
+  }
+
+  &--keywords {
+
+  }
+}
+
+// EDUCATION
+.resume-education {
+  border-bottom: 1px solid #ddd;
+
+  &--type {
+
+  }
+
+  &--institution {
+
+  }
+
+  &--courses {
+
+  }
+}
+
+// AWARDS
+.resume-awards {
+  border-bottom: 1px solid #ddd;
+
+  &--awards {
+
+  }
+}
+
+// VOLUNTEER
+.resume-volunteer {
+  border-bottom: 1px solid #ddd;
+
+  &--volunteers {
+
+  }
+
+  &--position {
+
+  }
+
+  &--website {
+
+  }
+
+  &--summary {
+
+  }
+
+  &--highlights {
+
+  }
+}
+
+// PUBLICATIONS
+.resume-publications {
+  border-bottom: 1px solid #ddd;
+
+  &--publications {
+
+  }
+}
+
+// LANGUAGES
+.resume-languages {
+  border-bottom: 1px solid #ddd;
+
+  &--languages {
+
+  }
+}
+
+// INTERESTS
+.resume-interests {
+  border-bottom: 1px solid #ddd;
+
+  &--interests {
+
+  }
+}
+
+// REFERENCES
+.resume-references {
+  &--references {
+
+  }
+}
