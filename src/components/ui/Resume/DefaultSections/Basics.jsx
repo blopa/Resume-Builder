@@ -26,12 +26,8 @@ const Basics = ({
 }) => (
     <Fragment>
         <div className={style['resume-basics']}>
-            {name && name.enabled
-            && <h2>{name.value}</h2>
-            }
-            {label && label.enabled
-            && <h3>{label.value}</h3>
-            }
+            {name && name.enabled && <h2>{name.value}</h2>}
+            {label && label.enabled && <h3>{label.value}</h3>}
             {locationEnabled && (
                 <ul className={style['resume-basics--address']}>
                     {address && address.enabled && <li key={uuid()}>{address.value}</li>}

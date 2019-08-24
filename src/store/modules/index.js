@@ -18,6 +18,16 @@ export default combineReducers({
                         ...action.resume,
                     },
                 };
+            case 'SET_RESUME_BASICS':
+                return {
+                    ...state,
+                    togglableJsonResume: {
+                        ...state.togglableJsonResume,
+                        basics: {
+                            ...action.basics,
+                        },
+                    },
+                };
             default:
                 return state;
         }

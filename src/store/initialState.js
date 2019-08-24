@@ -1,4 +1,6 @@
 export default {
-    jsonResume: {},
-    togglableJsonResume: {},
+    resume: {
+        jsonResume: {},
+        togglableJsonResume: {},
+    },
 };

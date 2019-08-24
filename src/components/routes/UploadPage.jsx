@@ -39,7 +39,7 @@ class UploadPage extends Component {
         if (spreadsheetArray && spreadsheetArray.length) {
             let jsonResume = spreadsheetToJsonResume(spreadsheetArray);
             this.props.setJsonResume(jsonResume);
-            const togglableJsonResume = traverseObject(jsonResume);
+            const togglableJsonResume = traverseObject({ ...jsonResume });
             this.props.setTogglableJsonResume(togglableJsonResume);
 
             history.push({

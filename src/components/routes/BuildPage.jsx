@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import DefaultTemplate from '../ui/Resume/Templates/Default/Default';
 import FloatingButton from '../ui/FloatingButton/FloatingButton';
 import Drawer from '../ui/Drawer/Drawer';
+import ResumeDrawerItems from '../ui/Resume/ResumeDrawerItems/ResumeDrawerItems';
 
 // Utils
 import { isObjectEmpty } from '../../utils/utils';
@@ -14,6 +15,7 @@ import setJsonResume from '../../store/actions/setJsonResume';
 import setTogglableJsonResume from '../../store/actions/setTogglableJsonResume';
 
 const mapStateToProps = (state) => ({
+    jsonResume: state.resume.jsonResume,
     togglableJsonResume: state.resume.togglableJsonResume,
 });
 
@@ -39,14 +41,14 @@ class BuildPage extends Component {
 
     render() {
         const { history } = this.props;
-        const jsonResume = this.props.togglableJsonResume;
+        const { togglableJsonResume, jsonResume } = this.props;
 
-        if (!jsonResume || isObjectEmpty(jsonResume)) {
+        if (!togglableJsonResume || isObjectEmpty(togglableJsonResume)) {
             // if no resume, then return to home
             history.push('/upload');
             return null;
         }
-        console.log(jsonResume);
+        console.log(togglableJsonResume);
 
         return (
             <Fragment>
@@ -57,14 +59,12 @@ class BuildPage extends Component {
                     open={this.state.drawerOpen}
                     onClose={this.toggleDrawer}
                 >
-                    <ul>
-                        <li>Item 1</li>
-                        <li>Item 2</li>
-                        <li>Item 3</li>
-                    </ul>
+                    <ResumeDrawerItems
+                        resume={togglableJsonResume}
+                    />
                 </Drawer>
                 <DefaultTemplate
-                    resume={jsonResume}
+                    resume={togglableJsonResume}
                 />
             </Fragment>
         );

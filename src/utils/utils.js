@@ -23,3 +23,8 @@ export const traverseObject = (obj) => {
 
     return obj;
 };
+
+export const capitalize = (string) =>
+    string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+
+export const varNameToString = (varObj) => Object.keys(varObj)[0];
