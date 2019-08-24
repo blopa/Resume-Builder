@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid';
 
 // Components
 import ItemInput from './List/ItemInput';
 import ItemsList from './List/ItemsList';
+
+// Utils
+import { varNameToString } from '../../../../../utils/utils';
 
 // Actions
 import setResumeWork from '../../../../../store/actions/setResumeWork';
@@ -17,12 +20,50 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Work extends Component {
-    toggleWork = () => {
+    toggleWorks = () => {
         const currentState = this.props.work.enabled;
         this.props.setResumeWork({
             ...this.props.work,
             enabled: !currentState,
         });
+    };
+
+    toggleWork = (work) => {
+        const newWork = { ...this.props.work };
+        newWork.value =
+            newWork.value.map((wrk) => {
+                if (JSON.stringify(wrk.value) === JSON.stringify(work.value)) {
+                    return {
+                        ...wrk,
+                        enabled: !wrk.enabled,
+                    };
+                } else {
+                    return wrk;
+                }
+            });
+        this.props.setResumeWork(newWork);
+    };
+
+    toggleWorkDetail = (work, propName) => {
+        const newWork = { ...this.props.work };
+        newWork.value =
+            newWork.value.map((wrk) => {
+                if (JSON.stringify(wrk.value) === JSON.stringify(work.value)) {
+                    return {
+                        ...wrk,
+                        value: {
+                            ...wrk.value,
+                            [propName]: {
+                                ...wrk.value[propName],
+                                enabled: !wrk.value[propName].enabled,
+                            },
+                        },
+                    };
+                } else {
+                    return wrk;
+                }
+            });
+        this.props.setResumeWork(newWork);
     };
 
     render() {
@@ -32,15 +73,107 @@ class Work extends Component {
                 value: works,
             },
         } = this.props;
-        console.log(works);
 
         return (
             <div>
                 <ItemInput
                     label="work"
-                    onChange={this.toggleWork}
+                    onChange={this.toggleWorks}
                     checked={workEnabled}
                 />
+                {workEnabled && (
+                    <ul>
+                        {works.map((work) => {
+                            const {
+                                company,
+                                position,
+                                website,
+                                startDate,
+                                endDate,
+                                summary,
+                                highlights,
+                            } = work.value;
+
+                            return (
+                                <Fragment key={uuid()}>
+                                    <ItemsList
+                                        label={company.value}
+                                        key={uuid()}
+                                        checked={work.enabled}
+                                        onClick={() => this.toggleWork(work)}
+                                    />
+                                    {work.enabled && (
+                                        <ul>
+                                            <ItemsList
+                                                label={varNameToString({ company })}
+                                                key={uuid()}
+                                                checked={company.enabled}
+                                                onClick={() => this.toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ company })
+                                                )}
+                                            />
+                                            <ItemsList
+                                                label={varNameToString({ position })}
+                                                key={uuid()}
+                                                checked={position.enabled}
+                                                onClick={() => this.toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ position })
+                                                )}
+                                            />
+                                            <ItemsList
+                                                label={varNameToString({ website })}
+                                                key={uuid()}
+                                                checked={website.enabled}
+                                                onClick={() => this.toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ website })
+                                                )}
+                                            />
+                                            <ItemsList
+                                                label={varNameToString({ startDate })}
+                                                key={uuid()}
+                                                checked={startDate.enabled}
+                                                onClick={() => this.toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ startDate })
+                                                )}
+                                            />
+                                            <ItemsList
+                                                label={varNameToString({ endDate })}
+                                                key={uuid()}
+                                                checked={endDate.enabled}
+                                                onClick={() => this.toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ endDate })
+                                                )}
+                                            />
+                                            <ItemsList
+                                                label={varNameToString({ summary })}
+                                                key={uuid()}
+                                                checked={summary.enabled}
+                                                onClick={() => this.toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ summary })
+                                                )}
+                                            />
+                                            <ItemsList
+                                                label={varNameToString({ highlights })}
+                                                key={uuid()}
+                                                checked={highlights.enabled}
+                                                onClick={() => this.toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ highlights })
+                                                )}
+                                            />
+                                        </ul>
+                                    )}
+                                </Fragment>
+                            );
+                        })}
+                    </ul>
+                )}
             </div>
         );
     }

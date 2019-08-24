@@ -68,7 +68,7 @@ class Basics extends Component {
         const newBasics = { ...this.props.basics };
         newBasics.value.profiles.value =
             newBasics.value.profiles.value.map((pro) => {
-                if (JSON.stringify(pro.value) === JSON.stringify(profile)) {
+                if (JSON.stringify(pro.value) === JSON.stringify(profile.value)) {
                     return {
                         ...pro,
                         enabled: !pro.enabled,
@@ -238,7 +238,7 @@ class Basics extends Component {
                                                     key={uuid()}
                                                     checked={profile.enabled}
                                                     onClick={() => this.toggleBasicsProfilesDetail(
-                                                        profile.value
+                                                        profile
                                                     )}
                                                 />
                                             );
