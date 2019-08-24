@@ -28,6 +28,16 @@ export default combineReducers({
                         },
                     },
                 };
+            case 'SET_RESUME_WORK':
+                return {
+                    ...state,
+                    togglableJsonResume: {
+                        ...state.togglableJsonResume,
+                        work: {
+                            ...action.work,
+                        },
+                    },
+                };
             default:
                 return state;
         }

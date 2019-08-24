@@ -2,45 +2,22 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid';
 
+// Components
+import ItemInput from './List/ItemInput';
+import ItemsList from './List/ItemsList';
+
 // Utils
-import { varNameToString, capitalize } from '../../../../../utils/utils';
+import { varNameToString } from '../../../../../utils/utils';
 
 // Actions
 import setResumeBasics from '../../../../../store/actions/setResumeBasics';
 
+// Redux stuff
 const mapDispatchToProps = (dispatch) => ({
     setResumeBasics: (basics) => {
         dispatch(setResumeBasics(basics));
     },
 });
-
-// Stateless components
-const BasicsLi = ({ onClick, label, checked }) => (
-    <li key={uuid()}>
-        <BasicsInput
-            onChange={onClick}
-            label={label}
-            checked={checked}
-        />
-    </li>
-);
-
-const BasicsInput = ({ onChange, label, checked }) => {
-    const id = uuid();
-    return (
-        <Fragment>
-            <input
-                type="checkbox"
-                onChange={onChange}
-                id={id}
-                checked={checked}
-            />
-            <label htmlFor={id}>
-                {capitalize(label)}
-            </label>
-        </Fragment>
-    );
-};
 
 class Basics extends Component {
     toggleBasics = () => {
@@ -132,15 +109,15 @@ class Basics extends Component {
 
         return (
             <div>
-                <BasicsInput
+                <ItemInput
                     label="basics"
-                    onClick={this.toggleBasics}
+                    onChange={this.toggleBasics}
                     checked={basicsEnabled}
                 />
                 {basicsEnabled && (
                     <ul>
                         {name && (
-                            <BasicsLi
+                            <ItemsList
                                 label={varNameToString({ name })}
                                 checked={name.enabled}
                                 onClick={() => this.toggleBasicsDetail(
@@ -149,7 +126,7 @@ class Basics extends Component {
                             />
                         )}
                         {label && (
-                            <BasicsLi
+                            <ItemsList
                                 label={varNameToString({ label })}
                                 checked={label.enabled}
                                 onClick={() => this.toggleBasicsDetail(
@@ -158,7 +135,7 @@ class Basics extends Component {
                             />
                         )}
                         <Fragment>
-                            <BasicsLi
+                            <ItemsList
                                 label="location"
                                 checked={locationEnabled}
                                 onClick={() => this.toggleBasicsDetail(
@@ -168,7 +145,7 @@ class Basics extends Component {
                             {locationEnabled && (
                                 <ul>
                                     {address && (
-                                        <BasicsLi
+                                        <ItemsList
                                             label={varNameToString({ address })}
                                             checked={address.enabled}
                                             onClick={() => this.toggleBasicsLocationDetail(
@@ -177,7 +154,7 @@ class Basics extends Component {
                                         />
                                     )}
                                     {city && (
-                                        <BasicsLi
+                                        <ItemsList
                                             label={varNameToString({ city })}
                                             checked={city.enabled}
                                             onClick={() => this.toggleBasicsLocationDetail(
@@ -186,7 +163,7 @@ class Basics extends Component {
                                         />
                                     )}
                                     {region && (
-                                        <BasicsLi
+                                        <ItemsList
                                             label={varNameToString({ region })}
                                             checked={region.enabled}
                                             onClick={() => this.toggleBasicsLocationDetail(
@@ -195,7 +172,7 @@ class Basics extends Component {
                                         />
                                     )}
                                     {postalCode && (
-                                        <BasicsLi
+                                        <ItemsList
                                             label={varNameToString({ postalCode })}
                                             checked={postalCode.enabled}
                                             onClick={() => this.toggleBasicsLocationDetail(
@@ -204,7 +181,7 @@ class Basics extends Component {
                                         />
                                     )}
                                     {countryCode && (
-                                        <BasicsLi
+                                        <ItemsList
                                             label={varNameToString({ countryCode })}
                                             checked={countryCode.enabled}
                                             onClick={() => this.toggleBasicsLocationDetail(
@@ -216,7 +193,7 @@ class Basics extends Component {
                             )}
                         </Fragment>
                         {website && (
-                            <BasicsLi
+                            <ItemsList
                                 label={varNameToString({ website })}
                                 checked={website.enabled}
                                 onClick={() => this.toggleBasicsDetail(
@@ -225,7 +202,7 @@ class Basics extends Component {
                             />
                         )}
                         {phone && (
-                            <BasicsLi
+                            <ItemsList
                                 label={varNameToString({ phone })}
                                 checked={phone.enabled}
                                 onClick={() => this.toggleBasicsDetail(
@@ -234,7 +211,7 @@ class Basics extends Component {
                             />
                         )}
                         {email && (
-                            <BasicsLi
+                            <ItemsList
                                 label={varNameToString({ email })}
                                 checked={email.enabled}
                                 onClick={() => this.toggleBasicsDetail(
@@ -244,7 +221,7 @@ class Basics extends Component {
                         )}
                         {profiles && (
                             <Fragment>
-                                <BasicsLi
+                                <ItemsList
                                     label={varNameToString({ profiles })}
                                     checked={profiles.enabled}
                                     onClick={() => this.toggleBasicsDetail(
@@ -256,7 +233,7 @@ class Basics extends Component {
                                         {profiles.value.map((profile) => {
                                             const { network } = profile.value;
                                             return (
-                                                <BasicsLi
+                                                <ItemsList
                                                     label={network.value}
                                                     key={uuid()}
                                                     checked={profile.enabled}
@@ -271,7 +248,7 @@ class Basics extends Component {
                             </Fragment>
                         )}
                         {summary && (
-                            <BasicsLi
+                            <ItemsList
                                 label={varNameToString({ summary })}
                                 checked={summary.enabled}
                                 onClick={() => this.toggleBasicsDetail(

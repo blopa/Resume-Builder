@@ -39,47 +39,47 @@ const ResumeDrawerItems = ({
         )}
         {work && (
             <Work
-                work={work.value}
+                work={work}
             />
         )}
         {skills && (
             <Skills
-                skills={skills.value}
+                skills={skills}
             />
         )}
         {education && (
             <Education
-                education={education.value}
+                education={education}
             />
         )}
         {awards && (
             <Awards
-                awards={awards.value}
+                awards={awards}
             />
         )}
         {volunteer && (
             <Volunteer
-                volunteer={volunteer.value}
+                volunteer={volunteer}
             />
         )}
         {publications && (
             <Publications
-                publications={publications.value}
+                publications={publications}
             />
         )}
         {languages && (
             <Languages
-                languages={languages.value}
+                languages={languages}
             />
         )}
         {interests && (
             <Interests
-                interests={interests.value}
+                interests={interests}
             />
         )}
         {references && (
             <References
-                references={references.value}
+                references={references}
             />
         )}
     </div>

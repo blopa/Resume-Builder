@@ -1,6 +1,6 @@
-const setTogglableJsonResume = (basics) => ({
+const setResumeBasics = (basics) => ({
     type: 'SET_RESUME_BASICS',
     basics,
 });
 
-export default setTogglableJsonResume;
+export default setResumeBasics;
