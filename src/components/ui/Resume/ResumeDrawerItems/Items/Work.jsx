@@ -131,7 +131,6 @@ class Work extends Component {
                                 <Fragment key={uuid()}>
                                     <ItemsList
                                         label={company.value}
-                                        key={uuid()}
                                         checked={work.enabled}
                                         onClick={() => this.toggleWork(work)}
                                     />
@@ -139,7 +138,6 @@ class Work extends Component {
                                         <ul>
                                             <ItemsList
                                                 label={varNameToString({ company })}
-                                                key={uuid()}
                                                 checked={company.enabled}
                                                 onClick={() => this.toggleWorkDetail(
                                                     work,
@@ -148,7 +146,6 @@ class Work extends Component {
                                             />
                                             <ItemsList
                                                 label={varNameToString({ position })}
-                                                key={uuid()}
                                                 checked={position.enabled}
                                                 onClick={() => this.toggleWorkDetail(
                                                     work,
@@ -157,7 +154,6 @@ class Work extends Component {
                                             />
                                             <ItemsList
                                                 label={varNameToString({ website })}
-                                                key={uuid()}
                                                 checked={website.enabled}
                                                 onClick={() => this.toggleWorkDetail(
                                                     work,
@@ -166,7 +162,6 @@ class Work extends Component {
                                             />
                                             <ItemsList
                                                 label={varNameToString({ startDate })}
-                                                key={uuid()}
                                                 checked={startDate.enabled}
                                                 onClick={() => this.toggleWorkDetail(
                                                     work,
@@ -175,7 +170,6 @@ class Work extends Component {
                                             />
                                             <ItemsList
                                                 label={varNameToString({ endDate })}
-                                                key={uuid()}
                                                 checked={endDate.enabled}
                                                 onClick={() => this.toggleWorkDetail(
                                                     work,
@@ -184,7 +178,6 @@ class Work extends Component {
                                             />
                                             <ItemsList
                                                 label={varNameToString({ summary })}
-                                                key={uuid()}
                                                 checked={summary.enabled}
                                                 onClick={() => this.toggleWorkDetail(
                                                     work,
@@ -193,7 +186,6 @@ class Work extends Component {
                                             />
                                             <ItemsList
                                                 label={varNameToString({ highlights })}
-                                                key={uuid()}
                                                 checked={highlights.enabled}
                                                 onClick={() => this.toggleWorkDetail(
                                                     work,

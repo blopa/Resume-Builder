@@ -80,8 +80,7 @@ class Skills extends Component {
                             return (
                                 <Fragment key={uuid()}>
                                     <ItemsList
-                                        label={skill.value.name.value}
-                                        key={uuid()}
+                                        label={name.value}
                                         checked={skill.enabled}
                                         onClick={() => this.toggleSkill(skill)}
                                     />
@@ -89,7 +88,6 @@ class Skills extends Component {
                                         <ul>
                                             <ItemsList
                                                 label={varNameToString({ keywords })}
-                                                key={uuid()}
                                                 checked={keywords.enabled}
                                                 onClick={() => this.toggleSkillsDetail(
                                                     skill,
@@ -98,7 +96,6 @@ class Skills extends Component {
                                             />
                                             <ItemsList
                                                 label={varNameToString({ level })}
-                                                key={uuid()}
                                                 checked={level.enabled}
                                                 onClick={() => this.toggleSkillsDetail(
                                                     skill,
@@ -107,7 +104,6 @@ class Skills extends Component {
                                             />
                                             <ItemsList
                                                 label={varNameToString({ name })}
-                                                key={uuid()}
                                                 checked={name.enabled}
                                                 onClick={() => this.toggleSkillsDetail(
                                                     skill,
