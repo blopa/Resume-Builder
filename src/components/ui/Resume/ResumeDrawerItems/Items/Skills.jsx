@@ -1,14 +1,126 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid';
 
-const mapDispatchToProps = (dispatch) => ({});
+// Components
+import ItemInput from './List/ItemInput';
+import ItemsList from './List/ItemsList';
+
+// Actions
+import setResumeSkills from '../../../../../store/actions/setResumeSkills';
+import { varNameToString } from '../../../../../utils/utils';
+
+// Redux stuff
+const mapDispatchToProps = (dispatch) => ({
+    setResumeSkills: (skills) => {
+        dispatch(setResumeSkills(skills));
+    },
+});
 
 class Skills extends Component {
+    toggleSkills = () => {
+        const currentState = this.props.skills.enabled;
+        this.props.setResumeSkills({
+            ...this.props.skills,
+            enabled: !currentState,
+        });
+    };
+
+    toggleSkill = (skill) => {
+        const newSkills = { ...this.props.skills };
+        newSkills.value =
+            newSkills.value.map((skl) => {
+                if (JSON.stringify(skl.value) === JSON.stringify(skill.value)) {
+                    return {
+                        ...skl,
+                        enabled: !skl.enabled,
+                    };
+                } else {
+                    return skl;
+                }
+            });
+        this.props.setResumeSkills(newSkills);
+    };
+
+    toggleSkillsDetail = (skill, propName) => {
+        const newSkills = { ...this.props.skills };
+        newSkills.value =
+            newSkills.value.map((skl) => {
+                if (JSON.stringify(skl.value) === JSON.stringify(skill.value)) {
+                    return {
+                        ...skl,
+                        value: {
+                            ...skl.value,
+                            [propName]: {
+                                ...skl.value[propName],
+                                enabled: !skl.value[propName].enabled,
+                            },
+                        },
+                    };
+                } else {
+                    return skl;
+                }
+            });
+        this.props.setResumeSkills(newSkills);
+    };
+
     render() {
+        const { skills } = this.props;
         return (
             <div>
-                <p>{JSON.stringify(this.props)}</p>
+                <ItemInput
+                    label="skills"
+                    onChange={this.toggleSkills}
+                    checked={skills.enabled}
+                />
+                {skills.enabled && (
+                    <ul>
+                        {skills.value.map((skill) => {
+                            const { keywords, level, name } = skill.value;
+                            return (
+                                <Fragment key={uuid()}>
+                                    <ItemsList
+                                        label={skill.value.name.value}
+                                        key={uuid()}
+                                        checked={skill.enabled}
+                                        onClick={() => this.toggleSkill(skill)}
+                                    />
+                                    {skill.enabled && (
+                                        <ul>
+                                            <ItemsList
+                                                label={varNameToString({ keywords })}
+                                                key={uuid()}
+                                                checked={keywords.enabled}
+                                                onClick={() => this.toggleSkillsDetail(
+                                                    skill,
+                                                    varNameToString({ keywords })
+                                                )}
+                                            />
+                                            <ItemsList
+                                                label={varNameToString({ level })}
+                                                key={uuid()}
+                                                checked={level.enabled}
+                                                onClick={() => this.toggleSkillsDetail(
+                                                    skill,
+                                                    varNameToString({ level })
+                                                )}
+                                            />
+                                            <ItemsList
+                                                label={varNameToString({ name })}
+                                                key={uuid()}
+                                                checked={name.enabled}
+                                                onClick={() => this.toggleSkillsDetail(
+                                                    skill,
+                                                    varNameToString({ name })
+                                                )}
+                                            />
+                                        </ul>
+                                    )}
+                                </Fragment>
+                            );
+                        })}
+                    </ul>
+                )}
             </div>
         );
     }
