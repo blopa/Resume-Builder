@@ -1,9 +1,9 @@
 // BASICS
 .resume-basics {
-  padding: 15px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #ddd;
 
-  h3 {
+  h2 {
     text-transform: uppercase;
     margin: 0;
   }
@@ -15,7 +15,7 @@
     list-style: none;
 
     li {
-      margin-right: 5px;
+      margin: 0 5px 0 0;
 
       &:after {
         content: ",";
@@ -36,7 +36,7 @@
     list-style: none;
 
     li {
-      margin-right: 5px;
+      margin: 0 5px 0 0;
 
       &:after {
         content: " |";
@@ -57,7 +57,7 @@
     list-style: none;
 
     li {
-      margin-right: 5px;
+      margin: 0 5px 0 0;
 
       &:after {
         content: " |";
@@ -77,13 +77,13 @@
 }
 
 .resume-summary {
-  padding: 15px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #ddd;
 }
 
 // WORK
 .resume-work {
-  padding: 15px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #ddd;
 
   &--works {
@@ -93,6 +93,10 @@
 
     li {
       margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
     }
   }
 
@@ -120,7 +124,7 @@
 
 // SKILLS
 .resume-skills {
-  padding: 15px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #ddd;
 
   &--skills {
@@ -130,6 +134,10 @@
 
     li {
       margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
     }
   }
 
@@ -144,7 +152,7 @@
     list-style: none;
 
     li {
-      margin-right: 5px;
+      margin: 0 5px 0 0;
 
       &:after {
         content: ",";
@@ -161,7 +169,7 @@
 
 // EDUCATION
 .resume-education {
-  padding: 15px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #ddd;
 
   &--type {
@@ -179,6 +187,10 @@
 
     li {
       margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
     }
   }
 
@@ -192,7 +204,7 @@
       list-style: none;
 
       li {
-        margin-right: 5px;
+        margin: 0 5px 0 0;
 
         &:after {
           content: ",";
@@ -210,7 +222,7 @@
 
 // AWARDS
 .resume-awards {
-  padding: 15px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #ddd;
 
   &--award {
@@ -224,13 +236,17 @@
 
     li {
       margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
     }
   }
 }
 
 // VOLUNTEER
 .resume-volunteer {
-  padding: 15px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #ddd;
 
   &--volunteers {
@@ -240,6 +256,10 @@
 
     li {
       margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
     }
   }
 
@@ -262,7 +282,7 @@
     list-style: none;
 
     li {
-      margin-right: 5px;
+      margin: 0 5px 0 0;
 
       &:after {
         content: ",";
@@ -279,7 +299,7 @@
 
 // PUBLICATIONS
 .resume-publications {
-  padding: 15px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #ddd;
 
   &--publications {
@@ -289,6 +309,10 @@
 
     li {
       margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
     }
   }
 
@@ -299,7 +323,7 @@
 
 // LANGUAGES
 .resume-languages {
-  padding: 15px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #ddd;
 
   &--languages {
@@ -307,13 +331,17 @@
 
     li {
       margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
     }
   }
 }
 
 // INTERESTS
 .resume-interests {
-  padding: 15px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #ddd;
 
   &--interests {
@@ -323,6 +351,10 @@
 
     li {
       margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
     }
   }
 
@@ -337,7 +369,7 @@
     list-style: none;
 
     li {
-      margin-right: 5px;
+      margin: 0 5px 0 0;
 
       &:after {
         content: ",";
@@ -354,7 +386,7 @@
 
 // REFERENCES
 .resume-references {
-  padding: 15px 0;
+  padding: 10px 0;
 
   &--name {
     font-weight: bold;
@@ -367,6 +399,10 @@
 
     li {
       margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
     }
   }
 }

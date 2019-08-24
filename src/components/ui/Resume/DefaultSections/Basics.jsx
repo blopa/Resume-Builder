@@ -43,7 +43,11 @@ const Basics = ({
             <ul className={style['resume-basics--contact-info']}>
                 {website && website.enabled && (
                     <li>
-                        <a className={style['resume-basics--website']} href={website.value}>
+                        <a
+                            className={style['resume-basics--website']}
+                            href={website.value}
+                            target="_blank"
+                        >
                             {website.value}
                         </a>
                     </li>
@@ -61,6 +65,7 @@ const Basics = ({
                                     <a
                                         href={url.value}
                                         title={username.value}
+                                        target="_blank"
                                     >
                                         {network.value}
                                     </a>
