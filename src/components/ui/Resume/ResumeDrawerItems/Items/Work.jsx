@@ -66,6 +66,39 @@ class Work extends Component {
         this.props.setResumeWork(newWork);
     };
 
+    toggleWorkHighlights = (work, highlight) => {
+        const newWork = { ...this.props.work };
+        newWork.value =
+            newWork.value.map((wrk) => {
+                if (JSON.stringify(wrk.value) === JSON.stringify(work.value)) {
+                    return {
+                        ...wrk,
+                        value: {
+                            ...wrk.value,
+                            highlights: {
+                                ...wrk.value.highlights,
+                                value: [
+                                    ...wrk.value.highlights.value.map((high) => {
+                                        if (JSON.stringify(high.value) === JSON.stringify(highlight.value)) {
+                                            return {
+                                                ...high,
+                                                enabled: !high.enabled,
+                                            };
+                                        }
+
+                                        return high;
+                                    }),
+                                ],
+                            },
+                        },
+                    };
+                } else {
+                    return wrk;
+                }
+            });
+        this.props.setResumeWork(newWork);
+    };
+
     render() {
         const {
             work: {
@@ -167,6 +200,21 @@ class Work extends Component {
                                                     varNameToString({ highlights })
                                                 )}
                                             />
+                                            {highlights.enabled && (
+                                                <ul>
+                                                    {highlights.value.map((highlight) => (
+                                                        <ItemsList
+                                                            label={highlight.value}
+                                                            key={uuid()}
+                                                            checked={highlight.enabled}
+                                                            onClick={() => this.toggleWorkHighlights(
+                                                                work,
+                                                                highlight
+                                                            )}
+                                                        />
+                                                    ))}
+                                                </ul>
+                                            )}
                                         </ul>
                                     )}
                                 </Fragment>
