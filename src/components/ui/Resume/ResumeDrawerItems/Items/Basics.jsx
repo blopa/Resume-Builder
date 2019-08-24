@@ -19,20 +19,20 @@ const mapDispatchToProps = (dispatch) => ({
 const BasicsLi = ({ onClick, label, checked }) => (
     <li key={uuid()}>
         <BasicsInput
-            onClick={onClick}
+            onChange={onClick}
             label={label}
             checked={checked}
         />
     </li>
 );
 
-const BasicsInput = ({ onClick, label, checked }) => {
+const BasicsInput = ({ onChange, label, checked }) => {
     const id = uuid();
     return (
         <Fragment>
             <input
                 type="checkbox"
-                onClick={onClick}
+                onChange={onChange}
                 id={id}
                 checked={checked}
             />
@@ -86,6 +86,22 @@ class Basics extends Component {
                 },
             },
         });
+    };
+
+    toggleBasicsProfilesDetail = (profile) => {
+        const newBasics = { ...this.props.basics };
+        newBasics.value.profiles.value =
+            newBasics.value.profiles.value.map((pro) => {
+                if (JSON.stringify(pro.value) === JSON.stringify(profile)) {
+                    return {
+                        ...pro,
+                        enabled: !pro.enabled,
+                    };
+                } else {
+                    return pro;
+                }
+            });
+        this.props.setResumeBasics(newBasics);
     };
 
     render() {
@@ -239,16 +255,17 @@ class Basics extends Component {
                                 {profiles.enabled && (
                                     <ul>
                                         {profiles.value.map((profile) => {
-                                            if (profile.enabled) {
-                                                const { network } = profile.value;
-                                                return (
-                                                    <BasicsLi
-                                                        label={network.value}
-                                                    />
-                                                );
-                                            }
-
-                                            return null;
+                                            const { network } = profile.value;
+                                            return (
+                                                <BasicsLi
+                                                    label={network.value}
+                                                    key={uuid()}
+                                                    checked={profile.enabled}
+                                                    onClick={() => this.toggleBasicsProfilesDetail(
+                                                        profile.value
+                                                    )}
+                                                />
+                                            );
                                         })}
                                     </ul>
                                 )}
