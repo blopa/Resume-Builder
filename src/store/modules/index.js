@@ -53,7 +53,7 @@ export default combineReducers({
                     ...state,
                     togglableJsonResume: {
                         ...state.togglableJsonResume,
-                        skills: {
+                        education: {
                             ...action.education,
                         },
                     },
@@ -63,7 +63,7 @@ export default combineReducers({
                     ...state,
                     togglableJsonResume: {
                         ...state.togglableJsonResume,
-                        skills: {
+                        awards: {
                             ...action.awards,
                         },
                     },
@@ -73,7 +73,7 @@ export default combineReducers({
                     ...state,
                     togglableJsonResume: {
                         ...state.togglableJsonResume,
-                        skills: {
+                        volunteer: {
                             ...action.volunteer,
                         },
                     },
@@ -83,7 +83,7 @@ export default combineReducers({
                     ...state,
                     togglableJsonResume: {
                         ...state.togglableJsonResume,
-                        skills: {
+                        publications: {
                             ...action.publications,
                         },
                     },
@@ -93,7 +93,7 @@ export default combineReducers({
                     ...state,
                     togglableJsonResume: {
                         ...state.togglableJsonResume,
-                        skills: {
+                        languages: {
                             ...action.languages,
                         },
                     },
@@ -103,7 +103,7 @@ export default combineReducers({
                     ...state,
                     togglableJsonResume: {
                         ...state.togglableJsonResume,
-                        skills: {
+                        interests: {
                             ...action.interests,
                         },
                     },
@@ -113,7 +113,7 @@ export default combineReducers({
                     ...state,
                     togglableJsonResume: {
                         ...state.togglableJsonResume,
-                        skills: {
+                        references: {
                             ...action.references,
                         },
                     },

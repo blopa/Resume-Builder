@@ -48,7 +48,7 @@ class BuildPage extends Component {
             history.push('/upload');
             return null;
         }
-        console.log(togglableJsonResume);
+        // console.log(togglableJsonResume);
 
         return (
             <Fragment>

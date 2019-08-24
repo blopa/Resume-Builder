@@ -1,6 +1,5 @@
 import React from 'react';
 import style from './resume-drawer-items.scss';
-import uuid from 'uuid';
 
 // Utils
 import { isObjectNotEmpty } from '../../../../utils/utils';
@@ -37,47 +36,47 @@ const ResumeDrawerItems = ({
                 basics={basics}
             />
         )}
-        {work && (
+        {isObjectNotEmpty(work) && (
             <Work
                 work={work}
             />
         )}
-        {skills && (
+        {isObjectNotEmpty(skills) && (
             <Skills
                 skills={skills}
             />
         )}
-        {education && (
+        {isObjectNotEmpty(education) && (
             <Education
                 education={education}
             />
         )}
-        {awards && (
+        {isObjectNotEmpty(awards) && (
             <Awards
                 awards={awards}
             />
         )}
-        {volunteer && (
+        {isObjectNotEmpty(volunteer) && (
             <Volunteer
                 volunteer={volunteer}
             />
         )}
-        {publications && (
+        {isObjectNotEmpty(publications) && (
             <Publications
                 publications={publications}
             />
         )}
-        {languages && (
+        {isObjectNotEmpty(languages) && (
             <Languages
                 languages={languages}
             />
         )}
-        {interests && (
+        {isObjectNotEmpty(interests) && (
             <Interests
                 interests={interests}
             />
         )}
-        {references && (
+        {isObjectNotEmpty(references) && (
             <References
                 references={references}
             />
