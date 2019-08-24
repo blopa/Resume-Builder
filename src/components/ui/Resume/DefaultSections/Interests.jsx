@@ -11,9 +11,11 @@ const Interests = ({ interests }) =>
                         const { name, keywords } = interest.value;
                         return (
                             <li>
-                                {name && name.enabled && <p className={style['resume-interests--interest']}>
-                                    {name.value}
-                                </p>}
+                                {name && name.enabled && (
+                                    <p className={style['resume-interests--interest']}>
+                                        {name.value}
+                                    </p>
+                                )}
                                 {keywords && keywords.enabled && (
                                     <ul className={style['resume-interests--keywords']}>
                                         {keywords.value.map((keyword) =>

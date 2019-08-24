@@ -17,9 +17,11 @@ const Publications = ({ publications }) =>
                         } = publication.value;
                         return (
                             <li>
-                                {name && name.enabled && <p className={style['resume-publications--publication']}>
-                                    {name.value}
-                                </p>}
+                                {name && name.enabled && (
+                                    <p className={style['resume-publications--publication']}>
+                                        {name.value}
+                                    </p>
+                                )}
                                 {publisher && publisher.enabled && <p>{publisher.value}</p>}
                                 {website && website.enabled && <p>{website.value}</p>}
                                 {releaseDate && releaseDate.enabled && <p>{releaseDate.value}</p>}

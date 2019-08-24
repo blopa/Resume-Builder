@@ -11,9 +11,11 @@ const References = ({ references }) =>
                         const { name, reference } = ref.value;
                         return (
                             <li>
-                                {name && name.enabled && <p className={style['resume-references--name']}>
-                                    {name.value}
-                                </p>}
+                                {name && name.enabled && (
+                                    <p className={style['resume-references--name']}>
+                                        {name.value}
+                                    </p>
+                                )}
                                 {reference && reference.enabled && <p>{reference.value}</p>}
                             </li>
                         );
