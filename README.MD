@@ -9,12 +9,13 @@
    Which resume would you look at first?"
 - [http://monster.com](https://www.monster.com/career-advice/article/resume-look-important-as-content)
 
-<img src="/screenshots/resume_builder.gif?raw=true" width="890px">
+<img src="/screenshots/v2/resume_builder.gif?raw=true" width="890px">
 
 **TESTED ONLY ON GOOGLE CHROME**
 
 ## About
-Resume Builder is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://blopa.github.io/resume_builder/).**
+Resume Builder is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://blopa.github.io/Resume-Builder/).**
+For version 1 [check here](https://github.com/blopa/Resume-Builder-V1/blob/master/README_V1.md)
 
 ## Features
 - Multiple Resume templates
@@ -23,262 +24,144 @@ Resume Builder is a free open-source project that allows anyone to easily mainta
 
 
 ## Usage
-First of all you need to create a Google Spreadsheet following the same rules as [this one](https://docs.google.com/spreadsheets/d/1Mrgu6dOTyEBkzHtoSSH2BhRNd8n8tuupVlcQUJhUY-0/copy) (you can make a copy if you like) and populate with your resume information.
-- **Full Name:** Your full name
-- **Job Title:** Your resume Job Title
-- **Summary:** Summary of yourself
-- **Website:** Your website URL
-- **Languages:** Languages you speak
-- **Email:** Your email
-- **Phone:** Your phone number
-- **Github:** Your Github profile link
-- **City:** City where you're located
-- **Country:** Country where you're located
-- **Skills:** Your skills
-- **Experience:** Job Title for your experience
-    - **Company:** Company where you had this experience (must fill the ``data-for`` with the Experience ID)
-    - **From:** Date of when you started the experience (must fill the ``data-for`` with the Experience ID)
-    - **To:** Date of when you ended the experience (must fill the ``data-for`` with the Experience ID)
-    - **Local:** Where you had this experience (must fill the ``data-for`` with the Experience ID)
-    - **Item:** List here things you've done (must fill the ``data-for`` with the Experience ID)
-- **Education:** Name of the course you've studied
-    - **From:** Date of when you started the education (must fill the ``data-for`` with the Education ID)
-    - **To:** Date of when you ended the education (must fill the ``data-for`` with the Education ID)
-    - **Local:** Where did you studied (must fill the ``data-for`` with the Education ID)
-    - **Item:** List here things you've done (must fill the ``data-for`` with the Education ID)
-- **Side Project:** Name of your Side Project
-    - **Description:** Description of your Side Project (must fill the ``data-for`` with the Side Project ID)
-    - **Url:** URL of your Side Project (must fill the ``data-for`` with the Side Project ID)
-
+First of all you need to create a Google Spreadsheet following the same rules as [this one](https://docs.google.com/spreadsheets/d/1UCdsEiyO68IEdfVhW-Gfrg7FfI4pLaij37D5Eh-v8hQ/copy) (you can make a copy if you like) and populate with your resume information.
+- **name:** Your full name
+- **label:** Your resume Job Title
+- **picture:** A URL for your picture
+- **summary:** Summary of yourself
+- **website:** Your website URL
+- **email:** Your email
+- **phone:** Your phone number
+- **address:** Your address
+- **postalCode:** Your postal code
+- **city:** City where you're located
+- **region:** Region where you're located
+- **countryCode:** Country code where you're located
+- **network:** Social media name
+- **username:** Social media name
+- **TODO**
 So whenever you want a part of the resume to be an sub-item of another item, you should use the ``data-for`` field. Use your creativity.
 
 ## Libraries
-- For the [react.js version](https://blopa.github.io/resume_builder/) of this project I'm using [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx) and [Bootstrap](https://github.com/twbs/bootstrap).
-- Honorable mentions: [babel](https://github.com/babel/babel), [webpack](https://github.com/webpack/webpack), [IntelliJ IDEA](https://github.com/JetBrains/intellij-community) and [Squarespace](https://logo.squarespace.com).
+- I'm using [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx) and [Material UI](https://material-ui.com/).
+- Honorable mentions: [babel](https://github.com/babel/babel), [webpack](https://github.com/webpack/webpack), [IntelliJ IDEA](https://github.com/JetBrains/intellij-community).
 
-So a big thanks to all the developers that worked really hard on these libs and make our day easier :D and also a big thanks to [cdnjs.com](https://cdnjs.com/) for hosting those libs for us.
+So a big thanks to all the developers that worked really hard on these libs and make our day easier :D.
 
 ## Deployment
 Run `npm run build` then copy the `dist/` folder into your website root directory. Done.
 
 ## Example
-The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.google.com/spreadsheets/d/1Mrgu6dOTyEBkzHtoSSH2BhRNd8n8tuupVlcQUJhUY-0/edit). For a better view of the ``JSON`` [click here](https://codebeautify.org/jsonviewer/cb1489cb).
+The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.google.com/spreadsheets/d/1UCdsEiyO68IEdfVhW-Gfrg7FfI4pLaij37D5Eh-v8hQ/edit). For a better view of the ``JSON`` [click here](https://codebeautify.org/jsonviewer/cb7c68a1).
 ```json
 {
- "fullName": {
-  "display": true,
-  "content": "Your Full Name"
- },
- "jobTitle": {
-  "display": true,
-  "content": "Full stack developer"
- },
- "website": {
-  "display": true,
-  "content": "personalwebsite.com"
- },
- "github": {
-  "display": true,
-  "content": "github.com/yourgithub"
- },
- "email": {
-  "display": true,
-  "content": "yourprimaryemail@whatever.com"
- },
- "phone": {
-  "display": true,
-  "content": "+1 604 604 4444"
- },
- "city": {
-  "display": true,
-  "content": "City"
- },
- "country": {
-  "display": true,
-  "content": "Country"
- },
- "skills": {
-  "display": true,
-  "content": "React, Redux, ES6, Express, MongoDB, Sass, Webpack, Gulp, Git"
- },
- "languages": {
-  "display": true,
-  "content": "English, French"
- },
- "experience": {
-  "display": true,
-  "content": [
-   {
-    "id": "job-1",
-    "jobTitle": {
-     "display": false,
-     "content": "Software Developer"
+  "basics": {
+    "name": "John Doe",
+    "label": "Programmer",
+    "picture": "",
+    "email": "john@gmail.com",
+    "phone": "(912) 555-4321",
+    "website": "http://johndoe.com",
+    "summary": "A summary of John Doe...",
+    "location": {
+      "address": "2712 Broadway St",
+      "postalCode": "CA 94115",
+      "city": "San Francisco",
+      "countryCode": "US",
+      "region": "California"
     },
-    "company": {
-     "display": true,
-     "content": "Telesoft "
-    },
-    "display": false,
-    "from": {
-     "display": true,
-     "content": "Feb/2015"
-    },
-    "to": {
-     "display": true,
-     "content": "Present"
-    },
-    "local": {
-     "display": true,
-     "content": "Seattle, WA"
-    },
-    "items": {
-     "display": true,
-     "content": [
-      {
-       "display": true,
-       "content": "Led the development and adoption of React for a dashboard web app."
-      },
-      {
-       "display": true,
-       "content": "Full stack development using Node.js, Express, React, and MongoDB."
-      }
-     ]
-    }
-   },
-   {
-    "id": "job-2",
-    "jobTitle": {
-     "display": true,
-     "content": "Web Developer"
-    },
-    "company": {
-     "display": true,
-     "content": "Plasmid Inc"
-    },
-    "display": true,
-    "from": {
-     "display": true,
-     "content": "Nov/2013"
-    },
-    "to": {
-     "display": true,
-     "content": "Jan/2015"
-    },
-    "local": {
-     "display": true,
-     "content": "Denver, CO"
-    },
-    "items": {
-     "display": true,
-     "content": [
-      {
-       "display": true,
-       "content": "Part of the front end development team of their AngularJS web app."
-      },
-      {
-       "display": true,
-       "content": "Developed & maintained a reusable components repository."
-      }
-     ]
-    }
-   }
-  ]
- },
- "sideProject": {
-  "display": true,
-  "content": [
-   {
-    "id": "side-1",
-    "projectName": {
-     "display": true,
-     "content": "Speakasso"
-    },
-    "url": {
-     "display": true,
-     "content": "http://www.csc.kth.se/~acvds/info_vis/speakasso/"
-    },
-    "display": true,
-    "description": {
-     "display": true,
-     "content": "web-based generative art based on speech or conversation."
-    }
-   },
-   {
-    "id": "side-2",
-    "projectName": {
-     "display": true,
-     "content": "Bubbles.js"
-    },
-    "url": {
-     "display": true,
-     "content": "https://github.com/krasimir/bubble.js"
-    },
-    "display": true,
-    "description": {
-     "display": true,
-     "content": "open source generator of PNG images of bubbles."
-    }
-   }
-  ]
- },
- "education": {
-  "display": true,
-  "content": [
-   {
-    "id": "edu-1",
-    "degree": {
-     "display": true,
-     "content": "B.Sc. in Computer Science"
-    },
-    "local": {
-     "display": true,
-     "content": "University of Iowa"
-    },
-    "display": true,
-    "from": {
-     "display": true,
-     "content": "2007"
-    },
-    "to": {
-     "display": true,
-     "content": "2012"
-    },
-    "items": {
-     "display": true,
-     "content": [
-      {
-       "display": true,
-       "content": "Conducted a project on comparative analysis of 10 predictive data-mining techniques and authored 2 papers on the topic."
-      }
-     ]
-    }
-   }
-  ]
- }
+    "profiles": [{
+      "network": "Twitter",
+      "username": "john",
+      "url": "http://twitter.com/john"
+    }]
+  },
+  "work": [{
+    "company": "Company",
+    "position": "President",
+    "website": "http://company.com",
+    "startDate": "2013-01-01",
+    "endDate": "2014-01-01",
+    "summary": "Description...",
+    "highlights": [
+      "Started the company"
+    ]
+  }],
+  "volunteer": [{
+    "organization": "Organization",
+    "position": "Volunteer",
+    "website": "http://organization.com/",
+    "startDate": "2012-01-01",
+    "endDate": "2013-01-01",
+    "summary": "Description...",
+    "highlights": [
+      "Awarded 'Volunteer of the Month'"
+    ]
+  }],
+  "education": [{
+    "institution": "University",
+    "area": "Software Development",
+    "studyType": "Bachelor",
+    "startDate": "2011-01-01",
+    "endDate": "2013-01-01",
+    "gpa": "4.0",
+    "courses": [
+      "DB1101 - Basic SQL"
+    ]
+  }],
+  "awards": [{
+    "title": "Award",
+    "date": "2014-11-01",
+    "awarder": "Company",
+    "summary": "There is no spoon."
+  }],
+  "publications": [{
+    "name": "Publication",
+    "publisher": "Company",
+    "releaseDate": "2014-10-01",
+    "website": "http://publication.com",
+    "summary": "Description..."
+  }],
+  "skills": [{
+    "name": "Web Development",
+    "level": "Master",
+    "keywords": [
+      "HTML",
+      "CSS",
+      "Javascript"
+    ]
+  }],
+  "languages": [{
+    "language": "English",
+    "fluency": "Native speaker"
+  }],
+  "interests": [{
+    "name": "Wildlife",
+    "keywords": [
+      "Ferrets",
+      "Unicorns"
+    ]
+  }],
+  "references": [{
+    "name": "Jane Doe",
+    "reference": "Reference..."
+  }]
 }
 ```
 
 ## Screenshot
-**[Google Spreadsheet example](https://docs.google.com/spreadsheets/d/1Mrgu6dOTyEBkzHtoSSH2BhRNd8n8tuupVlcQUJhUY-0/copy)**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/screenshot_1.png)
+**[Google Spreadsheet example](https://docs.google.com/spreadsheets/d/1UCdsEiyO68IEdfVhW-Gfrg7FfI4pLaij37D5Eh-v8hQ/copy)**
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v2/screenshot_1.png)
 
 **Built Resume**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/screenshot_2.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v2/screenshot_2.png)
 
 **Printing Resume**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/screenshot_3.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v2/screenshot_3.png)
 
 ## Release Notes
-- **v0.0.4:**
-	- New resume display style
-- **v0.0.3:**
-	- Cleaning code to fit ESLint standards
-	- Get JSON object from URL to parse a Resume
-	- Replace CSS for SASS
-- **v0.0.2:**
-	- Tiny changes on template layout
-- **v0.0.1:**
-	- First working version
+- **v2.0.0:**
+	- Everything rebuild from scratch.
 
 ## F.A.Q.
 **Q: Can you implement <???> function?**
@@ -292,13 +175,11 @@ A: Thank you! You can help by codding more features, creating pull requests, or 
 ## TODO
 - Add list of recent used documents
 - Add option to save a built resume
-- Remove bootstrap include from template.html
-- Make build.js smaller / add lazyloader
 
 ## License
 MIT License
 
-Copyright (c) 2018 blopa
+Copyright (c) 2019 blopa
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
