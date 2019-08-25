@@ -12,6 +12,8 @@ import { readJsonFile } from '../../utils/json-parser';
 // Actions
 import setJsonResume from '../../store/actions/setJsonResume';
 import setTogglableJsonResume from '../../store/actions/setTogglableJsonResume';
+import TextInput from '../ui/TextInput/TextInput';
+import MuiButton from '../ui/MuiButton/MuiButton';
 
 const mapStateToProps = (state) => ({ storeData: state });
 const mapDispatchToProps = (dispatch) => ({
@@ -77,6 +79,21 @@ class UploadPage extends Component {
                     handleFile={this.handleFile}
                     disabled={false}
                 />
+                <h4 style={{ margin: '0', textAlign: 'center' }}>
+                    or
+                </h4>
+                <TextInput
+                    label="Google Spreadsheet URL"
+                    placeholder="Put your Google Spreadsheet URL here"
+                />
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <MuiButton
+                        variant="contained"
+                        color="primary"
+                    >
+                        Go!
+                    </MuiButton>
+                </div>
             </div>
         );
     }

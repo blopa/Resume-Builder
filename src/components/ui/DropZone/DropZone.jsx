@@ -23,17 +23,15 @@ const DropZone = ({ handleFile, disabled, maxLength }) => {
     });
 
     return (
-        <section className="container">
-            <div {...getRootProps({
-                className: classNames(style['drop-zone'], {
-                    [style['drop-zone--active']]: !disabled && acceptedFiles.length < 1,
-                }),
-            })}
-            >
-                <input {...getInputProps()} />
-                <p>Drag 'n' drop your .json or .xls file here.</p>
-            </div>
-        </section>
+        <div {...getRootProps({
+            className: classNames(style['drop-zone'], {
+                [style['drop-zone--active']]: !disabled && acceptedFiles.length < 1,
+            }),
+        })}
+        >
+            <input {...getInputProps()} />
+            <p>Drag 'n' drop your .json or .xls file here.</p>
+        </div>
     );
 };
 
