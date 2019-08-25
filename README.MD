@@ -163,6 +163,8 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v2/screenshot_3.png)
 
 ## Release Notes
+- **v2.0.1:**
+	- Add option to parse spreadsheet from Google Spreadsheet URL.
 - **v2.0.0:**
 	- Everything rebuild from scratch.
 
@@ -178,6 +180,8 @@ A: Thank you! You can help by codding more features, creating pull requests, or 
 ## TODO
 - Add list of recent used documents
 - Add option to save a built resume
+- Add check for valid spreadsheet URL on text input
+- Add various missing error handlers
 
 ## License
 MIT License

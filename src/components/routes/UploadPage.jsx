@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { cloneDeep } from 'lodash';
 
 // Utils
-import readSpreadsheet from '../../utils/spreadsheet-parser';
+import readSpreadsheet, {parseSpreadsheetUrl} from '../../utils/spreadsheet-parser';
 import spreadsheetToJsonResume from '../../utils/spreadsheet-to-json-resume';
 import { traverseObject } from '../../utils/utils';
 import { readJsonFile } from '../../utils/json-parser';
@@ -38,6 +38,11 @@ const SHEET_EXTENSIONS = [
 ];
 
 class UploadPage extends Component {
+    state = {
+        textInputValue: '',
+        loading: false,
+    };
+
     setResumesAndForward = (jsonResume) => {
         const { history } = this.props;
         this.props.setJsonResume(jsonResume);
@@ -68,6 +73,27 @@ class UploadPage extends Component {
         }
     };
 
+    setInputedTextToState = (e) => {
+        if (!this.state.textInputValue && !e.target.value) {
+            return;
+        }
+
+        this.setState({
+            textInputValue: e.target.value,
+        });
+    };
+
+    handleButtonClick = () => {
+        this.setState({
+            loading: true,
+        });
+
+        parseSpreadsheetUrl(
+            this.state.textInputValue,
+            this.readSpreadsheetCallback
+        );
+    };
+
     render() {
         return (
             <div>
@@ -85,11 +111,14 @@ class UploadPage extends Component {
                 <TextInput
                     label="Google Spreadsheet URL"
                     placeholder="Put your Google Spreadsheet URL here"
+                    onKeyUp={this.setInputedTextToState}
                 />
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <MuiButton
                         variant="contained"
                         color="primary"
+                        disabled={!this.state.textInputValue || this.state.loading}
+                        onClick={this.handleButtonClick}
                     >
                         Go!
                     </MuiButton>
