@@ -17,3 +17,9 @@ body {
   color: $color-black;
   font-family: $font-family;
 }
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+}

@@ -1,0 +1,21 @@
+.a4-container {
+  background-color: #ffffff;
+  margin: 0 auto;
+  width: 21cm;
+  min-height: 29.7cm;
+
+  @media print {
+    visibility: visible !important;
+
+    * {
+      visibility: visible !important;
+
+      div {
+        page-break-inside: avoid;
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}

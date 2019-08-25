@@ -15,6 +15,12 @@ import References from './Items/References';
 import Skills from './Items/Skills';
 import Volunteer from './Items/Volunteer';
 import Work from './Items/Work';
+import MuiButton from '../../MuiButton/MuiButton';
+import CloseIcon from '../../Icons/CloseIcon';
+
+const printDocument = () => {
+    window.print();
+};
 
 const ResumeDrawerItems = ({
     resume: {
@@ -29,8 +35,28 @@ const ResumeDrawerItems = ({
         interests,
         references,
     },
+    onClose,
 }) => (
     <div className={style['resume-drawer-items']}>
+        <div>
+            <MuiButton
+                variant="contained"
+                color="primary"
+                disabled
+            >
+                Save
+            </MuiButton>
+            <MuiButton
+                variant="contained"
+                color="secondary"
+                onClick={printDocument}
+            >
+                Print
+            </MuiButton>
+            <CloseIcon
+                onClick={onClose}
+            />
+        </div>
         {isObjectNotEmpty(basics) && (
             <Basics
                 basics={basics}

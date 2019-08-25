@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // Components
@@ -6,6 +6,7 @@ import DefaultTemplate from '../ui/Resume/Templates/Default/Default';
 import FloatingButton from '../ui/FloatingButton/FloatingButton';
 import Drawer from '../ui/Drawer/Drawer';
 import ResumeDrawerItems from '../ui/Resume/ResumeDrawerItems/ResumeDrawerItems';
+import A4Container from '../ui/Containers/A4Container';
 
 // Utils
 import { isObjectEmpty } from '../../utils/utils';
@@ -51,7 +52,7 @@ class BuildPage extends Component {
         // console.log(togglableJsonResume);
 
         return (
-            <Fragment>
+            <div style={{ backgroundColor: '#e6f1ef' }}>
                 <FloatingButton
                     onClick={this.toggleDrawer}
                 />
@@ -61,12 +62,15 @@ class BuildPage extends Component {
                 >
                     <ResumeDrawerItems
                         resume={togglableJsonResume}
+                        onClose={this.toggleDrawer}
                     />
                 </Drawer>
-                <DefaultTemplate
-                    resume={togglableJsonResume}
-                />
-            </Fragment>
+                <A4Container>
+                    <DefaultTemplate
+                        resume={togglableJsonResume}
+                    />
+                </A4Container>
+            </div>
         );
     }
 }
