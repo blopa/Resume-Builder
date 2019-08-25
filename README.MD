@@ -14,12 +14,15 @@
 **TESTED ONLY ON GOOGLE CHROME**
 
 ## About
-Resume Builder is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://blopa.github.io/Resume-Builder/).**
-For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/master/README_V1.MD)
+[Resume Builder](https://blopa.github.io/Resume-Builder/) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://blopa.github.io/Resume-Builder/).**
+
+For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/master/README_V1.MD).
 
 ## Features
 - Multiple Resume templates
 - Parse data from Google Spreadsheet or .xls file
+- Support Json format from [jsonresume.org](https://jsonresume.org/schema/)
+- Convert Google Spreadsheet data into [jsonresume.org](https://jsonresume.org/schema/) format
 - 21 different types of "data"
 
 
