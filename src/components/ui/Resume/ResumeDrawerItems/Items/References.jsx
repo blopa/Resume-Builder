@@ -9,7 +9,7 @@ import ItemsList from './List/ItemsList';
 // Actions
 import setResumeReferences from '../../../../../store/actions/setResumeReferences';
 import { varNameToString } from '../../../../../utils/utils';
-import style from "../resume-drawer-items.scss";
+import style from '../resume-drawer-items.scss';
 
 // Redux stuff
 const mapDispatchToProps = (dispatch) => ({

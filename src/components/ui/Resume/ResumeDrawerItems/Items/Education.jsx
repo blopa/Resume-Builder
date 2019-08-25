@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid';
 
@@ -9,7 +9,7 @@ import ItemsList from './List/ItemsList';
 // Actions
 import setResumeEducation from '../../../../../store/actions/setResumeEducation';
 import { varNameToString } from '../../../../../utils/utils';
-import style from "../resume-drawer-items.scss";
+import style from '../resume-drawer-items.scss';
 
 // Redux stuff
 const mapDispatchToProps = (dispatch) => ({

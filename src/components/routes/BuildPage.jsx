@@ -38,8 +38,10 @@ class BuildPage extends Component {
             history.push('/upload');
             return null;
         }
-        // console.log(togglableJsonResume);
-        // console.log(jsonResume);
+        /*
+         * console.log(togglableJsonResume);
+         * console.log(jsonResume);
+         */
 
         return (
             <div style={{ backgroundColor: '#e6f1ef' }}>

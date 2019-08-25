@@ -11,7 +11,7 @@ import { varNameToString } from '../../../../../utils/utils';
 
 // Actions
 import setResumeInterests from '../../../../../store/actions/setResumeInterests';
-import style from "../resume-drawer-items.scss";
+import style from '../resume-drawer-items.scss';
 
 // Redux stuff
 const mapDispatchToProps = (dispatch) => ({
