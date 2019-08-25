@@ -13,4 +13,4 @@ rimraf(SETTINGS.PUBLIC_PATH)
     .then(() => console.log(chalk.yellow`Deploying to Github Pages...`))
     .then(() => publish(SETTINGS.PUBLIC_PATH))
     .then(() => console.log(chalk.green.bold`✔ Successfully deployed to Github pages!`))
-    .catch((error) => console.error(chalk.red.bold`✗ Error occured while deploying to Github Pages:`, '\n', error));
+    .catch((error) => console.error(chalk.red.bold`✗ Error occurred while deploying to Github Pages:`, '\n', error));
