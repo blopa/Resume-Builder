@@ -15,7 +15,7 @@
 
 ## About
 Resume Builder is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://blopa.github.io/Resume-Builder/).**
-For version 1 [check here](https://github.com/blopa/Resume-Builder-V1/blob/master/README_V1.md)
+For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/master/README_V1.MD)
 
 ## Features
 - Multiple Resume templates
