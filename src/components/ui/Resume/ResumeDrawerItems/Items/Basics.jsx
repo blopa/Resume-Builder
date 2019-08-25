@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import style from '../resume-drawer-items.scss';
 import uuid from 'uuid';
 
 // Components
@@ -108,7 +109,7 @@ class Basics extends Component {
         } = this.props;
 
         return (
-            <div>
+            <div className={style['resume-drawer-items--item']}>
                 <ItemInput
                     label="basics"
                     onChange={this.toggleBasics}

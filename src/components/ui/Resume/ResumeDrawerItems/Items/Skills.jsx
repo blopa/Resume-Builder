@@ -9,6 +9,7 @@ import ItemsList from './List/ItemsList';
 // Actions
 import setResumeSkills from '../../../../../store/actions/setResumeSkills';
 import { varNameToString } from '../../../../../utils/utils';
+import style from "../resume-drawer-items.scss";
 
 // Redux stuff
 const mapDispatchToProps = (dispatch) => ({
@@ -67,7 +68,7 @@ class Skills extends Component {
     render() {
         const { skills } = this.props;
         return (
-            <div>
+            <div className={style['resume-drawer-items--item']}>
                 <ItemInput
                     label="skills"
                     onChange={this.toggleSkills}

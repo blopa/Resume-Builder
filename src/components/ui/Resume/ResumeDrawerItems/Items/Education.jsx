@@ -9,6 +9,7 @@ import ItemsList from './List/ItemsList';
 // Actions
 import setResumeEducation from '../../../../../store/actions/setResumeEducation';
 import { varNameToString } from '../../../../../utils/utils';
+import style from "../resume-drawer-items.scss";
 
 // Redux stuff
 const mapDispatchToProps = (dispatch) => ({
@@ -67,7 +68,7 @@ class Education extends Component {
     render() {
         const { education: educations } = this.props;
         return (
-            <div>
+            <div className={style['resume-drawer-items--item']}>
                 <ItemInput
                     label="education"
                     checked={educations.enabled}

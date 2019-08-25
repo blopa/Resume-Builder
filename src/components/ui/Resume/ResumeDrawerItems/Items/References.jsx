@@ -9,6 +9,7 @@ import ItemsList from './List/ItemsList';
 // Actions
 import setResumeReferences from '../../../../../store/actions/setResumeReferences';
 import { varNameToString } from '../../../../../utils/utils';
+import style from "../resume-drawer-items.scss";
 
 // Redux stuff
 const mapDispatchToProps = (dispatch) => ({
@@ -67,7 +68,7 @@ class References extends Component {
     render() {
         const { references } = this.props;
         return (
-            <div>
+            <div className={style['resume-drawer-items--item']}>
                 <ItemInput
                     label="references"
                     onChange={this.toggleReferences}

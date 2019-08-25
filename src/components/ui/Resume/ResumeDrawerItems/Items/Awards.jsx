@@ -9,6 +9,7 @@ import ItemsList from './List/ItemsList';
 // Actions
 import setResumeAwards from '../../../../../store/actions/setResumeAwards';
 import { varNameToString } from '../../../../../utils/utils';
+import style from "../resume-drawer-items.scss";
 
 // Redux stuff
 const mapDispatchToProps = (dispatch) => ({
@@ -67,7 +68,7 @@ class Awards extends Component {
     render() {
         const { awards } = this.props;
         return (
-            <div>
+            <div className={style['resume-drawer-items--item']}>
                 <ItemInput
                     label="awards"
                     onChange={this.toggleAwards}

@@ -9,6 +9,7 @@ import ItemsList from './List/ItemsList';
 // Actions
 import setResumePublications from '../../../../../store/actions/setResumePublications';
 import { varNameToString } from '../../../../../utils/utils';
+import style from "../resume-drawer-items.scss";
 
 // Redux stuff
 const mapDispatchToProps = (dispatch) => ({
@@ -67,7 +68,7 @@ class Publications extends Component {
     render() {
         const { publications } = this.props;
         return (
-            <div>
+            <div className={style['resume-drawer-items--item']}>
                 <ItemInput
                     label="publications"
                     onChange={this.togglePublications}

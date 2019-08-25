@@ -11,6 +11,7 @@ import { varNameToString } from '../../../../../utils/utils';
 
 // Actions
 import setResumeInterests from '../../../../../store/actions/setResumeInterests';
+import style from "../resume-drawer-items.scss";
 
 // Redux stuff
 const mapDispatchToProps = (dispatch) => ({
@@ -103,7 +104,7 @@ class Interest extends Component {
         const { interests } = this.props;
 
         return (
-            <div>
+            <div className={style['resume-drawer-items--item']}>
                 <ItemInput
                     label="interest"
                     onChange={this.toggleInterests}

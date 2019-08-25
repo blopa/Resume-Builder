@@ -11,6 +11,7 @@ import { varNameToString } from '../../../../../utils/utils';
 
 // Actions
 import setResumeWork from '../../../../../store/actions/setResumeWork';
+import style from "../resume-drawer-items.scss";
 
 // Redux stuff
 const mapDispatchToProps = (dispatch) => ({
@@ -108,7 +109,7 @@ class Work extends Component {
         } = this.props;
 
         return (
-            <div>
+            <div className={style['resume-drawer-items--item']}>
                 <ItemInput
                     label="work"
                     onChange={this.toggleWorks}
