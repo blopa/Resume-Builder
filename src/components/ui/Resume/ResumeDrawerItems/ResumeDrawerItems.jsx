@@ -3,6 +3,7 @@ import style from './resume-drawer-items.scss';
 
 // Utils
 import { isObjectNotEmpty } from '../../../../utils/utils';
+import { downloadJson } from '../../../../utils/json-parser';
 
 // Components
 import Awards from './Items/Awards';
@@ -36,6 +37,7 @@ const ResumeDrawerItems = ({
         references,
     },
     onClose,
+    jsonResume,
 }) => (
     <div className={style['resume-drawer-items']}>
         <div>
@@ -44,7 +46,14 @@ const ResumeDrawerItems = ({
                 color="primary"
                 disabled
             >
-                Save
+                Download .doc
+            </MuiButton>
+            <MuiButton
+                variant="contained"
+                color="primary"
+                onClick={() => downloadJson(jsonResume)}
+            >
+                Download .json
             </MuiButton>
             <MuiButton
                 variant="contained"

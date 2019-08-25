@@ -11,23 +11,12 @@ import A4Container from '../ui/Containers/A4Container';
 // Utils
 import { isObjectEmpty } from '../../utils/utils';
 
-// Actions
-import setJsonResume from '../../store/actions/setJsonResume';
-import setTogglableJsonResume from '../../store/actions/setTogglableJsonResume';
-
 const mapStateToProps = (state) => ({
     jsonResume: state.resume.jsonResume,
     togglableJsonResume: state.resume.togglableJsonResume,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setJsonResume: (resume) => {
-        dispatch(setJsonResume(resume));
-    },
-    setTogglableJsonResume: (resume) => {
-        dispatch(setTogglableJsonResume(resume));
-    },
-});
+const mapDispatchToProps = (dispatch) => ({});
 
 class BuildPage extends Component {
     state = {
@@ -50,6 +39,7 @@ class BuildPage extends Component {
             return null;
         }
         // console.log(togglableJsonResume);
+        // console.log(jsonResume);
 
         return (
             <div style={{ backgroundColor: '#e6f1ef' }}>
@@ -62,6 +52,7 @@ class BuildPage extends Component {
                 >
                     <ResumeDrawerItems
                         resume={togglableJsonResume}
+                        jsonResume={jsonResume}
                         onClose={this.toggleDrawer}
                     />
                 </Drawer>

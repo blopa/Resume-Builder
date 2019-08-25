@@ -6,19 +6,21 @@ module.exports = {
 
     FAVICONS: {
         logo: path.join(__dirname, './favicon.png'), // image from which favicons will be generated
-        background: '#ffeeee', // theme color for mobile browsers
-        // type of favicons to generate, WARNING: dramaticly decreases build speed, use wisely
-        icons: {
-            android: false,
-            appleIcon: false,
-            appleStartup: false,
-            coast: false,
-            favicons: true,
-            firefox: false,
-            opengraph: false,
-            twitter: false,
-            yandex: false,
-            windows: false,
+        // type of favicons to generate, WARNING: dramatically decreases build speed, use wisely
+        favicons: {
+            background: '#ffeeee', // theme color for mobile browsers
+            icons: {
+                android: false,
+                appleIcon: false,
+                appleStartup: false,
+                coast: false,
+                favicons: true,
+                firefox: false,
+                opengraph: false,
+                twitter: false,
+                yandex: false,
+                windows: false,
+            },
         },
     },
 
