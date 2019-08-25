@@ -1,63 +1,30 @@
-# General
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Dependency directories
+node_modules
+jspm_packages
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Because Mac
 .DS_Store
-.vscode
+
+# Project Files
+public
+storybook-static
+docs
+.eslintcache
+.stylelintcache
 .idea
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.iml
-*.log*
-chrome-user-data
-*.sublime-project
-*.sublime-workspace
-
-# React https://raw.githubusercontent.com/facebook/react/master/.gitignore
-React/.DS_STORE
-React/node_modules
-React/*~
-React/*.pyc
-React/.grunt
-React/_SpecRunner.html
-React/__benchmarks__
-React/build/
-React/remote-repo/
-React/coverage/
-React/flow-coverage/
-React/.module-cache
-React/fixtures/dom/public/react-dom.js
-React/fixtures/dom/public/react.js
-React/test/the-files-to-test.generated.js
-React/.vscode
-React/*.swp
-React/*.swo
-React/dist
-React/src/index.html
-
-# Vue https://raw.githubusercontent.com/vuejs-templates/webpack-simple/master/template/.gitignore
-Vue/.DS_STORE
-Vue/node_modules/
-Vue/dist/
-Vue/npm-debug.log
-Vue/yarn-error.log
-
-# Angular https://raw.githubusercontent.com/angular/angular.js/master/.gitignore
-Angular/.DS_Store
-Angular/build/
-Angular/benchpress-build/
-Angular/gen_docs.disable
-Angular/test.disable
-Angular/regression/temp*.html
-Angular/performance/temp*.html
-Angular/*~
-Angular/*.swp
-Angular/angular.js.tmproj
-Angular/node_modules/
-Angular/angular.xcodeproj
-Angular/.agignore
-Angular/.lvimrc
-Angular/libpeerconnection.log
-Angular/npm-debug.log
-Angular/tmp/
-Angular/*.log
-Angular/*.stackdump

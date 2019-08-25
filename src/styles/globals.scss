@@ -1,0 +1,46 @@
+/*
+ * This file stores all global variables and mixins that can be accessed in every scss file
+ * in this project. Do not put any css code here except for mixins and placelders as it is
+ * automatically attached to every scss file.
+ */
+
+/* Variables */
+
+$global-radius: 3px;
+$font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+
+$color-white: #FFFFFF;
+$color-black: #000000;
+
+/*
+ * Part pf Material Design color palette
+ * Find more here – https://github.com/rtivital/material-design-colors
+ */
+$color-gray-50: #FAFAFA;
+$color-gray-100: #F5F5F5;
+$color-gray-200: #EEEEEE;
+$color-gray-300: #E0E0E0;
+$color-gray-400: #BDBDBD;
+$color-gray-500: #9E9E9E;
+$color-gray-600: #757575;
+$color-gray-700: #616161;
+$color-gray-800: #424242;
+$color-gray-900: #212121;
+
+$color-blue-50: #E3F2FD;
+$color-blue-100: #BBDEFB;
+$color-blue-200: #90CAF9;
+$color-blue-300: #64B5F6;
+$color-blue-400: #42A5F5;
+$color-blue-500: #2196F3;
+$color-blue-600: #1E88E5;
+$color-blue-700: #1976D2;
+$color-blue-800: #1565C0;
+$color-blue-900: #0D47A1;
+
+/* Mixins */
+@mixin center($width) {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $width;
+}

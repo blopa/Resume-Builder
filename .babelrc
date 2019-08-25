@@ -1,0 +1,23 @@
+{
+  "presets": [
+    "react",
+    "stage-1",
+    ["env", { "targets": { "browsers": ["last 2 versions"] }, "modules": false }]
+  ],
+
+  "plugins": ["transform-decorators-legacy", "transform-class-properties"],
+
+  "env": {
+    "production": {
+      "presets": ["react-optimize"],
+      "plugins": ["transform-runtime", "ramda", "lodash"]
+    },
+
+    "test": {
+      "presets": [
+        ["env", { "targets": { "browsers": ["last 2 versions"] } }]
+      ],
+      "plugins": [["module-resolver", { "root": ["./src"] }]]
+    }
+  }
+}

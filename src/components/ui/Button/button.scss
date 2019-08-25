@@ -1,0 +1,40 @@
+.button {
+  line-height: 1;
+  font-size: 1.4rem;
+  padding: .8rem 2rem;
+  border: .1rem solid transparent;
+  outline: 0;
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease;
+  user-select: none;
+  border-radius: $global-radius;
+}
+
+.button--white {
+  color: $color-gray-900;
+  background-color: $color-white;
+  border: .1rem solid $color-gray-600;
+
+  &:hover {
+    background-color: $color-gray-200;
+  }
+
+  &:active {
+    background-color: $color-gray-400;
+  }
+}
+
+.button--blue {
+  color: $color-white;
+  background-color: $color-blue-500;
+  font-weight: bold;
+
+  &:hover,
+  &:focus {
+    background-color: $color-blue-700;
+  }
+
+  &:active {
+    background-color: $color-blue-900;
+  }
+}

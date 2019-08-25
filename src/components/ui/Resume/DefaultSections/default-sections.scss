@@ -1,0 +1,408 @@
+// BASICS
+.resume-basics {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+
+  h2 {
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  &--address {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+
+    li {
+      margin: 0 5px 0 0;
+
+      &:after {
+        content: ",";
+      }
+
+      &:last-child {
+        &:after {
+          content: "";
+        }
+      }
+    }
+  }
+
+  &--contact-info {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+
+    li {
+      margin: 0 5px 0 0;
+
+      &:after {
+        content: " |";
+      }
+
+      &:last-child {
+        &:after {
+          content: "";
+        }
+      }
+    }
+  }
+
+  &--social-media {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+
+    li {
+      margin: 0 5px 0 0;
+
+      &:after {
+        content: " |";
+      }
+
+      &:last-child {
+        &:after {
+          content: "";
+        }
+      }
+    }
+  }
+
+  &--website {
+
+  }
+}
+
+.resume-summary {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+// WORK
+.resume-work {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+
+  &--works {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+
+  &--position {
+    font-weight: bold;
+  }
+
+  &--website {
+
+  }
+
+  &--summary {
+
+  }
+
+  &--highlights {
+    list-style: disc;
+
+    li {
+      font-style: italic;
+      margin: 0;
+    }
+  }
+}
+
+// SKILLS
+.resume-skills {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+
+  &--skills {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+
+  &--title {
+    font-weight: bold;
+  }
+
+  &--keywords {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+
+    li {
+      margin: 0 5px 0 0;
+
+      &:after {
+        content: ",";
+      }
+
+      &:last-child {
+        &:after {
+          content: "";
+        }
+      }
+    }
+  }
+}
+
+// EDUCATION
+.resume-education {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+
+  &--type {
+    font-weight: bold;
+  }
+
+  &--institution {
+
+  }
+
+  &--courses {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+
+  &--courses-details {
+    display: flex;
+
+    ul {
+      margin: 0 0 0 5px;
+      padding: 0;
+      display: flex;
+      list-style: none;
+
+      li {
+        margin: 0 5px 0 0;
+
+        &:after {
+          content: ",";
+        }
+
+        &:last-child {
+          &:after {
+            content: "";
+          }
+        }
+      }
+    }
+  }
+}
+
+// AWARDS
+.resume-awards {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+
+  &--award {
+    font-weight: bold;
+  }
+
+  &--awards {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+}
+
+// VOLUNTEER
+.resume-volunteer {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+
+  &--volunteers {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+
+  &--position {
+    font-weight: bold;
+  }
+
+  &--website {
+
+  }
+
+  &--summary {
+
+  }
+
+  &--highlights {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+
+    li {
+      margin: 0 5px 0 0;
+
+      &:after {
+        content: ",";
+      }
+
+      &:last-child {
+        &:after {
+          content: "";
+        }
+      }
+    }
+  }
+}
+
+// PUBLICATIONS
+.resume-publications {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+
+  &--publications {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+
+  &--publication {
+    font-weight: bold;
+  }
+}
+
+// LANGUAGES
+.resume-languages {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+
+  &--languages {
+    margin: 0;
+
+    li {
+      margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+}
+
+// INTERESTS
+.resume-interests {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+
+  &--interests {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+
+  &--interest {
+    font-weight: bold;
+  }
+
+  &--keywords {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+
+    li {
+      margin: 0 5px 0 0;
+
+      &:after {
+        content: ",";
+      }
+
+      &:last-child {
+        &:after {
+          content: "";
+        }
+      }
+    }
+  }
+}
+
+// REFERENCES
+.resume-references {
+  padding: 10px 0;
+
+  &--name {
+    font-weight: bold;
+  }
+
+  &--references {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0 0 10px 0;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+}
