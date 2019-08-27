@@ -9,7 +9,8 @@ cache:
 install:
   - yarn install
 script:
-  - yarn deploy
+#  - yarn deploy
+  - yarn build
 deploy:
   provider: pages
   skip-cleanup: true
