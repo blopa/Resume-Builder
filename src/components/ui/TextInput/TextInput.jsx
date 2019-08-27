@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 // Styles
 import style from './text-input.scss';
 
-const TextInput = ({ label, placeholder, disabled, onKeyUp }) => (
+const TextInput = ({ label, placeholder, disabled, onChange }) => (
     <div className={style['text-input']}>
         <TextField
             label={label}
@@ -13,7 +13,7 @@ const TextInput = ({ label, placeholder, disabled, onKeyUp }) => (
             variant="outlined"
             className={style['text-input--input']}
             disabled={disabled}
-            onKeyUp={onKeyUp}
+            onChange={onChange}
         />
     </div>
 );

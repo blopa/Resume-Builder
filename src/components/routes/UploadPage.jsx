@@ -111,7 +111,7 @@ class UploadPage extends Component {
                 <TextInput
                     label="Google Spreadsheet URL"
                     placeholder="Put your Google Spreadsheet URL here"
-                    onKeyUp={this.setInputedTextToState}
+                    onChange={this.setInputedTextToState}
                 />
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <MuiButton

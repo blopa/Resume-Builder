@@ -8,6 +8,7 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const CnameWebpackPlugin = require('cname-webpack-plugin');
 
 const SETTINGS = require('./settings');
 
@@ -102,6 +103,9 @@ const productionPlugins = [
     new LodashModuleReplacementPlugin(),
     new ExtractTextPlugin('[name].css'),
     new webpack.optimize.OccurrenceOrderPlugin(),
+    new CnameWebpackPlugin({
+        domain: 'resume-builder.js.org',
+    }),
 ];
 
 module.exports = {
