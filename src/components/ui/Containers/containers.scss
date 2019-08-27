@@ -1,8 +1,15 @@
 .a4-container {
   background-color: #ffffff;
-  margin: 0 auto;
   width: 21cm;
   min-height: 29.7cm;
+
+  &--align-center {
+    margin: 0 auto;
+  }
+
+  &--align-left {
+    margin-left: calc(50% - 11.5cm - 175px);
+  }
 
   @media print {
     visibility: visible !important;

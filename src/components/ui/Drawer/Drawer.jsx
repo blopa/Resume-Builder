@@ -6,9 +6,11 @@ import style from './drawer.scss';
 
 const Drawer = (props) => (
     <MuiDrawer
+        className={style['drawer']}
         open={props.open}
         onClose={props.onClose}
         anchor="right"
+        variant="persistent"
     >
         {props.children}
     </MuiDrawer>

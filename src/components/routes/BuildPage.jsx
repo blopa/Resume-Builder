@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 
 // Components
 import DefaultTemplate from '../ui/Resume/Templates/Default/Default';
@@ -11,6 +12,9 @@ import A4Container from '../ui/Containers/A4Container';
 // Utils
 import { isObjectEmpty } from '../../utils/utils';
 
+// Style
+import style from '../ui/Containers/containers.scss';
+
 const mapStateToProps = (state) => ({
     jsonResume: state.resume.jsonResume,
     togglableJsonResume: state.resume.togglableJsonResume,
@@ -20,7 +24,7 @@ const mapDispatchToProps = (dispatch) => ({});
 
 class BuildPage extends Component {
     state = {
-        drawerOpen: false,
+        drawerOpen: true,
     };
 
     toggleDrawer = () => {
@@ -58,7 +62,12 @@ class BuildPage extends Component {
                         onClose={this.toggleDrawer}
                     />
                 </Drawer>
-                <A4Container>
+                <A4Container
+                    className={classNames({
+                        [style['a4-container--align-center']]: !this.state.drawerOpen,
+                        [style['a4-container--align-left']]: this.state.drawerOpen,
+                    })}
+                >
                     <DefaultTemplate
                         resume={togglableJsonResume}
                     />

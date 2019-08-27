@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function ContactPage() {
     return (
-        <section style={{ backgroundColor: '#ffffff', margin: '0 15px' }}>
+        <section style={{ backgroundColor: '#ffffff', margin: '0 auto', maxWidth: '600px' }}>
             <h2>Contact</h2>
             <p>
                 To get in contact please access our GitHub project page{' '}
