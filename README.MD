@@ -163,6 +163,9 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v2/screenshot_3.png)
 
 ## Release Notes
+- **v2.0.2:**
+	- Fix printing issue when sidebar is open.
+	- Add Google Analytics option.
 - **v2.0.1:**
 	- Add option to parse spreadsheet from Google Spreadsheet URL.
 - **v2.0.0:**
@@ -182,6 +185,7 @@ A: Thank you! You can help by codding more features, creating pull requests, or 
 - Add option to save a built resume
 - Add check for valid spreadsheet URL on text input
 - Add various missing error handlers
+- Add job offers based on uploaded CV? (check for online APIs)
 
 ## License
 MIT License

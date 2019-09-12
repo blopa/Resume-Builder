@@ -1,6 +1,6 @@
 {
   "name": "resume-builder",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Resume Builder",
   "main": "index.js",
   "scripts": {
@@ -39,6 +39,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-dropzone": "^10.1.8",
+    "react-ga": "^2.6.0",
     "react-icons": "^3.7.0",
     "react-redux": "^7.1.1",
     "react-router": "^5.0.1",
