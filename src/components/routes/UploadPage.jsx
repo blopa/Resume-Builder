@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import DropZone from '../ui/DropZone/DropZone';
 import { connect } from 'react-redux';
 import { cloneDeep } from 'lodash';
+import ReactGA from 'react-ga';
 
 // Utils
-import readSpreadsheet, {parseSpreadsheetUrl} from '../../utils/spreadsheet-parser';
+import readSpreadsheet, { parseSpreadsheetUrl } from '../../utils/spreadsheet-parser';
 import spreadsheetToJsonResume from '../../utils/spreadsheet-to-json-resume';
 import { traverseObject } from '../../utils/utils';
 import { readJsonFile } from '../../utils/json-parser';
@@ -43,6 +44,18 @@ class UploadPage extends Component {
         loading: false,
     };
 
+    trackFiletypeEvent = (fileExtension) => ReactGA.event({
+        category: 'Upload',
+        action: 'Uploaded File Extension',
+        value: fileExtension,
+    });
+
+    trackFileSource = (fileSource) => ReactGA.event({
+        category: 'Upload',
+        action: 'Uploaded File Source',
+        value: fileSource,
+    });
+
     setResumesAndForward = (jsonResume) => {
         const { history } = this.props;
         this.props.setJsonResume(jsonResume);
@@ -62,7 +75,9 @@ class UploadPage extends Component {
     };
 
     handleFile = (file) => {
+        this.trackFileSource('file-drop');
         const fileExtension = file.path && file.path.split('.').pop();
+        this.trackFiletypeEvent(fileExtension);
 
         if (SHEET_EXTENSIONS.includes(fileExtension)) {
             readSpreadsheet(file, this.readSpreadsheetCallback);
@@ -88,6 +103,7 @@ class UploadPage extends Component {
             loading: true,
         });
 
+        this.trackFileSource('spreadsheet-link');
         parseSpreadsheetUrl(
             this.state.textInputValue,
             this.readSpreadsheetCallback

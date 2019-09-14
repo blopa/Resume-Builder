@@ -16,7 +16,9 @@ class App extends Component {
         const history = createBrowserHistory();
         if (GOOGLE_ANALYTICS_KEY) {
             ReactGA.initialize(GOOGLE_ANALYTICS_KEY);
-            history.listen((location) => ReactGA.pageview(location.pathname));
+            history.listen((location) => ReactGA.pageview(
+                `${location.pathname}${location.hash}`
+            ));
         }
     }
 

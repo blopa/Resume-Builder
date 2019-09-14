@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './resume-drawer-items.scss';
+import ReactGA from 'react-ga';
 
 // Utils
 import { isObjectNotEmpty } from '../../../../utils/utils';
@@ -20,7 +21,21 @@ import MuiButton from '../../MuiButton/MuiButton';
 import CloseIcon from '../../Icons/CloseIcon';
 
 const printDocument = () => {
+    ReactGA.event({
+        category: 'Print',
+        action: 'Print Button Click',
+    });
+
     window.print();
+};
+
+const handleDownloadJson = (jsonResume) => {
+    ReactGA.event({
+        category: 'Download',
+        action: 'Download JSON Button Click',
+    });
+
+    downloadJson(jsonResume);
 };
 
 const ResumeDrawerItems = ({
@@ -51,7 +66,7 @@ const ResumeDrawerItems = ({
             <MuiButton
                 variant="contained"
                 color="primary"
-                onClick={() => downloadJson(jsonResume)}
+                onClick={() => handleDownloadJson(jsonResume)}
             >
                 Download .json
             </MuiButton>
