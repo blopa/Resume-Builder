@@ -80,6 +80,7 @@ const pluginsBase = [
         GOOGLE_ANALYTICS_KEY: JSON.stringify(process.env.GOOGLE_ANALYTICS_KEY || ''),
     }),
 ];
+console.log('come on traviiiis');
 
 const developmentPlugins = [
     ...pluginsBase,
