@@ -14,9 +14,10 @@ class App extends Component {
     componentDidMount() {
         if (GOOGLE_ANALYTICS_KEY) {
             ReactGA.initialize(GOOGLE_ANALYTICS_KEY);
+            const { location } = window; // not needed but good practice.
             window.addEventListener(
                 'hashchange',
-                (location) => ReactGA.pageview(
+                () => ReactGA.pageview(
                     `${location.pathname}${location.hash}`
                 )
             );
