@@ -104,6 +104,7 @@ class UploadPage extends Component {
         });
 
         this.trackFileSource('spreadsheet-link');
+        this.trackFiletypeEvent('.google-spreadsheet');
         parseSpreadsheetUrl(
             this.state.textInputValue,
             this.readSpreadsheetCallback
