@@ -12,7 +12,10 @@ import ContactPage from './routes/ContactPage';
 
 class App extends Component {
     componentDidMount() {
-        ReactGA.initialize(process.env.GOOGLE_ANALYTICS_KEY);
+        if (GOOGLE_ANALYTICS_KEY) {
+            ReactGA.initialize(GOOGLE_ANALYTICS_KEY);
+            history.listen((location) => ReactGA.pageview(location.pathname));
+        }
     }
 
     render() {

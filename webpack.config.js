@@ -52,7 +52,7 @@ const rules = [
     },
 
     {
-    // do not load styles as css modules from other direcroies (e.g. node_modules) but src
+    // do not load styles as css modules from other directories (e.g. node_modules) but src
         test: /\.(css)$/,
         loaders: production ?
             ExtractTextPlugin.extract({
@@ -77,6 +77,7 @@ const pluginsBase = [
         'process.env': {
             NODE_ENV: JSON.stringify(process.env.NODE_ENV || ''),
         },
+        GOOGLE_ANALYTICS_KEY: JSON.stringify(process.env.GOOGLE_ANALYTICS_KEY || ''),
     }),
 ];
 

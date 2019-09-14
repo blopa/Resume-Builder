@@ -27,7 +27,8 @@ module.exports = {
     'spyOn': true,
     '__PATH_PREFIX__': true,
     '__BASE_PATH__': true,
-    '__ASSET_PREFIX__': true
+    '__ASSET_PREFIX__': true,
+    'GOOGLE_ANALYTICS_KEY': false
   },
   'rules': {
     'brace-style': 'warn',
