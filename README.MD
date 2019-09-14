@@ -1,6 +1,6 @@
 # Resume Builder
 
-**Gotta find a job!** Alright, let's make a new resume with this awesome template I found on Google, the problem is, this template might not be as awesome next month, or you might need to constantly add your new experience to the document. Gosh. Wouldn't be better to focus on adding new experiences in a raw format and let a atomization process handle the layout? I agreed, and that's why Resume Builder is here.
+**Gotta find a job!** Alright, let's make a new resume with this awesome template I found on Google, the problem is, this template might not be as awesome next month, or you might need to constantly add your new experience to the document. Gosh. Wouldn't be better to focus on adding new experiences in a raw format and let a automation process handle the layout? I agreed, and that's why Resume Builder is here.
 
 #### You take care of the data and we take care of the template.
 
@@ -14,16 +14,15 @@
 **TESTED ONLY ON GOOGLE CHROME**
 
 ## About
-[Resume Builder](https://blopa.github.io/Resume-Builder/) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://blopa.github.io/Resume-Builder/).**
+[Resume Builder](https://resume-builder.js.org) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://resume-builder.js.org).**
 
 For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/master/README_V1.MD).
 
 ## Features
-- Multiple Resume templates
-- Parse data from Google Spreadsheet or .xls file
-- Support Json format from [jsonresume.org](https://jsonresume.org/schema/)
-- Convert Google Spreadsheet data into [jsonresume.org](https://jsonresume.org/schema/) format
-- 21 different types of "data"
+- Multiple Resume templates (soon)
+- Parse data from Google Spreadsheet URL, .xls file or .json file.
+- Support Json format from [jsonresume.org](https://jsonresume.org/schema/).
+- Convert Google Spreadsheet data into [jsonresume.org](https://jsonresume.org/schema/) format.
 
 
 ## Usage
@@ -42,8 +41,8 @@ First of all you need to create a Google Spreadsheet following the same rules as
 - **countryCode:** Country code where you're located
 - **network:** Social media name
 - **username:** Social media name
-- **TODO**
-So whenever you want a part of the resume to be an sub-item of another item, you should use the ``data-for`` field. Use your creativity.
+
+TODO: list all
 
 ## Libraries
 - I'm using [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx) and [Material UI](https://material-ui.com/).
@@ -52,7 +51,7 @@ So whenever you want a part of the resume to be an sub-item of another item, you
 So a big thanks to all the developers that worked really hard on these libs and make our day easier :D.
 
 ## Deployment
-Run `npm run build` then copy the `dist/` folder into your website root directory. Done.
+Run `npm run build` then copy the `public/` folder into your website root directory. Done.
 
 ## Example
 The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.google.com/spreadsheets/d/1UCdsEiyO68IEdfVhW-Gfrg7FfI4pLaij37D5Eh-v8hQ/edit). For a better view of the ``JSON`` [click here](https://codebeautify.org/jsonviewer/cb7c68a1).
