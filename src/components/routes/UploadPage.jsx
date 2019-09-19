@@ -47,13 +47,13 @@ class UploadPage extends Component {
     trackFiletypeEvent = (fileExtension) => ReactGA.event({
         category: 'Upload',
         action: 'Uploaded File Extension',
-        value: fileExtension,
+        label: fileExtension,
     });
 
     trackFileSource = (fileSource) => ReactGA.event({
         category: 'Upload',
         action: 'Uploaded File Source',
-        value: fileSource,
+        label: fileSource,
     });
 
     setResumesAndForward = (jsonResume) => {
