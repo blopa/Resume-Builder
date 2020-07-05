@@ -36,9 +36,8 @@ class Awards extends Component {
                         ...awd,
                         enabled: !awd.enabled,
                     };
-                } else {
-                    return awd;
                 }
+                return awd;
             });
         this.props.setResumeAwards(newAwards);
     };
@@ -58,9 +57,8 @@ class Awards extends Component {
                             },
                         },
                     };
-                } else {
-                    return awd;
                 }
+                return awd;
             });
         this.props.setResumeAwards(newAwards);
     };

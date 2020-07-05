@@ -36,9 +36,8 @@ class Languages extends Component {
                         ...lang,
                         enabled: !lang.enabled,
                     };
-                } else {
-                    return lang;
                 }
+                return lang;
             });
         this.props.setResumeLanguages(newLanguages);
     };
@@ -58,9 +57,8 @@ class Languages extends Component {
                             },
                         },
                     };
-                } else {
-                    return lang;
                 }
+                return lang;
             });
         this.props.setResumeLanguages(newLanguages);
     };

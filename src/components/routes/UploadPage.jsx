@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import DropZone from '../ui/DropZone/DropZone';
 import { connect } from 'react-redux';
 import { cloneDeep } from 'lodash';
 import ReactGA from 'react-ga';
+import DropZone from '../ui/DropZone/DropZone';
 
 // Utils
 import readSpreadsheet, { parseSpreadsheetUrl } from '../../utils/spreadsheet-parser';

@@ -38,9 +38,8 @@ class Work extends Component {
                         ...wrk,
                         enabled: !wrk.enabled,
                     };
-                } else {
-                    return wrk;
                 }
+                return wrk;
             });
         this.props.setResumeWork(newWork);
     };
@@ -60,9 +59,8 @@ class Work extends Component {
                             },
                         },
                     };
-                } else {
-                    return wrk;
                 }
+                return wrk;
             });
         this.props.setResumeWork(newWork);
     };
@@ -93,9 +91,8 @@ class Work extends Component {
                             },
                         },
                     };
-                } else {
-                    return wrk;
                 }
+                return wrk;
             });
         this.props.setResumeWork(newWork);
     };

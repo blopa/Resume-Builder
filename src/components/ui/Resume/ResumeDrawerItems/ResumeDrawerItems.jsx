@@ -1,6 +1,6 @@
 import React from 'react';
-import style from './resume-drawer-items.scss';
 import ReactGA from 'react-ga';
+import style from './resume-drawer-items.scss';
 
 // Utils
 import { isObjectNotEmpty } from '../../../../utils/utils';

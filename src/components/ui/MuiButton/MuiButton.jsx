@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MuiButton = (props) => (
     <Button
-        className={useStyles()['button']}
+        className={useStyles().button}
         color={props.color}
         variant={props.variant}
         onClick={props.onClick}

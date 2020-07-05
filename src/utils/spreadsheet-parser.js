@@ -15,8 +15,12 @@ export const readSpreadsheetFile = (file, callback) => {
     reader.readAsBinaryString(file);
 };
 
-export const downloadSpreadsheetFile = (spreadsheetId, sheetId, callback) => {
-    const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/export?format=xlsx&gid=${sheetId}`;
+export const downloadSpreadsheetFile = (spreadsheetId, sheetId, callback, forceCors = true) => {
+    let url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/export?format=xlsx&gid=${sheetId}`;
+    if (forceCors) {
+        url = `https://cors-anywhere.herokuapp.com/${url}`;
+    }
+
     const xhr = new XMLHttpRequest();
 
     xhr.open('GET', url, true);

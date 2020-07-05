@@ -36,9 +36,8 @@ class Education extends Component {
                         ...edu,
                         enabled: !edu.enabled,
                     };
-                } else {
-                    return edu;
                 }
+                return edu;
             });
         this.props.setResumeEducation(newEducation);
     };
@@ -58,9 +57,8 @@ class Education extends Component {
                             },
                         },
                     };
-                } else {
-                    return edu;
                 }
+                return edu;
             });
         this.props.setResumeEducation(newEducation);
     };

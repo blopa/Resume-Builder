@@ -36,9 +36,8 @@ class Publications extends Component {
                         ...pub,
                         enabled: !pub.enabled,
                     };
-                } else {
-                    return pub;
                 }
+                return pub;
             });
         this.props.setResumePublications(newPublications);
     };
@@ -58,9 +57,8 @@ class Publications extends Component {
                             },
                         },
                     };
-                } else {
-                    return pub;
                 }
+                return pub;
             });
         this.props.setResumePublications(newPublications);
     };

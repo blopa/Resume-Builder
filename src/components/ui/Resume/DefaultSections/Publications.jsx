@@ -1,6 +1,6 @@
 import React from 'react';
-import style from './default-sections.scss';
 import uuid from 'uuid';
+import style from './default-sections.scss';
 
 const Publications = ({ publications }) =>
     publications.length > 0 && (

@@ -1,6 +1,6 @@
 import React from 'react';
-import ItemInput from './ItemInput';
 import uuid from 'uuid';
+import ItemInput from './ItemInput';
 
 const ItemsList = ({ onClick, label, checked }) => (
     <li key={uuid()}>

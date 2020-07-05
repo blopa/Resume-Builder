@@ -36,9 +36,8 @@ class References extends Component {
                         ...ref,
                         enabled: !ref.enabled,
                     };
-                } else {
-                    return ref;
                 }
+                return ref;
             });
         this.props.setResumeReferences(newReferences);
     };
@@ -58,9 +57,8 @@ class References extends Component {
                             },
                         },
                     };
-                } else {
-                    return ref;
                 }
+                return ref;
             });
         this.props.setResumeReferences(newReferences);
     };

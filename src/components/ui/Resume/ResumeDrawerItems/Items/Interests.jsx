@@ -38,9 +38,8 @@ class Interest extends Component {
                         ...wrk,
                         enabled: !wrk.enabled,
                     };
-                } else {
-                    return wrk;
                 }
+                return wrk;
             });
         this.props.setResumeInterests(newInterest);
     };
@@ -60,9 +59,8 @@ class Interest extends Component {
                             },
                         },
                     };
-                } else {
-                    return vol;
                 }
+                return vol;
             });
         this.props.setResumeInterests(newInterest);
     };
@@ -93,9 +91,8 @@ class Interest extends Component {
                             },
                         },
                     };
-                } else {
-                    return vol;
                 }
+                return vol;
             });
         this.props.setResumeInterests(newInterest);
     };

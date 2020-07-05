@@ -1,6 +1,6 @@
 import React from 'react';
-import style from './containers.scss';
 import classNames from 'classnames';
+import style from './containers.scss';
 
 const A4Container = (props) => (
     <div

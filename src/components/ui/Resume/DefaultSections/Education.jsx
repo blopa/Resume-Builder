@@ -1,6 +1,6 @@
 import React from 'react';
-import style from './default-sections.scss';
 import uuid from 'uuid';
+import style from './default-sections.scss';
 
 const Education = ({ education: educations }) =>
     educations.length > 0 && (

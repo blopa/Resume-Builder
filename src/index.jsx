@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import 'styles';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 
 import React from 'react';
 import { render } from 'react-dom';

@@ -1,11 +1,9 @@
 module.exports = {
   'parser': 'babel-eslint',
-  'extends': ['plugin:jest/recommended'],
   'env': {
     'es6': true,
     'browser': true,
-    'node': true,
-    'jest/globals': true
+    'node': true
   },
   'parserOptions': {
     'sourceType': 'module',
@@ -19,7 +17,10 @@ module.exports = {
     'flowtype',
     'filenames',
     'prettier',
-    'jest'
+    'jest',
+    'babel',
+    'react-hooks',
+    'unicorn',
   ],
   'globals': {
     'before': true,
@@ -30,7 +31,17 @@ module.exports = {
     '__ASSET_PREFIX__': true,
     'GOOGLE_ANALYTICS_KEY': false
   },
+  'settings': {
+    'react': {
+      'version': '16.13.1'
+    }
+  },
+  "extends": [
+    "airbnb",
+    "airbnb/hooks"
+  ],
   'rules': {
+    'babel/no-unused-expressions': 'warn',
     'brace-style': 'warn',
     'for-direction': 'error',
     'no-compare-neg-zero': 'error',
@@ -46,13 +57,6 @@ module.exports = {
     'no-empty-character-class': 'error',
     'no-ex-assign': 'error',
     'no-extra-boolean-cast': 'warn',
-    'no-extra-parens': [
-      'warn',
-      'all',
-      {
-        'ignoreJSX': 'multi-line'
-      }
-    ],
     'no-extra-semi': 'warn',
     'no-func-assign': 'error',
     'no-inner-declarations': 'error',
@@ -91,6 +95,7 @@ module.exports = {
     'no-global-assign': 'error',
     'no-implicit-coercion': 'warn',
     'no-implicit-globals': 'error',
+    'babel/no-invalid-this': 'error',
     'no-iterator': 'error',
     'no-labels': 'error',
     'no-lone-blocks': 'warn',
@@ -101,13 +106,15 @@ module.exports = {
     'no-octal': 'error',
     'no-octal-escape': 'error',
     'no-proto': 'error',
+    'no-plusplus': ['error', {
+      "allowForLoopAfterthoughts": true
+    }],
     'no-redeclare': 'error',
     'no-return-assign': 'warn',
     'no-self-assign': 'error',
     'no-self-compare': 'error',
     'no-throw-literal': 'error',
     'no-unmodified-loop-condition': 'error',
-    'no-unused-expressions': 'warn',
     'no-useless-call': 'error',
     'no-useless-concat': 'error',
     'no-useless-escape': 'error',
@@ -186,7 +193,7 @@ module.exports = {
     'max-len': [
       'warn',
       {
-        'code': 100,
+        'code': 120,
         'ignoreComments': true,
         'ignorePattern': '^import\\s.+\\sfrom\\s.+;$',
         'ignoreStrings': true
@@ -293,6 +300,7 @@ module.exports = {
     'no-dupe-class-members': 'error',
     'no-duplicate-imports': 'warn',
     'no-this-before-super': 'error',
+    'no-unused-expressions': 'off',
     'no-useless-computed-key': 'warn',
     'no-useless-constructor': 'warn',
     'no-useless-rename': 'warn',
@@ -303,9 +311,12 @@ module.exports = {
     'prefer-rest-params': 'error',
     'prefer-spread': 'warn',
     'prefer-template': 'warn',
+    'prefer-exponentiation-operator': 'off',
     'rest-spread-spacing': 'warn',
     'template-curly-spacing': 'warn',
+    'react/jsx-fragments': ['error', 'element'],
     'react/jsx-child-element-spacing': 'warn',
+    'react/jsx-no-useless-fragment': 'warn',
     'react/jsx-uses-vars': 'warn',
     'react/jsx-uses-react': 'error',
     'react/jsx-closing-bracket-location': 'warn',
@@ -325,8 +336,8 @@ module.exports = {
       'multiline-multiprop'
     ],
     'react/jsx-handler-names': 'warn',
-    'react/jsx-indent-props': 'warn',
-    'react/jsx-indent': 'warn',
+    'react/jsx-indent-props': ['error', 4],
+    'react/jsx-indent': ['error', 4],
     'react/jsx-key': 'error',
     'react/jsx-no-bind': [
       'warn',
@@ -377,7 +388,7 @@ module.exports = {
     'react/no-typos': 'error',
     'react/no-unescaped-entities': 'warn',
     'react/no-unknown-property': 'warn',
-    'react/no-unused-prop-types': 'warn',
+    'react/no-unused-prop-types': 'error',
     'react/no-unused-state': 'warn',
     'react/no-will-update-set-state': 'error',
     'react/prefer-es6-class': 'error',
@@ -386,14 +397,33 @@ module.exports = {
     ],
     'react/react-in-jsx-scope': 'error',
     'react/require-render-return': 'error',
+    'react/require-default-props': ['warn', { forbidDefaultForRequired: true, ignoreFunctionalComponents: true }],
     'react/self-closing-comp': 'warn',
     'react/sort-comp': 'warn',
     'react/style-prop-object': 'error',
-    'react/void-dom-elements-no-children': 'error'
-  },
-  settings: {
-    'import/resolver': {
-      webpack: {}
-    }
+    'react/void-dom-elements-no-children': 'error',
+    'react-hooks/rules-of-hooks': "error",
+    'react-hooks/exhaustive-deps': "warn",
+    'unicorn/import-index': "warn",
+    'react/destructuring-assignment': 'off',
+    'react/state-in-constructor': ['error', 'never'],
+    "react/jsx-one-expression-per-line": 'off',
+    "implicit-arrow-linebreak": 'off',
+    "react/forbid-prop-types": ['warn'],
+    "import/no-unresolved": [
+      2,
+      {
+        "ignore": ['routes']
+      }
+    ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: [
+          'storybook/*',
+          '**/*.story.*'
+        ]
+      }
+    ]
   }
 };

@@ -38,9 +38,8 @@ class Volunteer extends Component {
                         ...wrk,
                         enabled: !wrk.enabled,
                     };
-                } else {
-                    return wrk;
                 }
+                return wrk;
             });
         this.props.setResumeVolunteer(newVolunteer);
     };
@@ -60,9 +59,8 @@ class Volunteer extends Component {
                             },
                         },
                     };
-                } else {
-                    return vol;
                 }
+                return vol;
             });
         this.props.setResumeVolunteer(newVolunteer);
     };
@@ -93,9 +91,8 @@ class Volunteer extends Component {
                             },
                         },
                     };
-                } else {
-                    return vol;
                 }
+                return vol;
             });
         this.props.setResumeVolunteer(newVolunteer);
     };

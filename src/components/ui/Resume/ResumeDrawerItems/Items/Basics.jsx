@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import style from '../resume-drawer-items.scss';
 import uuid from 'uuid';
+import style from '../resume-drawer-items.scss';
 
 // Components
 import ItemInput from './List/ItemInput';
@@ -74,9 +74,8 @@ class Basics extends Component {
                         ...pro,
                         enabled: !pro.enabled,
                     };
-                } else {
-                    return pro;
                 }
+                return pro;
             });
         this.props.setResumeBasics(newBasics);
     };
@@ -135,64 +134,62 @@ class Basics extends Component {
                                 )}
                             />
                         )}
-                        <Fragment>
-                            <ItemsList
-                                label="location"
-                                checked={locationEnabled}
-                                onClick={() => this.toggleBasicsDetail(
-                                    'location'
-                                )}
-                            />
-                            {locationEnabled && (
-                                <ul>
-                                    {address && (
-                                        <ItemsList
-                                            label={varNameToString({ address })}
-                                            checked={address.enabled}
-                                            onClick={() => this.toggleBasicsLocationDetail(
-                                                varNameToString({ address })
-                                            )}
-                                        />
-                                    )}
-                                    {city && (
-                                        <ItemsList
-                                            label={varNameToString({ city })}
-                                            checked={city.enabled}
-                                            onClick={() => this.toggleBasicsLocationDetail(
-                                                varNameToString({ city })
-                                            )}
-                                        />
-                                    )}
-                                    {region && (
-                                        <ItemsList
-                                            label={varNameToString({ region })}
-                                            checked={region.enabled}
-                                            onClick={() => this.toggleBasicsLocationDetail(
-                                                varNameToString({ region })
-                                            )}
-                                        />
-                                    )}
-                                    {postalCode && (
-                                        <ItemsList
-                                            label={varNameToString({ postalCode })}
-                                            checked={postalCode.enabled}
-                                            onClick={() => this.toggleBasicsLocationDetail(
-                                                varNameToString({ postalCode })
-                                            )}
-                                        />
-                                    )}
-                                    {countryCode && (
-                                        <ItemsList
-                                            label={varNameToString({ countryCode })}
-                                            checked={countryCode.enabled}
-                                            onClick={() => this.toggleBasicsLocationDetail(
-                                                varNameToString({ countryCode })
-                                            )}
-                                        />
-                                    )}
-                                </ul>
+                        <ItemsList
+                            label="location"
+                            checked={locationEnabled}
+                            onClick={() => this.toggleBasicsDetail(
+                                'location'
                             )}
-                        </Fragment>
+                        />
+                        {locationEnabled && (
+                            <ul>
+                                {address && (
+                                    <ItemsList
+                                        label={varNameToString({ address })}
+                                        checked={address.enabled}
+                                        onClick={() => this.toggleBasicsLocationDetail(
+                                            varNameToString({ address })
+                                        )}
+                                    />
+                                )}
+                                {city && (
+                                    <ItemsList
+                                        label={varNameToString({ city })}
+                                        checked={city.enabled}
+                                        onClick={() => this.toggleBasicsLocationDetail(
+                                            varNameToString({ city })
+                                        )}
+                                    />
+                                )}
+                                {region && (
+                                    <ItemsList
+                                        label={varNameToString({ region })}
+                                        checked={region.enabled}
+                                        onClick={() => this.toggleBasicsLocationDetail(
+                                            varNameToString({ region })
+                                        )}
+                                    />
+                                )}
+                                {postalCode && (
+                                    <ItemsList
+                                        label={varNameToString({ postalCode })}
+                                        checked={postalCode.enabled}
+                                        onClick={() => this.toggleBasicsLocationDetail(
+                                            varNameToString({ postalCode })
+                                        )}
+                                    />
+                                )}
+                                {countryCode && (
+                                    <ItemsList
+                                        label={varNameToString({ countryCode })}
+                                        checked={countryCode.enabled}
+                                        onClick={() => this.toggleBasicsLocationDetail(
+                                            varNameToString({ countryCode })
+                                        )}
+                                    />
+                                )}
+                            </ul>
+                        )}
                         {website && (
                             <ItemsList
                                 label={varNameToString({ website })}

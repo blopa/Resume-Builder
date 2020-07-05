@@ -6,7 +6,7 @@ import style from './drawer.scss';
 
 const Drawer = (props) => (
     <MuiDrawer
-        className={style['drawer']}
+        className={style.drawer}
         open={props.open}
         onClose={props.onClose}
         anchor="right"

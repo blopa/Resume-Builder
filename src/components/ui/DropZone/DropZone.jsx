@@ -10,25 +10,29 @@ const DropZone = ({ handleFile, disabled, maxLength }) => {
         onDrop: (files) => {
             if (files.length === 0) {
                 return null;
-            } else if (files.length > maxLength) {
+            }
+
+            if (files.length > maxLength) {
                 // TODO
             } else {
                 // do what ever you want
                 handleFile(files[0]);
             }
-
+            return null;
         },
         disabled,
         multiple: false,
     });
 
     return (
+        // eslint-disable-next-line react/jsx-props-no-spreading
         <div {...getRootProps({
             className: classNames(style['drop-zone'], {
                 [style['drop-zone--active']]: !disabled && acceptedFiles.length < 1,
             }),
         })}
         >
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <input {...getInputProps()} />
             <p>Drag 'n' drop your .json or .xls file here.</p>
         </div>

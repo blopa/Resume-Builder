@@ -36,9 +36,8 @@ class Skills extends Component {
                         ...skl,
                         enabled: !skl.enabled,
                     };
-                } else {
-                    return skl;
                 }
+                return skl;
             });
         this.props.setResumeSkills(newSkills);
     };
@@ -58,9 +57,8 @@ class Skills extends Component {
                             },
                         },
                     };
-                } else {
-                    return skl;
                 }
+                return skl;
             });
         this.props.setResumeSkills(newSkills);
     };
