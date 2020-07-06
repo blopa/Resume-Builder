@@ -162,8 +162,8 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v2/screenshot_3.png)
 
 ## Release Notes
-- **v2.0.3:**
-	- Fix CORS problem when loading a spreadsheet from URL.
+- **v2.0.3:** (not tagged yet)
+	- ~~Fix CORS problem when loading a spreadsheet from URL.~~ (still trying to figure this one out)
 	- Update packages.
 	- Add new ESlint rules.
 - **v2.0.2:**
