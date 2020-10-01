@@ -15,7 +15,7 @@ export const readSpreadsheetFile = (file, callback) => {
     reader.readAsBinaryString(file);
 };
 
-export const downloadSpreadsheetFile = (spreadsheetId, sheetId, callback, forceCors = true) => {
+export const downloadSpreadsheetFile = (spreadsheetId, sheetId, callback, forceCors = false) => {
     let url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/export?format=xlsx&gid=${sheetId}`;
     if (forceCors) {
         url = `https://cors-anywhere.herokuapp.com/${url}`;
@@ -24,6 +24,7 @@ export const downloadSpreadsheetFile = (spreadsheetId, sheetId, callback, forceC
     const xhr = new XMLHttpRequest();
 
     xhr.open('GET', url, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.overrideMimeType('text/plain; charset=x-user-defined');
     xhr.onload = () => {
         const data = xhr.responseText;

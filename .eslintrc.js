@@ -4,6 +4,7 @@ module.exports = {
         es6: true,
         browser: true,
         node: true,
+        jest: true,
     },
     parserOptions: {
         sourceType: 'module',
@@ -21,6 +22,7 @@ module.exports = {
         'babel',
         'react-hooks',
         'unicorn',
+        'graphql',
     ],
     globals: {
         before: true,
@@ -39,6 +41,7 @@ module.exports = {
     extends: [
         'airbnb',
         'airbnb/hooks',
+        'gatsby-standard',
     ],
     rules: {
         'babel/no-unused-expressions': 'warn',
@@ -185,10 +188,10 @@ module.exports = {
                 ArrayExpression: 1,
             },
         ],
-        'jsx-quotes': 'warn',
+        'jsx-quotes': ['warn', 'prefer-double'],
         'key-spacing': 'warn',
         'keyword-spacing': 'warn',
-        'linebreak-style': 'warn',
+        'linebreak-style': ['warn', 'windows'],
         'lines-between-class-members': 'warn',
         'max-len': [
             'warn',
@@ -205,7 +208,6 @@ module.exports = {
                 max: 1,
             },
         ],
-        'multiline-comment-style': 'warn',
         'multiline-ternary': [
             'warn',
             'always-multiline',

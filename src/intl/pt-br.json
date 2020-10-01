@@ -1,0 +1,46 @@
+{
+    "title": "pablo.gg",
+    "notfound": {
+        "title": "404: Não encontrado",
+        "header": "404 NÃO ENCONTRADO",
+        "description": "Desculpe, esta página parece não existir. Talvez os arquivos estejam incompletos?"
+    },
+    "seo_keywords": {
+        "developer": "desenvolvedor",
+        "development": "desenvolvimento",
+        "javascript": "javascript",
+        "es6": "es6",
+        "e3": "e3",
+        "gamescom": "gamescom",
+        "countdown": "contador",
+        "archive": "arquivo",
+        "about_me": "sobre mim",
+        "personal_blog": "blog pessoal",
+        "personal_projects": "projetos pessoais",
+        "travels": "viagens",
+        "tips": "dicas",
+        "lifehacks": "truques de produtividade",
+        "reviews": "analises",
+        "games": "games"
+    },
+    "cookie_law": {
+        "we_use_cookies": "Usamos cookies para garantir que você obtenha a melhor experiência em nosso site. Ao usar nosso site, você concorda com nossa ",
+        "title": "Política de cookies",
+        "what_are_cookies": "O que são cookies?",
+        "what_are_cookies_text": "Como é prática comum em quase todos os sites profissionais, este site usa cookies, que são pequenos arquivos baixados para o seu computador, para melhorar a sua experiência. Esta página descreve quais informações eles coletam, como as usamos e por que às vezes precisamos armazenar esses cookies. Também compartilharemos como você pode evitar que esses cookies sejam armazenados, no entanto, isso pode diminuir ou 'quebrar' certos elementos da funcionalidade do site. Para obter mais informações gerais sobre cookies, leia ",
+        "what_are_cookies_more_info_url": "https://pt.wikipedia.org/wiki/Cookie_(informática)",
+        "how_we_use_cookies": "Como usamos cookies",
+        "how_we_use_cookies_text": "Usamos cookies por vários motivos detalhados abaixo. Infelizmente, na maioria dos casos, não há opções padrão da indústria para desabilitar cookies sem desabilitar completamente a funcionalidade e os recursos que eles adicionam a este site. Recomenda-se que você deixe todos os cookies se não tiver certeza se precisa deles ou não, caso sejam usados para fornecer um serviço que você usa.",
+        "disabling_cookies": "Desativando cookies",
+        "disabling_cookies_text": "Você pode impedir a configuração de cookies ajustando as configurações do seu navegador (consulte a Ajuda do navegador para saber como fazer isso). Esteja ciente de que a desativação de cookies afetará a funcionalidade deste e de muitos outros sites que você visita. A desativação dos cookies normalmente resultará na desativação de certas funcionalidades e recursos deste site. Portanto, é recomendável que você não desative os cookies.",
+        "the_cookies_we_set": "Os cookies que definimos",
+        "site_preferences_cookie": "Cookies de preferências do site",
+        "site_preferences_cookie_text": "Para lhe proporcionar uma excelente experiência neste site, fornecemos a funcionalidade para definir as suas preferências de funcionamento deste site quando o utiliza. Para lembrar suas preferências, precisamos definir cookies para que essas informações possam ser chamadas sempre que você interagir com uma página afetada por suas preferências.",
+        "third_party_cookies": "Cookies de terceiros",
+        "third_party_cookies_text": "Em alguns casos especiais, também usamos cookies fornecidos por terceiros confiáveis. A seção a seguir detalha quais cookies de terceiros você pode encontrar neste site.",
+        "third_party_cookies_item_1": "Este site usa o Google Analytics, que é uma das soluções de análise mais difundidas e confiáveis na web para nos ajudar a entender como você usa o site e como podemos melhorar sua experiência. Esses cookies podem rastrear coisas como quanto tempo você passa no site e as páginas que você visita para que possamos continuar a produzir conteúdo envolvente. Para obter mais informações sobre os cookies do Google Analytics, consulte a página oficial do Google Analytics.",
+        "third_party_cookies_item_2": "De vez em quando, testamos novos recursos e fazemos mudanças sutis na maneira como o site é fornecido. Quando ainda estamos testando novos recursos, esses cookies podem ser usados para garantir que você receba uma experiência consistente enquanto estiver no site, garantindo que entendemos quais otimizações nossos usuários mais apreciam.",
+        "more_information": "Mais informações",
+        "more_information_text": "Esperamos que isso tenha esclarecido as coisas para você e, conforme mencionado anteriormente, se há algo que você não tem certeza se precisa ou não, geralmente é mais seguro deixar os cookies ativados, caso eles interajam com um dos recursos que você usa em nosso site. No entanto, se você ainda estiver procurando por mais informações, entre em contato conosco através de nossa "
+    }
+}

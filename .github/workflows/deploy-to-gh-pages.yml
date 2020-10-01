@@ -1,0 +1,31 @@
+name: Deploy to GitHub Pages
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.3
+        with:
+          persist-credentials: false
+
+      - name: Install and Build
+        run: |
+          npm cache clean --force
+          npm install
+          npm run clean
+          npm run build
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@3.6.2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: public
+          CLEAN: true
+          SINGLE_COMMIT: true
