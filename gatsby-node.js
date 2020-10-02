@@ -1,11 +1,35 @@
 const ignoredPages = ['/Home/'];
+const {
+    convertToKebabCase,
+} = require('./src/utils/gatsby-node-helpers');
 
 exports.onCreatePage = ({ page, actions }) => {
-    const { deletePage } = actions;
+    const { createPage, deletePage } = actions;
+    const { locale } = page.context; // from post content
+    const { language } = page.context.intl; // from accessed site
+    deletePage(page);
 
-    // remove the HomePage otherwise we would end up with 2 HomePages
-    // one for Home.jsx and another one for index.js
-    if (ignoredPages.includes(page.path)) {
-        deletePage(page);
+    if (ignoredPages.includes(page.context.intl.originalPath)) {
+        return;
     }
+
+    console.log('CREATING PAGE:', {
+        path: page.path,
+        locale: language,
+        blogLocale: locale,
+    });
+
+    createPage({
+        ...page,
+        path: convertToKebabCase(page.path),
+        context: {
+            ...page.context,
+            intl: {
+                ...page.context.intl,
+                originalPath: convertToKebabCase(page.context.intl.originalPath),
+            },
+            locale: language,
+            blogLocale: locale,
+        },
+    });
 };

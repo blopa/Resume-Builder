@@ -36,7 +36,7 @@ function MenuItems({
             >
                 <ListItemText inset>
                     <Link
-                        to="/blog"
+                        to="/upload"
                         onClick={onItemClick}
                     >
                         <Typography
@@ -44,35 +44,7 @@ function MenuItems({
                             color="textPrimary"
                             variant="subtitle1"
                         >
-                            {intl.formatMessage({ id: 'blog' })}
-                        </Typography>
-                    </Link>
-                </ListItemText>
-                <ListItemText inset>
-                    <Link
-                        to="/projects"
-                        onClick={onItemClick}
-                    >
-                        <Typography
-                            className={classes.menuLink}
-                            color="textPrimary"
-                            variant="subtitle1"
-                        >
-                            {intl.formatMessage({ id: 'projects_page.title' })}
-                        </Typography>
-                    </Link>
-                </ListItemText>
-                <ListItemText inset>
-                    <Link
-                        to="/photos"
-                        onClick={onItemClick}
-                    >
-                        <Typography
-                            className={classes.menuLink}
-                            color="textPrimary"
-                            variant="subtitle1"
-                        >
-                            {intl.formatMessage({ id: 'photos' })}
+                            {intl.formatMessage({ id: 'build_resume' })}
                         </Typography>
                     </Link>
                 </ListItemText>

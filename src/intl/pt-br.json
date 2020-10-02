@@ -1,5 +1,11 @@
 {
     "title": "Resume Builder",
+    "build_resume": "Construir currículo",
+    "about": "Sobre",
+    "built_with": "Feito com ",
+    "contact": "Contato",
+    "got_it": "Entendi!",
+    "go": "Enviar!",
     "notfound": {
         "title": "404: Não encontrado",
         "header": "404 NÃO ENCONTRADO",

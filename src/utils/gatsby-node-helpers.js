@@ -1,6 +1,3 @@
-const nodeFetch = require('node-fetch');
-const jsdom = require('jsdom');
-
 // Use a little helper function to remove trailing slashes from paths
 exports.removeTrailingSlash = (path) =>
     (path === '/' ? path : path.replace(/\/$/, ''));
@@ -56,98 +53,6 @@ exports.getBlogPostPath = (slug, category) => {
     // const year = pathParts[1];
 
     return `/blog/${category}/${pathWithoutDate}/`;
-};
-
-exports.getGoogleFormData = async (url) => nodeFetch(url, {
-    method: 'GET',
-})
-    .then((response) => {
-        if (!response.ok) {
-            throw Error('Network request failed');
-        }
-
-        return response.text()
-            .then((data) => {
-                let loadData = data.split('FB_PUBLIC_LOAD_DATA_');
-                loadData = loadData[1].split(';');
-                // eslint-disable-next-line no-new-func
-                const getLoadData = new Function(`const result${loadData[0]}; return result`);
-                // let shuffleSeed = data.split('data-shuffle-seed="');
-                // shuffleSeed = shuffleSeed[1].split('"');
-                return {
-                    loadData: getLoadData(),
-                    // shuffleSeed: shuffleSeed[0],
-                };
-            });
-    });
-
-exports.downloadSpreadsheetFile = async (spreadsheetId, sheetId = 0, forceCors = false) => {
-    let url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/export?format=xlsx&gid=${sheetId}`;
-    if (forceCors) {
-        url = `https://cors-anywhere.herokuapp.com/${url}`;
-    }
-
-    const response = await nodeFetch(url);
-    // eslint-disable-next-line no-return-await
-    return await response.blob();
-};
-
-exports.getImagesFromHtmlString = (htmlString) => {
-    const dom = new jsdom.JSDOM(htmlString);
-    const result = dom.window.document.getElementsByTagName('img');
-    return Object.values(result).map((element) => element.src);
-};
-
-exports.getVideosFromHtmlString = (htmlString) => {
-    const dom = new jsdom.JSDOM(htmlString);
-    const result = dom.window.document.getElementsByClassName('embedVideo-iframe');
-    return Object.values(result).map((element) => element.src);
-};
-
-exports.generateRssData = (
-    title,
-    description,
-    date
-) => ({
-    title,
-    description: title,
-    date,
-});
-
-/**
- * getPhotos function [ Reading an particular album photos and return it to client]
- * @param { String } id [Album Id]
- */
-exports.getGooglePhotos = async (id) => {
-    try {
-        const response = await nodeFetch(`https://photos.app.goo.gl/${id}`);
-        const data = await response.text();
-
-        return extractGooglePhotos(data, 1600, false);
-    } catch (error) {
-        return null;
-    }
-};
-
-/**
- * extractPhotos function
- * @param { Array } content
- * @param width
- * @param addQuotes
- */
-const extractGooglePhotos = (content, width = 2048, addQuotes = true) => {
-    const regex = /\["(https:\/\/lh3\.googleusercontent\.com\/[a-zA-Z0-9\-_]*)"/g;
-    const links = new Set();
-    let match;
-    while (match = regex.exec(content)) {
-        if (addQuotes) {
-            links.add(`"${match[1]}=w${width}"`);
-        } else {
-            links.add(`${match[1]}=w${width}`);
-        }
-    }
-
-    return Array.from(links);
 };
 
 exports.sleep = (ms) => new Promise((resolve) => {
