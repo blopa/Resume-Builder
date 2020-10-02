@@ -7,7 +7,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 
 // Components
-import Header from './Header';
 import Topbar from './Topbar';
 import SiteDrawer from './Drawer';
 import Link from './Link';
@@ -88,7 +87,6 @@ const Layout = ({
 
     return (
         <div>
-            <Header siteTitle={data.site.siteMetadata.title} />
             {!hideTopbar && (
                 <Topbar
                     showLanguageSelector={showLanguageSelector}

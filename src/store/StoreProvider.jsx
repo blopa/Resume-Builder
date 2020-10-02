@@ -2,10 +2,8 @@ import React, { createContext, useReducer } from 'react';
 import reducer from './reducer';
 
 const initialState = {
-    resume: {
-        jsonResume: {},
-        togglableJsonResume: {},
-    },
+    jsonResume: {},
+    togglableJsonResume: {},
 };
 
 export const StoreContext = createContext(

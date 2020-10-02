@@ -49,7 +49,7 @@ const UploadPage = () => {
         const togglableJsonResume = traverseObject(cloneDeep(jsonResume));
         dispatch(setTogglableJsonResume(togglableJsonResume));
 
-        // navigate('/build');
+        navigate('/build');
     }, [dispatch]);
 
     const readSpreadsheetCallback = useCallback((spreadsheetArray) => {
@@ -91,7 +91,7 @@ const UploadPage = () => {
     return (
         <Layout>
             <SEO
-                title="Home"
+                title="Upload"
             />
             <Typography
                 color="textPrimary"
