@@ -29,7 +29,9 @@ const HomePage = (props) => {
 
     return (
         <Layout>
-            <SEO title="Home" />
+            <SEO
+                title="Home"
+            />
             <Switch
                 checked={Boolean(currentTheme === 'dark')}
                 onChange={handleThemeChange}

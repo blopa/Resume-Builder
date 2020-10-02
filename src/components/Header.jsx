@@ -3,7 +3,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-const useStyles = makeStyles((theme) => ({}));
+const useStyles = makeStyles((theme) => ({
+    // TODO
+}));
 
 const Header = ({ siteTitle }) => {
     const classes = useStyles();

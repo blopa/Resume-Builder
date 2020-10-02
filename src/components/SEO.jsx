@@ -5,16 +5,16 @@ import { graphql, useStaticQuery } from 'gatsby';
 import { generateSeoFriendlyVideoUrl } from '../utils/gatsby-frontend-helpers';
 
 function SEO({
-                 description,
-                 lang,
-                 meta,
-                 title,
-                 robots,
-                 keywords = [],
-                 alternateLangLinks = [],
-                 ogImage,
-                 ogVideo,
-             }) {
+    description,
+    lang,
+    meta,
+    title,
+    robots,
+    keywords = [],
+    alternateLangLinks = [],
+    ogImage,
+    ogVideo,
+}) {
     const { site, baseSiteImage } = useStaticQuery(
         graphql`
             query {
