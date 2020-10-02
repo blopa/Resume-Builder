@@ -1,8 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography, TextField } from '@material-ui/core';
 import { cloneDeep } from 'lodash';
-import { useIntl } from 'gatsby-plugin-intl';
+import { navigate, useIntl } from 'gatsby-plugin-intl';
 import SEO from '../components/SEO';
 import Layout from '../components/Layout';
 import DropZone from '../components/DropZone';
@@ -10,6 +10,9 @@ import { traverseObject } from '../utils/utils';
 import spreadsheetToJsonResume from '../utils/spreadsheet-to-json-resume';
 import readSpreadsheet, { parseSpreadsheetUrl } from '../utils/spreadsheet-parser';
 import { readJsonFile } from '../utils/json-parser';
+import { StoreContext } from '../store/StoreProvider';
+import setJsonResume from '../store/actions/setJsonResume';
+import setTogglableJsonResume from '../store/actions/setTogglableJsonResume';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,21 +36,21 @@ const SHEET_EXTENSIONS = [
     'ods',
 ];
 
-const UploadPage = (props) => {
+const UploadPage = () => {
     const classes = useStyles();
     const intl = useIntl();
     const [textInputValue, setTextInputValue] = useState('');
     const [loading, setLoading] = useState(false);
-    const setResumesAndForward = useCallback((jsonResume) => {
-        const { history } = props;
-        props.setJsonResume(jsonResume);
-        const togglableJsonResume = traverseObject(cloneDeep(jsonResume));
-        props.setTogglableJsonResume(togglableJsonResume);
+    const { state, dispatch } = useContext(StoreContext);
+    // console.log(state);
 
-        history.push({
-            pathname: 'build',
-        });
-    }, [props]);
+    const setResumesAndForward = useCallback((jsonResume) => {
+        dispatch(setJsonResume(jsonResume));
+        const togglableJsonResume = traverseObject(cloneDeep(jsonResume));
+        dispatch(setTogglableJsonResume(togglableJsonResume));
+
+        // navigate('/build');
+    }, [dispatch]);
 
     const readSpreadsheetCallback = useCallback((spreadsheetArray) => {
         if (spreadsheetArray && spreadsheetArray.length) {
@@ -107,6 +110,8 @@ const UploadPage = (props) => {
                 onChange={setInputedTextToState}
             />
             <Button
+                onClick={handleButtonClick}
+                disabled={!textInputValue || loading}
                 variant="contained"
                 color="default"
                 type="submit"

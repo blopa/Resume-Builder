@@ -1,4 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
+import * as Colors from '@material-ui/core/colors';
 
 const baseTheme = {
     // TODO
@@ -7,37 +8,11 @@ const baseTheme = {
 // A custom theme for this app
 export const darkTheme = createMuiTheme({
     ...baseTheme,
-    overrides: {
-        MuiInputLabel: {
-            root: {
-                '&$focused': {
-                    // Otherwise it's too dark
-                    color: '#FFFFFFB3',
-                },
-            },
-        },
-    },
     palette: {
         type: 'dark',
-        // primary: {
-        //     main: '#26292C',
-        //     light: 'rgb(81, 91, 95)',
-        //     dark: 'rgb(26, 35, 39)',
-        //     contrastText: '#ffffff',
-        // },
-        // secondary: {
-        //     main: '#FFB74D',
-        //     light: 'rgb(255, 197, 112)',
-        //     dark: 'rgb(200, 147, 89)',
-        //     contrastText: 'rgba(0, 0, 0, 0.87)',
-        // },
-        // titleBar: {
-        //     main: '#555555',
-        //     contrastText: '#ffffff',
-        // },
-        // error: {
-        //     main: red.A400,
-        // },
+        primary: {
+            main: '#00695f',
+        },
     },
 });
 
@@ -45,22 +20,38 @@ export const lightTheme = createMuiTheme({
     ...baseTheme,
     palette: {
         type: 'light',
-        // primary: {
-        //     main: '#556cd6',
-        // },
-        // secondary: {
-        //     main: '#cc4444',
-        // },
-        // error: {
-        //     main: red.A400,
-        // },
-        // background: {
-        //     default: '#f5f5f5',
-        // },
-        // titleBar: {
-        //     main: '#eeeeee',
-        //     contrastText: '#222222',
-        // },
+        common: {
+            black: '#000',
+            white: '#fff',
+        },
+        background: {
+            paper: '#fff',
+            default: '#fafafa',
+        },
+        primary: {
+            light: '#7986cb',
+            main: 'rgba(0, 150, 136, 1)',
+            dark: '#303f9f',
+            contrastText: '#fff',
+        },
+        secondary: {
+            light: '#ff4081',
+            main: '#f50057',
+            dark: '#c51162',
+            contrastText: '#fff',
+        },
+        error: {
+            light: '#e57373',
+            main: '#f44336',
+            dark: '#d32f2f',
+            contrastText: '#fff',
+        },
+        text: {
+            primary: 'rgba(0, 0, 0, 0.87)',
+            secondary: 'rgba(0, 0, 0, 0.54)',
+            disabled: 'rgba(0, 0, 0, 0.38)',
+            hint: 'rgba(0, 0, 0, 0.38)',
+        },
     },
 });
 

@@ -33,7 +33,6 @@ const DropZone = ({
 }) => {
     const classes = useStyles();
     const handleOnChange = useCallback((files) => {
-        debugger;
         if (files.length === 0) {
             return;
         }
@@ -48,6 +47,7 @@ const DropZone = ({
 
     return (
         <DropzoneArea
+            showAlerts={false}
             showPreviewsInDropzone={false}
             onChange={handleOnChange}
             filesLimit={maxLength}

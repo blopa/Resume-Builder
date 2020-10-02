@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Switch, Typography } from '@material-ui/core';
 import SEO from '../components/SEO';
 import Layout from '../components/Layout';
-import { CustomThemeContext } from '../themes/CustomThemeProvider';
+import { CustomThemeContext } from '../store/CustomThemeProvider';
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -6,7 +6,7 @@ import Hidden from '@material-ui/core/Hidden';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-intl';
 import PropTypes from 'prop-types';
-import { CustomMenuContext } from '../themes/CustomMenuProvider';
+import { CustomMenuContext } from '../store/CustomMenuProvider';
 
 // Components
 import ThemeToggler from './ThemeToggler';
@@ -38,7 +38,6 @@ function Topbar({
 
     return (
         <AppBar
-            color="default"
             position="sticky"
         >
             <Toolbar>

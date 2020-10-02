@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { darkTheme, lightTheme } from './theme';
+import { darkTheme, lightTheme } from '../themes/theme';
 import { LOCALSTORAGE_THEME_KEY } from '../utils/constants';
 
 export const light = 'light';

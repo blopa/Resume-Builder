@@ -1,19 +1,22 @@
-import React, { useCallback, useContext } from 'react';
+import React, { Fragment, useCallback, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import { CustomMenuContext } from '../themes/CustomMenuProvider';
+import { Drawer } from '@material-ui/core';
+import { CustomMenuContext } from '../store/CustomMenuProvider';
 import MenuItems from './MenuItems';
 import Link from './Link';
 import SiteLogo from './SiteLogo';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     menuItemsList: {
         width: 250,
     },
     homeMenuLink: {
         margin: '10px',
     },
-});
+    drawer: {
+        background: theme.palette.primary.main,
+    },
+}));
 
 function SiteDrawer() {
     const { isShowingDrawer, setIsShowingDrawer } = useContext(CustomMenuContext);
@@ -22,11 +25,12 @@ function SiteDrawer() {
 
     return (
         <div>
-            <React.Fragment key="left">
+            <Fragment key="left">
                 <Drawer
                     anchor="left"
                     open={isShowingDrawer}
                     onClose={closeDrawer}
+                    classes={{paper: classes.drawer}}
                 >
                     <div
                         className={classes.homeMenuLink}
@@ -48,7 +52,7 @@ function SiteDrawer() {
                         />
                     </div>
                 </Drawer>
-            </React.Fragment>
+            </Fragment>
         </div>
     );
 }

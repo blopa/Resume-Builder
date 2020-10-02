@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 import { Switch } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { CustomThemeContext, dark, light } from '../themes/CustomThemeProvider';
+import { CustomThemeContext, dark, light } from '../store/CustomThemeProvider';
 
 const useStyles = makeStyles({
     togglerWrapper: {

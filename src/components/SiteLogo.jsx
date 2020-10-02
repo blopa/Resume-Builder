@@ -2,11 +2,12 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     logoText: {
         fontFamily: 'Coolvetica',
+        color: theme.palette.primary.contrastText,
     },
-});
+}));
 
 function SiteLogo() {
     const classes = useStyles();
@@ -14,7 +15,6 @@ function SiteLogo() {
     return (
         <Typography
             className={classes.logoText}
-            color="textPrimary"
             variant="h5"
         >
             Resume Builder

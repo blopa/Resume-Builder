@@ -8,14 +8,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import Link from './Link';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     drawerList: {
         display: 'block',
     },
     menuLink: {
         fontSize: '1.25rem;',
+        color: theme.palette.primary.contrastText,
     },
-});
+}));
 
 function MenuItems({
     isDrawer = false,
@@ -41,7 +42,6 @@ function MenuItems({
                     >
                         <Typography
                             className={classes.menuLink}
-                            color="textPrimary"
                             variant="subtitle1"
                         >
                             {intl.formatMessage({ id: 'build_resume' })}
@@ -55,7 +55,6 @@ function MenuItems({
                     >
                         <Typography
                             className={classes.menuLink}
-                            color="textPrimary"
                             variant="subtitle1"
                         >
                             {intl.formatMessage({ id: 'about' })}

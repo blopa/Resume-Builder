@@ -21,7 +21,6 @@ Resume Builder is a free open-source project that allows anyone to easily mainta
 - Parse data from Google Spreadsheet or .xls file
 - 21 different types of "data"
 
-
 ## Usage
 First of all you need to create a Google Spreadsheet following the same rules as [this one](https://docs.google.com/spreadsheets/d/1Mrgu6dOTyEBkzHtoSSH2BhRNd8n8tuupVlcQUJhUY-0/copy) (you can make a copy if you like) and populate with your resume information.
 - **Full Name:** Your full name
