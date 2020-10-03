@@ -30,7 +30,7 @@ function SiteDrawer() {
                     anchor="left"
                     open={isShowingDrawer}
                     onClose={closeDrawer}
-                    classes={{paper: classes.drawer}}
+                    classes={{ paper: classes.drawer }}
                 >
                     <div
                         className={classes.homeMenuLink}

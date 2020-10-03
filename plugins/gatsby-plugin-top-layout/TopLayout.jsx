@@ -30,7 +30,7 @@ export default function TopLayout(props) {
                     rel="stylesheet"
                 />
             </Helmet>
-            <container className={classes.siteWrapper}>
+            <section className={classes.siteWrapper}>
                 <CustomMenuProvider>
                     <CustomThemeProvider>
                         <StoreProvider>
@@ -40,7 +40,7 @@ export default function TopLayout(props) {
                         </StoreProvider>
                     </CustomThemeProvider>
                 </CustomMenuProvider>
-            </container>
+            </section>
         </Fragment>
     );
 }
