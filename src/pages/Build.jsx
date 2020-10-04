@@ -1,7 +1,7 @@
 /* eslint template-curly-spacing: 0, indent: 0 */
 import React, { Suspense, lazy, useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { Typography, Drawer } from '@material-ui/core';
 import { navigate } from 'gatsby-plugin-intl';
 import { v4 as uuid } from 'uuid';
 import SEO from '../components/SEO';
@@ -60,6 +60,18 @@ const BuildPage = (props) => {
             />
             {hasData && (
                 <div className={classes.resumeWrapper}>
+                    <Drawer
+                        anchor="right"
+                        variant="persistent"
+                        open={isDrawerOpen}
+                        onClose={() => setIsDrawerOpen(false)}
+                    >
+                        {/*<ResumeDrawerItems*/}
+                        {/*    resume={togglableJsonResume}*/}
+                        {/*    jsonResume={jsonResume}*/}
+                        {/*    onClose={() => setIsDrawerOpen(false)}*/}
+                        {/*/>*/}
+                    </Drawer>
                     <A4Container
                         alignCenter={!isDrawerOpen}
                     >
