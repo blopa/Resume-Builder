@@ -16,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
     drawer: {
         background: theme.palette.primary.main,
     },
+    drawerWrapper: {
+        '@media print': {
+            visibility: 'hidden',
+        },
+    },
 }));
 
 function SiteDrawer() {
@@ -27,6 +32,7 @@ function SiteDrawer() {
         <div>
             <Fragment key="left">
                 <Drawer
+                    className={classes.drawerWrapper}
                     anchor="left"
                     open={isShowingDrawer}
                     onClose={closeDrawer}

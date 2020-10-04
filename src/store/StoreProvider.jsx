@@ -4,6 +4,7 @@ import reducer from './reducer';
 const initialState = {
     jsonResume: {},
     togglableJsonResume: {},
+    resumeTemplate: 'Default',
 };
 
 export const StoreContext = createContext(

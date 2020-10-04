@@ -68,7 +68,6 @@ const Basics = ({
     },
 }) => {
     const classes = useStyles();
-    console.log(address);
     return (
         <Fragment>
             <div className={classes.resumeBasics}>

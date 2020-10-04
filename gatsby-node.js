@@ -1,3 +1,7 @@
+const path = require('path');
+const { promises: fs } = require('fs');
+
+const TEMPLATES_PATH = path.resolve(__dirname, 'src/components/ResumeTemplates');
 const ignoredPages = ['/Home/'];
 const {
     convertToKebabCase,
@@ -13,11 +17,11 @@ exports.onCreatePage = ({ page, actions }) => {
         return;
     }
 
-    console.log('CREATING PAGE:', {
-        path: page.path,
-        locale: language,
-        blogLocale: locale,
-    });
+    // console.log('CREATING PAGE:', {
+    //     path: page.path,
+    //     locale: language,
+    //     blogLocale: locale,
+    // });
 
     createPage({
         ...page,
@@ -31,5 +35,20 @@ exports.onCreatePage = ({ page, actions }) => {
             locale: language,
             blogLocale: locale,
         },
+    });
+};
+
+exports.onCreateWebpackConfig = async ({
+    plugins,
+    actions,
+}) => {
+    const templates = await fs.readdir(TEMPLATES_PATH);
+    // console.log({ templates });
+    actions.setWebpackConfig({
+        plugins: [
+            plugins.define({
+                TEMPLATES: templates,
+            }),
+        ],
     });
 };
