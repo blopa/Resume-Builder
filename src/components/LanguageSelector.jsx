@@ -6,6 +6,9 @@ import { changeLocale } from 'gatsby-plugin-intl';
 
 const useStyles = makeStyles((theme) => ({
     selectLanguage: {
+        // '& .MuiButtonBase-root': {
+        //     backgroundColor: theme.palette.primary.main,
+        // },
         '& .MuiSelect-icon': {
             display: 'none',
         },

@@ -26,6 +26,8 @@ const BuildPage = (props) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [resumeTemplate, setResumeTemplate] = useState([]);
     const { state, dispatch } = useContext(StoreContext);
+    // console.log(JSON.stringify(state));
+    console.log(state.resumeTemplate);
     const {
         jsonResume,
         togglableJsonResume,

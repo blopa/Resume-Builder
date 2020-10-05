@@ -114,6 +114,11 @@ export default (state, action) => {
                     },
                 },
             };
+        case 'SET_RESUME_TEMPLATE':
+            return {
+                ...state,
+                resumeTemplate: action.resumeTemplate,
+            };
         default:
             return state;
     }

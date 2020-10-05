@@ -57,7 +57,7 @@
         "lodash": "^4.17.20",
         "material-ui-dropzone": "^3.5.0",
         "material-ui-flags": "^1.0.14",
-        "npm-check-updates": "^9.0.3",
+        "npm-check-updates": "^9.0.4",
         "prismjs": "^1.21.0",
         "prop-types": "^15.7.2",
         "react": "^16.13.1",

@@ -47,7 +47,7 @@ exports.onCreateWebpackConfig = async ({
     actions.setWebpackConfig({
         plugins: [
             plugins.define({
-                TEMPLATES: templates,
+                TEMPLATES_LIST: JSON.stringify(templates),
             }),
         ],
     });

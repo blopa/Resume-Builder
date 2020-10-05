@@ -13,6 +13,8 @@ import { readJsonFile } from '../utils/json-parser';
 import { StoreContext } from '../store/StoreProvider';
 import setJsonResume from '../store/actions/setJsonResume';
 import setTogglableJsonResume from '../store/actions/setTogglableJsonResume';
+import TemplateSelector from '../components/TemplateSelector';
+import setResumeTemplate from '../store/actions/setResumeTemplate';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,6 +23,21 @@ const useStyles = makeStyles((theme) => ({
     },
     nested: {
         paddingLeft: theme.spacing(4),
+    },
+    templateSelector: {
+        width: '100%',
+        margin: '10px auto',
+    },
+    sheetsAndOkWrapper: {
+        margin: '10px 0',
+        display: 'flex',
+    },
+    googleSpreadsheetInput: {
+        width: '100%',
+        margin: '10px auto',
+    },
+    buildButton: {
+        marginLeft: '10px',
     },
 }));
 
@@ -42,7 +59,7 @@ const UploadPage = () => {
     const [textInputValue, setTextInputValue] = useState('');
     const [loading, setLoading] = useState(false);
     const { state, dispatch } = useContext(StoreContext);
-    // console.log(state);
+    console.log(JSON.stringify(state));
 
     const setResumesAndForward = useCallback((jsonResume) => {
         dispatch(setJsonResume(jsonResume));
@@ -88,6 +105,10 @@ const UploadPage = () => {
         );
     }, [readSpreadsheetCallback, textInputValue]);
 
+    const handleTemplateSelected = useCallback((selectedTemplate) => {
+        dispatch(setResumeTemplate(selectedTemplate));
+    }, [dispatch]);
+
     return (
         <Layout>
             <SEO
@@ -99,25 +120,33 @@ const UploadPage = () => {
             >
                 Upload your resume file
             </Typography>
+            <TemplateSelector
+                className={classes.templateSelector}
+                onSelect={handleTemplateSelected}
+            />
             <DropZone
                 maxLength={1}
                 handleFile={handleFile}
                 disabled={false}
             />
-            <TextField
-                label="Google Spreadsheet URL"
-                placeholder="Put your Google Spreadsheet URL here"
-                onChange={setInputedTextToState}
-            />
-            <Button
-                onClick={handleButtonClick}
-                disabled={!textInputValue || loading}
-                variant="contained"
-                color="default"
-                type="submit"
-            >
-                {intl.formatMessage({ id: 'go' })}
-            </Button>
+            <div className={classes.sheetsAndOkWrapper}>
+                <TextField
+                    className={classes.googleSpreadsheetInput}
+                    label="Google Spreadsheet URL"
+                    placeholder="Put your Google Spreadsheet URL here"
+                    onChange={setInputedTextToState}
+                />
+                <Button
+                    className={classes.buildButton}
+                    onClick={handleButtonClick}
+                    disabled={!textInputValue || loading}
+                    variant="contained"
+                    color="default"
+                    type="submit"
+                >
+                    {intl.formatMessage({ id: 'go' })}
+                </Button>
+            </div>
         </Layout>
     );
 };
