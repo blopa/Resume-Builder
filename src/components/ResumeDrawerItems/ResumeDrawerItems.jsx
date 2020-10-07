@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
+import { useIntl } from 'gatsby-plugin-intl';
 import style from './resumeDrawerStyles';
 
 // Utils
@@ -54,6 +55,8 @@ const ResumeDrawerItems = ({
     onPrint,
 }) => {
     const classes = useStyles();
+    const intl = useIntl();
+
     return (
         <div className={classes.resumeDrawerItemsWrapper}>
             <button
@@ -77,7 +80,7 @@ const ResumeDrawerItems = ({
                     color="primary"
                     onClick={() => handleDownloadJson(jsonResume)}
                 >
-                    Download .json
+                    {intl.formatMessage({ id: 'download_json' })}
                 </Button>
                 <Button
                     className={classes.actionButtons}
@@ -85,7 +88,7 @@ const ResumeDrawerItems = ({
                     color="secondary"
                     onClick={onPrint || printDocument}
                 >
-                    Print
+                    {intl.formatMessage({ id: 'print' })}
                 </Button>
             </div>
             {isObjectNotEmpty(basics) && (

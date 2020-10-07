@@ -92,7 +92,8 @@ const BuildPage = () => {
     return (
         <Layout>
             <SEO
-                title="Build"
+                title={intl.formatMessage({ id: 'build_resume' })}
+                robots="noindex, nofollow"
             />
             {hasData && (
                 <div className={classes.resumeWrapper}>

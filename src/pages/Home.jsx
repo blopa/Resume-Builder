@@ -5,6 +5,7 @@ import { useIntl } from 'gatsby-plugin-intl';
 import SEO from '../components/SEO';
 import Layout from '../components/Layout';
 import { CustomThemeContext } from '../store/CustomThemeProvider';
+import Link from '../components/Link';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,6 +14,12 @@ const useStyles = makeStyles((theme) => ({
     },
     nested: {
         paddingLeft: theme.spacing(4),
+    },
+    subtitle: {
+        marginTop: '10px',
+    },
+    pageContent: {
+        padding: '5px',
     },
 }));
 
@@ -32,7 +39,7 @@ const HomePage = () => {
     return (
         <Layout>
             <SEO
-                title="Home"
+                title={intl.formatMessage({ id: 'home' })}
             />
             <Typography
                 color="textPrimary"
@@ -40,19 +47,23 @@ const HomePage = () => {
             >
                 {intl.formatMessage({ id: 'title' })}
             </Typography>
-            <Typography
-                color="textPrimary"
-                variant="h6"
+            <div
+                className={classes.pageContent}
             >
-                {intl.formatMessage({ id: 'what_is_resume_builder' })}
-            </Typography>
-            <Typography
-                color="textPrimary"
-                variant="body1"
-            >
-                {intl.formatMessage({
-                    id: 'what_is_resume_builder_description',
-                    values: {
+                <Typography
+                    color="textPrimary"
+                    variant="h6"
+                >
+                    {intl.formatMessage({ id: 'what_is_resume_builder' })}
+                </Typography>
+                <Typography
+                    color="textPrimary"
+                    variant="body1"
+                >
+                    {intl.formatMessage({
+                        id: 'what_is_resume_builder_description',
+                    },
+                    {
                         // eslint-disable-next-line react/display-name
                         a: (msg) => (
                             <a
@@ -63,63 +74,98 @@ const HomePage = () => {
                                 {msg}
                             </a>
                         ),
+                    })}
+                </Typography>
+                <Typography
+                    className={classes.subtitle}
+                    color="textPrimary"
+                    variant="h6"
+                >
+                    {intl.formatMessage({ id: 'how_question' })}
+                </Typography>
+                <Typography
+                    color="textPrimary"
+                    variant="body1"
+                >
+                    {intl.formatMessage({
+                        id: 'how_question_description',
                     },
-                })}
-            </Typography>
-            <Typography
-                color="textPrimary"
-                variant="h6"
-            >
-                {intl.formatMessage({ id: 'how_question' })}
-            </Typography>
-            <Typography
-                color="textPrimary"
-                variant="body1"
-            >
-                {intl.formatMessage({ id: 'how_question_description' })}
-            </Typography>
-            <Typography
-                color="textPrimary"
-                variant="h6"
-            >
-                {intl.formatMessage({ id: 'why_question' })}
-            </Typography>
-            <Typography
-                color="textPrimary"
-                variant="body1"
-            >
-                {intl.formatMessage({ id: 'why_question_description_1' })}
-            </Typography>
-            <Typography
-                color="textPrimary"
-                variant="body1"
-            >
-                {intl.formatMessage({ id: 'why_question_description_2' })}
-            </Typography>
-            <Typography
-                color="textPrimary"
-                variant="body1"
-            >
-                {intl.formatMessage({ id: 'why_question_description_3' })}
-            </Typography>
-            <Typography
-                color="textPrimary"
-                variant="body1"
-            >
-                {intl.formatMessage({ id: 'why_question_description_4' })}
-            </Typography>
-            <Typography
-                color="textPrimary"
-                variant="h6"
-            >
-                {intl.formatMessage({ id: 'resume_builder_rescue' })}
-            </Typography>
-            <Typography
-                color="textPrimary"
-                variant="body1"
-            >
-                {intl.formatMessage({ id: 'resume_builder_rescue_description' })}
-            </Typography>
+                    {
+                        // eslint-disable-next-line react/display-name
+                        a: (msg) => (
+                            <a
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href={`https://${msg}`}
+                            >
+                                {msg}
+                            </a>
+                        ),
+                        // eslint-disable-next-line react/display-name
+                        spreadsheet: (msg) => (
+                            <a
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://docs.google.com/spreadsheets/d/1UCdsEiyO68IEdfVhW-Gfrg7FfI4pLaij37D5Eh-v8hQ/copy"
+                            >
+                                {msg}
+                            </a>
+                        ),
+                        // eslint-disable-next-line react/display-name
+                        upload: (msg) => (
+                            <Link
+                                to="/upload"
+                            >
+                                {msg}
+                            </Link>
+                        ),
+                    })}
+                </Typography>
+                <Typography
+                    className={classes.subtitle}
+                    color="textPrimary"
+                    variant="h6"
+                >
+                    {intl.formatMessage({ id: 'why_question' })}
+                </Typography>
+                <Typography
+                    color="textPrimary"
+                    variant="body1"
+                >
+                    {intl.formatMessage({ id: 'why_question_description_1' })}
+                </Typography>
+                <Typography
+                    color="textPrimary"
+                    variant="body1"
+                >
+                    {intl.formatMessage({ id: 'why_question_description_2' })}
+                </Typography>
+                <Typography
+                    color="textPrimary"
+                    variant="body1"
+                >
+                    {intl.formatMessage({ id: 'why_question_description_3' })}
+                </Typography>
+                <Typography
+                    color="textPrimary"
+                    variant="body1"
+                >
+                    {intl.formatMessage({ id: 'why_question_description_4' })}
+                </Typography>
+                <Typography
+                    className={classes.subtitle}
+                    color="textPrimary"
+                    variant="h6"
+                >
+                    {intl.formatMessage({ id: 'resume_builder_rescue' })}
+                </Typography>
+                <Typography
+                    color="textPrimary"
+                    variant="body1"
+                >
+                    {intl.formatMessage({ id: 'resume_builder_rescue_description' })}
+                </Typography>
+            </div>
         </Layout>
     );
 };

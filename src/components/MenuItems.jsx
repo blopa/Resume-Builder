@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '1.25rem;',
         color: theme.palette.primary.contrastText,
     },
+    externalLink: {
+        textDecoration: 'none',
+    },
 }));
 
 function MenuItems({
@@ -49,17 +52,19 @@ function MenuItems({
                     </Link>
                 </ListItemText>
                 <ListItemText inset>
-                    <Link
-                        to="/about"
-                        onClick={onItemClick}
+                    <a
+                        className={classes.externalLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://github.com/blopa/Resume-Builder"
                     >
                         <Typography
                             className={classes.menuLink}
                             variant="subtitle1"
                         >
-                            {intl.formatMessage({ id: 'about' })}
+                            {intl.formatMessage({ id: 'source_code' })}
                         </Typography>
-                    </Link>
+                    </a>
                 </ListItemText>
             </ListItem>
         </List>

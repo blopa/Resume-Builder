@@ -42,6 +42,12 @@ const useStyles = makeStyles((theme) => ({
             textDecoration: 'underline',
         },
     },
+    topDivider: {
+        marginBottom: '10px',
+    },
+    bottomDivider: {
+        marginTop: '10px',
+    },
 }));
 
 const Layout = ({
@@ -95,13 +101,17 @@ const Layout = ({
             )}
             <SiteDrawer />
             <Container className={classes.siteContainer}>
-                <Divider />
+                <Divider
+                    className={classes.topDivider}
+                />
                 <main
                     className={classes.contentContainer}
                 >
                     {children}
                 </main>
-                <Divider />
+                <Divider
+                    className={classes.bottomDivider}
+                />
                 <footer className={classes.footerContainer}>
                     <Typography
                         color="textPrimary"

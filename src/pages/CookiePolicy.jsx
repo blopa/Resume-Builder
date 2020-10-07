@@ -168,9 +168,6 @@ const CookiePolicy = ({ pageContext, location }) => {
                     variant="body2"
                 >
                     {intl.formatMessage({ id: 'cookie_law.more_information_text' })}
-                    <Link to="/contact">
-                        {intl.formatMessage({ id: 'contact_page' })}
-                    </Link>
                 </Typography>
             </div>
         </Layout>

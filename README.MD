@@ -163,7 +163,13 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 
 ## Release Notes
 - **v3.0.0:**
-	- Everything rebuild from scratch using Gatsby.
+	- Rebuild using Gatsby.
+
+## Thanks to
+ - Gatsby
+ - React
+ - Github
+ - SEO resume photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/resume?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText).
 
 ## F.A.Q.
 **Q: Can you implement <???> function?**

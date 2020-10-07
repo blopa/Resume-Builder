@@ -1,13 +1,18 @@
 {
     "title": "Resume Builder",
     "build_resume": "Build",
+    "home": "Home",
     "about": "About",
     "built_with": "Built with ",
+    "source_code": "Source code",
+    "download_json": "Download .json",
+    "print": "Print",
     "contact": "Contact",
     "got_it": "Got it!",
     "what_is_resume_builder": "What is Resume Builder?",
     "what_is_resume_builder_description": "Resume Builder is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets or <a>jsonresume.org</a>.",
     "how_question": "How?",
+    "how_question_description": "Make a copy of <spreadsheet>this Google Spreadsheet</spreadsheet> or use your JSON file from <a>jsonresume.org</a> and <upload>upload it here</upload>.",
     "why_question": "Why?",
     "why_question_description_1": "You know you have the skills for that job you're applying to, and to show that you should tail your resume to match that opening.",
     "why_question_description_2": "For this job, it doesn't matter that you were a Space Police for 5 years, all they care about is if you can be a Professional Dog Carer.",
@@ -31,20 +36,7 @@
         "description": "Sorry, this page doesn't seem to exist. Perhaps the archives are incomplete?"
     },
     "seo_keywords": {
-        "developer": "developer",
-        "development": "development",
-        "javascript": "javascript",
-        "es6": "es6",
-        "countdown": "countdown",
-        "archive": "archive",
-        "about_me": "about me",
-        "personal_blog": "personal blog",
-        "personal_projects": "personal projects",
-        "travels": "travels",
-        "tips": "tips",
-        "lifehacks": "lifehacks",
-        "reviews": "reviews",
-        "games": "games"
+        "javascript": "javascript"
     },
     "cookie_law": {
         "we_use_cookies": "We use cookies to ensure you get the best experience on our website. By using our website you agree to our ",
@@ -64,6 +56,6 @@
         "third_party_cookies_item_1": "This site uses Google Analytics which is one of the most widespread and trusted analytics solution on the web for helping us to understand how you use the site and ways that we can improve your experience. These cookies may track things such as how long you spend on the site and the pages that you visit so we can continue to produce engaging content. For more information on Google Analytics cookies, see the official Google Analytics page.",
         "third_party_cookies_item_2": "From time to time we test new features and make subtle changes to the way that the site is delivered. When we are still testing new features these cookies may be used to ensure that you receive a consistent experience whilst on the site whilst ensuring we understand which optimisations our users appreciate the most.",
         "more_information": "More information",
-        "more_information_text": "Hopefully that has clarified things for you and as was previously mentioned if there is something that you aren't sure whether you need or not it's usually safer to leave cookies enabled in case it does interact with one of the features you use on our site. However if you are still looking for more information then you can contact us through our "
+        "more_information_text": "Hopefully that has clarified things for you and as was previously mentioned if there is something that you aren't sure whether you need or not it's usually safer to leave cookies enabled in case it does interact with one of the features you use on our site."
     }
 }

@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
     buildButton: {
         marginLeft: '10px',
     },
+    pageContent: {
+        padding: '5px',
+    },
 }));
 
 // permitted spreadsheet extensions
@@ -120,44 +123,48 @@ const UploadPage = () => {
             >
                 {intl.formatMessage({ id: 'upload_resume' })}
             </Typography>
-            <Typography
-                color="textPrimary"
-                variant="h6"
+            <div
+                className={classes.pageContent}
             >
-                1 - {intl.formatMessage({ id: 'select_your_template' })}
-            </Typography>
-            <TemplateSelector
-                className={classes.templateSelector}
-                onSelect={handleTemplateSelected}
-            />
-            <Typography
-                color="textPrimary"
-                variant="h6"
-            >
-                2 - {intl.formatMessage({ id: 'upload_or_parse_url' })}
-            </Typography>
-            <DropZone
-                maxLength={1}
-                handleFile={handleFile}
-                disabled={false}
-            />
-            <div className={classes.sheetsAndOkWrapper}>
-                <TextField
-                    className={classes.googleSpreadsheetInput}
-                    label={intl.formatMessage({ id: 'google_sheet_url' })}
-                    placeholder={intl.formatMessage({ id: 'google_sheet_url_description' })}
-                    onChange={setInputedTextToState}
-                />
-                <Button
-                    className={classes.buildButton}
-                    onClick={handleButtonClick}
-                    disabled={!textInputValue || loading}
-                    variant="contained"
-                    color="default"
-                    type="submit"
+                <Typography
+                    color="textPrimary"
+                    variant="h6"
                 >
-                    {intl.formatMessage({ id: 'go' })}
-                </Button>
+                    1 - {intl.formatMessage({ id: 'select_your_template' })}
+                </Typography>
+                <TemplateSelector
+                    className={classes.templateSelector}
+                    onSelect={handleTemplateSelected}
+                />
+                <Typography
+                    color="textPrimary"
+                    variant="h6"
+                >
+                    2 - {intl.formatMessage({ id: 'upload_or_parse_url' })}
+                </Typography>
+                <DropZone
+                    maxLength={1}
+                    handleFile={handleFile}
+                    disabled={false}
+                />
+                <div className={classes.sheetsAndOkWrapper}>
+                    <TextField
+                        className={classes.googleSpreadsheetInput}
+                        label={intl.formatMessage({ id: 'google_sheet_url' })}
+                        placeholder={intl.formatMessage({ id: 'google_sheet_url_description' })}
+                        onChange={setInputedTextToState}
+                    />
+                    <Button
+                        className={classes.buildButton}
+                        onClick={handleButtonClick}
+                        disabled={!textInputValue || loading}
+                        variant="contained"
+                        color="default"
+                        type="submit"
+                    >
+                        {intl.formatMessage({ id: 'go' })}
+                    </Button>
+                </div>
             </div>
         </Layout>
     );
