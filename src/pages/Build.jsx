@@ -2,7 +2,7 @@
 import React, { Suspense, lazy, useContext, useEffect, useState, useRef, useCallback, forwardRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Drawer } from '@material-ui/core';
-import { navigate } from 'gatsby-plugin-intl';
+import {navigate, useIntl} from 'gatsby-plugin-intl';
 import { v4 as uuid } from 'uuid';
 import SEO from '../components/SEO';
 import Layout from '../components/Layout';
@@ -29,6 +29,7 @@ const importTemplate = (template) => lazy(() =>
         import('../components/ResumeTemplates/Default/Index')));
 
 const BuildPage = () => {
+    const intl = useIntl();
     const classes = useStyles();
     const [a4ContainerHeight, setA4ContainerHeight] = useState(null);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);

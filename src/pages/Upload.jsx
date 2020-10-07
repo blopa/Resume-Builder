@@ -112,18 +112,30 @@ const UploadPage = () => {
     return (
         <Layout>
             <SEO
-                title="Upload"
+                title={intl.formatMessage({ id: 'upload_resume' })}
             />
             <Typography
                 color="textPrimary"
-                variant="overline"
+                variant="h4"
             >
-                Upload your resume file
+                {intl.formatMessage({ id: 'upload_resume' })}
+            </Typography>
+            <Typography
+                color="textPrimary"
+                variant="h6"
+            >
+                1 - {intl.formatMessage({ id: 'select_your_template' })}
             </Typography>
             <TemplateSelector
                 className={classes.templateSelector}
                 onSelect={handleTemplateSelected}
             />
+            <Typography
+                color="textPrimary"
+                variant="h6"
+            >
+                2 - {intl.formatMessage({ id: 'upload_or_parse_url' })}
+            </Typography>
             <DropZone
                 maxLength={1}
                 handleFile={handleFile}
@@ -132,8 +144,8 @@ const UploadPage = () => {
             <div className={classes.sheetsAndOkWrapper}>
                 <TextField
                     className={classes.googleSpreadsheetInput}
-                    label="Google Spreadsheet URL"
-                    placeholder="Put your Google Spreadsheet URL here"
+                    label={intl.formatMessage({ id: 'google_sheet_url' })}
+                    placeholder={intl.formatMessage({ id: 'google_sheet_url_description' })}
                     onChange={setInputedTextToState}
                 />
                 <Button

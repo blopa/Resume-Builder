@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { DropzoneArea } from 'material-ui-dropzone';
 import classNames from 'classnames';
+import { useIntl } from 'gatsby-plugin-intl';
 
 const useStyles = makeStyles((theme) => ({
     dropZone: {
@@ -32,6 +33,7 @@ const DropZone = ({
     maxLength,
 }) => {
     const classes = useStyles();
+    const intl = useIntl();
     const handleOnChange = useCallback((files) => {
         if (files.length === 0) {
             return;
@@ -51,6 +53,7 @@ const DropZone = ({
             showPreviewsInDropzone={false}
             onChange={handleOnChange}
             filesLimit={maxLength}
+            dropzoneText={intl.formatMessage({ id: 'drag_and_drop_or_click' })}
             dropzoneProps={{
                 disabled,
             }}
