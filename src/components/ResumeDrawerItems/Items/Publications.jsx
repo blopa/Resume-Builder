@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
+import React, { Fragment, useContext } from 'react';
 import { v4 as uuid } from 'uuid';
 
 // Components
@@ -11,29 +10,29 @@ import ItemsList from './List/ItemsList';
 import style from '../resumeDrawerStyles';
 import setResumePublications from '../../../store/actions/setResumePublications';
 import { varNameToString } from '../../../utils/utils';
+import { StoreContext } from '../../../store/StoreProvider';
 
 const useStyles = makeStyles((theme) => ({
     ...style,
 }));
 
-// Redux stuff
-const mapDispatchToProps = (dispatch) => ({
-    setResumePublications: (publications) => {
-        dispatch(setResumePublications(publications));
-    },
-});
+function Publications({ publications }) {
+    const classes = useStyles();
+    const { state, dispatch } = useContext(StoreContext);
+    const setResumePublicationsState = (newPublications) => {
+        dispatch(setResumePublications(newPublications));
+    };
 
-class Publications extends Component {
-    togglePublications = () => {
-        const currentState = this.props.publications.enabled;
-        this.props.setResumePublications({
-            ...this.props.publications,
+    const togglePublications = () => {
+        const currentState = publications.enabled;
+        setResumePublicationsState({
+            ...publications,
             enabled: !currentState,
         });
     };
 
-    togglePublication = (publication) => {
-        const newPublications = { ...this.props.publications };
+    const togglePublication = (publication) => {
+        const newPublications = { ...publications };
         newPublications.value =
             newPublications.value.map((pub) => {
                 if (JSON.stringify(pub.value) === JSON.stringify(publication.value)) {
@@ -44,11 +43,11 @@ class Publications extends Component {
                 }
                 return pub;
             });
-        this.props.setResumePublications(newPublications);
+        setResumePublicationsState(newPublications);
     };
 
-    togglePublicationsDetail = (publication, propName) => {
-        const newPublications = { ...this.props.publications };
+    const togglePublicationsDetail = (publication, propName) => {
+        const newPublications = { ...publications };
         newPublications.value =
             newPublications.value.map((pub) => {
                 if (JSON.stringify(pub.value) === JSON.stringify(publication.value)) {
@@ -65,87 +64,84 @@ class Publications extends Component {
                 }
                 return pub;
             });
-        this.props.setResumePublications(newPublications);
+        setResumePublicationsState(newPublications);
     };
 
-    render() {
-        const { publications } = this.props;
-        return (
-            <div className={style.resumeDrawerItem}>
-                <ItemInput
-                    label="publications"
-                    onChange={this.togglePublications}
-                    checked={publications.enabled}
-                />
-                {publications.enabled && (
-                    <ul>
-                        {publications.value.map((publication) => {
-                            const {
-                                name,
-                                publisher,
-                                releaseDate,
-                                website,
-                                summary,
-                            } = publication.value;
-                            return (
-                                <Fragment key={uuid()}>
-                                    <ItemsList
-                                        label={name.value}
-                                        checked={publication.enabled}
-                                        onClick={() => this.togglePublication(publication)}
-                                    />
-                                    {publication.enabled && (
-                                        <ul>
-                                            <ItemsList
-                                                label={varNameToString({ name })}
-                                                checked={name.enabled}
-                                                onClick={() => this.togglePublicationsDetail(
-                                                    publication,
-                                                    varNameToString({ name })
-                                                )}
-                                            />
-                                            <ItemsList
-                                                label={varNameToString({ publisher })}
-                                                checked={publisher.enabled}
-                                                onClick={() => this.togglePublicationsDetail(
-                                                    publication,
-                                                    varNameToString({ publisher })
-                                                )}
-                                            />
-                                            <ItemsList
-                                                label={varNameToString({ releaseDate })}
-                                                checked={releaseDate.enabled}
-                                                onClick={() => this.togglePublicationsDetail(
-                                                    publication,
-                                                    varNameToString({ releaseDate })
-                                                )}
-                                            />
-                                            <ItemsList
-                                                label={varNameToString({ website })}
-                                                checked={website.enabled}
-                                                onClick={() => this.togglePublicationsDetail(
-                                                    publication,
-                                                    varNameToString({ website })
-                                                )}
-                                            />
-                                            <ItemsList
-                                                label={varNameToString({ summary })}
-                                                checked={summary.enabled}
-                                                onClick={() => this.togglePublicationsDetail(
-                                                    publication,
-                                                    varNameToString({ summary })
-                                                )}
-                                            />
-                                        </ul>
-                                    )}
-                                </Fragment>
-                            );
-                        })}
-                    </ul>
-                )}
-            </div>
-        );
-    }
+    return (
+        <div className={classes.resumeDrawerItem}>
+            <ItemInput
+                label="publications"
+                onChange={togglePublications}
+                checked={publications.enabled}
+            />
+            {publications.enabled && (
+                <ul>
+                    {publications.value.map((publication) => {
+                        const {
+                            name,
+                            publisher,
+                            releaseDate,
+                            website,
+                            summary,
+                        } = publication.value;
+                        return (
+                            <Fragment key={uuid()}>
+                                <ItemsList
+                                    label={name.value}
+                                    checked={publication.enabled}
+                                    onClick={() => togglePublication(publication)}
+                                />
+                                {publication.enabled && (
+                                    <ul>
+                                        <ItemsList
+                                            label={varNameToString({ name })}
+                                            checked={name.enabled}
+                                            onClick={() => togglePublicationsDetail(
+                                                publication,
+                                                varNameToString({ name })
+                                            )}
+                                        />
+                                        <ItemsList
+                                            label={varNameToString({ publisher })}
+                                            checked={publisher.enabled}
+                                            onClick={() => togglePublicationsDetail(
+                                                publication,
+                                                varNameToString({ publisher })
+                                            )}
+                                        />
+                                        <ItemsList
+                                            label={varNameToString({ releaseDate })}
+                                            checked={releaseDate.enabled}
+                                            onClick={() => togglePublicationsDetail(
+                                                publication,
+                                                varNameToString({ releaseDate })
+                                            )}
+                                        />
+                                        <ItemsList
+                                            label={varNameToString({ website })}
+                                            checked={website.enabled}
+                                            onClick={() => togglePublicationsDetail(
+                                                publication,
+                                                varNameToString({ website })
+                                            )}
+                                        />
+                                        <ItemsList
+                                            label={varNameToString({ summary })}
+                                            checked={summary.enabled}
+                                            onClick={() => togglePublicationsDetail(
+                                                publication,
+                                                varNameToString({ summary })
+                                            )}
+                                        />
+                                    </ul>
+                                )}
+                            </Fragment>
+                        );
+                    })}
+                </ul>
+            )}
+        </div>
+    );
 }
 
-export default connect(null, mapDispatchToProps)(Publications);
+export default Publications;

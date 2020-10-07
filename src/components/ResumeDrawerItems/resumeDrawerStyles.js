@@ -1,5 +1,6 @@
 export default {
     resumeDrawerItemsWrapper: {
+        marginTop: '76px',
         minWidth: '300px',
         maxWidth: '350px',
         padding: '5px 20px',

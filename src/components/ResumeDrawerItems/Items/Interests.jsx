@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
+import React, { Fragment, useContext } from 'react';
 import { v4 as uuid } from 'uuid';
 
 // Components
@@ -8,34 +7,33 @@ import ItemInput from './List/ItemInput';
 import ItemsList from './List/ItemsList';
 
 // Utils
-
 // Actions
 import style from '../resumeDrawerStyles';
 import { varNameToString } from '../../../utils/utils';
 import setResumeInterests from '../../../store/actions/setResumeInterests';
+import { StoreContext } from '../../../store/StoreProvider';
 
 const useStyles = makeStyles((theme) => ({
     ...style,
 }));
 
-// Redux stuff
-const mapDispatchToProps = (dispatch) => ({
-    setResumeInterests: (interest) => {
+function Interest({ interests }) {
+    const classes = useStyles();
+    const { state, dispatch } = useContext(StoreContext);
+    const setResumeInterestsState = (interest) => {
         dispatch(setResumeInterests(interest));
-    },
-});
+    };
 
-class Interest extends Component {
-    toggleInterests = () => {
-        const currentState = this.props.interests.enabled;
-        this.props.setResumeInterests({
-            ...this.props.interests,
+    const toggleInterests = () => {
+        const currentState = interests.enabled;
+        setResumeInterestsState({
+            ...interests,
             enabled: !currentState,
         });
     };
 
-    toggleInterest = (interest) => {
-        const newInterest = { ...this.props.interests };
+    const toggleInterest = (interest) => {
+        const newInterest = { ...interests };
         newInterest.value =
             newInterest.value.map((wrk) => {
                 if (JSON.stringify(wrk.value) === JSON.stringify(interest.value)) {
@@ -46,11 +44,11 @@ class Interest extends Component {
                 }
                 return wrk;
             });
-        this.props.setResumeInterests(newInterest);
+        setResumeInterestsState(newInterest);
     };
 
-    toggleInterestDetail = (interest, propName) => {
-        const newInterest = { ...this.props.interests };
+    const toggleInterestDetail = (interest, propName) => {
+        const newInterest = { ...interests };
         newInterest.value =
             newInterest.value.map((vol) => {
                 if (JSON.stringify(vol.value) === JSON.stringify(interest.value)) {
@@ -67,11 +65,11 @@ class Interest extends Component {
                 }
                 return vol;
             });
-        this.props.setResumeInterests(newInterest);
+        setResumeInterestsState(newInterest);
     };
 
-    toggleInterestKeywords = (interest, keyword) => {
-        const newInterest = { ...this.props.interests };
+    const toggleInterestKeywords = (interest, keyword) => {
+        const newInterest = { ...interests };
         newInterest.value =
             newInterest.value.map((vol) => {
                 if (JSON.stringify(vol.value) === JSON.stringify(interest.value)) {
@@ -99,66 +97,62 @@ class Interest extends Component {
                 }
                 return vol;
             });
-        this.props.setResumeInterests(newInterest);
+        setResumeInterestsState(newInterest);
     };
 
-    render() {
-        const { interests } = this.props;
+    return (
+        <div className={classes.resumeDrawerItem}>
+            <ItemInput
+                label="interest"
+                onChange={toggleInterests}
+                checked={interests.enabled}
+            />
+            {interests.enabled && (
+                <ul>
+                    {interests.value.map((interest) => {
+                        const { name, keywords } = interest.value;
 
-        return (
-            <div className={style.resumeDrawerItem}>
-                <ItemInput
-                    label="interest"
-                    onChange={this.toggleInterests}
-                    checked={interests.enabled}
-                />
-                {interests.enabled && (
-                    <ul>
-                        {interests.value.map((interest) => {
-                            const { name, keywords } = interest.value;
-
-                            return (
-                                <Fragment key={uuid()}>
-                                    <ItemsList
-                                        label={name.value}
-                                        checked={interest.enabled}
-                                        onClick={() => this.toggleInterest(interest)}
-                                    />
-                                    {interest.enabled && (
-                                        <ul>
-                                            <ItemsList
-                                                label={varNameToString({ name })}
-                                                checked={name.enabled}
-                                                onClick={() => this.toggleInterestDetail(
-                                                    interest,
-                                                    varNameToString({ name })
-                                                )}
-                                            />
-                                            {keywords.enabled && (
-                                                <ul>
-                                                    {keywords.value.map((keyword) => (
-                                                        <ItemsList
-                                                            label={keyword.value}
-                                                            key={uuid()}
-                                                            checked={keyword.enabled}
-                                                            onClick={() => this.toggleInterestKeywords(
-                                                                interest,
-                                                                keyword
-                                                            )}
-                                                        />
-                                                    ))}
-                                                </ul>
+                        return (
+                            <Fragment key={uuid()}>
+                                <ItemsList
+                                    label={name.value}
+                                    checked={interest.enabled}
+                                    onClick={() => toggleInterest(interest)}
+                                />
+                                {interest.enabled && (
+                                    <ul>
+                                        <ItemsList
+                                            label={varNameToString({ name })}
+                                            checked={name.enabled}
+                                            onClick={() => toggleInterestDetail(
+                                                interest,
+                                                varNameToString({ name })
                                             )}
-                                        </ul>
-                                    )}
-                                </Fragment>
-                            );
-                        })}
-                    </ul>
-                )}
-            </div>
-        );
-    }
+                                        />
+                                        {keywords.enabled && (
+                                            <ul>
+                                                {keywords.value.map((keyword) => (
+                                                    <ItemsList
+                                                        label={keyword.value}
+                                                        key={uuid()}
+                                                        checked={keyword.enabled}
+                                                        onClick={() => toggleInterestKeywords(
+                                                            interest,
+                                                            keyword
+                                                        )}
+                                                    />
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </ul>
+                                )}
+                            </Fragment>
+                        );
+                    })}
+                </ul>
+            )}
+        </div>
+    );
 }
 
-export default connect(null, mapDispatchToProps)(Interest);
+export default Interest;

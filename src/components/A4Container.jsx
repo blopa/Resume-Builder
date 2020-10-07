@@ -30,11 +30,21 @@ const useStyles = makeStyles((theme) => ({
     },
     alignLeft: {
         marginLeft: 'calc(50% - 11.5cm - 175px)',
+        '@media print': {
+            margin: '0 auto',
+        },
     },
 }));
 
-function A4Container({ children, alignCenter = true }) {
+function A4Container({ children, customHeight, alignCenter = true }) {
     const classes = useStyles();
+    let style = {};
+
+    if (customHeight) {
+        style = {
+            height: `${customHeight}vh`,
+        };
+    }
 
     return (
         <div
@@ -45,6 +55,7 @@ function A4Container({ children, alignCenter = true }) {
                     [classes.alignLeft]: !alignCenter,
                 }
             )}
+            style={style}
         >
             {children}
         </div>

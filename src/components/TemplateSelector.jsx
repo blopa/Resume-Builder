@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
 const TemplateSelector = ({ onSelect, className }) => {
     const [resumeTemplate, setResumeTemplate] = useState('');
     const classes = useStyles();
-    console.log(TEMPLATES_LIST);
+    // console.log(TEMPLATES_LIST);
 
     const handleChange = useCallback((e) => {
         setResumeTemplate(e.target.value);

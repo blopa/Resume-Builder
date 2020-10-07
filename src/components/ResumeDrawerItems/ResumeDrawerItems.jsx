@@ -22,6 +22,10 @@ import { downloadJson } from '../../utils/json-parser';
 
 const useStyles = makeStyles((theme) => ({
     ...style,
+    actionButtons: {
+        display: 'block',
+        margin: '10px 10px 10px 0',
+    },
 }));
 
 const printDocument = () => {
@@ -47,12 +51,20 @@ const ResumeDrawerItems = ({
     },
     onClose,
     jsonResume,
+    onPrint,
 }) => {
     const classes = useStyles();
     return (
         <div className={classes.resumeDrawerItemsWrapper}>
+            <button
+                type="button"
+                onClick={onClose}
+            >
+                <CloseIcon />
+            </button>
             <div>
                 <Button
+                    className={classes.actionButtons}
                     variant="contained"
                     color="primary"
                     disabled
@@ -60,6 +72,7 @@ const ResumeDrawerItems = ({
                     Download .doc
                 </Button>
                 <Button
+                    className={classes.actionButtons}
                     variant="contained"
                     color="primary"
                     onClick={() => handleDownloadJson(jsonResume)}
@@ -67,18 +80,13 @@ const ResumeDrawerItems = ({
                     Download .json
                 </Button>
                 <Button
+                    className={classes.actionButtons}
                     variant="contained"
                     color="secondary"
-                    onClick={printDocument}
+                    onClick={onPrint || printDocument}
                 >
                     Print
                 </Button>
-                <button
-                    type="button"
-                    onClick={onClose}
-                >
-                    <CloseIcon />
-                </button>
             </div>
             {isObjectNotEmpty(basics) && (
                 <Basics

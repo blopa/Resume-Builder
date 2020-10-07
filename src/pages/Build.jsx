@@ -1,5 +1,5 @@
 /* eslint template-curly-spacing: 0, indent: 0 */
-import React, { Suspense, lazy, useContext, useEffect, useState } from 'react';
+import React, { Suspense, lazy, useContext, useEffect, useState, useRef, useCallback, forwardRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Drawer } from '@material-ui/core';
 import { navigate } from 'gatsby-plugin-intl';
@@ -9,25 +9,35 @@ import Layout from '../components/Layout';
 import A4Container from '../components/A4Container';
 import { StoreContext } from '../store/StoreProvider';
 import { isObjectNotEmpty } from '../utils/utils';
+import ResumeDrawerItems from '../components/ResumeDrawerItems/ResumeDrawerItems';
+import FloatingButton from '../components/FloatingButton';
 // import DefaultTemplate from '../components/ResumeTemplates/Default/Index';
 
 const useStyles = makeStyles((theme) => ({
     resumeWrapper: {
         margin: '10px 0',
     },
+    drawerWrapper: {
+        '& .MuiPaper-root': {
+            zIndex: 1000,
+        },
+    },
 }));
 
 const importTemplate = (template) => lazy(() =>
-    import(`../components/ResumeTemplates/${template}`).catch(() =>
-        import('../components/ResumeTemplates/Default')));
+    import(`../components/ResumeTemplates/${template}/Index`).catch(() =>
+        import('../components/ResumeTemplates/Default/Index')));
 
-const BuildPage = (props) => {
+const BuildPage = () => {
     const classes = useStyles();
+    const [a4ContainerHeight, setA4ContainerHeight] = useState(null);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [resumeTemplate, setResumeTemplate] = useState([]);
     const { state, dispatch } = useContext(StoreContext);
+    const refContainer = useRef(null);
+    const rerenderRef = useRef(false);
     // console.log(JSON.stringify(state));
-    console.log(state.resumeTemplate);
+    // console.log(state.resumeTemplate);
     const {
         jsonResume,
         togglableJsonResume,
@@ -55,6 +65,29 @@ const BuildPage = (props) => {
         loadTemplate();
     }, [resumeTemplateName, togglableJsonResume]);
 
+    const printDocument = useCallback(() => {
+        const size = 1587; // roughly A4
+        const resumeHeight = refContainer?.current?.clientHeight;
+        if (resumeHeight && resumeHeight / size > 1) {
+            const vhs = Math.ceil(resumeHeight / size);
+            setA4ContainerHeight(vhs * 100);
+        }
+    }, [refContainer]);
+
+    useEffect(() => {
+        // hack to make the printable page background correct
+        if (rerenderRef.current) {
+            if (a4ContainerHeight) {
+                window.print();
+                window.setTimeout(() => {
+                    setA4ContainerHeight(null);
+                }, 10);
+            }
+        } else {
+            rerenderRef.current = true;
+        }
+    }, [a4ContainerHeight]);
+
     return (
         <Layout>
             <SEO
@@ -62,27 +95,37 @@ const BuildPage = (props) => {
             />
             {hasData && (
                 <div className={classes.resumeWrapper}>
+                    <FloatingButton
+                        onClick={() => setIsDrawerOpen(true)}
+                    />
                     <Drawer
+                        className={classes.drawerWrapper}
                         anchor="right"
                         variant="persistent"
                         open={isDrawerOpen}
                         onClose={() => setIsDrawerOpen(false)}
                     >
-                        {/*<ResumeDrawerItems*/}
-                        {/*    resume={togglableJsonResume}*/}
-                        {/*    jsonResume={jsonResume}*/}
-                        {/*    onClose={() => setIsDrawerOpen(false)}*/}
-                        {/*/>*/}
+                        <ResumeDrawerItems
+                            resume={togglableJsonResume}
+                            jsonResume={jsonResume}
+                            onClose={() => setIsDrawerOpen(false)}
+                            onPrint={printDocument}
+                        />
                     </Drawer>
-                    <A4Container
-                        alignCenter={!isDrawerOpen}
+                    <div
+                        ref={refContainer}
                     >
-                        <Suspense
-                            fallback="Loading..."
+                        <A4Container
+                            alignCenter={!isDrawerOpen}
+                            customHeight={a4ContainerHeight}
                         >
-                            {resumeTemplate}
-                        </Suspense>
-                    </A4Container>
+                            <Suspense
+                                fallback="Loading..."
+                            >
+                                {resumeTemplate}
+                            </Suspense>
+                        </A4Container>
+                    </div>
                 </div>
             )}
         </Layout>

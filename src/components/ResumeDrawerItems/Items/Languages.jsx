@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
+import React, { Fragment, useContext } from 'react';
 import { v4 as uuid } from 'uuid';
 
 // Components
@@ -11,29 +10,29 @@ import ItemsList from './List/ItemsList';
 import style from '../resumeDrawerStyles';
 import setResumeLanguages from '../../../store/actions/setResumeLanguages';
 import { varNameToString } from '../../../utils/utils';
+import { StoreContext } from '../../../store/StoreProvider';
 
 const useStyles = makeStyles((theme) => ({
     ...style,
 }));
 
-// Redux stuff
-const mapDispatchToProps = (dispatch) => ({
-    setResumeLanguages: (languages) => {
-        dispatch(setResumeLanguages(languages));
-    },
-});
+function Languages({ languages }) {
+    const classes = useStyles();
+    const { state, dispatch } = useContext(StoreContext);
+    const setResumeLanguagesState = (newLanguages) => {
+        dispatch(setResumeLanguages(newLanguages));
+    };
 
-class Languages extends Component {
-    toggleLanguages = () => {
-        const currentState = this.props.languages.enabled;
-        this.props.setResumeLanguages({
-            ...this.props.languages,
+    const toggleLanguages = () => {
+        const currentState = languages.enabled;
+        setResumeLanguagesState({
+            ...languages,
             enabled: !currentState,
         });
     };
 
-    toggleLanguage = (language) => {
-        const newLanguages = { ...this.props.languages };
+    const toggleLanguage = (language) => {
+        const newLanguages = { ...languages };
         newLanguages.value =
             newLanguages.value.map((lang) => {
                 if (JSON.stringify(lang.value) === JSON.stringify(language.value)) {
@@ -44,11 +43,11 @@ class Languages extends Component {
                 }
                 return lang;
             });
-        this.props.setResumeLanguages(newLanguages);
+        setResumeLanguagesState(newLanguages);
     };
 
-    toggleLanguagesDetail = (language, propName) => {
-        const newLanguages = { ...this.props.languages };
+    const toggleLanguagesDetail = (language, propName) => {
+        const newLanguages = { ...languages };
         newLanguages.value =
             newLanguages.value.map((lang) => {
                 if (JSON.stringify(lang.value) === JSON.stringify(language.value)) {
@@ -65,60 +64,57 @@ class Languages extends Component {
                 }
                 return lang;
             });
-        this.props.setResumeLanguages(newLanguages);
+        setResumeLanguagesState(newLanguages);
     };
 
-    render() {
-        const { languages } = this.props;
-        return (
-            <div className={style.resumeDrawerItem}>
-                <ItemInput
-                    label="languages"
-                    onChange={this.toggleLanguages}
-                    checked={languages.enabled}
-                />
-                {languages.enabled && (
-                    <ul>
-                        {languages.value.map((lang) => {
-                            const {
-                                language,
-                                fluency,
-                            } = lang.value;
-                            return (
-                                <Fragment key={uuid()}>
-                                    <ItemsList
-                                        label={language.value}
-                                        checked={lang.enabled}
-                                        onClick={() => this.toggleLanguage(lang)}
-                                    />
-                                    {lang.enabled && (
-                                        <ul>
-                                            <ItemsList
-                                                label={varNameToString({ language })}
-                                                checked={language.enabled}
-                                                onClick={() => this.toggleLanguagesDetail(
-                                                    lang,
-                                                    varNameToString({ language })
-                                                )}
-                                            />
-                                            <ItemsList
-                                                label={varNameToString({ fluency })}
-                                                checked={fluency.enabled}
-                                                onClick={() => this.toggleLanguagesDetail(
-                                                    lang,
-                                                    varNameToString({ fluency })
-                                                )}
-                                            />
-                                        </ul>
-                                    )}
-                                </Fragment>
-                            );
-                        })}
-                    </ul>
-                )}
-            </div>
-        );
-    }
+    return (
+        <div className={classes.resumeDrawerItem}>
+            <ItemInput
+                label="languages"
+                onChange={toggleLanguages}
+                checked={languages.enabled}
+            />
+            {languages.enabled && (
+                <ul>
+                    {languages.value.map((lang) => {
+                        const {
+                            language,
+                            fluency,
+                        } = lang.value;
+                        return (
+                            <Fragment key={uuid()}>
+                                <ItemsList
+                                    label={language.value}
+                                    checked={lang.enabled}
+                                    onClick={() => toggleLanguage(lang)}
+                                />
+                                {lang.enabled && (
+                                    <ul>
+                                        <ItemsList
+                                            label={varNameToString({ language })}
+                                            checked={language.enabled}
+                                            onClick={() => toggleLanguagesDetail(
+                                                lang,
+                                                varNameToString({ language })
+                                            )}
+                                        />
+                                        <ItemsList
+                                            label={varNameToString({ fluency })}
+                                            checked={fluency.enabled}
+                                            onClick={() => toggleLanguagesDetail(
+                                                lang,
+                                                varNameToString({ fluency })
+                                            )}
+                                        />
+                                    </ul>
+                                )}
+                            </Fragment>
+                        );
+                    })}
+                </ul>
+            )}
+        </div>
+    );
 }
 
-export default connect(null, mapDispatchToProps)(Languages);
+export default Languages;

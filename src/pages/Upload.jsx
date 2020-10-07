@@ -55,11 +55,11 @@ const SHEET_EXTENSIONS = [
 
 const UploadPage = () => {
     const classes = useStyles();
+    const { state, dispatch } = useContext(StoreContext);
     const intl = useIntl();
     const [textInputValue, setTextInputValue] = useState('');
     const [loading, setLoading] = useState(false);
-    const { state, dispatch } = useContext(StoreContext);
-    console.log(JSON.stringify(state));
+    // console.log(JSON.stringify(state));
 
     const setResumesAndForward = useCallback((jsonResume) => {
         dispatch(setJsonResume(jsonResume));

@@ -26,6 +26,9 @@ const useStyles = makeStyles({
         marginLeft: 'auto',
         display: 'inline-flex',
     },
+    appBarWrapper: {
+        // zIndex: 2000,
+    },
 });
 
 function Topbar({
@@ -38,6 +41,7 @@ function Topbar({
 
     return (
         <AppBar
+            className={classes.appBarWrapper}
             position="sticky"
         >
             <Toolbar>
