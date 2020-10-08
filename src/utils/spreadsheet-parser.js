@@ -11,6 +11,7 @@ export const readSpreadsheetData = (data, callback) => {
 export const readSpreadsheetFile = (file, callback) => {
     const reader = new FileReader();
     reader.onload = (e) => readSpreadsheetData(e.target.result, callback);
+    // eslint-disable-next-line standard/no-callback-literal
     reader.onerror = () => callback([]);
     reader.readAsBinaryString(file);
 };
@@ -24,6 +25,7 @@ export const downloadSpreadsheetFile = (spreadsheetId, sheetId, callback, forceC
     const xhr = new XMLHttpRequest();
 
     xhr.open('GET', url, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.overrideMimeType('text/plain; charset=x-user-defined');
     xhr.onload = () => {
         const data = xhr.responseText;

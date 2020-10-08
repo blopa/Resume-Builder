@@ -1,23 +1,19 @@
 {
-  "presets": [
-    "react",
-    "stage-1",
-    ["env", { "targets": { "browsers": ["last 2 versions"] }, "modules": false }]
-  ],
-
-  "plugins": ["transform-decorators-legacy", "transform-class-properties"],
-
-  "env": {
-    "production": {
-      "presets": ["react-optimize"],
-      "plugins": ["transform-runtime", "ramda", "lodash"]
-    },
-
-    "test": {
-      "presets": [
-        ["env", { "targets": { "browsers": ["last 2 versions"] } }]
-      ],
-      "plugins": [["module-resolver", { "root": ["./src"] }]]
-    }
-  }
+    "presets": [
+        [
+            "babel-preset-gatsby",
+            {
+                "targets": {
+                    "esmodules": true
+                }
+            }
+        ]
+    ],
+    "plugins": [
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-proposal-optional-chaining",
+        "@babel/plugin-proposal-function-bind",
+        "@babel/plugin-proposal-private-methods",
+        "@babel/plugin-transform-async-to-generator"
+    ]
 }

@@ -60,9 +60,9 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const referencesArray = [];
 
     // console.log(jsonSpreadsheet);
-    for (const value of jsonSpreadsheet) {
+    jsonSpreadsheet.forEach((value) => {
         if (value[disabledAttr]) {
-            continue;
+            return;
         }
 
         const category = value[categoryAttr].toLowerCase();
@@ -181,7 +181,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
 
             references[value[typeAttr]] = value[contentAttr];
         }
-    }
+    });
 
     jsonResume.basics.profiles = [...profilesArray, profiles];
     jsonResume.work = [...workArray, work];

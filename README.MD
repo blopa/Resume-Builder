@@ -9,21 +9,21 @@
    Which resume would you look at first?"
 - [http://monster.com](https://www.monster.com/career-advice/article/resume-look-important-as-content)
 
-<img src="/screenshots/v2/resume_builder.gif?raw=true" width="890px">
+<img src="/screenshots/v3/resume_builder.gif?raw=true" width="890px">
 
 **TESTED ONLY ON GOOGLE CHROME**
 
 ## About
 [Resume Builder](https://resume-builder.js.org) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://resume-builder.js.org).**
 
-For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/master/README_V1.MD).
+For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/master/README_V1.MD) and for version 2 [check here](https://github.com/blopa/Resume-Builder/blob/master/README_V2.MD).
 
 ## Features
 - Multiple Resume templates (soon)
 - Parse data from Google Spreadsheet URL, .xls file or .json file.
 - Support Json format from [jsonresume.org](https://jsonresume.org/schema/).
 - Convert Google Spreadsheet data into [jsonresume.org](https://jsonresume.org/schema/) format.
-
+- Theme created with [material-ui-theme-editor](https://in-your-saas.github.io/material-ui-theme-editor/), so it's easy for you to customize.
 
 ## Usage
 First of all you need to create a Google Spreadsheet following the same rules as [this one](https://docs.google.com/spreadsheets/d/1UCdsEiyO68IEdfVhW-Gfrg7FfI4pLaij37D5Eh-v8hQ/copy) (you can make a copy if you like) and populate with your resume information.
@@ -42,11 +42,10 @@ First of all you need to create a Google Spreadsheet following the same rules as
 - **network:** Social media name
 - **username:** Social media name
 
-TODO: list all
-
 ## Libraries
-- I'm using [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx) and [Material UI](https://material-ui.com/).
+- I'm using [gatsby.js](https://github.com/gatsbyjs/gatsby), [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx) and [Material UI](https://material-ui.com/).
 - Honorable mentions: [babel](https://github.com/babel/babel), [webpack](https://github.com/webpack/webpack), [IntelliJ IDEA](https://github.com/JetBrains/intellij-community).
+- Gatsby template from [gatsby-material-ui-blog-starter](https://github.com/blopa/gatsby-material-ui-blog-starter)
 
 So a big thanks to all the developers that worked really hard on these libs and make our day easier :D.
 
@@ -153,26 +152,20 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 
 ## Screenshot
 **[Google Spreadsheet example](https://docs.google.com/spreadsheets/d/1UCdsEiyO68IEdfVhW-Gfrg7FfI4pLaij37D5Eh-v8hQ/copy)**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v2/screenshot_1.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v3/screenshot_1.png)
 
 **Built Resume**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v2/screenshot_2.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v3/screenshot_2.png)
 
 **Printing Resume**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v2/screenshot_3.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v3/screenshot_3.png)
 
 ## Release Notes
-- **v2.0.3:** (not tagged yet)
-	- ~~Fix CORS problem when loading a spreadsheet from URL.~~ (still trying to figure this one out)
-	- Update packages.
-	- Add new ESlint rules.
-- **v2.0.2:**
-	- Fix printing issue when sidebar is open.
-	- Add Google Analytics option.
-- **v2.0.1:**
-	- Add option to parse spreadsheet from Google Spreadsheet URL.
-- **v2.0.0:**
-	- Everything rebuild from scratch.
+- **v3.0.0:**
+	- Rebuild using Gatsby.
+
+## Thanks to
+ - SEO resume photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/resume?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText).
 
 ## F.A.Q.
 **Q: Can you implement <???> function?**
@@ -181,7 +174,7 @@ A: I can try. Open a issue and I'll see what I can do.
 
 **Q: Your project is awesome. How can I help?**
 
-A: Thank you! You can help by codding more features, creating pull requests, or donating using Bitcoin: **1BdL9w4SscX21b2qeiP1ApAFNAYhPj5GgG**
+A: Thank you! You can help by codding more features, creating pull requests, or donating via [https://bunq.me/BuyMeASoda](https://bunq.me/BuyMeASoda)
 
 ## TODO
 - Add list of recent used documents
@@ -193,7 +186,7 @@ A: Thank you! You can help by codding more features, creating pull requests, or 
 ## License
 MIT License
 
-Copyright (c) 2019 blopa
+Copyright (c) 2020 blopa
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
