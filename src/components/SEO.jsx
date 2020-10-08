@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { graphql, useStaticQuery } from 'gatsby';
-import { generateSeoFriendlyVideoUrl } from '../utils/gatsby-frontend-helpers';
 
 function SEO({
     description,
@@ -11,9 +10,7 @@ function SEO({
     title,
     robots,
     keywords = [],
-    alternateLangLinks = [],
     ogImage,
-    ogVideo,
 }) {
     const { site, baseSiteImage } = useStaticQuery(
         graphql`
@@ -94,23 +91,6 @@ function SEO({
     ].concat(meta);
 
     let seoImage = ogImage;
-    if (ogVideo) {
-        const video = generateSeoFriendlyVideoUrl(ogVideo);
-        if (video) {
-            seoMeta.push({
-                property: 'og:video',
-                content: video,
-            });
-
-            if (!ogImage && video?.includes?.('youtube.')) {
-                const urlParts = video.split('youtube.com/v/');
-                const youtubeId = urlParts?.[1];
-                if (youtubeId) {
-                    seoImage = `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
-                }
-            }
-        }
-    }
 
     if (robots) {
         seoMeta.push({
@@ -146,7 +126,6 @@ function SEO({
             title={title}
             titleTemplate={`%s | ${site.siteMetadata.title}`}
             meta={seoMeta}
-            link={alternateLangLinks}
         />
     );
 }

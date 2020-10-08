@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 auto',
     },
     alignLeft: {
-        marginLeft: 'calc(50% - 11.5cm - 175px)',
+        marginLeft: 'calc(50% - (11.5cm + 120px))',
         '@media print': {
             margin: '0 auto',
         },

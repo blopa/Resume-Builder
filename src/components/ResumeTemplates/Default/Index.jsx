@@ -16,8 +16,7 @@ import Work from './Sections/Work';
 const useStyles = makeStyles((theme) => ({
     resumeDefaultTemplate: {
         padding: '0 25px',
-        h3: { margin: '0' },
-        p: { margin: '0' },
+        '& h3': { margin: '0' },
         color: theme.palette.text.primary,
         '& a': {
             color: '#8da4f7',
@@ -26,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
             color: '#48578a',
         },
         '& p': {
+            margin: 0,
             marginBlockStart: 0,
             marginBlockEnd: 0,
         },

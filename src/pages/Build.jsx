@@ -1,8 +1,8 @@
 /* eslint template-curly-spacing: 0, indent: 0 */
-import React, { Suspense, lazy, useContext, useEffect, useState, useRef, useCallback, forwardRef } from 'react';
+import React, { Suspense, lazy, useContext, useEffect, useState, useRef, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Drawer } from '@material-ui/core';
-import {navigate, useIntl} from 'gatsby-plugin-intl';
+import { Drawer } from '@material-ui/core';
+import { navigate, useIntl } from 'gatsby-plugin-intl';
 import { v4 as uuid } from 'uuid';
 import SEO from '../components/SEO';
 import Layout from '../components/Layout';
@@ -67,11 +67,16 @@ const BuildPage = () => {
     }, [resumeTemplateName, togglableJsonResume]);
 
     const printDocument = useCallback(() => {
-        const size = 1587; // roughly A4
+        const size = 1122; // roughly A4
         const resumeHeight = refContainer?.current?.clientHeight;
-        if (resumeHeight && resumeHeight / size > 1) {
-            const vhs = Math.ceil(resumeHeight / size);
+        const ratio = resumeHeight / size;
+        if (resumeHeight && ratio > 1) {
+            const vhs = Math.ceil(
+                parseFloat(ratio.toFixed(2))
+            );
             setA4ContainerHeight(vhs * 100);
+        } else {
+            window.print();
         }
     }, [refContainer]);
 
@@ -90,7 +95,9 @@ const BuildPage = () => {
     }, [a4ContainerHeight]);
 
     return (
-        <Layout>
+        <Layout
+            // showLanguageSelector={false}
+        >
             <SEO
                 title={intl.formatMessage({ id: 'build_resume' })}
                 robots="noindex, nofollow"

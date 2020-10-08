@@ -127,8 +127,6 @@ const Layout = ({
                             Gatsby
                         </a>
                         {' | '}
-                        <Link to="/contact">{intl.formatMessage({ id: 'contact' })}</Link>
-                        {' | '}
                         <Link to="/cookie-policy">{intl.formatMessage({ id: 'cookie_law.title' })}</Link>
                     </Typography>
                 </footer>

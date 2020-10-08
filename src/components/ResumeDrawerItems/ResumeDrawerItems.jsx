@@ -72,7 +72,7 @@ const ResumeDrawerItems = ({
                     color="primary"
                     disabled
                 >
-                    Download .doc
+                    {intl.formatMessage({ id: 'download_doc' })}
                 </Button>
                 <Button
                     className={classes.actionButtons}

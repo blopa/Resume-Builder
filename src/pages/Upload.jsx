@@ -56,7 +56,7 @@ const SHEET_EXTENSIONS = [
     'ods',
 ];
 
-const UploadPage = () => {
+const UploadPage = ({ pageContext, location }) => {
     const classes = useStyles();
     const { state, dispatch } = useContext(StoreContext);
     const intl = useIntl();

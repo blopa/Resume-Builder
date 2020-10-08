@@ -3,12 +3,14 @@ import React, { useCallback, useState } from 'react';
 import { MenuItem, Select } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { v4 as uuid } from 'uuid';
+import { useIntl } from 'gatsby-plugin-intl';
 
 const useStyles = makeStyles((theme) => ({
     // TODO
 }));
 
 const TemplateSelector = ({ onSelect, className }) => {
+    const intl = useIntl();
     const [resumeTemplate, setResumeTemplate] = useState('');
     const classes = useStyles();
     // console.log(TEMPLATES_LIST);
@@ -29,7 +31,7 @@ const TemplateSelector = ({ onSelect, className }) => {
                 value=""
                 disabled
             >
-                Placeholder
+                {intl.formatMessage({ id: 'select_template' })}
             </MenuItem>
             {TEMPLATES_LIST.map((template) => (
                 <MenuItem

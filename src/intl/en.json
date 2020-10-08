@@ -6,6 +6,7 @@
     "built_with": "Built with ",
     "source_code": "Source code",
     "download_json": "Download .json",
+    "download_doc": "Download .doc",
     "print": "Print",
     "contact": "Contact",
     "got_it": "Got it!",
@@ -30,6 +31,7 @@
     "loading": "Loading...",
     "drag_and_drop_or_click": "Drag and drop a file here or click",
     "select_your_template": "Select your template",
+    "select_template": "Select template",
     "notfound": {
         "title": "404: Not found",
         "header": "404 NOT FOUND",

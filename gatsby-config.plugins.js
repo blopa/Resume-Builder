@@ -46,6 +46,14 @@ module.exports = [
         },
     },
     {
+        resolve: 'gatsby-plugin-google-analytics',
+        options: {
+            head: false,
+            trackingId: 'UA-10504378-9',
+            cookieDomain: 'resume-builder.js.org',
+        },
+    },
+    {
         resolve: 'gatsby-plugin-material-ui',
         /*
          * If you want to use styled components, in conjunction to Material-UI, you should:

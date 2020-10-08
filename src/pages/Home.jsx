@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Switch, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { useIntl } from 'gatsby-plugin-intl';
 import SEO from '../components/SEO';
 import Layout from '../components/Layout';
-import { CustomThemeContext } from '../store/CustomThemeProvider';
 import Link from '../components/Link';
 
 const useStyles = makeStyles((theme) => ({
@@ -16,25 +15,25 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft: theme.spacing(4),
     },
     subtitle: {
-        marginTop: '10px',
+        marginTop: '2px',
+    },
+    paragraph: {
+        marginBottom: '10px',
     },
     pageContent: {
         padding: '5px',
+        '& a': {
+            color: '#8da4f7',
+        },
+        '& a:visited': {
+            color: '#48578a',
+        },
     },
 }));
 
 const HomePage = () => {
     const intl = useIntl();
     const classes = useStyles();
-    const { currentTheme, setTheme } = useContext(CustomThemeContext);
-    const handleThemeChange = (event) => {
-        const { checked } = event.target;
-        if (checked) {
-            setTheme('dark');
-        } else {
-            setTheme('normal');
-        }
-    };
 
     return (
         <Layout>
@@ -57,6 +56,7 @@ const HomePage = () => {
                     {intl.formatMessage({ id: 'what_is_resume_builder' })}
                 </Typography>
                 <Typography
+                    className={classes.paragraph}
                     color="textPrimary"
                     variant="body1"
                 >
@@ -84,6 +84,7 @@ const HomePage = () => {
                     {intl.formatMessage({ id: 'how_question' })}
                 </Typography>
                 <Typography
+                    className={classes.paragraph}
                     color="textPrimary"
                     variant="body1"
                 >
@@ -129,24 +130,28 @@ const HomePage = () => {
                     {intl.formatMessage({ id: 'why_question' })}
                 </Typography>
                 <Typography
+                    className={classes.paragraph}
                     color="textPrimary"
                     variant="body1"
                 >
                     {intl.formatMessage({ id: 'why_question_description_1' })}
                 </Typography>
                 <Typography
+                    className={classes.paragraph}
                     color="textPrimary"
                     variant="body1"
                 >
                     {intl.formatMessage({ id: 'why_question_description_2' })}
                 </Typography>
                 <Typography
+                    className={classes.paragraph}
                     color="textPrimary"
                     variant="body1"
                 >
                     {intl.formatMessage({ id: 'why_question_description_3' })}
                 </Typography>
                 <Typography
+                    className={classes.paragraph}
                     color="textPrimary"
                     variant="body1"
                 >
@@ -160,6 +165,7 @@ const HomePage = () => {
                     {intl.formatMessage({ id: 'resume_builder_rescue' })}
                 </Typography>
                 <Typography
+                    className={classes.paragraph}
                     color="textPrimary"
                     variant="body1"
                 >

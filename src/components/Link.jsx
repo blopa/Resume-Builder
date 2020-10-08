@@ -8,10 +8,10 @@ import classNames from 'classnames';
 
 const useStyles = makeStyles((theme) => ({
     linkWrapper: {
-        color: '#8da4f7',
-        '&:visited': {
-            color: '#48578a',
-        },
+        // color: '#8da4f7',
+        // '&:visited': {
+        //     color: '#48578a',
+        // },
     },
 }));
 

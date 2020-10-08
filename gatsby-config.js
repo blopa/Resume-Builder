@@ -6,7 +6,7 @@ module.exports = {
     siteMetadata: {
         title: 'Resume Builder',
         author: 'blopa',
-        summary: 'some summary for myself',
+        summary: 'Build resumes',
         defaultLanguage,
         description: 'Resume Builder',
         siteUrl: 'https://resume-builder.js.org/',

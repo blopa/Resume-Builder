@@ -1,11 +1,12 @@
 {
     "title": "Resume Builder",
-    "build_resume": "Construir",
+    "build_resume": "Criar currículo",
     "home": "Home",
     "about": "Sobre",
     "built_with": "Feito com ",
     "source_code": "Código fonte",
     "download_json": "Baixar .json",
+    "download_doc": "Baixar .doc",
     "print": "Imprimir",
     "contact": "Contato",
     "got_it": "Entendi!",
@@ -30,6 +31,7 @@
     "loading": "Carregando...",
     "drag_and_drop_or_click": "Arraste e solte um arquivo ou clique aqui",
     "select_your_template": "Selecione o seu template",
+    "select_template": "Selecione template",
     "notfound": {
         "title": "404: Não encontrado",
         "header": "404 NÃO ENCONTRADO",

@@ -1,13 +1,11 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useIntl } from 'gatsby-plugin-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
-import { getAlternateLangLinks } from '../utils/gatsby-frontend-helpers';
 
 // Components
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
-import Link from '../components/Link';
 
 const useStyles = makeStyles((theme) => ({
     cookiePolicyWrapper: {
@@ -31,12 +29,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CookiePolicy = ({ pageContext, location }) => {
+const CookiePolicy = () => {
     const intl = useIntl();
     const classes = useStyles();
-    const alternateLangLinks = useMemo(
-        () => getAlternateLangLinks(pageContext), [pageContext]
-    );
 
     return (
         <Layout>
@@ -50,7 +45,6 @@ const CookiePolicy = ({ pageContext, location }) => {
                     intl.formatMessage({ id: 'seo_keywords.travels' }),
                     intl.formatMessage({ id: 'seo_keywords.developer' }),
                 ]}
-                alternateLangLinks={alternateLangLinks}
             />
             <Typography
                 className={classes.cookiePolicyText}

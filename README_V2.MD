@@ -14,7 +14,9 @@
 **TESTED ONLY ON GOOGLE CHROME**
 
 ## About
-[Resume Builder](https://resume-builder.js.org) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://resume-builder.js.org).**
+[Resume Builder](https://blopa.github.io/Resume-Builder-V2/) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://blopa.github.io/Resume-Builder-V2/).**
+
+For the latest version, access [https://resume-builder.js.org](https://resume-builder.js.org).
 
 For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/master/README_V1.MD).
 
@@ -180,7 +182,7 @@ A: I can try. Open a issue and I'll see what I can do.
 
 **Q: Your project is awesome. How can I help?**
 
-A: Thank you! You can help by codding more features, creating pull requests, or donating using Bitcoin: **1BdL9w4SscX21b2qeiP1ApAFNAYhPj5GgG**
+A: Thank you! You can help by codding more features, creating pull requests, or donating via [https://bunq.me/BuyMeASoda](https://bunq.me/BuyMeASoda)
 
 ## TODO
 - Add list of recent used documents
