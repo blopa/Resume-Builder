@@ -16,11 +16,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Awards = ({ awards }) => {
+const Awards = ({ awards, intl }) => {
     const classes = useStyles();
+    console.log(intl);
+
     return awards.length > 0 && (
         <div className={classes.resumeAwards}>
-            <h3>Awards</h3>
+            <h3>
+                {intl.formatMessage({ id: 'awards' })}
+            </h3>
             <ul className={classes.awards}>
                 {awards.map((award) => {
                     if (award.enabled) {

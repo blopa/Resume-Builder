@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import templateIntl from './intl/index';
 
 // Components
 import Basics from './Sections/Basics';
@@ -51,6 +52,7 @@ const Default = ({
         <div className={classes.resumeDefaultTemplate}>
             {basics?.enabled && (
                 <Basics
+                    intl={templateIntl}
                     basics={basics.value}
                 />
             )}
@@ -71,6 +73,7 @@ const Default = ({
             )}
             {awards?.enabled && (
                 <Awards
+                    intl={templateIntl}
                     awards={awards.value}
                 />
             )}
