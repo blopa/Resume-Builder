@@ -95,9 +95,7 @@ const BuildPage = () => {
     }, [a4ContainerHeight]);
 
     return (
-        <Layout
-            // showLanguageSelector={false}
-        >
+        <Layout>
             <SEO
                 title={intl.formatMessage({ id: 'build_resume' })}
                 robots="noindex, nofollow"

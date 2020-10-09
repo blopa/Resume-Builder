@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import templateIntl from './intl/index';
+import { IntlContext, RawIntlProvider, useIntl } from 'gatsby-plugin-intl';
+
+// local template translations
+import templateIntls from './intl';
 
 // Components
 import Basics from './Sections/Basics';
@@ -47,62 +50,79 @@ const Default = ({
         references,
     },
 }) => {
+    const intl = useIntl();
     const classes = useStyles();
+    const templateIntl = useMemo(() => {
+        const newIntl = templateIntls.find(
+            (tempIntl) => tempIntl.locale === intl.locale
+        );
+
+        if (!newIntl) {
+            return templateIntls.find(
+                (tempIntl) => tempIntl.locale === intl.defaultLocale
+            );
+        }
+
+        return newIntl;
+    }, [intl.locale]);
+
     return (
-        <div className={classes.resumeDefaultTemplate}>
-            {basics?.enabled && (
-                <Basics
-                    intl={templateIntl}
-                    basics={basics.value}
-                />
-            )}
-            {work?.enabled && (
-                <Work
-                    work={work.value}
-                />
-            )}
-            {skills?.enabled && (
-                <Skills
-                    skills={skills.value}
-                />
-            )}
-            {education?.enabled && (
-                <Education
-                    education={education.value}
-                />
-            )}
-            {awards?.enabled && (
-                <Awards
-                    intl={templateIntl}
-                    awards={awards.value}
-                />
-            )}
-            {volunteer?.enabled && (
-                <Volunteer
-                    volunteer={volunteer.value}
-                />
-            )}
-            {publications?.enabled && (
-                <Publications
-                    publications={publications.value}
-                />
-            )}
-            {languages?.enabled && (
-                <Languages
-                    languages={languages.value}
-                />
-            )}
-            {interests?.enabled && (
-                <Interests
-                    interests={interests.value}
-                />
-            )}
-            {references?.enabled && (
-                <References
-                    references={references.value}
-                />
-            )}
-        </div>
+        <RawIntlProvider
+            value={templateIntl}
+        >
+            <div className={classes.resumeDefaultTemplate}>
+                {basics?.enabled && (
+                    <Basics
+                        basics={basics.value}
+                    />
+                )}
+                {work?.enabled && (
+                    <Work
+                        work={work.value}
+                    />
+                )}
+                {skills?.enabled && (
+                    <Skills
+                        skills={skills.value}
+                    />
+                )}
+                {education?.enabled && (
+                    <Education
+                        education={education.value}
+                    />
+                )}
+                {awards?.enabled && (
+                    <Awards
+                        awards={awards.value}
+                    />
+                )}
+                {volunteer?.enabled && (
+                    <Volunteer
+                        volunteer={volunteer.value}
+                    />
+                )}
+                {publications?.enabled && (
+                    <Publications
+                        publications={publications.value}
+                    />
+                )}
+                {languages?.enabled && (
+                    <Languages
+                        languages={languages.value}
+                    />
+                )}
+                {interests?.enabled && (
+                    <Interests
+                        interests={interests.value}
+                    />
+                )}
+                {references?.enabled && (
+                    <References
+                        references={references.value}
+                    />
+                )}
+            </div>
+        </RawIntlProvider>
     );
 };
 
