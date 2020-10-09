@@ -1,0 +1,131 @@
+{
+    "basics": {
+        "location": {
+            "address": "2712 Broadway St",
+            "postalCode": "CA 94115",
+            "city": "San Francisco",
+            "countryCode": "US",
+            "region": "California"
+        },
+        "profiles": [
+            {
+                "network": "Twitter",
+                "username": "john",
+                "url": "http://twitter.com/john"
+            },
+            {
+                "network": "Facebook",
+                "username": "john",
+                "url": "http://facebook.com/john"
+            }
+        ],
+        "name": "John Doe",
+        "label": "Programmer",
+        "email": "john@gmail.com",
+        "phone": "(912) 555-4321",
+        "website": "http://johndoe.com",
+        "summary": "A summary of John Doe..."
+    },
+    "work": [
+        {
+            "company": "Company X",
+            "position": "CEO",
+            "website": "http://company-x.com",
+            "startDate": "2013-01-01",
+            "endDate": "2014-01-01",
+            "summary": "Description...",
+            "highlights": [
+                "team work",
+                "dream work"
+            ]
+        },
+        {
+            "company": "Company Y",
+            "position": "President",
+            "website": "http://company-y.com",
+            "startDate": "2010-01-01",
+            "endDate": "2013-01-01",
+            "summary": "Description...",
+            "highlights": [
+                "team work",
+                "dream work"
+            ]
+        }
+    ],
+    "volunteer": [
+        {
+            "organization": "Organization",
+            "position": "Volunteer",
+            "website": "http://organization.com/",
+            "startDate": "2012-01-01",
+            "endDate": "2013-01-01",
+            "summary": "Description...",
+            "highlights": [
+                "community work",
+                "society"
+            ]
+        }
+    ],
+    "education": [
+        {
+            "institution": "University",
+            "area": "Software Development",
+            "studyType": "Bachelor",
+            "startDate": "2011-01-01",
+            "endDate": "2013-01-01",
+            "gpa": "4",
+            "courses": [
+                "math",
+                "science"
+            ]
+        }
+    ],
+    "awards": [
+        {
+            "title": "Award",
+            "date": "2014-11-01",
+            "awarder": "Company",
+            "summary": "There is no spoon."
+        }
+    ],
+    "publications": [
+        {
+            "name": "Publication",
+            "publisher": "Company",
+            "releaseDate": "2014-10-01",
+            "website": "http://publication.com",
+            "summary": "Description..."
+        }
+    ],
+    "skills": [
+        {
+            "name": "Web Development",
+            "level": "Master",
+            "keywords": [
+                "css",
+                "html"
+            ]
+        }
+    ],
+    "languages": [
+        {
+            "language": "English",
+            "fluency": "Native speaker"
+        }
+    ],
+    "interests": [
+        {
+            "name": "Wildlife",
+            "keywords": [
+                "nature",
+                "trees"
+            ]
+        }
+    ],
+    "references": [
+        {
+            "name": "Jane Doe",
+            "reference": "Reference text..."
+        }
+    ]
+}

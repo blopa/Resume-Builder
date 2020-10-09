@@ -34,6 +34,25 @@ const useStyles = makeStyles((theme) => ({
     website: {
         // TODO
     },
+    aboutAndContactWrapper: {
+        display: 'flex',
+    },
+    aboutWrapper: {
+        width: '60%',
+        paddingRight: '20px',
+    },
+    contactWrapper: {
+        width: '40%',
+    },
+    locationWrapper: {
+        display: 'inline-flex',
+        '&> *': {
+            marginRight: '5px',
+        },
+        '&> *:last-child': {
+            marginRight: 0,
+        },
+    },
 }));
 
 const Basics = ({
@@ -81,23 +100,89 @@ const Basics = ({
                     {label.value}
                 </Typography>
             )}
-            {summary?.enabled && (
-                <div>
-                    <Typography
-                        className={classes.subtitle}
-                        color="textPrimary"
-                        variant="body1"
-                    >
-                        About
-                    </Typography>
-                    <Typography
-                        color="textPrimary"
-                        variant="body1"
-                    >
-                        {summary.value}
-                    </Typography>
-                </div>
-            )}
+            <div className={classes.aboutAndContactWrapper}>
+                {summary?.enabled && (
+                    <div className={classes.aboutWrapper}>
+                        <Typography
+                            className={classes.subtitle}
+                            color="textPrimary"
+                            variant="body1"
+                        >
+                            {intl.formatMessage({ id: 'about' })}
+                        </Typography>
+                        <Typography
+                            color="textPrimary"
+                            variant="body1"
+                        >
+                            {summary.value}
+                        </Typography>
+                    </div>
+                )}
+                {(
+                    email?.enabled
+                    || phone?.enabled
+                    || profiles?.enabled
+                    || locationEnabled
+                ) && (
+                    <div className={classes.contactWrapper}>
+                        <Typography
+                            className={classes.subtitle}
+                            color="textPrimary"
+                            variant="body1"
+                        >
+                            {intl.formatMessage({ id: 'contact' })}
+                        </Typography>
+                        {locationEnabled && (
+                            <div className={classes.locationWrapper}>
+                                {city?.enabled && (
+                                    <Typography
+                                        color="textPrimary"
+                                        variant="body1"
+                                    >
+                                        {city.value}{','}
+                                    </Typography>
+                                )}
+                                {postalCode?.enabled && (
+                                    <Typography
+                                        color="textPrimary"
+                                        variant="body1"
+                                    >
+                                        {postalCode.value}
+                                    </Typography>
+                                )}
+                            </div>
+                        )}
+                        {phone?.enabled && (
+                            <Typography
+                                color="textPrimary"
+                                variant="body1"
+                            >
+                                {phone.value}
+                            </Typography>
+                        )}
+                        {email?.enabled && (
+                            <Typography
+                                color="textPrimary"
+                                variant="body1"
+                            >
+                                {email.value}
+                            </Typography>
+                        )}
+                        {profiles?.enabled && profiles.value.map((profile) => {
+                            const { url } = profile?.value;
+                            return url?.enabled && (
+                                <Typography
+                                    key={uuid()}
+                                    color="textPrimary"
+                                    variant="body1"
+                                >
+                                    {url.value}
+                                </Typography>
+                            );
+                        })}
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

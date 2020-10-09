@@ -7,6 +7,10 @@
     "languages": "Languages",
     "interests": "Interests",
     "education": "Education",
-    "summary": "Summary",
+    "about": "About",
+    "contact": "Contact",
+    "projects": "Projects",
+    "months": "Months",
+    "achievements": "achievements",
     "experience": "Experience"
 }
