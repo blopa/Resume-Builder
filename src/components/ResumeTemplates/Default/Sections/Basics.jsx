@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
+import { IntlContext } from 'gatsby-plugin-intl';
 
 const useStyles = makeStyles((theme) => ({
     resumeSummary: { padding: '10px 0', borderBottom: '1px solid #ddd' },
@@ -68,6 +69,8 @@ const Basics = ({
     },
 }) => {
     const classes = useStyles();
+    const intl = useContext(IntlContext);
+
     return (
         <Fragment>
             <div className={classes.resumeBasics}>
@@ -122,7 +125,9 @@ const Basics = ({
             </div>
             {summary && summary.enabled && (
                 <div className={classes.resumeSummary}>
-                    <h3>Summary</h3>
+                    <h3>
+                        {intl.formatMessage({ id: 'summary' })}
+                    </h3>
                     <p>{summary.value}</p>
                 </div>
             )}

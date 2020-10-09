@@ -40,10 +40,6 @@ const CookiePolicy = () => {
                 title={intl.formatMessage({ id: 'cookie_law.title' })}
                 keywords={[
                     intl.formatMessage({ id: 'cookie_law.title' }),
-                    intl.formatMessage({ id: 'seo_keywords.personal_blog' }),
-                    intl.formatMessage({ id: 'seo_keywords.personal_projects' }),
-                    intl.formatMessage({ id: 'seo_keywords.travels' }),
-                    intl.formatMessage({ id: 'seo_keywords.developer' }),
                 ]}
             />
             <Typography

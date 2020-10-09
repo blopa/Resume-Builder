@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
+import { IntlContext } from 'gatsby-plugin-intl';
 
 const useStyles = makeStyles((theme) => ({
     resumeSkills: {
@@ -29,9 +30,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Skills = ({ skills }) => {
     const classes = useStyles();
+    const intl = useContext(IntlContext);
+
     return skills.length > 0 && (
         <div className={classes.resumeSkills}>
-            <h3>Skills</h3>
+            <h3>
+                {intl.formatMessage({ id: 'skills' })}
+            </h3>
             <ul className={classes.skills}>
                 {skills.map((skill) => {
                     if (skill.enabled) {
