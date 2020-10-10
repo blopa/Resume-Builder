@@ -75,38 +75,45 @@ function Languages({ languages }) {
                 onChange={toggleLanguages}
                 checked={languages.enabled}
             />
-            {languages.enabled && (
+            {languages?.enabled && (
                 <ul>
                     {languages.value.map((lang) => {
                         const {
                             language,
                             fluency,
-                        } = lang.value;
+                        } = lang?.value;
+
                         return (
                             <Fragment key={uuid()}>
-                                <ItemsList
-                                    label={language.value}
-                                    checked={lang.enabled}
-                                    onClick={toggleLanguage(lang)}
-                                />
-                                {lang.enabled && (
+                                {lang && (
+                                    <ItemsList
+                                        label={language.value}
+                                        checked={lang?.enabled}
+                                        onClick={toggleLanguage(lang)}
+                                    />
+                                )}
+                                {lang?.enabled && (
                                     <ul>
-                                        <ItemsList
-                                            label={varNameToString({ language })}
-                                            checked={language.enabled}
-                                            onClick={toggleLanguagesDetail(
-                                                lang,
-                                                varNameToString({ language })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ fluency })}
-                                            checked={fluency.enabled}
-                                            onClick={toggleLanguagesDetail(
-                                                lang,
-                                                varNameToString({ fluency })
-                                            )}
-                                        />
+                                        {language && (
+                                            <ItemsList
+                                                label={varNameToString({ language })}
+                                                checked={language?.enabled}
+                                                onClick={toggleLanguagesDetail(
+                                                    lang,
+                                                    varNameToString({ language })
+                                                )}
+                                            />
+                                        )}
+                                        {fluency && (
+                                            <ItemsList
+                                                label={varNameToString({ fluency })}
+                                                checked={fluency?.enabled}
+                                                onClick={toggleLanguagesDetail(
+                                                    lang,
+                                                    varNameToString({ fluency })
+                                                )}
+                                            />
+                                        )}
                                     </ul>
                                 )}
                             </Fragment>

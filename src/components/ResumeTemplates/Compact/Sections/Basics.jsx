@@ -63,6 +63,7 @@ const Basics = ({
         email,
         phone,
         website,
+        url,
         summary,
         location: {
             enabled: locationEnabled,

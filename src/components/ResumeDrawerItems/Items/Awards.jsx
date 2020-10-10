@@ -25,7 +25,7 @@ function Awards({ awards }) {
     });
 
     const toggleAwards = () => {
-        const currentState = awards.enabled;
+        const currentState = awards?.enabled;
         setResumeAwardsState({
             ...awards,
             enabled: !currentState,
@@ -83,43 +83,51 @@ function Awards({ awards }) {
                             <Fragment key={uuid()}>
                                 <ItemsList
                                     label={title.value}
-                                    checked={award.enabled}
+                                    checked={award?.enabled}
                                     onClick={toggleAward(award)}
                                 />
-                                {award.enabled && (
+                                {award?.enabled && (
                                     <ul>
-                                        <ItemsList
-                                            label={varNameToString({ title })}
-                                            checked={title.enabled}
-                                            onClick={toggleAwardsDetail(
-                                                award,
-                                                varNameToString({ title })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ date })}
-                                            checked={date.enabled}
-                                            onClick={toggleAwardsDetail(
-                                                award,
-                                                varNameToString({ date })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ awarder })}
-                                            checked={awarder.enabled}
-                                            onClick={toggleAwardsDetail(
-                                                award,
-                                                varNameToString({ awarder })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ summary })}
-                                            checked={summary.enabled}
-                                            onClick={toggleAwardsDetail(
-                                                award,
-                                                varNameToString({ summary })
-                                            )}
-                                        />
+                                        {title && (
+                                            <ItemsList
+                                                label={varNameToString({ title })}
+                                                checked={title.enabled}
+                                                onClick={toggleAwardsDetail(
+                                                    award,
+                                                    varNameToString({ title })
+                                                )}
+                                            />
+                                        )}
+                                        {date && (
+                                            <ItemsList
+                                                label={varNameToString({ date })}
+                                                checked={date.enabled}
+                                                onClick={toggleAwardsDetail(
+                                                    award,
+                                                    varNameToString({ date })
+                                                )}
+                                            />
+                                        )}
+                                        {awarder && (
+                                            <ItemsList
+                                                label={varNameToString({ awarder })}
+                                                checked={awarder.enabled}
+                                                onClick={toggleAwardsDetail(
+                                                    award,
+                                                    varNameToString({ awarder })
+                                                )}
+                                            />
+                                        )}
+                                        {summary && (
+                                            <ItemsList
+                                                label={varNameToString({ summary })}
+                                                checked={summary.enabled}
+                                                onClick={toggleAwardsDetail(
+                                                    award,
+                                                    varNameToString({ summary })
+                                                )}
+                                            />
+                                        )}
                                     </ul>
                                 )}
                             </Fragment>

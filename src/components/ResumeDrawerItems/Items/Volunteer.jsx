@@ -31,7 +31,7 @@ function Volunteer({ volunteer: volunteerData }) {
     });
 
     const toggleVolunteers = () => {
-        const currentState = volunteerData.enabled;
+        const currentState = volunteerData?.enabled;
         setResumeVolunteerState({
             ...volunteerData,
             enabled: !currentState,
@@ -45,7 +45,7 @@ function Volunteer({ volunteer: volunteerData }) {
                 if (JSON.stringify(wrk.value) === JSON.stringify(volunteer.value)) {
                     return {
                         ...wrk,
-                        enabled: !wrk.enabled,
+                        enabled: !wrk?.enabled,
                     };
                 }
                 return wrk;
@@ -64,7 +64,7 @@ function Volunteer({ volunteer: volunteerData }) {
                             ...vol.value,
                             [propName]: {
                                 ...vol.value[propName],
-                                enabled: !vol.value[propName].enabled,
+                                enabled: !vol.value[propName]?.enabled,
                             },
                         },
                     };
@@ -90,7 +90,7 @@ function Volunteer({ volunteer: volunteerData }) {
                                         if (JSON.stringify(high.value) === JSON.stringify(highlight.value)) {
                                             return {
                                                 ...high,
-                                                enabled: !high.enabled,
+                                                enabled: !high?.enabled,
                                             };
                                         }
 
@@ -125,6 +125,7 @@ function Volunteer({ volunteer: volunteerData }) {
                             organization,
                             position,
                             website,
+                            url,
                             startDate,
                             endDate,
                             summary,
@@ -133,76 +134,102 @@ function Volunteer({ volunteer: volunteerData }) {
 
                         return (
                             <Fragment key={uuid()}>
-                                <ItemsList
-                                    label={organization.value}
-                                    checked={volunteer.enabled}
-                                    onClick={toggleVolunteer(volunteer)}
-                                />
-                                {volunteer.enabled && (
+                                {volunteer && (
+                                    <ItemsList
+                                        label={organization.value}
+                                        checked={volunteer?.enabled}
+                                        onClick={toggleVolunteer(volunteer)}
+                                    />
+                                )}
+                                {volunteer?.enabled && (
                                     <ul>
-                                        <ItemsList
-                                            label={varNameToString({ organization })}
-                                            checked={organization.enabled}
-                                            onClick={toggleVolunteerDetail(
-                                                volunteer,
-                                                varNameToString({ organization })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ position })}
-                                            checked={position.enabled}
-                                            onClick={toggleVolunteerDetail(
-                                                volunteer,
-                                                varNameToString({ position })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ website })}
-                                            checked={website.enabled}
-                                            onClick={toggleVolunteerDetail(
-                                                volunteer,
-                                                varNameToString({ website })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ startDate })}
-                                            checked={startDate.enabled}
-                                            onClick={toggleVolunteerDetail(
-                                                volunteer,
-                                                varNameToString({ startDate })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ endDate })}
-                                            checked={endDate.enabled}
-                                            onClick={toggleVolunteerDetail(
-                                                volunteer,
-                                                varNameToString({ endDate })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ summary })}
-                                            checked={summary.enabled}
-                                            onClick={toggleVolunteerDetail(
-                                                volunteer,
-                                                varNameToString({ summary })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ highlights })}
-                                            checked={highlights.enabled}
-                                            onClick={toggleVolunteerDetail(
-                                                volunteer,
-                                                varNameToString({ highlights })
-                                            )}
-                                        />
-                                        {highlights.enabled && (
+                                        {organization && (
+                                            <ItemsList
+                                                label={varNameToString({ organization })}
+                                                checked={organization?.enabled}
+                                                onClick={toggleVolunteerDetail(
+                                                    volunteer,
+                                                    varNameToString({ organization })
+                                                )}
+                                            />
+                                        )}
+                                        {position && (
+                                            <ItemsList
+                                                label={varNameToString({ position })}
+                                                checked={position?.enabled}
+                                                onClick={toggleVolunteerDetail(
+                                                    volunteer,
+                                                    varNameToString({ position })
+                                                )}
+                                            />
+                                        )}
+                                        {website && (
+                                            <ItemsList
+                                                label={varNameToString({ website })}
+                                                checked={website?.enabled}
+                                                onClick={toggleVolunteerDetail(
+                                                    volunteer,
+                                                    varNameToString({ website })
+                                                )}
+                                            />
+                                        )}
+                                        {url && (
+                                            <ItemsList
+                                                label={varNameToString({ url })}
+                                                checked={url?.enabled}
+                                                onClick={toggleVolunteerDetail(
+                                                    volunteer,
+                                                    varNameToString({ url })
+                                                )}
+                                            />
+                                        )}
+                                        {startDate && (
+                                            <ItemsList
+                                                label={varNameToString({ startDate })}
+                                                checked={startDate?.enabled}
+                                                onClick={toggleVolunteerDetail(
+                                                    volunteer,
+                                                    varNameToString({ startDate })
+                                                )}
+                                            />
+                                        )}
+                                        {endDate && (
+                                            <ItemsList
+                                                label={varNameToString({ endDate })}
+                                                checked={endDate?.enabled}
+                                                onClick={toggleVolunteerDetail(
+                                                    volunteer,
+                                                    varNameToString({ endDate })
+                                                )}
+                                            />
+                                        )}
+                                        {summary && (
+                                            <ItemsList
+                                                label={varNameToString({ summary })}
+                                                checked={summary?.enabled}
+                                                onClick={toggleVolunteerDetail(
+                                                    volunteer,
+                                                    varNameToString({ summary })
+                                                )}
+                                            />
+                                        )}
+                                        {highlights && (
+                                            <ItemsList
+                                                label={varNameToString({ highlights })}
+                                                checked={highlights?.enabled}
+                                                onClick={toggleVolunteerDetail(
+                                                    volunteer,
+                                                    varNameToString({ highlights })
+                                                )}
+                                            />
+                                        )}
+                                        {highlights?.enabled && (
                                             <ul>
                                                 {highlights.value.map((highlight) => (
                                                     <ItemsList
                                                         label={highlight.value}
                                                         key={uuid()}
-                                                        checked={highlight.enabled}
+                                                        checked={highlight?.enabled}
                                                         onClick={toggleVolunteerHighlights(
                                                             volunteer,
                                                             highlight

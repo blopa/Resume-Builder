@@ -41,11 +41,12 @@ const Volunteer = ({ volunteer: volunteers }) => {
             </h3>
             <ul className={classes.volunteers}>
                 {volunteers.map((volunteer) => {
-                    if (volunteer.enabled) {
+                    if (volunteer?.enabled) {
                         const {
                             organization,
                             position,
                             website,
+                            url,
                             startDate,
                             endDate,
                             summary,
@@ -63,6 +64,9 @@ const Volunteer = ({ volunteer: volunteers }) => {
                                 </p>
                                 <p className={classes.website}>
                                     {website?.enabled && website.value}
+                                </p>
+                                <p className={classes.website}>
+                                    {url?.enabled && url.value}
                                 </p>
                                 <p className={classes.summary}>
                                     {summary?.enabled && summary.value}

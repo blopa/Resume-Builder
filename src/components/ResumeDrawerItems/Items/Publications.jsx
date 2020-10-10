@@ -25,7 +25,7 @@ function Publications({ publications }) {
     });
 
     const togglePublications = () => {
-        const currentState = publications.enabled;
+        const currentState = publications?.enabled;
         setResumePublicationsState({
             ...publications,
             enabled: !currentState,
@@ -39,7 +39,7 @@ function Publications({ publications }) {
                 if (JSON.stringify(pub.value) === JSON.stringify(publication.value)) {
                     return {
                         ...pub,
-                        enabled: !pub.enabled,
+                        enabled: !pub?.enabled,
                     };
                 }
                 return pub;
@@ -58,7 +58,7 @@ function Publications({ publications }) {
                             ...pub.value,
                             [propName]: {
                                 ...pub.value[propName],
-                                enabled: !pub.value[propName].enabled,
+                                enabled: !pub.value[propName]?.enabled,
                             },
                         },
                     };
@@ -83,57 +83,79 @@ function Publications({ publications }) {
                             publisher,
                             releaseDate,
                             website,
+                            url,
                             summary,
                         } = publication.value;
+
                         return (
                             <Fragment key={uuid()}>
                                 <ItemsList
-                                    label={name.value}
-                                    checked={publication.enabled}
+                                    label={name?.value}
+                                    checked={publication?.enabled}
                                     onClick={togglePublication(publication)}
                                 />
-                                {publication.enabled && (
+                                {publication?.enabled && (
                                     <ul>
-                                        <ItemsList
-                                            label={varNameToString({ name })}
-                                            checked={name.enabled}
-                                            onClick={togglePublicationsDetail(
-                                                publication,
-                                                varNameToString({ name })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ publisher })}
-                                            checked={publisher.enabled}
-                                            onClick={togglePublicationsDetail(
-                                                publication,
-                                                varNameToString({ publisher })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ releaseDate })}
-                                            checked={releaseDate.enabled}
-                                            onClick={togglePublicationsDetail(
-                                                publication,
-                                                varNameToString({ releaseDate })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ website })}
-                                            checked={website.enabled}
-                                            onClick={togglePublicationsDetail(
-                                                publication,
-                                                varNameToString({ website })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ summary })}
-                                            checked={summary.enabled}
-                                            onClick={togglePublicationsDetail(
-                                                publication,
-                                                varNameToString({ summary })
-                                            )}
-                                        />
+                                        {name && (
+                                            <ItemsList
+                                                label={varNameToString({ name })}
+                                                checked={name?.enabled}
+                                                onClick={togglePublicationsDetail(
+                                                    publication,
+                                                    varNameToString({ name })
+                                                )}
+                                            />
+                                        )}
+                                        {publisher && (
+                                            <ItemsList
+                                                label={varNameToString({ publisher })}
+                                                checked={publisher.enabled}
+                                                onClick={togglePublicationsDetail(
+                                                    publication,
+                                                    varNameToString({ publisher })
+                                                )}
+                                            />
+                                        )}
+                                        {releaseDate && (
+                                            <ItemsList
+                                                label={varNameToString({ releaseDate })}
+                                                checked={releaseDate.enabled}
+                                                onClick={togglePublicationsDetail(
+                                                    publication,
+                                                    varNameToString({ releaseDate })
+                                                )}
+                                            />
+                                        )}
+                                        {website && (
+                                            <ItemsList
+                                                label={varNameToString({ website })}
+                                                checked={website.enabled}
+                                                onClick={togglePublicationsDetail(
+                                                    publication,
+                                                    varNameToString({ website })
+                                                )}
+                                            />
+                                        )}
+                                        {url && (
+                                            <ItemsList
+                                                label={varNameToString({ url })}
+                                                checked={url.enabled}
+                                                onClick={togglePublicationsDetail(
+                                                    publication,
+                                                    varNameToString({ url })
+                                                )}
+                                            />
+                                        )}
+                                        {summary && (
+                                            <ItemsList
+                                                label={varNameToString({ summary })}
+                                                checked={summary.enabled}
+                                                onClick={togglePublicationsDetail(
+                                                    publication,
+                                                    varNameToString({ summary })
+                                                )}
+                                            />
+                                        )}
                                     </ul>
                                 )}
                             </Fragment>

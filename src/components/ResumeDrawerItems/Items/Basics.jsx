@@ -26,7 +26,7 @@ function Basics({ basics }) {
     });
 
     const toggleBasics = () => {
-        const currentState = basics.enabled;
+        const currentState = basics?.enabled;
         setResumeBasicsState({
             ...basics,
             enabled: !currentState,
@@ -91,6 +91,7 @@ function Basics({ basics }) {
             email,
             phone,
             website,
+            url,
             summary,
             location: {
                 enabled: locationEnabled,
@@ -198,6 +199,15 @@ function Basics({ basics }) {
                             )}
                         />
                     )}
+                    {url && (
+                        <ItemsList
+                            label={varNameToString({ url })}
+                            checked={url.enabled}
+                            onClick={toggleBasicsDetail(
+                                varNameToString({ url })
+                            )}
+                        />
+                    )}
                     {phone && (
                         <ItemsList
                             label={varNameToString({ phone })}
@@ -218,14 +228,16 @@ function Basics({ basics }) {
                     )}
                     {profiles && (
                         <Fragment>
-                            <ItemsList
-                                label={varNameToString({ profiles })}
-                                checked={profiles.enabled}
-                                onClick={toggleBasicsDetail(
-                                    varNameToString({ profiles })
-                                )}
-                            />
-                            {profiles.enabled && (
+                            {profiles && (
+                                <ItemsList
+                                    label={varNameToString({ profiles })}
+                                    checked={profiles.enabled}
+                                    onClick={toggleBasicsDetail(
+                                        varNameToString({ profiles })
+                                    )}
+                                />
+                            )}
+                            {profiles?.enabled && (
                                 <ul>
                                     {profiles.value.map((profile) => {
                                         const { network } = profile.value;
@@ -247,7 +259,7 @@ function Basics({ basics }) {
                     {summary && (
                         <ItemsList
                             label={varNameToString({ summary })}
-                            checked={summary.enabled}
+                            checked={summary?.enabled}
                             onClick={toggleBasicsDetail(
                                 varNameToString({ summary })
                             )}

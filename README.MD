@@ -31,7 +31,7 @@ First of all you need to create a Google Spreadsheet following the same rules as
 - **label:** Your resume Job Title
 - **picture:** A URL for your picture
 - **summary:** Summary of yourself
-- **website:** Your website URL
+- **website/url:** Your website URL
 - **email:** Your email
 - **phone:** Your phone number
 - **address:** Your address

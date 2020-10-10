@@ -28,25 +28,27 @@ const Publications = ({ publications }) => {
             </h3>
             <ul className={classes.publications}>
                 {publications.map((publication) => {
-                    if (publication.enabled) {
+                    if (publication?.enabled) {
                         const {
                             name,
                             publisher,
                             releaseDate,
                             website,
+                            url,
                             summary,
                         } = publication.value;
                         return (
                             <li key={uuid()}>
-                                {name && name.enabled && (
+                                {name?.enabled && (
                                     <p className={classes.publication}>
                                         {name.value}
                                     </p>
                                 )}
-                                {publisher && publisher.enabled && <p>{publisher.value}</p>}
-                                {website && website.enabled && <p>{website.value}</p>}
-                                {releaseDate && releaseDate.enabled && <p>{releaseDate.value}</p>}
-                                {summary && summary.enabled && <p>{summary.value}</p>}
+                                {publisher && publisher?.enabled && <p>{publisher.value}</p>}
+                                {website && website?.enabled && <p>{website.value}</p>}
+                                {url && url?.enabled && <p>{url.value}</p>}
+                                {releaseDate && releaseDate?.enabled && <p>{releaseDate.value}</p>}
+                                {summary && summary?.enabled && <p>{summary.value}</p>}
                             </li>
                         );
                     }

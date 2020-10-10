@@ -39,19 +39,19 @@ const Interests = ({ interests }) => {
             </h3>
             <ul className={classes.interests}>
                 {interests.map((interest) => {
-                    if (interest.enabled) {
+                    if (interest?.enabled) {
                         const { name, keywords } = interest.value;
                         return (
                             <li key={uuid()}>
-                                {name && name.enabled && (
+                                {name?.enabled && (
                                     <p className={classes.interest}>
                                         {name.value}
                                     </p>
                                 )}
-                                {keywords && keywords.enabled && (
+                                {keywords?.enabled && (
                                     <ul className={classes.keywords}>
                                         {keywords.value.map((keyword) =>
-                                            keyword && keyword.enabled && (
+                                            keyword?.enabled && (
                                                 <li key={uuid()}>
                                                     {keyword.value}
                                                 </li>

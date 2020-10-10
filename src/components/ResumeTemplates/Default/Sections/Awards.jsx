@@ -28,7 +28,7 @@ const Awards = ({ awards }) => {
             </h3>
             <ul className={classes.awards}>
                 {awards.map((award) => {
-                    if (award.enabled) {
+                    if (award?.enabled) {
                         const { title, date, awarder, summary } = award.value;
                         return (
                             <li key={uuid()}>

@@ -89,71 +89,87 @@ function Education({ education: educations }) {
                         } = education.value;
                         return (
                             <Fragment key={uuid()}>
-                                <ItemsList
-                                    label={institution.value}
-                                    checked={education.enabled}
-                                    onClick={toggleEducation(
-                                        education
-                                    )}
-                                />
-                                {educations.enabled && (
+                                {educations && (
+                                    <ItemsList
+                                        label={institution.value}
+                                        checked={education.enabled}
+                                        onClick={toggleEducation(
+                                            education
+                                        )}
+                                    />
+                                )}
+                                {educations?.enabled && (
                                     <ul>
-                                        <ItemsList
-                                            label={varNameToString({ institution })}
-                                            checked={institution.enabled}
-                                            onClick={toggleEducationDetail(
-                                                education,
-                                                varNameToString({ institution })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ area })}
-                                            checked={area.enabled}
-                                            onClick={toggleEducationDetail(
-                                                education,
-                                                varNameToString({ area })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ studyType })}
-                                            checked={studyType.enabled}
-                                            onClick={toggleEducationDetail(
-                                                education,
-                                                varNameToString({ studyType })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ startDate })}
-                                            checked={startDate.enabled}
-                                            onClick={toggleEducationDetail(
-                                                education,
-                                                varNameToString({ startDate })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ endDate })}
-                                            checked={endDate.enabled}
-                                            onClick={toggleEducationDetail(
-                                                education,
-                                                varNameToString({ endDate })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ gpa })}
-                                            checked={gpa.enabled}
-                                            onClick={toggleEducationDetail(
-                                                education,
-                                                varNameToString({ gpa })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ courses })}
-                                            checked={courses.enabled}
-                                            onClick={toggleEducationDetail(
-                                                education,
-                                                varNameToString({ courses })
-                                            )}
-                                        />
+                                        {institution && (
+                                            <ItemsList
+                                                label={varNameToString({ institution })}
+                                                checked={institution.enabled}
+                                                onClick={toggleEducationDetail(
+                                                    education,
+                                                    varNameToString({ institution })
+                                                )}
+                                            />
+                                        )}
+                                        {area && (
+                                            <ItemsList
+                                                label={varNameToString({ area })}
+                                                checked={area.enabled}
+                                                onClick={toggleEducationDetail(
+                                                    education,
+                                                    varNameToString({ area })
+                                                )}
+                                            />
+                                        )}
+                                        {studyType && (
+                                            <ItemsList
+                                                label={varNameToString({ studyType })}
+                                                checked={studyType.enabled}
+                                                onClick={toggleEducationDetail(
+                                                    education,
+                                                    varNameToString({ studyType })
+                                                )}
+                                            />
+                                        )}
+                                        {startDate && (
+                                            <ItemsList
+                                                label={varNameToString({ startDate })}
+                                                checked={startDate.enabled}
+                                                onClick={toggleEducationDetail(
+                                                    education,
+                                                    varNameToString({ startDate })
+                                                )}
+                                            />
+                                        )}
+                                        {endDate && (
+                                            <ItemsList
+                                                label={varNameToString({ endDate })}
+                                                checked={endDate.enabled}
+                                                onClick={toggleEducationDetail(
+                                                    education,
+                                                    varNameToString({ endDate })
+                                                )}
+                                            />
+                                        )}
+                                        {gpa && (
+                                            <ItemsList
+                                                label={varNameToString({ gpa })}
+                                                checked={gpa.enabled}
+                                                onClick={toggleEducationDetail(
+                                                    education,
+                                                    varNameToString({ gpa })
+                                                )}
+                                            />
+                                        )}
+                                        {courses && (
+                                            <ItemsList
+                                                label={varNameToString({ courses })}
+                                                checked={courses.enabled}
+                                                onClick={toggleEducationDetail(
+                                                    education,
+                                                    varNameToString({ courses })
+                                                )}
+                                            />
+                                        )}
                                     </ul>
                                 )}
                             </Fragment>

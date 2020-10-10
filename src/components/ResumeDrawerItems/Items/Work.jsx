@@ -121,6 +121,7 @@ function Work({ work: workData }) {
                             company,
                             position,
                             website,
+                            url,
                             startDate,
                             endDate,
                             summary,
@@ -129,69 +130,95 @@ function Work({ work: workData }) {
 
                         return (
                             <Fragment key={uuid()}>
-                                <ItemsList
-                                    label={company.value}
-                                    checked={work.enabled}
-                                    onClick={toggleWork(work)}
-                                />
+                                {work && (
+                                    <ItemsList
+                                        label={company.value}
+                                        checked={work.enabled}
+                                        onClick={toggleWork(work)}
+                                    />
+                                )}
                                 {work.enabled && (
                                     <ul>
-                                        <ItemsList
-                                            label={varNameToString({ company })}
-                                            checked={company.enabled}
-                                            onClick={toggleWorkDetail(
-                                                work,
-                                                varNameToString({ company })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ position })}
-                                            checked={position.enabled}
-                                            onClick={toggleWorkDetail(
-                                                work,
-                                                varNameToString({ position })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ website })}
-                                            checked={website.enabled}
-                                            onClick={toggleWorkDetail(
-                                                work,
-                                                varNameToString({ website })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ startDate })}
-                                            checked={startDate.enabled}
-                                            onClick={toggleWorkDetail(
-                                                work,
-                                                varNameToString({ startDate })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ endDate })}
-                                            checked={endDate.enabled}
-                                            onClick={toggleWorkDetail(
-                                                work,
-                                                varNameToString({ endDate })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ summary })}
-                                            checked={summary.enabled}
-                                            onClick={toggleWorkDetail(
-                                                work,
-                                                varNameToString({ summary })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ highlights })}
-                                            checked={highlights.enabled}
-                                            onClick={toggleWorkDetail(
-                                                work,
-                                                varNameToString({ highlights })
-                                            )}
-                                        />
+                                        {company && (
+                                            <ItemsList
+                                                label={varNameToString({ company })}
+                                                checked={company.enabled}
+                                                onClick={toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ company })
+                                                )}
+                                            />
+                                        )}
+                                        {position && (
+                                            <ItemsList
+                                                label={varNameToString({ position })}
+                                                checked={position.enabled}
+                                                onClick={toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ position })
+                                                )}
+                                            />
+                                        )}
+                                        {website && (
+                                            <ItemsList
+                                                label={varNameToString({ website })}
+                                                checked={website.enabled}
+                                                onClick={toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ website })
+                                                )}
+                                            />
+                                        )}
+                                        {url && (
+                                            <ItemsList
+                                                label={varNameToString({ url })}
+                                                checked={url.enabled}
+                                                onClick={toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ url })
+                                                )}
+                                            />
+                                        )}
+                                        {startDate && (
+                                            <ItemsList
+                                                label={varNameToString({ startDate })}
+                                                checked={startDate.enabled}
+                                                onClick={toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ startDate })
+                                                )}
+                                            />
+                                        )}
+                                        {endDate && (
+                                            <ItemsList
+                                                label={varNameToString({ endDate })}
+                                                checked={endDate.enabled}
+                                                onClick={toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ endDate })
+                                                )}
+                                            />
+                                        )}
+                                        {summary && (
+                                            <ItemsList
+                                                label={varNameToString({ summary })}
+                                                checked={summary.enabled}
+                                                onClick={toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ summary })
+                                                )}
+                                            />
+                                        )}
+                                        {highlights && (
+                                            <ItemsList
+                                                label={varNameToString({ highlights })}
+                                                checked={highlights.enabled}
+                                                onClick={toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ highlights })
+                                                )}
+                                            />
+                                        )}
                                         {highlights.enabled && (
                                             <ul>
                                                 {highlights.value.map((highlight) => (

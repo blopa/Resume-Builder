@@ -54,6 +54,7 @@ const Basics = ({
         email,
         phone,
         website,
+        url,
         summary,
         location: {
             enabled: locationEnabled,
@@ -86,6 +87,17 @@ const Basics = ({
                     </ul>
                 )}
                 <ul className={classes['contact-info']}>
+                    {url?.enabled && (
+                        <li key={uuid()}>
+                            <a
+                                className={classes.url}
+                                href={url.value}
+                                target="_blank"
+                            >
+                                {url.value}
+                            </a>
+                        </li>
+                    )}
                     {website?.enabled && (
                         <li key={uuid()}>
                             <a
@@ -103,12 +115,12 @@ const Basics = ({
                 {profiles?.enabled && (
                     <ul className={classes['social-media']}>
                         {profiles.value.map((profile) => {
-                            if (profile.enabled) {
-                                const { url, network, username } = profile.value;
-                                return url.enabled && network.enabled && username.enabled && (
+                            if (profile?.enabled) {
+                                const { url: profileUrl, network, username } = profile.value;
+                                return profileUrl?.enabled && network?.enabled && username?.enabled && (
                                     <li key={uuid()}>
                                         <a
-                                            href={url.value}
+                                            href={profileUrl.value}
                                             title={username.value}
                                             target="_blank"
                                         >
@@ -123,7 +135,7 @@ const Basics = ({
                     </ul>
                 )}
             </div>
-            {summary && summary.enabled && (
+            {summary?.enabled && (
                 <div className={classes.resumeSummary}>
                     <h3>
                         {intl.formatMessage({ id: 'summary' })}

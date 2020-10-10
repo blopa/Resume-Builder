@@ -34,11 +34,12 @@ const Work = ({ work: works }) => {
             </h3>
             <ul className={classes.works}>
                 {works.map((work) => {
-                    if (work.enabled) {
+                    if (work?.enabled) {
                         const {
                             company,
                             position,
                             website,
+                            url,
                             startDate,
                             endDate,
                             summary,
@@ -57,13 +58,16 @@ const Work = ({ work: works }) => {
                                 <p className={classes.website}>
                                     {website?.enabled && website.value}
                                 </p>
+                                <p className={classes.website}>
+                                    {url?.enabled && url.value}
+                                </p>
                                 <p className={classes.summary}>
                                     {summary?.enabled && summary.value}
                                 </p>
                                 {highlights?.enabled && (
                                     <ul className={classes.highlights}>
                                         {highlights.value.map((highlight) =>
-                                            highlight && highlight.enabled && (
+                                            highlight?.enabled && (
                                                 <li key={uuid()}>
                                                     {highlight.value}
                                                 </li>

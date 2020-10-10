@@ -28,12 +28,13 @@ const Publications = ({
             </Typography>
             <ul className={classes.publications}>
                 {publications.map((publication) => {
-                    if (publication.enabled) {
+                    if (publication?.enabled) {
                         const {
                             name,
                             publisher,
                             releaseDate,
                             website,
+                            url,
                             summary,
                         } = publication.value;
 

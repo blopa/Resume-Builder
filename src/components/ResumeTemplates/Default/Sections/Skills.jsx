@@ -39,7 +39,7 @@ const Skills = ({ skills }) => {
             </h3>
             <ul className={classes.skills}>
                 {skills.map((skill) => {
-                    if (skill.enabled) {
+                    if (skill?.enabled) {
                         const { name, level, keywords } = skill.value;
                         return (
                             <li key={uuid()}>
@@ -47,10 +47,10 @@ const Skills = ({ skills }) => {
                                     {name?.enabled && name.value}{', '}
                                     {level?.enabled && level.value}
                                 </p>
-                                {keywords && keywords.enabled && (
+                                {keywords?.enabled && (
                                     <ul className={classes.keywords}>
                                         {keywords.value.map((keyword) =>
-                                            keywords.enabled && <li key={uuid()}>{keyword.value}</li>)}
+                                            keywords?.enabled && <li key={uuid()}>{keyword.value}</li>)}
                                     </ul>
                                 )}
                             </li>

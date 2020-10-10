@@ -81,37 +81,45 @@ function Skills({ skills }) {
                         const { keywords, level, name } = skill.value;
                         return (
                             <Fragment key={uuid()}>
-                                <ItemsList
-                                    label={name.value}
-                                    checked={skill.enabled}
-                                    onClick={toggleSkill(skill)}
-                                />
+                                {skill && (
+                                    <ItemsList
+                                        label={name.value}
+                                        checked={skill.enabled}
+                                        onClick={toggleSkill(skill)}
+                                    />
+                                )}
                                 {skill.enabled && (
                                     <ul>
-                                        <ItemsList
-                                            label={varNameToString({ keywords })}
-                                            checked={keywords.enabled}
-                                            onClick={toggleSkillsDetail(
-                                                skill,
-                                                varNameToString({ keywords })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ level })}
-                                            checked={level.enabled}
-                                            onClick={toggleSkillsDetail(
-                                                skill,
-                                                varNameToString({ level })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ name })}
-                                            checked={name.enabled}
-                                            onClick={toggleSkillsDetail(
-                                                skill,
-                                                varNameToString({ name })
-                                            )}
-                                        />
+                                        {keywords && (
+                                            <ItemsList
+                                                label={varNameToString({ keywords })}
+                                                checked={keywords.enabled}
+                                                onClick={toggleSkillsDetail(
+                                                    skill,
+                                                    varNameToString({ keywords })
+                                                )}
+                                            />
+                                        )}
+                                        {level && (
+                                            <ItemsList
+                                                label={varNameToString({ level })}
+                                                checked={level.enabled}
+                                                onClick={toggleSkillsDetail(
+                                                    skill,
+                                                    varNameToString({ level })
+                                                )}
+                                            />
+                                        )}
+                                        {name && (
+                                            <ItemsList
+                                                label={varNameToString({ name })}
+                                                checked={name.enabled}
+                                                onClick={toggleSkillsDetail(
+                                                    skill,
+                                                    varNameToString({ name })
+                                                )}
+                                            />
+                                        )}
                                     </ul>
                                 )}
                             </Fragment>

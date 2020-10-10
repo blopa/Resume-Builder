@@ -115,21 +115,25 @@ function Interest({ interests }) {
 
                         return (
                             <Fragment key={uuid()}>
-                                <ItemsList
-                                    label={name.value}
-                                    checked={interest.enabled}
-                                    onClick={toggleInterest(interest)}
-                                />
+                                {interest && (
+                                    <ItemsList
+                                        label={name.value}
+                                        checked={interest.enabled}
+                                        onClick={toggleInterest(interest)}
+                                    />
+                                )}
                                 {interest.enabled && (
                                     <ul>
-                                        <ItemsList
-                                            label={varNameToString({ name })}
-                                            checked={name.enabled}
-                                            onClick={toggleInterestDetail(
-                                                interest,
-                                                varNameToString({ name })
-                                            )}
-                                        />
+                                        {name && (
+                                            <ItemsList
+                                                label={varNameToString({ name })}
+                                                checked={name.enabled}
+                                                onClick={toggleInterestDetail(
+                                                    interest,
+                                                    varNameToString({ name })
+                                                )}
+                                            />
+                                        )}
                                         {keywords.enabled && (
                                             <ul>
                                                 {keywords.value.map((keyword) => (
