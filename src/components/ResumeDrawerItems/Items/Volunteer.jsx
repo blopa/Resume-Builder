@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext,useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 
 // Components
@@ -25,9 +25,10 @@ const useStyles = makeStyles((theme) => ({
 function Volunteer({ volunteer: volunteerData }) {
     const classes = useStyles();
     const { state, dispatch } = useContext(StoreContext);
-    const setResumeVolunteerState = (volunteer) => {
+
+    const setResumeVolunteerState = useCallback((volunteer) => {
         dispatch(setResumeVolunteer(volunteer));
-    };
+    });
 
     const toggleVolunteers = () => {
         const currentState = volunteerData.enabled;
@@ -37,7 +38,7 @@ function Volunteer({ volunteer: volunteerData }) {
         });
     };
 
-    const toggleVolunteer = (volunteer) => {
+    const toggleVolunteer = useCallback((volunteer) => () => {
         const newVolunteer = { ...volunteerData };
         newVolunteer.value =
             newVolunteer.value.map((wrk) => {
@@ -50,9 +51,9 @@ function Volunteer({ volunteer: volunteerData }) {
                 return wrk;
             });
         setResumeVolunteerState(newVolunteer);
-    };
+    }, [setResumeVolunteerState, volunteerData]);
 
-    const toggleVolunteerDetail = (volunteer, propName) => {
+    const toggleVolunteerDetail = useCallback((volunteer, propName) => () => {
         const newVolunteer = { ...volunteerData };
         newVolunteer.value =
             newVolunteer.value.map((vol) => {
@@ -71,9 +72,9 @@ function Volunteer({ volunteer: volunteerData }) {
                 return vol;
             });
         setResumeVolunteerState(newVolunteer);
-    };
+    }, [setResumeVolunteerState, volunteerData]);
 
-    const toggleVolunteerHighlights = (volunteer, highlight) => {
+    const toggleVolunteerHighlights = useCallback((volunteer, highlight) => () => {
         const newVolunteer = { ...volunteerData };
         newVolunteer.value =
             newVolunteer.value.map((vol) => {
@@ -103,7 +104,7 @@ function Volunteer({ volunteer: volunteerData }) {
                 return vol;
             });
         setResumeVolunteerState(newVolunteer);
-    };
+    }, [setResumeVolunteerState, volunteerData]);
 
     const {
         enabled: volunteerEnabled,
@@ -135,14 +136,14 @@ function Volunteer({ volunteer: volunteerData }) {
                                 <ItemsList
                                     label={organization.value}
                                     checked={volunteer.enabled}
-                                    onClick={() => toggleVolunteer(volunteer)}
+                                    onClick={toggleVolunteer(volunteer)}
                                 />
                                 {volunteer.enabled && (
                                     <ul>
                                         <ItemsList
                                             label={varNameToString({ organization })}
                                             checked={organization.enabled}
-                                            onClick={() => toggleVolunteerDetail(
+                                            onClick={toggleVolunteerDetail(
                                                 volunteer,
                                                 varNameToString({ organization })
                                             )}
@@ -150,7 +151,7 @@ function Volunteer({ volunteer: volunteerData }) {
                                         <ItemsList
                                             label={varNameToString({ position })}
                                             checked={position.enabled}
-                                            onClick={() => toggleVolunteerDetail(
+                                            onClick={toggleVolunteerDetail(
                                                 volunteer,
                                                 varNameToString({ position })
                                             )}
@@ -158,7 +159,7 @@ function Volunteer({ volunteer: volunteerData }) {
                                         <ItemsList
                                             label={varNameToString({ website })}
                                             checked={website.enabled}
-                                            onClick={() => toggleVolunteerDetail(
+                                            onClick={toggleVolunteerDetail(
                                                 volunteer,
                                                 varNameToString({ website })
                                             )}
@@ -166,7 +167,7 @@ function Volunteer({ volunteer: volunteerData }) {
                                         <ItemsList
                                             label={varNameToString({ startDate })}
                                             checked={startDate.enabled}
-                                            onClick={() => toggleVolunteerDetail(
+                                            onClick={toggleVolunteerDetail(
                                                 volunteer,
                                                 varNameToString({ startDate })
                                             )}
@@ -174,7 +175,7 @@ function Volunteer({ volunteer: volunteerData }) {
                                         <ItemsList
                                             label={varNameToString({ endDate })}
                                             checked={endDate.enabled}
-                                            onClick={() => toggleVolunteerDetail(
+                                            onClick={toggleVolunteerDetail(
                                                 volunteer,
                                                 varNameToString({ endDate })
                                             )}
@@ -182,7 +183,7 @@ function Volunteer({ volunteer: volunteerData }) {
                                         <ItemsList
                                             label={varNameToString({ summary })}
                                             checked={summary.enabled}
-                                            onClick={() => toggleVolunteerDetail(
+                                            onClick={toggleVolunteerDetail(
                                                 volunteer,
                                                 varNameToString({ summary })
                                             )}
@@ -190,7 +191,7 @@ function Volunteer({ volunteer: volunteerData }) {
                                         <ItemsList
                                             label={varNameToString({ highlights })}
                                             checked={highlights.enabled}
-                                            onClick={() => toggleVolunteerDetail(
+                                            onClick={toggleVolunteerDetail(
                                                 volunteer,
                                                 varNameToString({ highlights })
                                             )}
@@ -202,7 +203,7 @@ function Volunteer({ volunteer: volunteerData }) {
                                                         label={highlight.value}
                                                         key={uuid()}
                                                         checked={highlight.enabled}
-                                                        onClick={() => toggleVolunteerHighlights(
+                                                        onClick={toggleVolunteerHighlights(
                                                             volunteer,
                                                             highlight
                                                         )}
@@ -221,4 +222,4 @@ function Volunteer({ volunteer: volunteerData }) {
     );
 }
 
-export default Volunteer;
+export default memo(Volunteer);

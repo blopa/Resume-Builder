@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 
 // Components
@@ -19,9 +19,10 @@ const useStyles = makeStyles((theme) => ({
 function Skills({ skills }) {
     const classes = useStyles();
     const { state, dispatch } = useContext(StoreContext);
-    const setResumeSkillsState = (newSkills) => {
+
+    const setResumeSkillsState = useCallback((newSkills) => {
         dispatch(setResumeSkills(newSkills));
-    };
+    });
 
     const toggleSkills = () => {
         const currentState = skills.enabled;
@@ -31,7 +32,7 @@ function Skills({ skills }) {
         });
     };
 
-    const toggleSkill = (skill) => {
+    const toggleSkill = useCallback((skill) => () => {
         const newSkills = { ...skills };
         newSkills.value =
             newSkills.value.map((skl) => {
@@ -44,9 +45,9 @@ function Skills({ skills }) {
                 return skl;
             });
         setResumeSkillsState(newSkills);
-    };
+    }, [setResumeSkillsState, skills]);
 
-    const toggleSkillsDetail = (skill, propName) => {
+    const toggleSkillsDetail = useCallback((skill, propName) => () => {
         const newSkills = { ...skills };
         newSkills.value =
             newSkills.value.map((skl) => {
@@ -65,7 +66,7 @@ function Skills({ skills }) {
                 return skl;
             });
         setResumeSkillsState(newSkills);
-    };
+    }, [setResumeSkillsState, skills]);
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -83,14 +84,14 @@ function Skills({ skills }) {
                                 <ItemsList
                                     label={name.value}
                                     checked={skill.enabled}
-                                    onClick={() => toggleSkill(skill)}
+                                    onClick={toggleSkill(skill)}
                                 />
                                 {skill.enabled && (
                                     <ul>
                                         <ItemsList
                                             label={varNameToString({ keywords })}
                                             checked={keywords.enabled}
-                                            onClick={() => toggleSkillsDetail(
+                                            onClick={toggleSkillsDetail(
                                                 skill,
                                                 varNameToString({ keywords })
                                             )}
@@ -98,7 +99,7 @@ function Skills({ skills }) {
                                         <ItemsList
                                             label={varNameToString({ level })}
                                             checked={level.enabled}
-                                            onClick={() => toggleSkillsDetail(
+                                            onClick={toggleSkillsDetail(
                                                 skill,
                                                 varNameToString({ level })
                                             )}
@@ -106,7 +107,7 @@ function Skills({ skills }) {
                                         <ItemsList
                                             label={varNameToString({ name })}
                                             checked={name.enabled}
-                                            onClick={() => toggleSkillsDetail(
+                                            onClick={toggleSkillsDetail(
                                                 skill,
                                                 varNameToString({ name })
                                             )}
@@ -122,4 +123,4 @@ function Skills({ skills }) {
     );
 }
 
-export default Skills;
+export default memo(Skills);

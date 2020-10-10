@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 
 // Components
@@ -27,9 +27,9 @@ function Work({ work: workData }) {
         value: works,
     } = workData;
 
-    const setResumeWorkState = (newWork) => {
+    const setResumeWorkState = useCallback((newWork) => {
         dispatch(setResumeWork(newWork));
-    };
+    });
 
     const toggleWorks = () => {
         const currentState = workData.enabled;
@@ -39,7 +39,7 @@ function Work({ work: workData }) {
         });
     };
 
-    const toggleWork = (oldWork) => {
+    const toggleWork = useCallback((oldWork) => () => {
         const newWork = { ...workData };
         newWork.value =
             newWork.value.map((wrk) => {
@@ -52,9 +52,9 @@ function Work({ work: workData }) {
                 return wrk;
             });
         setResumeWorkState(newWork);
-    };
+    }, [setResumeWorkState, workData]);
 
-    const toggleWorkDetail = (oldWork, propName) => {
+    const toggleWorkDetail = useCallback((oldWork, propName) => () => {
         const newWork = { ...workData };
         newWork.value =
             newWork.value.map((wrk) => {
@@ -73,9 +73,9 @@ function Work({ work: workData }) {
                 return wrk;
             });
         setResumeWorkState(newWork);
-    };
+    }, [setResumeWorkState, workData]);
 
-    const toggleWorkHighlights = (oldWork, highlight) => {
+    const toggleWorkHighlights = useCallback((oldWork, highlight) => () => {
         const newWork = { ...workData };
         newWork.value =
             newWork.value.map((wrk) => {
@@ -105,7 +105,7 @@ function Work({ work: workData }) {
                 return wrk;
             });
         setResumeWorkState(newWork);
-    };
+    }, [setResumeWorkState, workData]);
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -132,14 +132,14 @@ function Work({ work: workData }) {
                                 <ItemsList
                                     label={company.value}
                                     checked={work.enabled}
-                                    onClick={() => toggleWork(work)}
+                                    onClick={toggleWork(work)}
                                 />
                                 {work.enabled && (
                                     <ul>
                                         <ItemsList
                                             label={varNameToString({ company })}
                                             checked={company.enabled}
-                                            onClick={() => toggleWorkDetail(
+                                            onClick={toggleWorkDetail(
                                                 work,
                                                 varNameToString({ company })
                                             )}
@@ -147,7 +147,7 @@ function Work({ work: workData }) {
                                         <ItemsList
                                             label={varNameToString({ position })}
                                             checked={position.enabled}
-                                            onClick={() => toggleWorkDetail(
+                                            onClick={toggleWorkDetail(
                                                 work,
                                                 varNameToString({ position })
                                             )}
@@ -155,7 +155,7 @@ function Work({ work: workData }) {
                                         <ItemsList
                                             label={varNameToString({ website })}
                                             checked={website.enabled}
-                                            onClick={() => toggleWorkDetail(
+                                            onClick={toggleWorkDetail(
                                                 work,
                                                 varNameToString({ website })
                                             )}
@@ -163,7 +163,7 @@ function Work({ work: workData }) {
                                         <ItemsList
                                             label={varNameToString({ startDate })}
                                             checked={startDate.enabled}
-                                            onClick={() => toggleWorkDetail(
+                                            onClick={toggleWorkDetail(
                                                 work,
                                                 varNameToString({ startDate })
                                             )}
@@ -171,7 +171,7 @@ function Work({ work: workData }) {
                                         <ItemsList
                                             label={varNameToString({ endDate })}
                                             checked={endDate.enabled}
-                                            onClick={() => toggleWorkDetail(
+                                            onClick={toggleWorkDetail(
                                                 work,
                                                 varNameToString({ endDate })
                                             )}
@@ -179,7 +179,7 @@ function Work({ work: workData }) {
                                         <ItemsList
                                             label={varNameToString({ summary })}
                                             checked={summary.enabled}
-                                            onClick={() => toggleWorkDetail(
+                                            onClick={toggleWorkDetail(
                                                 work,
                                                 varNameToString({ summary })
                                             )}
@@ -187,7 +187,7 @@ function Work({ work: workData }) {
                                         <ItemsList
                                             label={varNameToString({ highlights })}
                                             checked={highlights.enabled}
-                                            onClick={() => toggleWorkDetail(
+                                            onClick={toggleWorkDetail(
                                                 work,
                                                 varNameToString({ highlights })
                                             )}
@@ -199,7 +199,7 @@ function Work({ work: workData }) {
                                                         label={highlight.value}
                                                         key={uuid()}
                                                         checked={highlight.enabled}
-                                                        onClick={() => toggleWorkHighlights(
+                                                        onClick={toggleWorkHighlights(
                                                             work,
                                                             highlight
                                                         )}
@@ -218,4 +218,4 @@ function Work({ work: workData }) {
     );
 }
 
-export default Work;
+export default memo(Work);

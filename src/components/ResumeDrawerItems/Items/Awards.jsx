@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 
 // Components
@@ -20,9 +20,9 @@ function Awards({ awards }) {
     const classes = useStyles();
     const { state, dispatch } = useContext(StoreContext);
 
-    const setResumeAwardsState = (newAwards) => {
+    const setResumeAwardsState = useCallback((newAwards) => {
         dispatch(setResumeAwards(newAwards));
-    };
+    });
 
     const toggleAwards = () => {
         const currentState = awards.enabled;
@@ -32,7 +32,7 @@ function Awards({ awards }) {
         });
     };
 
-    const toggleAward = (award) => {
+    const toggleAward = useCallback((award) => () => {
         const newAwards = { ...awards };
         newAwards.value =
             newAwards.value.map((awd) => {
@@ -45,9 +45,9 @@ function Awards({ awards }) {
                 return awd;
             });
         setResumeAwardsState(newAwards);
-    };
+    }, [awards, setResumeAwardsState]);
 
-    const toggleAwardsDetail = (award, propName) => {
+    const toggleAwardsDetail = useCallback((award, propName) => () => {
         const newAwards = { ...awards };
         newAwards.value =
             newAwards.value.map((awd) => {
@@ -66,7 +66,7 @@ function Awards({ awards }) {
                 return awd;
             });
         setResumeAwardsState(newAwards);
-    };
+    }, [awards, setResumeAwardsState]);
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -84,14 +84,14 @@ function Awards({ awards }) {
                                 <ItemsList
                                     label={title.value}
                                     checked={award.enabled}
-                                    onClick={() => toggleAward(award)}
+                                    onClick={toggleAward(award)}
                                 />
                                 {award.enabled && (
                                     <ul>
                                         <ItemsList
                                             label={varNameToString({ title })}
                                             checked={title.enabled}
-                                            onClick={() => toggleAwardsDetail(
+                                            onClick={toggleAwardsDetail(
                                                 award,
                                                 varNameToString({ title })
                                             )}
@@ -99,7 +99,7 @@ function Awards({ awards }) {
                                         <ItemsList
                                             label={varNameToString({ date })}
                                             checked={date.enabled}
-                                            onClick={() => toggleAwardsDetail(
+                                            onClick={toggleAwardsDetail(
                                                 award,
                                                 varNameToString({ date })
                                             )}
@@ -107,7 +107,7 @@ function Awards({ awards }) {
                                         <ItemsList
                                             label={varNameToString({ awarder })}
                                             checked={awarder.enabled}
-                                            onClick={() => toggleAwardsDetail(
+                                            onClick={toggleAwardsDetail(
                                                 award,
                                                 varNameToString({ awarder })
                                             )}
@@ -115,7 +115,7 @@ function Awards({ awards }) {
                                         <ItemsList
                                             label={varNameToString({ summary })}
                                             checked={summary.enabled}
-                                            onClick={() => toggleAwardsDetail(
+                                            onClick={toggleAwardsDetail(
                                                 award,
                                                 varNameToString({ summary })
                                             )}
@@ -131,4 +131,4 @@ function Awards({ awards }) {
     );
 }
 
-export default Awards;
+export default memo(Awards);
