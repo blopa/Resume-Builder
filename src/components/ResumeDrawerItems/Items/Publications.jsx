@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 
 // Components
@@ -19,9 +19,10 @@ const useStyles = makeStyles((theme) => ({
 function Publications({ publications }) {
     const classes = useStyles();
     const { state, dispatch } = useContext(StoreContext);
-    const setResumePublicationsState = (newPublications) => {
+
+    const setResumePublicationsState = useCallback((newPublications) => {
         dispatch(setResumePublications(newPublications));
-    };
+    });
 
     const togglePublications = () => {
         const currentState = publications.enabled;
@@ -31,7 +32,7 @@ function Publications({ publications }) {
         });
     };
 
-    const togglePublication = (publication) => {
+    const togglePublication = useCallback((publication) => () => {
         const newPublications = { ...publications };
         newPublications.value =
             newPublications.value.map((pub) => {
@@ -44,9 +45,9 @@ function Publications({ publications }) {
                 return pub;
             });
         setResumePublicationsState(newPublications);
-    };
+    }, [publications, setResumePublicationsState]);
 
-    const togglePublicationsDetail = (publication, propName) => {
+    const togglePublicationsDetail = useCallback((publication, propName) => () => {
         const newPublications = { ...publications };
         newPublications.value =
             newPublications.value.map((pub) => {
@@ -65,7 +66,7 @@ function Publications({ publications }) {
                 return pub;
             });
         setResumePublicationsState(newPublications);
-    };
+    }, [publications, setResumePublicationsState]);
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -89,14 +90,14 @@ function Publications({ publications }) {
                                 <ItemsList
                                     label={name.value}
                                     checked={publication.enabled}
-                                    onClick={() => togglePublication(publication)}
+                                    onClick={togglePublication(publication)}
                                 />
                                 {publication.enabled && (
                                     <ul>
                                         <ItemsList
                                             label={varNameToString({ name })}
                                             checked={name.enabled}
-                                            onClick={() => togglePublicationsDetail(
+                                            onClick={togglePublicationsDetail(
                                                 publication,
                                                 varNameToString({ name })
                                             )}
@@ -104,7 +105,7 @@ function Publications({ publications }) {
                                         <ItemsList
                                             label={varNameToString({ publisher })}
                                             checked={publisher.enabled}
-                                            onClick={() => togglePublicationsDetail(
+                                            onClick={togglePublicationsDetail(
                                                 publication,
                                                 varNameToString({ publisher })
                                             )}
@@ -112,7 +113,7 @@ function Publications({ publications }) {
                                         <ItemsList
                                             label={varNameToString({ releaseDate })}
                                             checked={releaseDate.enabled}
-                                            onClick={() => togglePublicationsDetail(
+                                            onClick={togglePublicationsDetail(
                                                 publication,
                                                 varNameToString({ releaseDate })
                                             )}
@@ -120,7 +121,7 @@ function Publications({ publications }) {
                                         <ItemsList
                                             label={varNameToString({ website })}
                                             checked={website.enabled}
-                                            onClick={() => togglePublicationsDetail(
+                                            onClick={togglePublicationsDetail(
                                                 publication,
                                                 varNameToString({ website })
                                             )}
@@ -128,7 +129,7 @@ function Publications({ publications }) {
                                         <ItemsList
                                             label={varNameToString({ summary })}
                                             checked={summary.enabled}
-                                            onClick={() => togglePublicationsDetail(
+                                            onClick={togglePublicationsDetail(
                                                 publication,
                                                 varNameToString({ summary })
                                             )}
@@ -144,4 +145,4 @@ function Publications({ publications }) {
     );
 }
 
-export default Publications;
+export default memo(Publications);
