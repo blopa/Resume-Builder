@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,14 +29,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const printDocument = () => {
-    window.print();
-};
-
-const handleDownloadJson = (jsonResume) => {
-    downloadJson(jsonResume);
-};
-
 const ResumeDrawerItems = ({
     resume: {
         basics,
@@ -56,6 +48,14 @@ const ResumeDrawerItems = ({
 }) => {
     const classes = useStyles();
     const intl = useIntl();
+
+    const printDocument = () => {
+        window.print();
+    };
+
+    const handleDownloadJson = useCallback(() => {
+        downloadJson(jsonResume);
+    }, [jsonResume]);
 
     return (
         <div className={classes.resumeDrawerItemsWrapper}>
@@ -78,7 +78,7 @@ const ResumeDrawerItems = ({
                     className={classes.actionButtons}
                     variant="contained"
                     color="primary"
-                    onClick={() => handleDownloadJson(jsonResume)}
+                    onClick={handleDownloadJson}
                 >
                     {intl.formatMessage({ id: 'download_json' })}
                 </Button>

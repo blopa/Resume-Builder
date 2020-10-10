@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 
 // Components
@@ -19,9 +19,10 @@ const useStyles = makeStyles((theme) => ({
 function References({ references }) {
     const classes = useStyles();
     const { state, dispatch } = useContext(StoreContext);
-    const setResumeReferencesState = (newReferences) => {
+
+    const setResumeReferencesState = useCallback((newReferences) => {
         dispatch(setResumeReferences(newReferences));
-    };
+    });
 
     const toggleReferences = () => {
         const currentState = references.enabled;
@@ -31,7 +32,7 @@ function References({ references }) {
         });
     };
 
-    const toggleReference = (reference) => {
+    const toggleReference = useCallback((reference) => () => {
         const newReferences = { ...references };
         newReferences.value =
             newReferences.value.map((ref) => {
@@ -44,9 +45,9 @@ function References({ references }) {
                 return ref;
             });
         setResumeReferencesState(newReferences);
-    };
+    }, [references, setResumeReferencesState]);
 
-    const toggleReferencesDetail = (reference, propName) => {
+    const toggleReferencesDetail = useCallback((reference, propName) => () => {
         const newReferences = { ...references };
         newReferences.value =
             newReferences.value.map((ref) => {
@@ -65,7 +66,7 @@ function References({ references }) {
                 return ref;
             });
         setResumeReferencesState(newReferences);
-    };
+    }, [references, setResumeReferencesState]);
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -86,14 +87,14 @@ function References({ references }) {
                                 <ItemsList
                                     label={name.value}
                                     checked={ref.enabled}
-                                    onClick={() => toggleReference(ref)}
+                                    onClick={toggleReference(ref)}
                                 />
                                 {ref.enabled && (
                                     <ul>
                                         <ItemsList
                                             label={varNameToString({ name })}
                                             checked={name.enabled}
-                                            onClick={() => toggleReferencesDetail(
+                                            onClick={toggleReferencesDetail(
                                                 ref,
                                                 varNameToString({ name })
                                             )}
@@ -101,7 +102,7 @@ function References({ references }) {
                                         <ItemsList
                                             label={varNameToString({ reference })}
                                             checked={reference.enabled}
-                                            onClick={() => toggleReferencesDetail(
+                                            onClick={toggleReferencesDetail(
                                                 ref,
                                                 varNameToString({ reference })
                                             )}
@@ -117,4 +118,4 @@ function References({ references }) {
     );
 }
 
-export default References;
+export default memo(References);

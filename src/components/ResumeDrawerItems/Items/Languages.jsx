@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 
 // Components
@@ -19,19 +19,20 @@ const useStyles = makeStyles((theme) => ({
 function Languages({ languages }) {
     const classes = useStyles();
     const { state, dispatch } = useContext(StoreContext);
-    const setResumeLanguagesState = (newLanguages) => {
-        dispatch(setResumeLanguages(newLanguages));
-    };
 
-    const toggleLanguages = () => {
+    const setResumeLanguagesState = useCallback((newLanguages) => {
+        dispatch(setResumeLanguages(newLanguages));
+    });
+
+    function toggleLanguages() {
         const currentState = languages.enabled;
         setResumeLanguagesState({
             ...languages,
             enabled: !currentState,
         });
-    };
+    }
 
-    const toggleLanguage = (language) => {
+    const toggleLanguage = useCallback((language) => () => {
         const newLanguages = { ...languages };
         newLanguages.value =
             newLanguages.value.map((lang) => {
@@ -44,9 +45,9 @@ function Languages({ languages }) {
                 return lang;
             });
         setResumeLanguagesState(newLanguages);
-    };
+    },[languages, setResumeLanguagesState]);
 
-    const toggleLanguagesDetail = (language, propName) => {
+    const toggleLanguagesDetail = useCallback((language, propName) => () => {
         const newLanguages = { ...languages };
         newLanguages.value =
             newLanguages.value.map((lang) => {
@@ -65,7 +66,7 @@ function Languages({ languages }) {
                 return lang;
             });
         setResumeLanguagesState(newLanguages);
-    };
+    }, [languages, setResumeLanguagesState]);
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -86,14 +87,14 @@ function Languages({ languages }) {
                                 <ItemsList
                                     label={language.value}
                                     checked={lang.enabled}
-                                    onClick={() => toggleLanguage(lang)}
+                                    onClick={toggleLanguage(lang)}
                                 />
                                 {lang.enabled && (
                                     <ul>
                                         <ItemsList
                                             label={varNameToString({ language })}
                                             checked={language.enabled}
-                                            onClick={() => toggleLanguagesDetail(
+                                            onClick={toggleLanguagesDetail(
                                                 lang,
                                                 varNameToString({ language })
                                             )}
@@ -101,7 +102,7 @@ function Languages({ languages }) {
                                         <ItemsList
                                             label={varNameToString({ fluency })}
                                             checked={fluency.enabled}
-                                            onClick={() => toggleLanguagesDetail(
+                                            onClick={toggleLanguagesDetail(
                                                 lang,
                                                 varNameToString({ fluency })
                                             )}
@@ -117,4 +118,4 @@ function Languages({ languages }) {
     );
 }
 
-export default Languages;
+export default memo(Languages);

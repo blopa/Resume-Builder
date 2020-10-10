@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 
 // Components
@@ -20,9 +20,10 @@ const useStyles = makeStyles((theme) => ({
 function Interest({ interests }) {
     const classes = useStyles();
     const { state, dispatch } = useContext(StoreContext);
-    const setResumeInterestsState = (interest) => {
+
+    const setResumeInterestsState = useCallback((interest) => {
         dispatch(setResumeInterests(interest));
-    };
+    });
 
     const toggleInterests = () => {
         const currentState = interests.enabled;
@@ -32,7 +33,7 @@ function Interest({ interests }) {
         });
     };
 
-    const toggleInterest = (interest) => {
+    const toggleInterest = useCallback((interest) => () => {
         const newInterest = { ...interests };
         newInterest.value =
             newInterest.value.map((wrk) => {
@@ -45,9 +46,9 @@ function Interest({ interests }) {
                 return wrk;
             });
         setResumeInterestsState(newInterest);
-    };
+    }, [interests, setResumeInterestsState]);
 
-    const toggleInterestDetail = (interest, propName) => {
+    const toggleInterestDetail = useCallback((interest, propName) => () => {
         const newInterest = { ...interests };
         newInterest.value =
             newInterest.value.map((vol) => {
@@ -66,9 +67,9 @@ function Interest({ interests }) {
                 return vol;
             });
         setResumeInterestsState(newInterest);
-    };
+    }, [interests, setResumeInterestsState]);
 
-    const toggleInterestKeywords = (interest, keyword) => {
+    const toggleInterestKeywords = useCallback((interest, keyword) => () => {
         const newInterest = { ...interests };
         newInterest.value =
             newInterest.value.map((vol) => {
@@ -98,7 +99,7 @@ function Interest({ interests }) {
                 return vol;
             });
         setResumeInterestsState(newInterest);
-    };
+    }, [interests, setResumeInterestsState]);
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -117,14 +118,14 @@ function Interest({ interests }) {
                                 <ItemsList
                                     label={name.value}
                                     checked={interest.enabled}
-                                    onClick={() => toggleInterest(interest)}
+                                    onClick={toggleInterest(interest)}
                                 />
                                 {interest.enabled && (
                                     <ul>
                                         <ItemsList
                                             label={varNameToString({ name })}
                                             checked={name.enabled}
-                                            onClick={() => toggleInterestDetail(
+                                            onClick={toggleInterestDetail(
                                                 interest,
                                                 varNameToString({ name })
                                             )}
@@ -136,7 +137,7 @@ function Interest({ interests }) {
                                                         label={keyword.value}
                                                         key={uuid()}
                                                         checked={keyword.enabled}
-                                                        onClick={() => toggleInterestKeywords(
+                                                        onClick={toggleInterestKeywords(
                                                             interest,
                                                             keyword
                                                         )}
@@ -155,4 +156,4 @@ function Interest({ interests }) {
     );
 }
 
-export default Interest;
+export default memo(Interest);
