@@ -39,7 +39,7 @@ function Awards({ awards }) {
                 if (JSON.stringify(awd.value) === JSON.stringify(award.value)) {
                     return {
                         ...awd,
-                        enabled: !awd.enabled,
+                        enabled: !awd?.enabled,
                     };
                 }
                 return awd;
@@ -58,7 +58,7 @@ function Awards({ awards }) {
                             ...awd.value,
                             [propName]: {
                                 ...awd.value[propName],
-                                enabled: !awd.value[propName].enabled,
+                                enabled: !awd.value[propName]?.enabled,
                             },
                         },
                     };
@@ -73,9 +73,9 @@ function Awards({ awards }) {
             <ItemInput
                 label="awards"
                 onChange={toggleAwards}
-                checked={awards.enabled}
+                checked={awards?.enabled}
             />
-            {awards.enabled && (
+            {awards?.enabled && (
                 <ul>
                     {awards.value.map((award) => {
                         const { title, date, awarder, summary } = award.value;
@@ -91,7 +91,7 @@ function Awards({ awards }) {
                                         {title && (
                                             <ItemsList
                                                 label={varNameToString({ title })}
-                                                checked={title.enabled}
+                                                checked={title?.enabled}
                                                 onClick={toggleAwardsDetail(
                                                     award,
                                                     varNameToString({ title })
@@ -101,7 +101,7 @@ function Awards({ awards }) {
                                         {date && (
                                             <ItemsList
                                                 label={varNameToString({ date })}
-                                                checked={date.enabled}
+                                                checked={date?.enabled}
                                                 onClick={toggleAwardsDetail(
                                                     award,
                                                     varNameToString({ date })
@@ -111,7 +111,7 @@ function Awards({ awards }) {
                                         {awarder && (
                                             <ItemsList
                                                 label={varNameToString({ awarder })}
-                                                checked={awarder.enabled}
+                                                checked={awarder?.enabled}
                                                 onClick={toggleAwardsDetail(
                                                     award,
                                                     varNameToString({ awarder })
@@ -121,7 +121,7 @@ function Awards({ awards }) {
                                         {summary && (
                                             <ItemsList
                                                 label={varNameToString({ summary })}
-                                                checked={summary.enabled}
+                                                checked={summary?.enabled}
                                                 onClick={toggleAwardsDetail(
                                                     award,
                                                     varNameToString({ summary })

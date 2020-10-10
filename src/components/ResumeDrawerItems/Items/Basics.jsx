@@ -34,7 +34,7 @@ function Basics({ basics }) {
     };
 
     const toggleBasicsDetail = useCallback((propName) => () => {
-        const currentState = basics.value[propName].enabled;
+        const currentState = basics.value[propName]?.enabled;
         setResumeBasicsState({
             ...basics,
             value: {
@@ -48,7 +48,7 @@ function Basics({ basics }) {
     }, [basics, setResumeBasicsState]);
 
     const toggleBasicsLocationDetail = useCallback((propName) => () => {
-        const currentState = basics.value.location.value[propName].enabled;
+        const currentState = basics.value.location.value[propName]?.enabled;
         setResumeBasicsState({
             ...basics,
             value: {
@@ -74,7 +74,7 @@ function Basics({ basics }) {
                 if (JSON.stringify(pro.value) === JSON.stringify(profile.value)) {
                     return {
                         ...pro,
-                        enabled: !pro.enabled,
+                        enabled: !pro?.enabled,
                     };
                 }
                 return pro;
@@ -119,7 +119,7 @@ function Basics({ basics }) {
                     {name && (
                         <ItemsList
                             label={varNameToString({ name })}
-                            checked={name.enabled}
+                            checked={name?.enabled}
                             onClick={toggleBasicsDetail(
                                 varNameToString({ name })
                             )}
@@ -128,7 +128,7 @@ function Basics({ basics }) {
                     {label && (
                         <ItemsList
                             label={varNameToString({ label })}
-                            checked={label.enabled}
+                            checked={label?.enabled}
                             onClick={toggleBasicsDetail(
                                 varNameToString({ label })
                             )}
@@ -146,7 +146,7 @@ function Basics({ basics }) {
                             {address && (
                                 <ItemsList
                                     label={varNameToString({ address })}
-                                    checked={address.enabled}
+                                    checked={address?.enabled}
                                     onClick={toggleBasicsLocationDetail(
                                         varNameToString({ address })
                                     )}
@@ -155,7 +155,7 @@ function Basics({ basics }) {
                             {city && (
                                 <ItemsList
                                     label={varNameToString({ city })}
-                                    checked={city.enabled}
+                                    checked={city?.enabled}
                                     onClick={toggleBasicsLocationDetail(
                                         varNameToString({ city })
                                     )}
@@ -164,7 +164,7 @@ function Basics({ basics }) {
                             {region && (
                                 <ItemsList
                                     label={varNameToString({ region })}
-                                    checked={region.enabled}
+                                    checked={region?.enabled}
                                     onClick={toggleBasicsLocationDetail(
                                         varNameToString({ region })
                                     )}
@@ -173,7 +173,7 @@ function Basics({ basics }) {
                             {postalCode && (
                                 <ItemsList
                                     label={varNameToString({ postalCode })}
-                                    checked={postalCode.enabled}
+                                    checked={postalCode?.enabled}
                                     onClick={toggleBasicsLocationDetail(
                                         varNameToString({ postalCode })
                                     )}
@@ -182,7 +182,7 @@ function Basics({ basics }) {
                             {countryCode && (
                                 <ItemsList
                                     label={varNameToString({ countryCode })}
-                                    checked={countryCode.enabled}
+                                    checked={countryCode?.enabled}
                                     onClick={toggleBasicsLocationDetail(
                                         varNameToString({ countryCode })
                                     )}
@@ -193,7 +193,7 @@ function Basics({ basics }) {
                     {website && (
                         <ItemsList
                             label={varNameToString({ website })}
-                            checked={website.enabled}
+                            checked={website?.enabled}
                             onClick={toggleBasicsDetail(
                                 varNameToString({ website })
                             )}
@@ -202,7 +202,7 @@ function Basics({ basics }) {
                     {url && (
                         <ItemsList
                             label={varNameToString({ url })}
-                            checked={url.enabled}
+                            checked={url?.enabled}
                             onClick={toggleBasicsDetail(
                                 varNameToString({ url })
                             )}
@@ -211,7 +211,7 @@ function Basics({ basics }) {
                     {phone && (
                         <ItemsList
                             label={varNameToString({ phone })}
-                            checked={phone.enabled}
+                            checked={phone?.enabled}
                             onClick={toggleBasicsDetail(
                                 varNameToString({ phone })
                             )}
@@ -220,7 +220,7 @@ function Basics({ basics }) {
                     {email && (
                         <ItemsList
                             label={varNameToString({ email })}
-                            checked={email.enabled}
+                            checked={email?.enabled}
                             onClick={toggleBasicsDetail(
                                 varNameToString({ email })
                             )}
@@ -231,7 +231,7 @@ function Basics({ basics }) {
                             {profiles && (
                                 <ItemsList
                                     label={varNameToString({ profiles })}
-                                    checked={profiles.enabled}
+                                    checked={profiles?.enabled}
                                     onClick={toggleBasicsDetail(
                                         varNameToString({ profiles })
                                     )}
@@ -245,7 +245,7 @@ function Basics({ basics }) {
                                             <ItemsList
                                                 label={network.value}
                                                 key={uuid()}
-                                                checked={profile.enabled}
+                                                checked={profile?.enabled}
                                                 onClick={toggleBasicsProfilesDetail(
                                                     profile
                                                 )}

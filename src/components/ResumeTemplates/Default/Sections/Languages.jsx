@@ -25,7 +25,7 @@ const Languages = ({ languages }) => {
             </h3>
             <ul className={classes.languages}>
                 {languages.map((lang) => {
-                    if (lang.enabled) {
+                    if (lang?.enabled) {
                         const { language, fluency } = lang.value;
                         return (
                             <li key={uuid()}>

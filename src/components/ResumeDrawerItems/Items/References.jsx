@@ -25,7 +25,7 @@ function References({ references }) {
     });
 
     const toggleReferences = () => {
-        const currentState = references.enabled;
+        const currentState = references?.enabled;
         setResumeReferencesState({
             ...references,
             enabled: !currentState,
@@ -39,7 +39,7 @@ function References({ references }) {
                 if (JSON.stringify(ref.value) === JSON.stringify(reference.value)) {
                     return {
                         ...ref,
-                        enabled: !ref.enabled,
+                        enabled: !ref?.enabled,
                     };
                 }
                 return ref;
@@ -58,7 +58,7 @@ function References({ references }) {
                             ...ref.value,
                             [propName]: {
                                 ...ref.value[propName],
-                                enabled: !ref.value[propName].enabled,
+                                enabled: !ref.value[propName]?.enabled,
                             },
                         },
                     };
@@ -73,9 +73,9 @@ function References({ references }) {
             <ItemInput
                 label="references"
                 onChange={toggleReferences}
-                checked={references.enabled}
+                checked={references?.enabled}
             />
-            {references.enabled && (
+            {references?.enabled && (
                 <ul>
                     {references.value.map((ref) => {
                         const {
@@ -88,11 +88,11 @@ function References({ references }) {
                                 {ref && (
                                     <ItemsList
                                         label={name.value}
-                                        checked={ref.enabled}
+                                        checked={ref?.enabled}
                                         onClick={toggleReference(ref)}
                                     />
                                 )}
-                                {ref.enabled && (
+                                {ref?.enabled && (
                                     <ul>
                                         {name && (
                                             <ItemsList

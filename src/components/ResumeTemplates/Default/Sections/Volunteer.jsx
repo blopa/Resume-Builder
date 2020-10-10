@@ -74,7 +74,7 @@ const Volunteer = ({ volunteer: volunteers }) => {
                                 {highlights?.enabled && (
                                     <ul className={classes.highlights}>
                                         {highlights.value.map((highlight) =>
-                                            highlight && highlight.enabled && (
+                                            highlight && highlight?.enabled && (
                                                 <li key={uuid()}>
                                                     {highlight.value}
                                                 </li>

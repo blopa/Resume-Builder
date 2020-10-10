@@ -26,7 +26,7 @@ function Interest({ interests }) {
     });
 
     const toggleInterests = () => {
-        const currentState = interests.enabled;
+        const currentState = interests?.enabled;
         setResumeInterestsState({
             ...interests,
             enabled: !currentState,
@@ -40,7 +40,7 @@ function Interest({ interests }) {
                 if (JSON.stringify(wrk.value) === JSON.stringify(interest.value)) {
                     return {
                         ...wrk,
-                        enabled: !wrk.enabled,
+                        enabled: !wrk?.enabled,
                     };
                 }
                 return wrk;
@@ -59,7 +59,7 @@ function Interest({ interests }) {
                             ...vol.value,
                             [propName]: {
                                 ...vol.value[propName],
-                                enabled: !vol.value[propName].enabled,
+                                enabled: !vol.value[propName]?.enabled,
                             },
                         },
                     };
@@ -85,7 +85,7 @@ function Interest({ interests }) {
                                         if (JSON.stringify(key.value) === JSON.stringify(keyword.value)) {
                                             return {
                                                 ...key,
-                                                enabled: !key.enabled,
+                                                enabled: !key?.enabled,
                                             };
                                         }
 
@@ -106,9 +106,9 @@ function Interest({ interests }) {
             <ItemInput
                 label="interest"
                 onChange={toggleInterests}
-                checked={interests.enabled}
+                checked={interests?.enabled}
             />
-            {interests.enabled && (
+            {interests?.enabled && (
                 <ul>
                     {interests.value.map((interest) => {
                         const { name, keywords } = interest.value;
@@ -118,29 +118,29 @@ function Interest({ interests }) {
                                 {interest && (
                                     <ItemsList
                                         label={name.value}
-                                        checked={interest.enabled}
+                                        checked={interest?.enabled}
                                         onClick={toggleInterest(interest)}
                                     />
                                 )}
-                                {interest.enabled && (
+                                {interest?.enabled && (
                                     <ul>
                                         {name && (
                                             <ItemsList
                                                 label={varNameToString({ name })}
-                                                checked={name.enabled}
+                                                checked={name?.enabled}
                                                 onClick={toggleInterestDetail(
                                                     interest,
                                                     varNameToString({ name })
                                                 )}
                                             />
                                         )}
-                                        {keywords.enabled && (
+                                        {keywords?.enabled && (
                                             <ul>
                                                 {keywords.value.map((keyword) => (
                                                     <ItemsList
                                                         label={keyword.value}
                                                         key={uuid()}
-                                                        checked={keyword.enabled}
+                                                        checked={keyword?.enabled}
                                                         onClick={toggleInterestKeywords(
                                                             interest,
                                                             keyword

@@ -25,7 +25,7 @@ function Education({ education: educations }) {
     });
 
     const toggleEducations = () => {
-        const currentState = educations.enabled;
+        const currentState = educations?.enabled;
         setResumeEducationState({
             ...educations,
             enabled: !currentState,
@@ -39,7 +39,7 @@ function Education({ education: educations }) {
                 if (JSON.stringify(edu.value) === JSON.stringify(education.value)) {
                     return {
                         ...edu,
-                        enabled: !edu.enabled,
+                        enabled: !edu?.enabled,
                     };
                 }
                 return edu;
@@ -58,7 +58,7 @@ function Education({ education: educations }) {
                             ...edu.value,
                             [propName]: {
                                 ...edu.value[propName],
-                                enabled: !edu.value[propName].enabled,
+                                enabled: !edu.value[propName]?.enabled,
                             },
                         },
                     };
@@ -72,10 +72,10 @@ function Education({ education: educations }) {
         <div className={classes.resumeDrawerItem}>
             <ItemInput
                 label="education"
-                checked={educations.enabled}
+                checked={educations?.enabled}
                 onChange={toggleEducations}
             />
-            {educations.enabled && (
+            {educations?.enabled && (
                 <ul>
                     {educations.value.map((education) => {
                         const {
@@ -92,7 +92,7 @@ function Education({ education: educations }) {
                                 {educations && (
                                     <ItemsList
                                         label={institution.value}
-                                        checked={education.enabled}
+                                        checked={education?.enabled}
                                         onClick={toggleEducation(
                                             education
                                         )}
@@ -103,7 +103,7 @@ function Education({ education: educations }) {
                                         {institution && (
                                             <ItemsList
                                                 label={varNameToString({ institution })}
-                                                checked={institution.enabled}
+                                                checked={institution?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
                                                     varNameToString({ institution })
@@ -113,7 +113,7 @@ function Education({ education: educations }) {
                                         {area && (
                                             <ItemsList
                                                 label={varNameToString({ area })}
-                                                checked={area.enabled}
+                                                checked={area?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
                                                     varNameToString({ area })
@@ -123,7 +123,7 @@ function Education({ education: educations }) {
                                         {studyType && (
                                             <ItemsList
                                                 label={varNameToString({ studyType })}
-                                                checked={studyType.enabled}
+                                                checked={studyType?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
                                                     varNameToString({ studyType })
@@ -133,7 +133,7 @@ function Education({ education: educations }) {
                                         {startDate && (
                                             <ItemsList
                                                 label={varNameToString({ startDate })}
-                                                checked={startDate.enabled}
+                                                checked={startDate?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
                                                     varNameToString({ startDate })
@@ -143,7 +143,7 @@ function Education({ education: educations }) {
                                         {endDate && (
                                             <ItemsList
                                                 label={varNameToString({ endDate })}
-                                                checked={endDate.enabled}
+                                                checked={endDate?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
                                                     varNameToString({ endDate })
@@ -153,7 +153,7 @@ function Education({ education: educations }) {
                                         {gpa && (
                                             <ItemsList
                                                 label={varNameToString({ gpa })}
-                                                checked={gpa.enabled}
+                                                checked={gpa?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
                                                     varNameToString({ gpa })
@@ -163,7 +163,7 @@ function Education({ education: educations }) {
                                         {courses && (
                                             <ItemsList
                                                 label={varNameToString({ courses })}
-                                                checked={courses.enabled}
+                                                checked={courses?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
                                                     varNameToString({ courses })

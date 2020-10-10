@@ -43,7 +43,7 @@ const Education = ({ education: educations }) => {
             </h3>
             <ul className={classes.courses}>
                 {educations.map((education) => {
-                    if (education.enabled) {
+                    if (education?.enabled) {
                         const {
                             institution,
                             area,
@@ -60,17 +60,17 @@ const Education = ({ education: educations }) => {
                                     {studyType?.enabled && studyType.value}
                                 </p>
                                 <p className={classes.institution}>
-                                    {institution && institution.enabled && institution.value}{', '}
-                                    {startDate && startDate.enabled && startDate.value}
+                                    {institution && institution?.enabled && institution.value}{', '}
+                                    {startDate && startDate?.enabled && startDate.value}
                                     {' - '}
-                                    {endDate && endDate.enabled && endDate.value}{', '}
-                                    {gpa && gpa.enabled && `GPA: ${gpa.value}`}
+                                    {endDate && endDate?.enabled && endDate.value}{', '}
+                                    {gpa && gpa?.enabled && `GPA: ${gpa.value}`}
                                 </p>
-                                {courses && courses.enabled && (
+                                {courses && courses?.enabled && (
                                     <div className={classes.coursesDetails}>
                                         <p>Courses: </p>
                                         <ul>
-                                            {courses.value.map((course) => course.enabled && (
+                                            {courses.value.map((course) => course?.enabled && (
                                                 <li key={uuid()}>
                                                     {course.value}
                                                 </li>

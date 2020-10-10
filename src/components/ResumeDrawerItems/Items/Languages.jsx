@@ -25,7 +25,7 @@ function Languages({ languages }) {
     });
 
     function toggleLanguages() {
-        const currentState = languages.enabled;
+        const currentState = languages?.enabled;
         setResumeLanguagesState({
             ...languages,
             enabled: !currentState,
@@ -39,7 +39,7 @@ function Languages({ languages }) {
                 if (JSON.stringify(lang.value) === JSON.stringify(language.value)) {
                     return {
                         ...lang,
-                        enabled: !lang.enabled,
+                        enabled: !lang?.enabled,
                     };
                 }
                 return lang;
@@ -58,7 +58,7 @@ function Languages({ languages }) {
                             ...lang.value,
                             [propName]: {
                                 ...lang.value[propName],
-                                enabled: !lang.value[propName].enabled,
+                                enabled: !lang.value[propName]?.enabled,
                             },
                         },
                     };
@@ -73,7 +73,7 @@ function Languages({ languages }) {
             <ItemInput
                 label="languages"
                 onChange={toggleLanguages}
-                checked={languages.enabled}
+                checked={languages?.enabled}
             />
             {languages?.enabled && (
                 <ul>

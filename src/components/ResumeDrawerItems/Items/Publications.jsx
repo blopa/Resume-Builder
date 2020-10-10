@@ -73,9 +73,9 @@ function Publications({ publications }) {
             <ItemInput
                 label="publications"
                 onChange={togglePublications}
-                checked={publications.enabled}
+                checked={publications?.enabled}
             />
-            {publications.enabled && (
+            {publications?.enabled && (
                 <ul>
                     {publications.value.map((publication) => {
                         const {
@@ -109,7 +109,7 @@ function Publications({ publications }) {
                                         {publisher && (
                                             <ItemsList
                                                 label={varNameToString({ publisher })}
-                                                checked={publisher.enabled}
+                                                checked={publisher?.enabled}
                                                 onClick={togglePublicationsDetail(
                                                     publication,
                                                     varNameToString({ publisher })
@@ -119,7 +119,7 @@ function Publications({ publications }) {
                                         {releaseDate && (
                                             <ItemsList
                                                 label={varNameToString({ releaseDate })}
-                                                checked={releaseDate.enabled}
+                                                checked={releaseDate?.enabled}
                                                 onClick={togglePublicationsDetail(
                                                     publication,
                                                     varNameToString({ releaseDate })
@@ -129,7 +129,7 @@ function Publications({ publications }) {
                                         {website && (
                                             <ItemsList
                                                 label={varNameToString({ website })}
-                                                checked={website.enabled}
+                                                checked={website?.enabled}
                                                 onClick={togglePublicationsDetail(
                                                     publication,
                                                     varNameToString({ website })
@@ -139,7 +139,7 @@ function Publications({ publications }) {
                                         {url && (
                                             <ItemsList
                                                 label={varNameToString({ url })}
-                                                checked={url.enabled}
+                                                checked={url?.enabled}
                                                 onClick={togglePublicationsDetail(
                                                     publication,
                                                     varNameToString({ url })
@@ -149,7 +149,7 @@ function Publications({ publications }) {
                                         {summary && (
                                             <ItemsList
                                                 label={varNameToString({ summary })}
-                                                checked={summary.enabled}
+                                                checked={summary?.enabled}
                                                 onClick={togglePublicationsDetail(
                                                     publication,
                                                     varNameToString({ summary })

@@ -32,7 +32,7 @@ const Education = ({
             </Typography>
             <ul className={classes.courses}>
                 {educations.map((education) => {
-                    if (education.enabled) {
+                    if (education?.enabled) {
                         const {
                             institution,
                             area,
@@ -77,7 +77,7 @@ const Education = ({
                                             {studyType.value}
                                         </span>
                                     )}
-                                    {endDate?.enabled && startDate.enabled && (
+                                    {endDate?.enabled && startDate?.enabled && (
                                         <span>
                                             (
                                             {Math.floor(diffDays / 30)}
@@ -86,7 +86,7 @@ const Education = ({
                                             )
                                         </span>
                                     )}
-                                    {courses?.enabled && courses.value?.[0].enabled && (
+                                    {courses?.enabled && courses.value?.[0]?.enabled && (
                                         <span>
                                             {courses.value?.[0].value}
                                         </span>

@@ -25,7 +25,7 @@ function Skills({ skills }) {
     });
 
     const toggleSkills = () => {
-        const currentState = skills.enabled;
+        const currentState = skills?.enabled;
         setResumeSkillsState({
             ...skills,
             enabled: !currentState,
@@ -39,7 +39,7 @@ function Skills({ skills }) {
                 if (JSON.stringify(skl.value) === JSON.stringify(skill.value)) {
                     return {
                         ...skl,
-                        enabled: !skl.enabled,
+                        enabled: !skl?.enabled,
                     };
                 }
                 return skl;
@@ -58,7 +58,7 @@ function Skills({ skills }) {
                             ...skl.value,
                             [propName]: {
                                 ...skl.value[propName],
-                                enabled: !skl.value[propName].enabled,
+                                enabled: !skl.value[propName]?.enabled,
                             },
                         },
                     };
@@ -73,9 +73,9 @@ function Skills({ skills }) {
             <ItemInput
                 label="skills"
                 onChange={toggleSkills}
-                checked={skills.enabled}
+                checked={skills?.enabled}
             />
-            {skills.enabled && (
+            {skills?.enabled && (
                 <ul>
                     {skills.value.map((skill) => {
                         const { keywords, level, name } = skill.value;
@@ -84,16 +84,16 @@ function Skills({ skills }) {
                                 {skill && (
                                     <ItemsList
                                         label={name.value}
-                                        checked={skill.enabled}
+                                        checked={skill?.enabled}
                                         onClick={toggleSkill(skill)}
                                     />
                                 )}
-                                {skill.enabled && (
+                                {skill?.enabled && (
                                     <ul>
                                         {keywords && (
                                             <ItemsList
                                                 label={varNameToString({ keywords })}
-                                                checked={keywords.enabled}
+                                                checked={keywords?.enabled}
                                                 onClick={toggleSkillsDetail(
                                                     skill,
                                                     varNameToString({ keywords })
@@ -103,7 +103,7 @@ function Skills({ skills }) {
                                         {level && (
                                             <ItemsList
                                                 label={varNameToString({ level })}
-                                                checked={level.enabled}
+                                                checked={level?.enabled}
                                                 onClick={toggleSkillsDetail(
                                                     skill,
                                                     varNameToString({ level })
@@ -113,7 +113,7 @@ function Skills({ skills }) {
                                         {name && (
                                             <ItemsList
                                                 label={varNameToString({ name })}
-                                                checked={name.enabled}
+                                                checked={name?.enabled}
                                                 onClick={toggleSkillsDetail(
                                                     skill,
                                                     varNameToString({ name })

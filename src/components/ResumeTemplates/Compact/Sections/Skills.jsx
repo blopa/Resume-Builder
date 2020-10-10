@@ -26,7 +26,7 @@ const Skills = ({ skills }) => {
             </Typography>
             <ul className={classes.skills}>
                 {skills.map((skill) => {
-                    if (skill.enabled) {
+                    if (skill?.enabled) {
                         const {
                             name,
                             level,

@@ -170,14 +170,14 @@ const Basics = ({
                             </Typography>
                         )}
                         {profiles?.enabled && profiles.value.map((profile) => {
-                            const { url } = profile?.value;
-                            return url?.enabled && (
+                            const { url: profileUrl } = profile?.value;
+                            return profileUrl?.enabled && (
                                 <Typography
                                     key={uuid()}
                                     color="textPrimary"
                                     variant="body1"
                                 >
-                                    {url.value}
+                                    {profileUrl.value}
                                 </Typography>
                             );
                         })}

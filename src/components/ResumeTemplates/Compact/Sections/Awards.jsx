@@ -32,7 +32,7 @@ const Awards = ({
             </Typography>
             <ul className={classes.awards}>
                 {awards.map((award) => {
-                    if (award.enabled) {
+                    if (award?.enabled) {
                         const {
                             title,
                             date,

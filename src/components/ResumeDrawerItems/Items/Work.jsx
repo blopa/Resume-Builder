@@ -32,7 +32,7 @@ function Work({ work: workData }) {
     });
 
     const toggleWorks = () => {
-        const currentState = workData.enabled;
+        const currentState = workData?.enabled;
         setResumeWorkState({
             ...workData,
             enabled: !currentState,
@@ -46,7 +46,7 @@ function Work({ work: workData }) {
                 if (JSON.stringify(wrk.value) === JSON.stringify(oldWork.value)) {
                     return {
                         ...wrk,
-                        enabled: !wrk.enabled,
+                        enabled: !wrk?.enabled,
                     };
                 }
                 return wrk;
@@ -65,7 +65,7 @@ function Work({ work: workData }) {
                             ...wrk.value,
                             [propName]: {
                                 ...wrk.value[propName],
-                                enabled: !wrk.value[propName].enabled,
+                                enabled: !wrk.value[propName]?.enabled,
                             },
                         },
                     };
@@ -91,7 +91,7 @@ function Work({ work: workData }) {
                                         if (JSON.stringify(high.value) === JSON.stringify(highlight.value)) {
                                             return {
                                                 ...high,
-                                                enabled: !high.enabled,
+                                                enabled: !high?.enabled,
                                             };
                                         }
 
@@ -133,16 +133,16 @@ function Work({ work: workData }) {
                                 {work && (
                                     <ItemsList
                                         label={company.value}
-                                        checked={work.enabled}
+                                        checked={work?.enabled}
                                         onClick={toggleWork(work)}
                                     />
                                 )}
-                                {work.enabled && (
+                                {work?.enabled && (
                                     <ul>
                                         {company && (
                                             <ItemsList
                                                 label={varNameToString({ company })}
-                                                checked={company.enabled}
+                                                checked={company?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
                                                     varNameToString({ company })
@@ -152,7 +152,7 @@ function Work({ work: workData }) {
                                         {position && (
                                             <ItemsList
                                                 label={varNameToString({ position })}
-                                                checked={position.enabled}
+                                                checked={position?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
                                                     varNameToString({ position })
@@ -162,7 +162,7 @@ function Work({ work: workData }) {
                                         {website && (
                                             <ItemsList
                                                 label={varNameToString({ website })}
-                                                checked={website.enabled}
+                                                checked={website?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
                                                     varNameToString({ website })
@@ -172,7 +172,7 @@ function Work({ work: workData }) {
                                         {url && (
                                             <ItemsList
                                                 label={varNameToString({ url })}
-                                                checked={url.enabled}
+                                                checked={url?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
                                                     varNameToString({ url })
@@ -182,7 +182,7 @@ function Work({ work: workData }) {
                                         {startDate && (
                                             <ItemsList
                                                 label={varNameToString({ startDate })}
-                                                checked={startDate.enabled}
+                                                checked={startDate?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
                                                     varNameToString({ startDate })
@@ -192,7 +192,7 @@ function Work({ work: workData }) {
                                         {endDate && (
                                             <ItemsList
                                                 label={varNameToString({ endDate })}
-                                                checked={endDate.enabled}
+                                                checked={endDate?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
                                                     varNameToString({ endDate })
@@ -202,7 +202,7 @@ function Work({ work: workData }) {
                                         {summary && (
                                             <ItemsList
                                                 label={varNameToString({ summary })}
-                                                checked={summary.enabled}
+                                                checked={summary?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
                                                     varNameToString({ summary })
@@ -212,20 +212,20 @@ function Work({ work: workData }) {
                                         {highlights && (
                                             <ItemsList
                                                 label={varNameToString({ highlights })}
-                                                checked={highlights.enabled}
+                                                checked={highlights?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
                                                     varNameToString({ highlights })
                                                 )}
                                             />
                                         )}
-                                        {highlights.enabled && (
+                                        {highlights?.enabled && (
                                             <ul>
                                                 {highlights.value.map((highlight) => (
                                                     <ItemsList
                                                         label={highlight.value}
                                                         key={uuid()}
-                                                        checked={highlight.enabled}
+                                                        checked={highlight?.enabled}
                                                         onClick={toggleWorkHighlights(
                                                             work,
                                                             highlight
