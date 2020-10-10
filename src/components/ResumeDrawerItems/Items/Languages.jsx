@@ -35,8 +35,8 @@ function Languages({ languages }) {
     const toggleLanguage = useCallback((language) => () => {
         const newLanguages = { ...languages };
         newLanguages.value =
-            newLanguages.value.map((lang) => {
-                if (JSON.stringify(lang.value) === JSON.stringify(language.value)) {
+            newLanguages?.value.map((lang) => {
+                if (JSON.stringify(lang?.value) === JSON.stringify(language?.value)) {
                     return {
                         ...lang,
                         enabled: !lang?.enabled,
@@ -45,20 +45,20 @@ function Languages({ languages }) {
                 return lang;
             });
         setResumeLanguagesState(newLanguages);
-    },[languages, setResumeLanguagesState]);
+    }, [languages, setResumeLanguagesState]);
 
     const toggleLanguagesDetail = useCallback((language, propName) => () => {
         const newLanguages = { ...languages };
         newLanguages.value =
-            newLanguages.value.map((lang) => {
-                if (JSON.stringify(lang.value) === JSON.stringify(language.value)) {
+            newLanguages?.value.map((lang) => {
+                if (JSON.stringify(lang?.value) === JSON.stringify(language?.value)) {
                     return {
                         ...lang,
                         value: {
-                            ...lang.value,
+                            ...lang?.value,
                             [propName]: {
-                                ...lang.value[propName],
-                                enabled: !lang.value[propName]?.enabled,
+                                ...lang?.value[propName],
+                                enabled: !lang?.value[propName]?.enabled,
                             },
                         },
                     };
@@ -77,17 +77,17 @@ function Languages({ languages }) {
             />
             {languages?.enabled && (
                 <ul>
-                    {languages.value.map((lang) => {
+                    {languages?.value.map((lang) => {
                         const {
                             language,
                             fluency,
-                        } = lang?.value;
+                        } = lang?.value || {};
 
                         return (
                             <Fragment key={uuid()}>
                                 {lang && (
                                     <ItemsList
-                                        label={language.value}
+                                        label={language?.value}
                                         checked={lang?.enabled}
                                         onClick={toggleLanguage(lang)}
                                     />

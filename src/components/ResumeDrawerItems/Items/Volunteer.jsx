@@ -1,4 +1,4 @@
-import React, { Fragment, useContext,useCallback, memo } from 'react';
+import React, { Fragment, useContext, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 
 // Components
@@ -41,8 +41,8 @@ function Volunteer({ volunteer: volunteerData }) {
     const toggleVolunteer = useCallback((volunteer) => () => {
         const newVolunteer = { ...volunteerData };
         newVolunteer.value =
-            newVolunteer.value.map((wrk) => {
-                if (JSON.stringify(wrk.value) === JSON.stringify(volunteer.value)) {
+            newVolunteer?.value.map((wrk) => {
+                if (JSON.stringify(wrk?.value) === JSON.stringify(volunteer?.value)) {
                     return {
                         ...wrk,
                         enabled: !wrk?.enabled,
@@ -56,15 +56,15 @@ function Volunteer({ volunteer: volunteerData }) {
     const toggleVolunteerDetail = useCallback((volunteer, propName) => () => {
         const newVolunteer = { ...volunteerData };
         newVolunteer.value =
-            newVolunteer.value.map((vol) => {
-                if (JSON.stringify(vol.value) === JSON.stringify(volunteer.value)) {
+            newVolunteer?.value.map((vol) => {
+                if (JSON.stringify(vol?.value) === JSON.stringify(volunteer?.value)) {
                     return {
                         ...vol,
                         value: {
-                            ...vol.value,
+                            ...vol?.value,
                             [propName]: {
-                                ...vol.value[propName],
-                                enabled: !vol.value[propName]?.enabled,
+                                ...vol?.value[propName],
+                                enabled: !vol?.value[propName]?.enabled,
                             },
                         },
                     };
@@ -77,17 +77,17 @@ function Volunteer({ volunteer: volunteerData }) {
     const toggleVolunteerHighlights = useCallback((volunteer, highlight) => () => {
         const newVolunteer = { ...volunteerData };
         newVolunteer.value =
-            newVolunteer.value.map((vol) => {
-                if (JSON.stringify(vol.value) === JSON.stringify(volunteer.value)) {
+            newVolunteer?.value.map((vol) => {
+                if (JSON.stringify(vol?.value) === JSON.stringify(volunteer?.value)) {
                     return {
                         ...vol,
                         value: {
-                            ...vol.value,
+                            ...vol?.value,
                             highlights: {
-                                ...vol.value.highlights,
+                                ...vol?.value.highlights,
                                 value: [
-                                    ...vol.value.highlights.value.map((high) => {
-                                        if (JSON.stringify(high.value) === JSON.stringify(highlight.value)) {
+                                    ...vol?.value.highlights?.value.map((high) => {
+                                        if (JSON.stringify(high?.value) === JSON.stringify(highlight?.value)) {
                                             return {
                                                 ...high,
                                                 enabled: !high?.enabled,
@@ -109,7 +109,7 @@ function Volunteer({ volunteer: volunteerData }) {
     const {
         enabled: volunteerEnabled,
         value: volunteers,
-    } = volunteerData;
+    } = volunteerData || {};
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -130,13 +130,13 @@ function Volunteer({ volunteer: volunteerData }) {
                             endDate,
                             summary,
                             highlights,
-                        } = volunteer.value;
+                        } = volunteer?.value || {};
 
                         return (
                             <Fragment key={uuid()}>
                                 {volunteer && (
                                     <ItemsList
-                                        label={organization.value}
+                                        label={organization?.value}
                                         checked={volunteer?.enabled}
                                         onClick={toggleVolunteer(volunteer)}
                                     />
@@ -225,9 +225,9 @@ function Volunteer({ volunteer: volunteerData }) {
                                         )}
                                         {highlights?.enabled && (
                                             <ul>
-                                                {highlights.value.map((highlight) => (
+                                                {highlights?.value.map((highlight) => (
                                                     <ItemsList
-                                                        label={highlight.value}
+                                                        label={highlight?.value}
                                                         key={uuid()}
                                                         checked={highlight?.enabled}
                                                         onClick={toggleVolunteerHighlights(

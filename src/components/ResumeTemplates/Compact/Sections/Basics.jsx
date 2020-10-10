@@ -89,7 +89,7 @@ const Basics = ({
                     color="textPrimary"
                     variant="h4"
                 >
-                    {name.value}
+                    {name?.value}
                 </Typography>
             )}
             {label?.enabled && (
@@ -98,7 +98,7 @@ const Basics = ({
                     color="textPrimary"
                     variant="body1"
                 >
-                    {label.value}
+                    {label?.value}
                 </Typography>
             )}
             <div className={classes.aboutAndContactWrapper}>
@@ -115,7 +115,7 @@ const Basics = ({
                             color="textPrimary"
                             variant="body1"
                         >
-                            {summary.value}
+                            {summary?.value}
                         </Typography>
                     </div>
                 )}
@@ -140,7 +140,7 @@ const Basics = ({
                                         color="textPrimary"
                                         variant="body1"
                                     >
-                                        {city.value}{','}
+                                        {city?.value}{','}
                                     </Typography>
                                 )}
                                 {postalCode?.enabled && (
@@ -148,7 +148,7 @@ const Basics = ({
                                         color="textPrimary"
                                         variant="body1"
                                     >
-                                        {postalCode.value}
+                                        {postalCode?.value}
                                     </Typography>
                                 )}
                             </div>
@@ -158,7 +158,7 @@ const Basics = ({
                                 color="textPrimary"
                                 variant="body1"
                             >
-                                {phone.value}
+                                {phone?.value}
                             </Typography>
                         )}
                         {email?.enabled && (
@@ -166,18 +166,18 @@ const Basics = ({
                                 color="textPrimary"
                                 variant="body1"
                             >
-                                {email.value}
+                                {email?.value}
                             </Typography>
                         )}
-                        {profiles?.enabled && profiles.value.map((profile) => {
-                            const { url: profileUrl } = profile?.value;
+                        {profiles?.enabled && profiles?.value.map((profile) => {
+                            const { url: profileUrl } = profile?.value || {};
                             return profileUrl?.enabled && (
                                 <Typography
                                     key={uuid()}
                                     color="textPrimary"
                                     variant="body1"
                                 >
-                                    {profileUrl.value}
+                                    {profileUrl?.value}
                                 </Typography>
                             );
                         })}

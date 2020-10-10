@@ -31,7 +31,7 @@ const Skills = ({ skills }) => {
                             name,
                             level,
                             keywords,
-                        } = skill.value;
+                        } = skill?.value || {};
                         return (
                             <li key={uuid()}>
                                 lala

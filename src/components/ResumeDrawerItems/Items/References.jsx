@@ -35,8 +35,8 @@ function References({ references }) {
     const toggleReference = useCallback((reference) => () => {
         const newReferences = { ...references };
         newReferences.value =
-            newReferences.value.map((ref) => {
-                if (JSON.stringify(ref.value) === JSON.stringify(reference.value)) {
+            newReferences?.value.map((ref) => {
+                if (JSON.stringify(ref?.value) === JSON.stringify(reference?.value)) {
                     return {
                         ...ref,
                         enabled: !ref?.enabled,
@@ -50,15 +50,15 @@ function References({ references }) {
     const toggleReferencesDetail = useCallback((reference, propName) => () => {
         const newReferences = { ...references };
         newReferences.value =
-            newReferences.value.map((ref) => {
-                if (JSON.stringify(ref.value) === JSON.stringify(reference.value)) {
+            newReferences?.value.map((ref) => {
+                if (JSON.stringify(ref?.value) === JSON.stringify(reference?.value)) {
                     return {
                         ...ref,
                         value: {
-                            ...ref.value,
+                            ...ref?.value,
                             [propName]: {
-                                ...ref.value[propName],
-                                enabled: !ref.value[propName]?.enabled,
+                                ...ref?.value[propName],
+                                enabled: !ref?.value[propName]?.enabled,
                             },
                         },
                     };
@@ -77,17 +77,17 @@ function References({ references }) {
             />
             {references?.enabled && (
                 <ul>
-                    {references.value.map((ref) => {
+                    {references?.value.map((ref) => {
                         const {
                             name,
                             reference,
-                        } = ref?.value;
+                        } = ref?.value || {};
 
                         return (
                             <Fragment key={uuid()}>
                                 {ref && (
                                     <ItemsList
-                                        label={name.value}
+                                        label={name?.value}
                                         checked={ref?.enabled}
                                         onClick={toggleReference(ref)}
                                     />

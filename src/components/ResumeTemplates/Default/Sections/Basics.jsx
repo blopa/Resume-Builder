@@ -75,15 +75,15 @@ const Basics = ({
     return (
         <Fragment>
             <div className={classes.resumeBasics}>
-                {name?.enabled && <h2>{name.value}</h2>}
-                {label?.enabled && <h3>{label.value}</h3>}
+                {name?.enabled && <h2>{name?.value}</h2>}
+                {label?.enabled && <h3>{label?.value}</h3>}
                 {locationEnabled && (
                     <ul className={classes.address}>
-                        {address?.enabled && <li key={uuid()}>{address.value}</li>}
-                        {city?.enabled && <li key={uuid()}>{city.value}</li>}
-                        {region?.enabled && <li key={uuid()}>{region.value}</li>}
-                        {postalCode?.enabled && <li key={uuid()}>{postalCode.value}</li>}
-                        {countryCode?.enabled && <li key={uuid()}>{countryCode.value}</li>}
+                        {address?.enabled && <li key={uuid()}>{address?.value}</li>}
+                        {city?.enabled && <li key={uuid()}>{city?.value}</li>}
+                        {region?.enabled && <li key={uuid()}>{region?.value}</li>}
+                        {postalCode?.enabled && <li key={uuid()}>{postalCode?.value}</li>}
+                        {countryCode?.enabled && <li key={uuid()}>{countryCode?.value}</li>}
                     </ul>
                 )}
                 <ul className={classes['contact-info']}>
@@ -91,10 +91,10 @@ const Basics = ({
                         <li key={uuid()}>
                             <a
                                 className={classes.url}
-                                href={url.value}
+                                href={url?.value}
                                 target="_blank"
                             >
-                                {url.value}
+                                {url?.value}
                             </a>
                         </li>
                     )}
@@ -102,29 +102,30 @@ const Basics = ({
                         <li key={uuid()}>
                             <a
                                 className={classes.website}
-                                href={website.value}
+                                href={website?.value}
                                 target="_blank"
                             >
-                                {website.value}
+                                {website?.value}
                             </a>
                         </li>
                     )}
-                    {phone?.enabled && <li key={uuid()}>{phone.value}</li>}
-                    {email?.enabled && <li key={uuid()}>{email.value}</li>}
+                    {phone?.enabled && <li key={uuid()}>{phone?.value}</li>}
+                    {email?.enabled && <li key={uuid()}>{email?.value}</li>}
                 </ul>
                 {profiles?.enabled && (
                     <ul className={classes['social-media']}>
-                        {profiles.value.map((profile) => {
+                        {profiles?.value.map((profile) => {
                             if (profile?.enabled) {
-                                const { url: profileUrl, network, username } = profile.value;
+                                const { url: profileUrl, network, username } = profile?.value || {};
+
                                 return profileUrl?.enabled && network?.enabled && username?.enabled && (
                                     <li key={uuid()}>
                                         <a
-                                            href={profileUrl.value}
-                                            title={username.value}
+                                            href={profileUrl?.value}
+                                            title={username?.value}
                                             target="_blank"
                                         >
-                                            {network.value}
+                                            {network?.value}
                                         </a>
                                     </li>
                                 );
@@ -140,7 +141,7 @@ const Basics = ({
                     <h3>
                         {intl.formatMessage({ id: 'summary' })}
                     </h3>
-                    <p>{summary.value}</p>
+                    <p>{summary?.value}</p>
                 </div>
             )}
         </Fragment>

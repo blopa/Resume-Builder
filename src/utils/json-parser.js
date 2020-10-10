@@ -3,7 +3,7 @@ export const readJsonFile = (file, callback) => {
     reader.onload = (e) => callback(e.target.result);
     // eslint-disable-next-line standard/no-callback-literal
     reader.onerror = () => callback('{}');
-    reader.readAsBinaryString(file);
+    reader.readAsText(file);
 };
 
 export const downloadJson = (jsonResume) => {

@@ -26,12 +26,12 @@ const Languages = ({ languages }) => {
             <ul className={classes.languages}>
                 {languages.map((lang) => {
                     if (lang?.enabled) {
-                        const { language, fluency } = lang.value;
+                        const { language, fluency } = lang?.value || {};
                         return (
                             <li key={uuid()}>
                                 <p>
-                                    {language?.enabled && language.value}{', '}
-                                    {fluency?.enabled && fluency.value}
+                                    {language?.enabled && language?.value}{', '}
+                                    {fluency?.enabled && fluency?.value}
                                 </p>
                             </li>
                         );

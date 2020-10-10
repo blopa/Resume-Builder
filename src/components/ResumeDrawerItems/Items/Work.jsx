@@ -25,7 +25,7 @@ function Work({ work: workData }) {
     const {
         enabled: workEnabled,
         value: works,
-    } = workData;
+    } = workData || {};
 
     const setResumeWorkState = useCallback((newWork) => {
         dispatch(setResumeWork(newWork));
@@ -42,8 +42,8 @@ function Work({ work: workData }) {
     const toggleWork = useCallback((oldWork) => () => {
         const newWork = { ...workData };
         newWork.value =
-            newWork.value.map((wrk) => {
-                if (JSON.stringify(wrk.value) === JSON.stringify(oldWork.value)) {
+            newWork?.value.map((wrk) => {
+                if (JSON.stringify(wrk?.value) === JSON.stringify(oldWork?.value)) {
                     return {
                         ...wrk,
                         enabled: !wrk?.enabled,
@@ -57,15 +57,15 @@ function Work({ work: workData }) {
     const toggleWorkDetail = useCallback((oldWork, propName) => () => {
         const newWork = { ...workData };
         newWork.value =
-            newWork.value.map((wrk) => {
-                if (JSON.stringify(wrk.value) === JSON.stringify(oldWork.value)) {
+            newWork?.value.map((wrk) => {
+                if (JSON.stringify(wrk?.value) === JSON.stringify(oldWork?.value)) {
                     return {
                         ...wrk,
                         value: {
-                            ...wrk.value,
+                            ...wrk?.value,
                             [propName]: {
-                                ...wrk.value[propName],
-                                enabled: !wrk.value[propName]?.enabled,
+                                ...wrk?.value[propName],
+                                enabled: !wrk?.value[propName]?.enabled,
                             },
                         },
                     };
@@ -78,17 +78,17 @@ function Work({ work: workData }) {
     const toggleWorkHighlights = useCallback((oldWork, highlight) => () => {
         const newWork = { ...workData };
         newWork.value =
-            newWork.value.map((wrk) => {
-                if (JSON.stringify(wrk.value) === JSON.stringify(oldWork.value)) {
+            newWork?.value.map((wrk) => {
+                if (JSON.stringify(wrk?.value) === JSON.stringify(oldWork?.value)) {
                     return {
                         ...wrk,
                         value: {
-                            ...wrk.value,
+                            ...wrk?.value,
                             highlights: {
-                                ...wrk.value.highlights,
+                                ...wrk?.value.highlights,
                                 value: [
-                                    ...wrk.value.highlights.value.map((high) => {
-                                        if (JSON.stringify(high.value) === JSON.stringify(highlight.value)) {
+                                    ...wrk?.value.highlights?.value.map((high) => {
+                                        if (JSON.stringify(high?.value) === JSON.stringify(highlight?.value)) {
                                             return {
                                                 ...high,
                                                 enabled: !high?.enabled,
@@ -119,6 +119,7 @@ function Work({ work: workData }) {
                     {works.map((work) => {
                         const {
                             company,
+                            name,
                             position,
                             website,
                             url,
@@ -126,13 +127,13 @@ function Work({ work: workData }) {
                             endDate,
                             summary,
                             highlights,
-                        } = work.value;
+                        } = work?.value || {};
 
                         return (
                             <Fragment key={uuid()}>
                                 {work && (
                                     <ItemsList
-                                        label={company.value}
+                                        label={company?.value || name?.value}
                                         checked={work?.enabled}
                                         onClick={toggleWork(work)}
                                     />
@@ -146,6 +147,16 @@ function Work({ work: workData }) {
                                                 onClick={toggleWorkDetail(
                                                     work,
                                                     varNameToString({ company })
+                                                )}
+                                            />
+                                        )}
+                                        {name && (
+                                            <ItemsList
+                                                label={varNameToString({ name })}
+                                                checked={name?.enabled}
+                                                onClick={toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ name })
                                                 )}
                                             />
                                         )}
@@ -221,9 +232,9 @@ function Work({ work: workData }) {
                                         )}
                                         {highlights?.enabled && (
                                             <ul>
-                                                {highlights.value.map((highlight) => (
+                                                {highlights?.value.map((highlight) => (
                                                     <ItemsList
-                                                        label={highlight.value}
+                                                        label={highlight?.value}
                                                         key={uuid()}
                                                         checked={highlight?.enabled}
                                                         onClick={toggleWorkHighlights(

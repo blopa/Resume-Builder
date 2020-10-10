@@ -41,7 +41,8 @@ const Education = ({
                             endDate,
                             // gpa,
                             courses,
-                        } = education.value;
+                        } = education?.value || {};
+
                         const date = new Date(endDate?.value);
                         const diffTime = Math.abs(date - new Date(startDate?.value));
                         const diffDays = diffTime / 86400000;
@@ -59,12 +60,12 @@ const Education = ({
                                     )}
                                     {area?.enabled && (
                                         <span>
-                                            {area.value}
+                                            {area?.value}
                                         </span>
                                     )}
                                     {institution?.enabled && (
                                         <span>
-                                            {institution.value}
+                                            {institution?.value}
                                         </span>
                                     )}
                                 </Typography>
@@ -74,7 +75,7 @@ const Education = ({
                                 >
                                     {studyType?.enabled && (
                                         <span>
-                                            {studyType.value}
+                                            {studyType?.value}
                                         </span>
                                     )}
                                     {endDate?.enabled && startDate?.enabled && (
@@ -86,9 +87,9 @@ const Education = ({
                                             )
                                         </span>
                                     )}
-                                    {courses?.enabled && courses.value?.[0]?.enabled && (
+                                    {courses?.enabled && courses?.value?.[0]?.enabled && (
                                         <span>
-                                            {courses.value?.[0].value}
+                                            {courses?.value?.[0]?.value}
                                         </span>
                                     )}
                                 </Typography>

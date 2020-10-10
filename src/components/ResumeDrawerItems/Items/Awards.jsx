@@ -35,8 +35,8 @@ function Awards({ awards }) {
     const toggleAward = useCallback((award) => () => {
         const newAwards = { ...awards };
         newAwards.value =
-            newAwards.value.map((awd) => {
-                if (JSON.stringify(awd.value) === JSON.stringify(award.value)) {
+            newAwards?.value.map((awd) => {
+                if (JSON.stringify(awd?.value) === JSON.stringify(award?.value)) {
                     return {
                         ...awd,
                         enabled: !awd?.enabled,
@@ -50,15 +50,15 @@ function Awards({ awards }) {
     const toggleAwardsDetail = useCallback((award, propName) => () => {
         const newAwards = { ...awards };
         newAwards.value =
-            newAwards.value.map((awd) => {
-                if (JSON.stringify(awd.value) === JSON.stringify(award.value)) {
+            newAwards?.value.map((awd) => {
+                if (JSON.stringify(awd?.value) === JSON.stringify(award?.value)) {
                     return {
                         ...awd,
                         value: {
-                            ...awd.value,
+                            ...awd?.value,
                             [propName]: {
-                                ...awd.value[propName],
-                                enabled: !awd.value[propName]?.enabled,
+                                ...awd?.value[propName],
+                                enabled: !awd?.value[propName]?.enabled,
                             },
                         },
                     };
@@ -77,12 +77,12 @@ function Awards({ awards }) {
             />
             {awards?.enabled && (
                 <ul>
-                    {awards.value.map((award) => {
-                        const { title, date, awarder, summary } = award.value;
+                    {awards?.value.map((award) => {
+                        const { title, date, awarder, summary } = award?.value || {};
                         return (
                             <Fragment key={uuid()}>
                                 <ItemsList
-                                    label={title.value}
+                                    label={title?.value}
                                     checked={award?.enabled}
                                     onClick={toggleAward(award)}
                                 />

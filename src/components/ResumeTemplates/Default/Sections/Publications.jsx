@@ -36,19 +36,19 @@ const Publications = ({ publications }) => {
                             website,
                             url,
                             summary,
-                        } = publication.value;
+                        } = publication?.value || {};
                         return (
                             <li key={uuid()}>
                                 {name?.enabled && (
                                     <p className={classes.publication}>
-                                        {name.value}
+                                        {name?.value}
                                     </p>
                                 )}
-                                {publisher && publisher?.enabled && <p>{publisher.value}</p>}
-                                {website && website?.enabled && <p>{website.value}</p>}
-                                {url && url?.enabled && <p>{url.value}</p>}
-                                {releaseDate && releaseDate?.enabled && <p>{releaseDate.value}</p>}
-                                {summary && summary?.enabled && <p>{summary.value}</p>}
+                                {publisher && publisher?.enabled && <p>{publisher?.value}</p>}
+                                {website && website?.enabled && <p>{website?.value}</p>}
+                                {url && url?.enabled && <p>{url?.value}</p>}
+                                {releaseDate && releaseDate?.enabled && <p>{releaseDate?.value}</p>}
+                                {summary && summary?.enabled && <p>{summary?.value}</p>}
                             </li>
                         );
                     }

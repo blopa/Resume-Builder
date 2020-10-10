@@ -35,8 +35,8 @@ function Publications({ publications }) {
     const togglePublication = useCallback((publication) => () => {
         const newPublications = { ...publications };
         newPublications.value =
-            newPublications.value.map((pub) => {
-                if (JSON.stringify(pub.value) === JSON.stringify(publication.value)) {
+            newPublications?.value.map((pub) => {
+                if (JSON.stringify(pub?.value) === JSON.stringify(publication?.value)) {
                     return {
                         ...pub,
                         enabled: !pub?.enabled,
@@ -50,15 +50,15 @@ function Publications({ publications }) {
     const togglePublicationsDetail = useCallback((publication, propName) => () => {
         const newPublications = { ...publications };
         newPublications.value =
-            newPublications.value.map((pub) => {
-                if (JSON.stringify(pub.value) === JSON.stringify(publication.value)) {
+            newPublications?.value.map((pub) => {
+                if (JSON.stringify(pub?.value) === JSON.stringify(publication?.value)) {
                     return {
                         ...pub,
                         value: {
-                            ...pub.value,
+                            ...pub?.value,
                             [propName]: {
-                                ...pub.value[propName],
-                                enabled: !pub.value[propName]?.enabled,
+                                ...pub?.value[propName],
+                                enabled: !pub?.value[propName]?.enabled,
                             },
                         },
                     };
@@ -77,7 +77,7 @@ function Publications({ publications }) {
             />
             {publications?.enabled && (
                 <ul>
-                    {publications.value.map((publication) => {
+                    {publications?.value.map((publication) => {
                         const {
                             name,
                             publisher,
@@ -85,7 +85,7 @@ function Publications({ publications }) {
                             website,
                             url,
                             summary,
-                        } = publication.value;
+                        } = publication?.value || {};
 
                         return (
                             <Fragment key={uuid()}>

@@ -35,8 +35,8 @@ function Education({ education: educations }) {
     const toggleEducation = useCallback((education) => () => {
         const newEducation = { ...educations };
         newEducation.value =
-            newEducation.value.map((edu) => {
-                if (JSON.stringify(edu.value) === JSON.stringify(education.value)) {
+            newEducation?.value.map((edu) => {
+                if (JSON.stringify(edu?.value) === JSON.stringify(education?.value)) {
                     return {
                         ...edu,
                         enabled: !edu?.enabled,
@@ -50,15 +50,15 @@ function Education({ education: educations }) {
     const toggleEducationDetail = useCallback((education, propName) => () => {
         const newEducation = { ...educations };
         newEducation.value =
-            newEducation.value.map((edu) => {
-                if (JSON.stringify(edu.value) === JSON.stringify(education.value)) {
+            newEducation?.value.map((edu) => {
+                if (JSON.stringify(edu?.value) === JSON.stringify(education?.value)) {
                     return {
                         ...edu,
                         value: {
-                            ...edu.value,
+                            ...edu?.value,
                             [propName]: {
-                                ...edu.value[propName],
-                                enabled: !edu.value[propName]?.enabled,
+                                ...edu?.value[propName],
+                                enabled: !edu?.value[propName]?.enabled,
                             },
                         },
                     };
@@ -77,7 +77,7 @@ function Education({ education: educations }) {
             />
             {educations?.enabled && (
                 <ul>
-                    {educations.value.map((education) => {
+                    {educations?.value.map((education) => {
                         const {
                             institution,
                             area,
@@ -86,12 +86,12 @@ function Education({ education: educations }) {
                             endDate,
                             gpa,
                             courses,
-                        } = education.value;
+                        } = education?.value || {};
                         return (
                             <Fragment key={uuid()}>
                                 {educations && (
                                     <ItemsList
-                                        label={institution.value}
+                                        label={institution?.value}
                                         checked={education?.enabled}
                                         onClick={toggleEducation(
                                             education

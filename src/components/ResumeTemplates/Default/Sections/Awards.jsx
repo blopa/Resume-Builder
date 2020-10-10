@@ -29,15 +29,15 @@ const Awards = ({ awards }) => {
             <ul className={classes.awards}>
                 {awards.map((award) => {
                     if (award?.enabled) {
-                        const { title, date, awarder, summary } = award.value;
+                        const { title, date, awarder, summary } = award?.value || {};
                         return (
                             <li key={uuid()}>
                                 <p className={classes.award}>
-                                    {title?.enabled && title.value}
+                                    {title?.enabled && title?.value}
                                 </p>
-                                <p>{awarder?.enabled && awarder.value}</p>
-                                <p>{date?.enabled && date.value}</p>
-                                <p>{summary?.enabled && summary.value}</p>
+                                <p>{awarder?.enabled && awarder?.value}</p>
+                                <p>{date?.enabled && date?.value}</p>
+                                <p>{summary?.enabled && summary?.value}</p>
                             </li>
                         );
                     }

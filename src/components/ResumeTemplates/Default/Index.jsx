@@ -73,52 +73,52 @@ const Default = ({
             <div className={classes.resumeDefaultTemplate}>
                 {basics?.enabled && (
                     <Basics
-                        basics={basics.value}
+                        basics={basics?.value || {}}
                     />
                 )}
                 {work?.enabled && (
                     <Work
-                        work={work.value}
+                        work={work?.value || {}}
                     />
                 )}
                 {skills?.enabled && (
                     <Skills
-                        skills={skills.value}
+                        skills={skills?.value || {}}
                     />
                 )}
                 {education?.enabled && (
                     <Education
-                        education={education.value}
+                        education={education?.value || {}}
                     />
                 )}
                 {awards?.enabled && (
                     <Awards
-                        awards={awards.value}
+                        awards={awards?.value || {}}
                     />
                 )}
                 {volunteer?.enabled && (
                     <Volunteer
-                        volunteer={volunteer.value}
+                        volunteer={volunteer?.value || {}}
                     />
                 )}
                 {publications?.enabled && (
                     <Publications
-                        publications={publications.value}
+                        publications={publications?.value || {}}
                     />
                 )}
                 {languages?.enabled && (
                     <Languages
-                        languages={languages.value}
+                        languages={languages?.value || {}}
                     />
                 )}
                 {interests?.enabled && (
                     <Interests
-                        interests={interests.value}
+                        interests={interests?.value || {}}
                     />
                 )}
                 {references?.enabled && (
                     <References
-                        references={references.value}
+                        references={references?.value || {}}
                     />
                 )}
             </div>

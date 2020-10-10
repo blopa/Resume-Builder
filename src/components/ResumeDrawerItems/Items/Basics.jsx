@@ -34,13 +34,13 @@ function Basics({ basics }) {
     };
 
     const toggleBasicsDetail = useCallback((propName) => () => {
-        const currentState = basics.value[propName]?.enabled;
+        const currentState = basics?.value[propName]?.enabled;
         setResumeBasicsState({
             ...basics,
             value: {
-                ...basics.value,
+                ...basics?.value,
                 [propName]: {
-                    ...basics.value[propName],
+                    ...basics?.value[propName],
                     enabled: !currentState,
                 },
             },
@@ -48,17 +48,17 @@ function Basics({ basics }) {
     }, [basics, setResumeBasicsState]);
 
     const toggleBasicsLocationDetail = useCallback((propName) => () => {
-        const currentState = basics.value.location.value[propName]?.enabled;
+        const currentState = basics?.value.location?.value[propName]?.enabled;
         setResumeBasicsState({
             ...basics,
             value: {
-                ...basics.value,
+                ...basics?.value,
                 location: {
-                    ...basics.value.location,
+                    ...basics?.value.location,
                     value: {
-                        ...basics.value.location.value,
+                        ...basics?.value.location?.value,
                         [propName]: {
-                            ...basics.value.location.value[propName],
+                            ...basics?.value.location?.value[propName],
                             enabled: !currentState,
                         },
                     },
@@ -70,8 +70,8 @@ function Basics({ basics }) {
     const toggleBasicsProfilesDetail = useCallback((profile) => () => {
         const newBasics = { ...basics };
         newBasics.value.profiles.value =
-            newBasics.value.profiles.value.map((pro) => {
-                if (JSON.stringify(pro.value) === JSON.stringify(profile.value)) {
+            newBasics?.value.profiles?.value.map((pro) => {
+                if (JSON.stringify(pro?.value) === JSON.stringify(profile?.value)) {
                     return {
                         ...pro,
                         enabled: !pro?.enabled,
@@ -105,7 +105,7 @@ function Basics({ basics }) {
             },
             profiles,
         },
-    } = basics;
+    } = basics || {};
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -239,11 +239,11 @@ function Basics({ basics }) {
                             )}
                             {profiles?.enabled && (
                                 <ul>
-                                    {profiles.value.map((profile) => {
-                                        const { network } = profile.value;
+                                    {profiles?.value.map((profile) => {
+                                        const { network } = profile?.value || {};
                                         return (
                                             <ItemsList
-                                                label={network.value}
+                                                label={network?.value}
                                                 key={uuid()}
                                                 checked={profile?.enabled}
                                                 onClick={toggleBasicsProfilesDetail(

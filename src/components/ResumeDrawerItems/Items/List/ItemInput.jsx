@@ -2,7 +2,11 @@ import React, { Fragment } from 'react';
 import { v4 as uuid } from 'uuid';
 import { capitalize } from '../../../../utils/utils';
 
-const ItemInput = ({ onChange, label, checked }) => {
+const ItemInput = ({
+    onChange,
+    label = '',
+    checked,
+}) => {
     const id = uuid();
     return (
         <Fragment>

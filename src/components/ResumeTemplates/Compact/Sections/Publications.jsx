@@ -36,7 +36,7 @@ const Publications = ({
                             website,
                             url,
                             summary,
-                        } = publication.value;
+                        } = publication?.value || {};
 
                         return (
                             <li key={uuid()}>
@@ -45,7 +45,7 @@ const Publications = ({
                                         color="textPrimary"
                                         variant="body1"
                                     >
-                                        {name.value}
+                                        {name?.value}
                                     </Typography>
                                 )}
                                 {summary?.enabled && (
@@ -53,7 +53,7 @@ const Publications = ({
                                         color="textPrimary"
                                         variant="body1"
                                     >
-                                        {summary.value}
+                                        {summary?.value}
                                     </Typography>
                                 )}
                             </li>

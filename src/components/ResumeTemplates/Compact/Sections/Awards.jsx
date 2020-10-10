@@ -38,7 +38,8 @@ const Awards = ({
                             date,
                             awarder,
                             summary,
-                        } = award.value;
+                        } = award?.value || {};
+
                         return (
                             <li key={uuid()}>
                                 lalala

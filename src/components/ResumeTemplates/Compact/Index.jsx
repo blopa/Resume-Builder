@@ -64,19 +64,19 @@ const Compact = ({
             <div className={classes.resumeDefaultTemplate}>
                 {basics?.enabled && (
                     <Basics
-                        basics={basics.value}
+                        basics={basics?.value}
                     />
                 )}
                 {publications?.enabled && (
                     <Publications
-                        publications={publications.value}
+                        publications={publications?.value}
                     />
                 )}
                 <div className={classes.educationAndAwardsWrapper}>
                     {education?.enabled && (
                         <Education
                             className={classes.educationWrapper}
-                            education={education.value}
+                            education={education?.value}
                         />
                     )}
                     {awards?.enabled && skills?.enabled && (
@@ -84,12 +84,12 @@ const Compact = ({
                             {awards?.enabled && (
                                 <Awards
                                     className={classes.awardsWrapper}
-                                    awards={awards.value}
+                                    awards={awards?.value}
                                 />
                             )}
                             {skills?.enabled && (
                                 <Skills
-                                    skills={skills.value}
+                                    skills={skills?.value}
                                 />
                             )}
                         </div>

@@ -36,8 +36,8 @@ function Interest({ interests }) {
     const toggleInterest = useCallback((interest) => () => {
         const newInterest = { ...interests };
         newInterest.value =
-            newInterest.value.map((wrk) => {
-                if (JSON.stringify(wrk.value) === JSON.stringify(interest.value)) {
+            newInterest?.value.map((wrk) => {
+                if (JSON.stringify(wrk?.value) === JSON.stringify(interest?.value)) {
                     return {
                         ...wrk,
                         enabled: !wrk?.enabled,
@@ -51,15 +51,15 @@ function Interest({ interests }) {
     const toggleInterestDetail = useCallback((interest, propName) => () => {
         const newInterest = { ...interests };
         newInterest.value =
-            newInterest.value.map((vol) => {
-                if (JSON.stringify(vol.value) === JSON.stringify(interest.value)) {
+            newInterest?.value.map((vol) => {
+                if (JSON.stringify(vol?.value) === JSON.stringify(interest?.value)) {
                     return {
                         ...vol,
                         value: {
-                            ...vol.value,
+                            ...vol?.value,
                             [propName]: {
-                                ...vol.value[propName],
-                                enabled: !vol.value[propName]?.enabled,
+                                ...vol?.value[propName],
+                                enabled: !vol?.value[propName]?.enabled,
                             },
                         },
                     };
@@ -72,17 +72,17 @@ function Interest({ interests }) {
     const toggleInterestKeywords = useCallback((interest, keyword) => () => {
         const newInterest = { ...interests };
         newInterest.value =
-            newInterest.value.map((vol) => {
-                if (JSON.stringify(vol.value) === JSON.stringify(interest.value)) {
+            newInterest?.value.map((vol) => {
+                if (JSON.stringify(vol?.value) === JSON.stringify(interest?.value)) {
                     return {
                         ...vol,
                         value: {
-                            ...vol.value,
+                            ...vol?.value,
                             keywords: {
-                                ...vol.value.keywords,
+                                ...vol?.value.keywords,
                                 value: [
-                                    ...vol.value.keywords.value.map((key) => {
-                                        if (JSON.stringify(key.value) === JSON.stringify(keyword.value)) {
+                                    ...vol?.value.keywords?.value.map((key) => {
+                                        if (JSON.stringify(key?.value) === JSON.stringify(keyword?.value)) {
                                             return {
                                                 ...key,
                                                 enabled: !key?.enabled,
@@ -110,14 +110,14 @@ function Interest({ interests }) {
             />
             {interests?.enabled && (
                 <ul>
-                    {interests.value.map((interest) => {
-                        const { name, keywords } = interest.value;
+                    {interests?.value.map((interest) => {
+                        const { name, keywords } = interest?.value || {};
 
                         return (
                             <Fragment key={uuid()}>
                                 {interest && (
                                     <ItemsList
-                                        label={name.value}
+                                        label={name?.value}
                                         checked={interest?.enabled}
                                         onClick={toggleInterest(interest)}
                                     />
@@ -136,9 +136,9 @@ function Interest({ interests }) {
                                         )}
                                         {keywords?.enabled && (
                                             <ul>
-                                                {keywords.value.map((keyword) => (
+                                                {keywords?.value.map((keyword) => (
                                                     <ItemsList
-                                                        label={keyword.value}
+                                                        label={keyword?.value}
                                                         key={uuid()}
                                                         checked={keyword?.enabled}
                                                         onClick={toggleInterestKeywords(
