@@ -25,7 +25,7 @@ function Languages({ languages }) {
     });
 
     function toggleLanguages() {
-        const currentState = languages.enabled;
+        const currentState = languages?.enabled;
         setResumeLanguagesState({
             ...languages,
             enabled: !currentState,
@@ -35,30 +35,30 @@ function Languages({ languages }) {
     const toggleLanguage = useCallback((language) => () => {
         const newLanguages = { ...languages };
         newLanguages.value =
-            newLanguages.value.map((lang) => {
-                if (JSON.stringify(lang.value) === JSON.stringify(language.value)) {
+            newLanguages?.value.map((lang) => {
+                if (JSON.stringify(lang?.value) === JSON.stringify(language?.value)) {
                     return {
                         ...lang,
-                        enabled: !lang.enabled,
+                        enabled: !lang?.enabled,
                     };
                 }
                 return lang;
             });
         setResumeLanguagesState(newLanguages);
-    },[languages, setResumeLanguagesState]);
+    }, [languages, setResumeLanguagesState]);
 
     const toggleLanguagesDetail = useCallback((language, propName) => () => {
         const newLanguages = { ...languages };
         newLanguages.value =
-            newLanguages.value.map((lang) => {
-                if (JSON.stringify(lang.value) === JSON.stringify(language.value)) {
+            newLanguages?.value.map((lang) => {
+                if (JSON.stringify(lang?.value) === JSON.stringify(language?.value)) {
                     return {
                         ...lang,
                         value: {
-                            ...lang.value,
+                            ...lang?.value,
                             [propName]: {
-                                ...lang.value[propName],
-                                enabled: !lang.value[propName].enabled,
+                                ...lang?.value[propName],
+                                enabled: !lang?.value[propName]?.enabled,
                             },
                         },
                     };
@@ -73,40 +73,47 @@ function Languages({ languages }) {
             <ItemInput
                 label="languages"
                 onChange={toggleLanguages}
-                checked={languages.enabled}
+                checked={languages?.enabled}
             />
-            {languages.enabled && (
+            {languages?.enabled && (
                 <ul>
-                    {languages.value.map((lang) => {
+                    {languages?.value.map((lang) => {
                         const {
                             language,
                             fluency,
-                        } = lang.value;
+                        } = lang?.value || {};
+
                         return (
                             <Fragment key={uuid()}>
-                                <ItemsList
-                                    label={language.value}
-                                    checked={lang.enabled}
-                                    onClick={toggleLanguage(lang)}
-                                />
-                                {lang.enabled && (
+                                {lang && (
+                                    <ItemsList
+                                        label={language?.value}
+                                        checked={lang?.enabled}
+                                        onClick={toggleLanguage(lang)}
+                                    />
+                                )}
+                                {lang?.enabled && (
                                     <ul>
-                                        <ItemsList
-                                            label={varNameToString({ language })}
-                                            checked={language.enabled}
-                                            onClick={toggleLanguagesDetail(
-                                                lang,
-                                                varNameToString({ language })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ fluency })}
-                                            checked={fluency.enabled}
-                                            onClick={toggleLanguagesDetail(
-                                                lang,
-                                                varNameToString({ fluency })
-                                            )}
-                                        />
+                                        {language && (
+                                            <ItemsList
+                                                label={varNameToString({ language })}
+                                                checked={language?.enabled}
+                                                onClick={toggleLanguagesDetail(
+                                                    lang,
+                                                    varNameToString({ language })
+                                                )}
+                                            />
+                                        )}
+                                        {fluency && (
+                                            <ItemsList
+                                                label={varNameToString({ fluency })}
+                                                checked={fluency?.enabled}
+                                                onClick={toggleLanguagesDetail(
+                                                    lang,
+                                                    varNameToString({ fluency })
+                                                )}
+                                            />
+                                        )}
                                     </ul>
                                 )}
                             </Fragment>

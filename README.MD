@@ -31,7 +31,7 @@ First of all you need to create a Google Spreadsheet following the same rules as
 - **label:** Your resume Job Title
 - **picture:** A URL for your picture
 - **summary:** Summary of yourself
-- **website:** Your website URL
+- **website/url:** Your website URL
 - **email:** Your email
 - **phone:** Your phone number
 - **address:** Your address
@@ -161,6 +161,8 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v3/screenshot_3.png)
 
 ## Release Notes
+- **v3.0.1:**
+	- Make schema compatible with [linkedin-to-jsonresume](https://github.com/joshuatz/linkedin-to-jsonresume)
 - **v3.0.0:**
 	- Rebuild using Gatsby.
 

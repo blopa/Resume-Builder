@@ -25,7 +25,7 @@ function Skills({ skills }) {
     });
 
     const toggleSkills = () => {
-        const currentState = skills.enabled;
+        const currentState = skills?.enabled;
         setResumeSkillsState({
             ...skills,
             enabled: !currentState,
@@ -35,11 +35,11 @@ function Skills({ skills }) {
     const toggleSkill = useCallback((skill) => () => {
         const newSkills = { ...skills };
         newSkills.value =
-            newSkills.value.map((skl) => {
-                if (JSON.stringify(skl.value) === JSON.stringify(skill.value)) {
+            newSkills?.value.map((skl) => {
+                if (JSON.stringify(skl?.value) === JSON.stringify(skill?.value)) {
                     return {
                         ...skl,
-                        enabled: !skl.enabled,
+                        enabled: !skl?.enabled,
                     };
                 }
                 return skl;
@@ -50,15 +50,15 @@ function Skills({ skills }) {
     const toggleSkillsDetail = useCallback((skill, propName) => () => {
         const newSkills = { ...skills };
         newSkills.value =
-            newSkills.value.map((skl) => {
-                if (JSON.stringify(skl.value) === JSON.stringify(skill.value)) {
+            newSkills?.value.map((skl) => {
+                if (JSON.stringify(skl?.value) === JSON.stringify(skill?.value)) {
                     return {
                         ...skl,
                         value: {
-                            ...skl.value,
+                            ...skl?.value,
                             [propName]: {
-                                ...skl.value[propName],
-                                enabled: !skl.value[propName].enabled,
+                                ...skl?.value[propName],
+                                enabled: !skl?.value[propName]?.enabled,
                             },
                         },
                     };
@@ -73,45 +73,53 @@ function Skills({ skills }) {
             <ItemInput
                 label="skills"
                 onChange={toggleSkills}
-                checked={skills.enabled}
+                checked={skills?.enabled}
             />
-            {skills.enabled && (
+            {skills?.enabled && (
                 <ul>
-                    {skills.value.map((skill) => {
-                        const { keywords, level, name } = skill.value;
+                    {skills?.value.map((skill) => {
+                        const { keywords, level, name } = skill?.value || {};
                         return (
                             <Fragment key={uuid()}>
-                                <ItemsList
-                                    label={name.value}
-                                    checked={skill.enabled}
-                                    onClick={toggleSkill(skill)}
-                                />
-                                {skill.enabled && (
+                                {skill && (
+                                    <ItemsList
+                                        label={name?.value}
+                                        checked={skill?.enabled}
+                                        onClick={toggleSkill(skill)}
+                                    />
+                                )}
+                                {skill?.enabled && (
                                     <ul>
-                                        <ItemsList
-                                            label={varNameToString({ keywords })}
-                                            checked={keywords.enabled}
-                                            onClick={toggleSkillsDetail(
-                                                skill,
-                                                varNameToString({ keywords })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ level })}
-                                            checked={level.enabled}
-                                            onClick={toggleSkillsDetail(
-                                                skill,
-                                                varNameToString({ level })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ name })}
-                                            checked={name.enabled}
-                                            onClick={toggleSkillsDetail(
-                                                skill,
-                                                varNameToString({ name })
-                                            )}
-                                        />
+                                        {keywords && (
+                                            <ItemsList
+                                                label={varNameToString({ keywords })}
+                                                checked={keywords?.enabled}
+                                                onClick={toggleSkillsDetail(
+                                                    skill,
+                                                    varNameToString({ keywords })
+                                                )}
+                                            />
+                                        )}
+                                        {level && (
+                                            <ItemsList
+                                                label={varNameToString({ level })}
+                                                checked={level?.enabled}
+                                                onClick={toggleSkillsDetail(
+                                                    skill,
+                                                    varNameToString({ level })
+                                                )}
+                                            />
+                                        )}
+                                        {name && (
+                                            <ItemsList
+                                                label={varNameToString({ name })}
+                                                checked={name?.enabled}
+                                                onClick={toggleSkillsDetail(
+                                                    skill,
+                                                    varNameToString({ name })
+                                                )}
+                                            />
+                                        )}
                                     </ul>
                                 )}
                             </Fragment>

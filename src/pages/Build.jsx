@@ -43,7 +43,7 @@ const BuildPage = () => {
         jsonResume,
         togglableJsonResume,
         resumeTemplate: resumeTemplateName,
-    } = state;
+    } = state || {};
     const hasData = isObjectNotEmpty(togglableJsonResume) && isObjectNotEmpty(jsonResume);
     // console.log(togglableJsonResume);
 

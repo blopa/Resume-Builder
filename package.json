@@ -1,6 +1,6 @@
 {
     "name": "resume-builder",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "description": "Resume Builder",
     "main": "index.js",
     "author": "Pablo Pirata",
@@ -65,7 +65,7 @@
     },
     "devDependencies": {
         "babel-preset-gatsby": "^0.5.13",
-        "eslint": "^7.10.0",
+        "eslint": "^7.11.0",
         "eslint-config-airbnb": "^18.2.0",
         "eslint-config-gatsby-standard": "^2.2.0",
         "eslint-import-resolver-webpack": "^0.13.0",
@@ -77,7 +77,7 @@
         "eslint-plugin-jest": "^24.1.0",
         "eslint-plugin-jsx-a11y": "^6.3.1",
         "eslint-plugin-prettier": "^3.1.4",
-        "eslint-plugin-react": "^7.21.3",
+        "eslint-plugin-react": "^7.21.4",
         "eslint-plugin-react-hooks": "^4.1.2",
         "eslint-plugin-unicorn": "^22.0.0",
         "gatsby-plugin-eslint": "^2.0.8",

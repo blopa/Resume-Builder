@@ -12,7 +12,13 @@ const useStyles = makeStyles((theme) => ({
         margin: '0',
         padding: '0',
         listStyle: 'none',
-        '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
+        '& li': {
+            display: 'inline-flex',
+            margin: '0 0 10px 0',
+            '&:last-child': {
+                margin: '0',
+            },
+        },
     },
     title: { fontWeight: 'bold' },
     keywords: {
@@ -39,18 +45,18 @@ const Skills = ({ skills }) => {
             </h3>
             <ul className={classes.skills}>
                 {skills.map((skill) => {
-                    if (skill.enabled) {
-                        const { name, level, keywords } = skill.value;
+                    if (skill?.enabled) {
+                        const { name, level, keywords } = skill?.value || {};
                         return (
                             <li key={uuid()}>
                                 <p className={classes.title}>
-                                    {name?.enabled && name.value}{', '}
-                                    {level?.enabled && level.value}
+                                    {name?.enabled && name?.value}{', '}
+                                    {level?.enabled && level?.value}
                                 </p>
-                                {keywords && keywords.enabled && (
+                                {keywords?.enabled && (
                                     <ul className={classes.keywords}>
-                                        {keywords.value.map((keyword) =>
-                                            keywords.enabled && <li key={uuid()}>{keyword.value}</li>)}
+                                        {keywords?.value.map((keyword) =>
+                                            keywords?.enabled && <li key={uuid()}>{keyword?.value}</li>)}
                                     </ul>
                                 )}
                             </li>

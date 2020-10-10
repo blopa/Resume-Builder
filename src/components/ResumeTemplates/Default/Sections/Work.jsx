@@ -34,38 +34,44 @@ const Work = ({ work: works }) => {
             </h3>
             <ul className={classes.works}>
                 {works.map((work) => {
-                    if (work.enabled) {
+                    if (work?.enabled) {
                         const {
                             company,
+                            name,
                             position,
                             website,
+                            url,
                             startDate,
                             endDate,
                             summary,
                             highlights,
-                        } = work.value;
+                        } = work?.value || {};
 
                         return (
                             <li key={uuid()}>
                                 <p className={classes.position}>
-                                    {position?.enabled && `${position.value}, `}
-                                    {company?.enabled && `${company.value}, `}
-                                    {startDate?.enabled && startDate.value}
+                                    {position?.enabled && `${position?.value}, `}
+                                    {company?.enabled && `${company?.value}, `}
+                                    {name?.enabled && `${name?.value}, `}
+                                    {startDate?.enabled && startDate?.value}
                                     {' - '}
-                                    {endDate?.enabled && endDate.value}
+                                    {endDate?.enabled && endDate?.value}
                                 </p>
                                 <p className={classes.website}>
-                                    {website?.enabled && website.value}
+                                    {website?.enabled && website?.value}
+                                </p>
+                                <p className={classes.website}>
+                                    {url?.enabled && url?.value}
                                 </p>
                                 <p className={classes.summary}>
-                                    {summary?.enabled && summary.value}
+                                    {summary?.enabled && summary?.value}
                                 </p>
                                 {highlights?.enabled && (
                                     <ul className={classes.highlights}>
-                                        {highlights.value.map((highlight) =>
-                                            highlight && highlight.enabled && (
+                                        {highlights?.value.map((highlight) =>
+                                            highlight?.enabled && (
                                                 <li key={uuid()}>
-                                                    {highlight.value}
+                                                    {highlight?.value}
                                                 </li>
                                             ))}
                                     </ul>

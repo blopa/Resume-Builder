@@ -27,16 +27,16 @@ const References = ({ references }) => {
             </h3>
             <ul className={classes.references}>
                 {references.map((ref) => {
-                    if (ref.enabled) {
-                        const { name, reference } = ref.value;
+                    if (ref?.enabled) {
+                        const { name, reference } = ref?.value || {};
                         return (
                             <li key={uuid()}>
-                                {name && name.enabled && (
+                                {name?.enabled && (
                                     <p className={classes.name}>
-                                        {name.value}
+                                        {name?.value}
                                     </p>
                                 )}
-                                {reference && reference.enabled && <p>{reference.value}</p>}
+                                {reference?.enabled && <p>{reference?.value}</p>}
                             </li>
                         );
                     }

@@ -25,7 +25,7 @@ function References({ references }) {
     });
 
     const toggleReferences = () => {
-        const currentState = references.enabled;
+        const currentState = references?.enabled;
         setResumeReferencesState({
             ...references,
             enabled: !currentState,
@@ -35,11 +35,11 @@ function References({ references }) {
     const toggleReference = useCallback((reference) => () => {
         const newReferences = { ...references };
         newReferences.value =
-            newReferences.value.map((ref) => {
-                if (JSON.stringify(ref.value) === JSON.stringify(reference.value)) {
+            newReferences?.value.map((ref) => {
+                if (JSON.stringify(ref?.value) === JSON.stringify(reference?.value)) {
                     return {
                         ...ref,
-                        enabled: !ref.enabled,
+                        enabled: !ref?.enabled,
                     };
                 }
                 return ref;
@@ -50,15 +50,15 @@ function References({ references }) {
     const toggleReferencesDetail = useCallback((reference, propName) => () => {
         const newReferences = { ...references };
         newReferences.value =
-            newReferences.value.map((ref) => {
-                if (JSON.stringify(ref.value) === JSON.stringify(reference.value)) {
+            newReferences?.value.map((ref) => {
+                if (JSON.stringify(ref?.value) === JSON.stringify(reference?.value)) {
                     return {
                         ...ref,
                         value: {
-                            ...ref.value,
+                            ...ref?.value,
                             [propName]: {
-                                ...ref.value[propName],
-                                enabled: !ref.value[propName].enabled,
+                                ...ref?.value[propName],
+                                enabled: !ref?.value[propName]?.enabled,
                             },
                         },
                     };
@@ -73,40 +73,47 @@ function References({ references }) {
             <ItemInput
                 label="references"
                 onChange={toggleReferences}
-                checked={references.enabled}
+                checked={references?.enabled}
             />
-            {references.enabled && (
+            {references?.enabled && (
                 <ul>
-                    {references.value.map((ref) => {
+                    {references?.value.map((ref) => {
                         const {
                             name,
                             reference,
-                        } = ref.value;
+                        } = ref?.value || {};
+
                         return (
                             <Fragment key={uuid()}>
-                                <ItemsList
-                                    label={name.value}
-                                    checked={ref.enabled}
-                                    onClick={toggleReference(ref)}
-                                />
-                                {ref.enabled && (
+                                {ref && (
+                                    <ItemsList
+                                        label={name?.value}
+                                        checked={ref?.enabled}
+                                        onClick={toggleReference(ref)}
+                                    />
+                                )}
+                                {ref?.enabled && (
                                     <ul>
-                                        <ItemsList
-                                            label={varNameToString({ name })}
-                                            checked={name.enabled}
-                                            onClick={toggleReferencesDetail(
-                                                ref,
-                                                varNameToString({ name })
-                                            )}
-                                        />
-                                        <ItemsList
-                                            label={varNameToString({ reference })}
-                                            checked={reference.enabled}
-                                            onClick={toggleReferencesDetail(
-                                                ref,
-                                                varNameToString({ reference })
-                                            )}
-                                        />
+                                        {name && (
+                                            <ItemsList
+                                                label={varNameToString({ name })}
+                                                checked={name?.enabled}
+                                                onClick={toggleReferencesDetail(
+                                                    ref,
+                                                    varNameToString({ name })
+                                                )}
+                                            />
+                                        )}
+                                        {reference && (
+                                            <ItemsList
+                                                label={varNameToString({ reference })}
+                                                checked={reference?.enabled}
+                                                onClick={toggleReferencesDetail(
+                                                    ref,
+                                                    varNameToString({ reference })
+                                                )}
+                                            />
+                                        )}
                                     </ul>
                                 )}
                             </Fragment>
