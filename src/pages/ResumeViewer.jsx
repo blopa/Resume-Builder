@@ -1,7 +1,7 @@
 /* globals TEMPLATES_LIST */
 import React from 'react';
 import { useIntl } from 'gatsby-plugin-intl';
-import SEO from '../../components/SEO';
+import SEO from '../components/SEO';
 
 const ResumeViewer = (props) => {
     const intl = useIntl();
