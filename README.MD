@@ -166,6 +166,8 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v3/screenshot_3.png)
 
 ## Release Notes
+- **v3.0.4:**
+	- Fix React suspense on the resume viewer page.
 - **v3.0.3:**
 	- Add online resume viewer. Example: [https://resume-builder.js.org/view/default/blopa](https://resume-builder.js.org/view/default/blopa).
 - **v3.0.2:**

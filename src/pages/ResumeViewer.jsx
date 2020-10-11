@@ -9,7 +9,7 @@ import { fetchGithubResumeJson, isValidJsonString } from '../utils/gatsby-fronte
 import A4Container from '../components/A4Container';
 import { StoreContext } from '../store/StoreProvider';
 import setJsonResume from '../store/actions/setJsonResume';
-import { traverseObject } from '../utils/utils';
+import { isObjectNotEmpty, traverseObject } from '../utils/utils';
 import setTogglableJsonResume from '../store/actions/setTogglableJsonResume';
 
 const importTemplate = (template) => lazy(() =>
@@ -18,7 +18,7 @@ const importTemplate = (template) => lazy(() =>
 
 const ResumeViewer = ({ params, uri }) => {
     const intl = useIntl();
-    const [resumeTemplate, setResumeTemplate] = useState([]);
+    const [resumeTemplate, setResumeTemplate] = useState(['Default']);
     const { state, dispatch } = useContext(StoreContext);
 
     const username = params['*']; // TODO
@@ -26,6 +26,7 @@ const ResumeViewer = ({ params, uri }) => {
     const validTemplate = TEMPLATES_LIST.find(
         (templateName) => templateName.toLowerCase() === template.toLowerCase()
     );
+    const hasData = isObjectNotEmpty(state?.togglableJsonResume) && isObjectNotEmpty(state?.jsonResume);
 
     useEffect(() => {
         const fetchResumeJsonAndLoadTemplate = async () => {
@@ -35,10 +36,17 @@ const ResumeViewer = ({ params, uri }) => {
             }
 
             const jsonResume = JSON.parse(jsonString);
-            dispatch(setJsonResume(jsonResume));
-            const togglableJsonResume = traverseObject(cloneDeep(jsonResume));
-            dispatch(setTogglableJsonResume(togglableJsonResume));
+            if (!isObjectNotEmpty(jsonResume)) {
+                navigate('/');
+            }
 
+            const togglableJsonResume = traverseObject(cloneDeep(jsonResume));
+            if (!isObjectNotEmpty(togglableJsonResume)) {
+                navigate('/');
+            }
+
+            dispatch(setJsonResume(jsonResume));
+            dispatch(setTogglableJsonResume(togglableJsonResume));
             const Template = await importTemplate(validTemplate);
             // console.log({validTemplate, jsonResume});
             setResumeTemplate([
@@ -65,11 +73,14 @@ const ResumeViewer = ({ params, uri }) => {
             <A4Container
                 alignCenter
             >
-                <Suspense
-                    fallback="Loading..."
-                >
-                    {resumeTemplate}
-                </Suspense>
+                {hasData && (
+                    <Suspense
+                        fallback={intl.formatMessage({ id: 'loading' })}
+                    >
+                        {resumeTemplate}
+                    </Suspense>
+                )}
+                {!hasData && intl.formatMessage({ id: 'loading' })}
             </A4Container>
         </div>
     );
