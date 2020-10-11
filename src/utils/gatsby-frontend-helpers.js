@@ -45,3 +45,16 @@ export const setCookieConsentSeen = () => {
         LOCALSTORAGE_COOKIE_CONSENT_VALUE
     );
 };
+
+export const fetchGithubResumeJson = async (userName) => {
+    const url = `https://raw.githubusercontent.com/${userName}/resume.json/main/resume.json`;
+    const result = await fetch(url, {
+        method: 'GET',
+    }).then(async (response) => {
+        // eslint-disable-next-line no-return-await
+        return await response.text();
+    });
+
+    // eslint-disable-next-line no-return-await
+    return result || '{}';
+};

@@ -52,12 +52,12 @@ exports.onCreatePage = async ({ page, actions }) => {
         const templates = await fs.readdir(TEMPLATES_PATH);
         templates.forEach((template) => {
             if (page.internalComponentName === 'ComponentResumeViewer') {
-                pagePath = `/view/${template}/`.toLocaleLowerCase();
+                pagePath = `/view/${template}`.toLocaleLowerCase();
             } else {
-                pagePath = `/${language}/view/${template}/`.toLocaleLowerCase();
+                pagePath = `/${language}/view/${template}`.toLocaleLowerCase();
             }
 
-            matchPath = `${pagePath}:username`;
+            matchPath = `${pagePath}/*`;
             myCreatePage(
                 createPage,
                 page,
