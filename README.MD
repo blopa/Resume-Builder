@@ -16,7 +16,7 @@
 ## About
 [Resume Builder](https://resume-builder.js.org) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://resume-builder.js.org).**
 
-For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/master/README_V1.MD) and for version 2 [check here](https://github.com/blopa/Resume-Builder/blob/master/README_V2.MD).
+For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/main/README_V1.MD) and for version 2 [check here](https://github.com/blopa/Resume-Builder/blob/main/README_V2.MD).
 
 ## Features
 - Multiple Resume templates (soon)
@@ -26,9 +26,9 @@ For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/master/R
 - Theme created with [material-ui-theme-editor](https://in-your-saas.github.io/material-ui-theme-editor/), so it's easy for you to customize.
 
 ## Online viewer
-Create a Github repo [like this one](https://github.com/blopa/resume.json) with the name `resume.json` and a file called `resume.json` in it following the JSON schema from [jsonresume.org](https://jsonresume.org/schema/).
+Create a Github repo [like this one](https://github.com/blopa/resume.json) with the name `resume.json` and a file called `resume.json` in a branch called `main` and following the JSON schema from [jsonresume.org](https://jsonresume.org/schema/).
 
-Then you can access your resume via https://resume-builder.js.org/view/TEMPLATE/GITHUB_USER, [like this](https://resume-builder.js.org/view/default/blopa).
+Then you can access your resume via https://resume-builder.js.org/view/TEMPLATE/GITHUB_USER, for example this URL: [https://resume-builder.js.org/view/default/blopa](https://resume-builder.js.org/view/default/blopa).
 
 ## Usage
 First of all you need to create a Google Spreadsheet following the same rules as [this one](https://docs.google.com/spreadsheets/d/1UCdsEiyO68IEdfVhW-Gfrg7FfI4pLaij37D5Eh-v8hQ/copy) (you can make a copy if you like) and populate with your resume information.
@@ -157,13 +157,13 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 
 ## Screenshot
 **[Google Spreadsheet example](https://docs.google.com/spreadsheets/d/1UCdsEiyO68IEdfVhW-Gfrg7FfI4pLaij37D5Eh-v8hQ/copy)**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v3/screenshot_1.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v3/screenshot_1.png)
 
 **Built Resume**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v3/screenshot_2.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v3/screenshot_2.png)
 
 **Printing Resume**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v3/screenshot_3.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v3/screenshot_3.png)
 
 ## Release Notes
 - **v3.0.3:**

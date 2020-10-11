@@ -18,7 +18,7 @@
 
 For the latest version, access [https://resume-builder.js.org](https://resume-builder.js.org).
 
-For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/master/README_V1.MD).
+For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/main/README_V1.MD).
 
 ## Features
 - Multiple Resume templates (soon)
@@ -154,13 +154,13 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 
 ## Screenshot
 **[Google Spreadsheet example](https://docs.google.com/spreadsheets/d/1UCdsEiyO68IEdfVhW-Gfrg7FfI4pLaij37D5Eh-v8hQ/copy)**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v2/screenshot_1.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v2/screenshot_1.png)
 
 **Built Resume**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v2/screenshot_2.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v2/screenshot_2.png)
 
 **Printing Resume**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v2/screenshot_3.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v2/screenshot_3.png)
 
 ## Release Notes
 - **v2.0.3:** (not tagged yet)

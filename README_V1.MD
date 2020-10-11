@@ -261,13 +261,13 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 
 ## Screenshot
 **[Google Spreadsheet example](https://docs.google.com/spreadsheets/d/1Mrgu6dOTyEBkzHtoSSH2BhRNd8n8tuupVlcQUJhUY-0/copy)**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/v1/screenshots/screenshot_1.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/v1/screenshots/screenshot_1.png)
 
 **Built Resume**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/v1/screenshots/screenshot_2.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/v1/screenshots/screenshot_2.png)
 
 **Printing Resume**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/v1/screenshots/screenshot_3.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/v1/screenshots/screenshot_3.png)
 
 ## Release Notes
 - **v0.0.4:**
