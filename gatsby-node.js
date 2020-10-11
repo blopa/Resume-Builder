@@ -7,25 +7,17 @@ const {
     convertToKebabCase,
 } = require('./src/utils/gatsby-node-helpers');
 
-exports.onCreatePage = ({ page, actions }) => {
-    const { createPage, deletePage } = actions;
-    const { locale } = page.context; // from post content
-    const { language } = page.context.intl; // from accessed site
-    deletePage(page);
-
-    if (ignoredPages.includes(page.context.intl.originalPath)) {
-        return;
-    }
-
-    // console.log('CREATING PAGE:', {
-    //     path: page.path,
-    //     locale: language,
-    //     blogLocale: locale,
-    // });
-
+const myCreatePage = (
+    createPage,
+    page,
+    pagePath,
+    matchPath,
+    language
+) => {
     createPage({
         ...page,
-        path: convertToKebabCase(page.path),
+        path: pagePath,
+        matchPath,
         context: {
             ...page.context,
             intl: {
@@ -33,9 +25,60 @@ exports.onCreatePage = ({ page, actions }) => {
                 originalPath: convertToKebabCase(page.context.intl.originalPath),
             },
             locale: language,
-            blogLocale: locale,
         },
     });
+};
+
+exports.onCreatePage = async ({ page, actions }) => {
+    const { createPage, deletePage } = actions;
+    const { locale } = page.context; // from post content
+    const { language } = page.context.intl; // from accessed site
+    let matchPath = page.matchPath;
+    let pagePath = convertToKebabCase(page.path);
+    deletePage(page);
+    // console.log(page);
+
+    // console.log('CREATING PAGE:', {
+    //     path: page.path,
+    //     locale: language,
+    //     blogLocale: locale,
+    // });
+
+    if (ignoredPages.includes(page.context.intl.originalPath)) {
+        return;
+    }
+
+    if (page.context.intl.originalPath === '/ResumeViewer/') {
+        const templates = await fs.readdir(TEMPLATES_PATH);
+        templates.forEach((template) => {
+            if (
+                page.internalComponentName === 'ComponentResumeViewer'
+                && language !== 'en'
+            ) {
+                return;
+            }
+
+            pagePath = `/view/${template}`.toLocaleLowerCase();
+            matchPath = `${pagePath}/*`;
+            myCreatePage(
+                createPage,
+                page,
+                pagePath,
+                matchPath,
+                language
+            );
+        });
+
+        return;
+    }
+
+    myCreatePage(
+        createPage,
+        page,
+        pagePath,
+        matchPath,
+        language
+    );
 };
 
 exports.onCreateWebpackConfig = async ({

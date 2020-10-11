@@ -127,7 +127,7 @@ const BuildPage = () => {
                             customHeight={a4ContainerHeight}
                         >
                             <Suspense
-                                fallback="Loading..."
+                                fallback={intl.formatMessage({ id: 'loading' })}
                             >
                                 {resumeTemplate}
                             </Suspense>
