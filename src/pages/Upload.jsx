@@ -86,7 +86,6 @@ const UploadPage = ({ pageContext, location }) => {
             readSpreadsheet(file, readSpreadsheetCallback);
         } else if (['json'].includes(fileExtension)) {
             readJsonFile(file, (jsonString) => {
-                console.log({jsonString});
                 setResumesAndForward(JSON.parse(jsonString));
             });
         }

@@ -23,7 +23,7 @@ function Interest({ interests }) {
 
     const setResumeInterestsState = useCallback((interest) => {
         dispatch(setResumeInterests(interest));
-    });
+    }, []);
 
     const toggleInterests = () => {
         const currentState = interests?.enabled;
@@ -134,21 +134,17 @@ function Interest({ interests }) {
                                                 )}
                                             />
                                         )}
-                                        {keywords?.enabled && (
-                                            <ul>
-                                                {keywords?.value.map((keyword) => (
-                                                    <ItemsList
-                                                        label={keyword?.value}
-                                                        key={uuid()}
-                                                        checked={keyword?.enabled}
-                                                        onClick={toggleInterestKeywords(
-                                                            interest,
-                                                            keyword
-                                                        )}
-                                                    />
-                                                ))}
-                                            </ul>
-                                        )}
+                                        {keywords?.enabled && keywords?.value.map((keyword) => (
+                                            <ItemsList
+                                                label={keyword?.value}
+                                                key={uuid()}
+                                                checked={keyword?.enabled}
+                                                onClick={toggleInterestKeywords(
+                                                    interest,
+                                                    keyword
+                                                )}
+                                            />
+                                        ))}
                                     </ul>
                                 )}
                             </Fragment>

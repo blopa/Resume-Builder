@@ -1,6 +1,6 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { IntlContext, RawIntlProvider, useIntl } from 'gatsby-plugin-intl';
+import { RawIntlProvider, useIntl } from 'gatsby-plugin-intl';
 
 // local template translations
 import templateIntls from './intl';
@@ -19,7 +19,7 @@ import Work from './Sections/Work';
 
 const useStyles = makeStyles((theme) => ({
     resumeDefaultTemplate: {
-        padding: '0 25px',
+        padding: '40px',
         '& h3': { margin: '0' },
         color: theme.palette.text.primary,
         '& a': {

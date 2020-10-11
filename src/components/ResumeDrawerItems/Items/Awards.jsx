@@ -22,7 +22,7 @@ function Awards({ awards }) {
 
     const setResumeAwardsState = useCallback((newAwards) => {
         dispatch(setResumeAwards(newAwards));
-    });
+    }, []);
 
     const toggleAwards = () => {
         const currentState = awards?.enabled;

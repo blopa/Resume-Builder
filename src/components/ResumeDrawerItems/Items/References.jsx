@@ -22,7 +22,7 @@ function References({ references }) {
 
     const setResumeReferencesState = useCallback((newReferences) => {
         dispatch(setResumeReferences(newReferences));
-    });
+    }, []);
 
     const toggleReferences = () => {
         const currentState = references?.enabled;

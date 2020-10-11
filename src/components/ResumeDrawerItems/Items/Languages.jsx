@@ -22,7 +22,7 @@ function Languages({ languages }) {
 
     const setResumeLanguagesState = useCallback((newLanguages) => {
         dispatch(setResumeLanguages(newLanguages));
-    });
+    }, []);
 
     function toggleLanguages() {
         const currentState = languages?.enabled;

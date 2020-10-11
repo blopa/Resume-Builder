@@ -22,7 +22,7 @@ function Education({ education: educations }) {
 
     const setResumeEducationState = useCallback((education) => {
         dispatch(setResumeEducation(education));
-    });
+    }, []);
 
     const toggleEducations = () => {
         const currentState = educations?.enabled;

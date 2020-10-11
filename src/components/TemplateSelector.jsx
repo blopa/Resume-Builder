@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TemplateSelector = ({ onSelect, className }) => {
     const intl = useIntl();
-    const [resumeTemplate, setResumeTemplate] = useState('');
+    const [resumeTemplate, setResumeTemplate] = useState('Default');
     const classes = useStyles();
     // console.log(TEMPLATES_LIST);
 
@@ -27,12 +27,6 @@ const TemplateSelector = ({ onSelect, className }) => {
             onChange={handleChange}
             displayEmpty
         >
-            <MenuItem
-                value=""
-                disabled
-            >
-                {intl.formatMessage({ id: 'select_template' })}
-            </MenuItem>
             {TEMPLATES_LIST.map((template) => (
                 <MenuItem
                     key={uuid()}

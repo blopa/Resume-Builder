@@ -23,7 +23,7 @@ function Basics({ basics }) {
 
     const setResumeBasicsState = useCallback((newBasics) => {
         dispatch(setResumeBasics(newBasics));
-    });
+    }, []);
 
     const toggleBasics = () => {
         const currentState = basics?.enabled;

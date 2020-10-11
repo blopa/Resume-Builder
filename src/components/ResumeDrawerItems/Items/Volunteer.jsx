@@ -28,7 +28,7 @@ function Volunteer({ volunteer: volunteerData }) {
 
     const setResumeVolunteerState = useCallback((volunteer) => {
         dispatch(setResumeVolunteer(volunteer));
-    });
+    }, []);
 
     const toggleVolunteers = () => {
         const currentState = volunteerData?.enabled;

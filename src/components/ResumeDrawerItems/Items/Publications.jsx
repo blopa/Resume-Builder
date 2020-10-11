@@ -22,7 +22,7 @@ function Publications({ publications }) {
 
     const setResumePublicationsState = useCallback((newPublications) => {
         dispatch(setResumePublications(newPublications));
-    });
+    }, []);
 
     const togglePublications = () => {
         const currentState = publications?.enabled;
