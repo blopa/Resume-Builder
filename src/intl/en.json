@@ -29,6 +29,7 @@
     "google_sheet_url_description": "Put your Google Spreadsheet URL here",
     "go": "Go!",
     "loading": "Loading...",
+    "resume_viewer": "Resume viewer",
     "drag_and_drop_or_click": "Drag and drop a file here or click",
     "select_your_template": "Select your template",
     "select_template": "Select template",

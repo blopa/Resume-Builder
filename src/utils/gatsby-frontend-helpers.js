@@ -50,11 +50,25 @@ export const fetchGithubResumeJson = async (userName) => {
     const url = `https://raw.githubusercontent.com/${userName}/resume.json/main/resume.json`;
     const result = await fetch(url, {
         method: 'GET',
-    }).then(async (response) => {
+    }).then(async (response) =>
         // eslint-disable-next-line no-return-await
-        return await response.text();
-    });
+        await response.text());
 
     // eslint-disable-next-line no-return-await
     return result || '{}';
+};
+
+export const isValidJsonString = (jsonString) => {
+
+    if (!(jsonString && typeof jsonString === 'string')) {
+        return false;
+    }
+
+    try {
+        JSON.parse(jsonString);
+        return true;
+    } catch (error) {
+        return false;
+    }
+
 };

@@ -1,11 +1,11 @@
 /* eslint template-curly-spacing: 0, indent: 0 */
 /* globals TEMPLATES_LIST */
 import React, { lazy, Suspense, useContext, useEffect, useState } from 'react';
-import { useIntl } from 'gatsby-plugin-intl';
+import { navigate, useIntl } from 'gatsby-plugin-intl';
 import { v4 as uuid } from 'uuid';
 import { cloneDeep } from 'lodash';
 import SEO from '../components/SEO';
-import { fetchGithubResumeJson } from '../utils/gatsby-frontend-helpers';
+import { fetchGithubResumeJson, isValidJsonString } from '../utils/gatsby-frontend-helpers';
 import A4Container from '../components/A4Container';
 import { StoreContext } from '../store/StoreProvider';
 import setJsonResume from '../store/actions/setJsonResume';
@@ -30,6 +30,10 @@ const ResumeViewer = ({ params, uri }) => {
     useEffect(() => {
         const fetchResumeJsonAndLoadTemplate = async () => {
             const jsonString = await fetchGithubResumeJson(username);
+            if (!isValidJsonString(jsonString)) {
+                navigate('/');
+            }
+
             const jsonResume = JSON.parse(jsonString);
             dispatch(setJsonResume(jsonResume));
             const togglableJsonResume = traverseObject(cloneDeep(jsonResume));
@@ -45,13 +49,17 @@ const ResumeViewer = ({ params, uri }) => {
             ]);
         };
 
+        if (!username) {
+            navigate('/');
+        }
+
         fetchResumeJsonAndLoadTemplate();
     }, [dispatch, username, validTemplate]);
 
     return (
         <div>
             <SEO
-                title={intl.formatMessage({ id: 'build_resume' })}
+                title={intl.formatMessage({ id: 'resume_viewer' })}
                 robots="noindex, nofollow"
             />
             <A4Container

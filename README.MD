@@ -25,6 +25,11 @@ For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/master/R
 - Convert Google Spreadsheet data into [jsonresume.org](https://jsonresume.org/schema/) format.
 - Theme created with [material-ui-theme-editor](https://in-your-saas.github.io/material-ui-theme-editor/), so it's easy for you to customize.
 
+## Online viewer
+Create a Github repo [like this one](https://github.com/blopa/resume.json) with the name `resume.json` and a file called `resume.json` in it following the JSON schema from [jsonresume.org](https://jsonresume.org/schema/).
+
+Then you can access your resume via https://resume-builder.js.org/view/TEMPLATE/GITHUB_USER, [like this](https://resume-builder.js.org/view/default/blopa).
+
 ## Usage
 First of all you need to create a Google Spreadsheet following the same rules as [this one](https://docs.google.com/spreadsheets/d/1UCdsEiyO68IEdfVhW-Gfrg7FfI4pLaij37D5Eh-v8hQ/copy) (you can make a copy if you like) and populate with your resume information.
 - **name:** Your full name
@@ -161,6 +166,8 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/master/screenshots/v3/screenshot_3.png)
 
 ## Release Notes
+- **v3.0.3:**
+	- Add online resume viewer. Example: [https://resume-builder.js.org/view/default/blopa](https://resume-builder.js.org/view/default/blopa).
 - **v3.0.2:**
 	- Fix template selector
 	- Fix interests toggler

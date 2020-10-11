@@ -51,12 +51,14 @@ exports.onCreatePage = async ({ page, actions }) => {
     if (page.context.intl.originalPath === '/ResumeViewer/') {
         const templates = await fs.readdir(TEMPLATES_PATH);
         templates.forEach((template) => {
-            if (page.internalComponentName === 'ComponentResumeViewer') {
-                pagePath = `/view/${template}`.toLocaleLowerCase();
-            } else {
-                pagePath = `/${language}/view/${template}`.toLocaleLowerCase();
+            if (
+                page.internalComponentName === 'ComponentResumeViewer'
+                && language !== 'en'
+            ) {
+                return;
             }
 
+            pagePath = `/view/${template}`.toLocaleLowerCase();
             matchPath = `${pagePath}/*`;
             myCreatePage(
                 createPage,
