@@ -166,6 +166,8 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v3/screenshot_3.png)
 
 ## Release Notes
+- **v3.0.5:**
+	- Add Spanish translation (thanks [simonhoyos](https://github.com/simonhoyos))
 - **v3.0.4:**
 	- Fix React suspense on the resume viewer page.
 - **v3.0.3:**
@@ -175,6 +177,7 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 	- Fix interests toggler
 - **v3.0.1:**
 	- Make schema compatible with [linkedin-to-jsonresume](https://github.com/joshuatz/linkedin-to-jsonresume)
+	- Make toggler menu more efficient (thanks [milenagd](https://github.com/milenagd))
 - **v3.0.0:**
 	- Rebuild using Gatsby.
 
