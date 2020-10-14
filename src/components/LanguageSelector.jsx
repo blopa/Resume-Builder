@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { MenuItem, Select } from '@material-ui/core';
-import { IconFlagBR, IconFlagUS } from 'material-ui-flags';
+import { IconFlagBR, IconFlagUS, IconFlagES } from 'material-ui-flags';
 import { makeStyles } from '@material-ui/core/styles';
 import { changeLocale } from 'gatsby-plugin-intl';
 
@@ -44,6 +44,9 @@ const LanguageSelector = ({ currentLocale, onLanguageChange }) => {
             </MenuItem>
             <MenuItem value="en">
                 <IconFlagUS />
+            </MenuItem>
+            <MenuItem value="es">
+                <IconFlagES />
             </MenuItem>
         </Select>
     );
