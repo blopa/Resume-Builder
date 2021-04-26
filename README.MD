@@ -27,7 +27,12 @@ For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/main/REA
 ## Online viewer
 Create a Github repo [like this one](https://github.com/blopa/resume.json) with the name `resume.json` and a file called `resume.json` in a branch called `main` and following the JSON schema from [jsonresume.org](https://jsonresume.org/schema/).
 
-Then you can access your resume via https://resume-builder.js.org/view/TEMPLATE/GITHUB_USER, for example this URL: [https://resume-builder.js.org/view/default/blopa](https://resume-builder.js.org/view/default/blopa).
+Then you can access your resume via https://resume-builder.js.org/view/TEMPLATE/GITHUB_USER, for example this URL: [https://resume-builder.js.org/view/default/blopa](https://resume-builder.js.org/view/default/blopa). You can also append `/lang` to the end of the URL to add a proper translation to your resume, for example [https://resume-builder.js.org/view/default/blopa/es](https://resume-builder.js.org/view/default/blopa/es).
+
+## Available Translations
+We currently have translations for **English**, **Spanish** and **Brazilian Portuguese**, those are going to be used to translate sections of your resume, like the title "Experience", etc.
+
+Would you like to have your language added to Resume Builder? [Create a Pull Request](https://github.com/blopa/Resume-Builder/issues/18).
 
 ## Usage
 First of all you need to create a Google Spreadsheet following the same rules as [this one](https://docs.google.com/spreadsheets/d/1UCdsEiyO68IEdfVhW-Gfrg7FfI4pLaij37D5Eh-v8hQ/copy) (you can make a copy if you like) and populate with your resume information.
@@ -167,6 +172,7 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 ## Release Notes
 - **v3.0.7:**
 	- Fix template selector not using the global state
+	- Add option to set language in the Resume Viewer page
 	- Other small improvements (lintering) in the code
 - **v3.0.6:**
 	- Update dependency packages versions
