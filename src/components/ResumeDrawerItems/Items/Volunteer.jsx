@@ -1,8 +1,8 @@
-import React, { Fragment, useContext, useCallback, memo } from 'react';
+import React, { Fragment, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
+import { makeStyles } from '@material-ui/styles';
 
 // Components
-import { makeStyles } from '@material-ui/styles';
 import ItemInput from './List/ItemInput';
 import ItemsList from './List/ItemsList';
 
@@ -15,8 +15,8 @@ import style from '../resumeDrawerStyles';
 // Actions
 import setResumeVolunteer from '../../../store/actions/setResumeVolunteer';
 
-// Context
-import { StoreContext } from '../../../store/StoreProvider';
+// Hooks
+import { useDispatch } from '../../../store/StoreProvider';
 
 const useStyles = makeStyles((theme) => ({
     ...style,
@@ -24,11 +24,11 @@ const useStyles = makeStyles((theme) => ({
 
 function Volunteer({ volunteer: volunteerData }) {
     const classes = useStyles();
-    const { state, dispatch } = useContext(StoreContext);
+    const dispatch = useDispatch();
 
     const setResumeVolunteerState = useCallback((volunteer) => {
         dispatch(setResumeVolunteer(volunteer));
-    }, []);
+    }, [dispatch]);
 
     const toggleVolunteers = () => {
         const currentState = volunteerData?.enabled;

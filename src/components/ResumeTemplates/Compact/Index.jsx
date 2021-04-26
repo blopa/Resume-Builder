@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { RawIntlProvider, useIntl } from 'gatsby-plugin-intl';
 
+// local template translations
 import templateIntls from './intl';
 
 // Components
@@ -55,7 +56,7 @@ const Compact = ({
         }
 
         return newIntl;
-    }, [intl.locale]);
+    }, [intl.defaultLocale, intl.locale]);
 
     return (
         <RawIntlProvider

@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import { useIntl } from 'gatsby-plugin-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+
+// Components
 import Link from './Link';
 
 const useStyles = makeStyles((theme) => ({

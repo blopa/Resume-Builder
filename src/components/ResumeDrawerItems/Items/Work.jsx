@@ -1,18 +1,22 @@
-import React, { Fragment, useContext, useCallback, memo } from 'react';
+import React, { Fragment, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
+import { makeStyles } from '@material-ui/styles';
 
 // Components
-import { makeStyles } from '@material-ui/styles';
 import ItemInput from './List/ItemInput';
 import ItemsList from './List/ItemsList';
 
 // Utils
 import { varNameToString } from '../../../utils/utils';
 
-// Actions
+// Styles
 import style from '../resumeDrawerStyles';
+
+// Actions
 import setResumeWork from '../../../store/actions/setResumeWork';
-import { StoreContext } from '../../../store/StoreProvider';
+
+// Hooks
+import { useDispatch } from '../../../store/StoreProvider';
 
 const useStyles = makeStyles((theme) => ({
     ...style,
@@ -20,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Work({ work: workData }) {
     const classes = useStyles();
-    const { state, dispatch } = useContext(StoreContext);
+    const dispatch = useDispatch();
 
     const {
         enabled: workEnabled,
@@ -29,7 +33,7 @@ function Work({ work: workData }) {
 
     const setResumeWorkState = useCallback((newWork) => {
         dispatch(setResumeWork(newWork));
-    }, []);
+    }, [dispatch]);
 
     const toggleWorks = () => {
         const currentState = workData?.enabled;

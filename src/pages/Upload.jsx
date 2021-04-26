@@ -1,19 +1,27 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography, TextField } from '@material-ui/core';
 import { cloneDeep } from 'lodash';
 import { navigate, useIntl } from 'gatsby-plugin-intl';
+
+// Components
 import SEO from '../components/SEO';
 import Layout from '../components/Layout';
 import DropZone from '../components/DropZone';
+import TemplateSelector from '../components/TemplateSelector';
+
+// Utils
 import { traverseObject } from '../utils/utils';
 import spreadsheetToJsonResume from '../utils/spreadsheet-to-json-resume';
 import readSpreadsheet, { parseSpreadsheetUrl } from '../utils/spreadsheet-parser';
 import { readJsonFile } from '../utils/json-parser';
-import { StoreContext } from '../store/StoreProvider';
+
+// Hooks
+import { useDispatch } from '../store/StoreProvider';
+
+// Actions
 import setJsonResume from '../store/actions/setJsonResume';
 import setTogglableJsonResume from '../store/actions/setTogglableJsonResume';
-import TemplateSelector from '../components/TemplateSelector';
 import setResumeTemplate from '../store/actions/setResumeTemplate';
 
 const useStyles = makeStyles((theme) => ({
@@ -58,7 +66,7 @@ const SHEET_EXTENSIONS = [
 
 const UploadPage = ({ pageContext, location }) => {
     const classes = useStyles();
-    const { state, dispatch } = useContext(StoreContext);
+    const dispatch = useDispatch();
     const intl = useIntl();
     const [textInputValue, setTextInputValue] = useState('');
     const [loading, setLoading] = useState(false);

@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
         padding: '0',
         listStyle: 'none',
         '& li': {
-            display: 'inline-flex',
             margin: '0 0 10px 0',
             '&:last-child': {
                 margin: '0',
@@ -22,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     title: { fontWeight: 'bold' },
     keywords: {
+        fontStyle: 'italic',
         margin: '0',
         padding: '0',
         display: 'flex',

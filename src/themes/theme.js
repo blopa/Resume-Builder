@@ -1,5 +1,4 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import * as Colors from '@material-ui/core/colors';
 
 const baseTheme = {
     // TODO

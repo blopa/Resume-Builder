@@ -1,17 +1,22 @@
-import React, { Fragment, useContext, useCallback, memo } from 'react';
+import React, { Fragment, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/styles';
+
+// Styles
 import style from '../resumeDrawerStyles';
 
 // Components
 import ItemInput from './List/ItemInput';
 import ItemsList from './List/ItemsList';
 
-// Utils
 // Actions
-import { varNameToString } from '../../../utils/utils';
 import setResumeBasics from '../../../store/actions/setResumeBasics';
-import { StoreContext } from '../../../store/StoreProvider';
+
+// Hooks
+import { useDispatch } from '../../../store/StoreProvider';
+
+// Utils
+import { varNameToString } from '../../../utils/utils';
 
 const useStyles = makeStyles((theme) => ({
     ...style,
@@ -19,11 +24,11 @@ const useStyles = makeStyles((theme) => ({
 
 function Basics({ basics }) {
     const classes = useStyles();
-    const { state, dispatch } = useContext(StoreContext);
+    const dispatch = useDispatch();
 
     const setResumeBasicsState = useCallback((newBasics) => {
         dispatch(setResumeBasics(newBasics));
-    }, []);
+    }, [dispatch]);
 
     const toggleBasics = () => {
         const currentState = basics?.enabled;

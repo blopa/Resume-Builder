@@ -1,7 +1,11 @@
 import React, { Fragment, useCallback, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer } from '@material-ui/core';
+
+// Context
 import { CustomMenuContext } from '../store/CustomMenuProvider';
+
+// Components
 import MenuItems from './MenuItems';
 import Link from './Link';
 import SiteLogo from './SiteLogo';

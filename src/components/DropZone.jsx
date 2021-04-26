@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { DropzoneArea } from 'material-ui-dropzone';
-import classNames from 'classnames';
 import { useIntl } from 'gatsby-plugin-intl';
 
 const useStyles = makeStyles((theme) => ({

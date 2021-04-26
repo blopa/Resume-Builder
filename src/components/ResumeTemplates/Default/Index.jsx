@@ -64,7 +64,7 @@ const Default = ({
         }
 
         return newIntl;
-    }, [intl.locale]);
+    }, [intl.defaultLocale, intl.locale]);
 
     return (
         <RawIntlProvider
