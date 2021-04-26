@@ -94,9 +94,11 @@ const UploadPage = ({ pageContext, location }) => {
 
     const readSpreadsheetErrorCallback = useCallback((downloadUrl) => {
         if (downloadUrl) {
-            const handler = window.open(downloadUrl);
-            handler.blur();
-            window.focus();
+            setTimeout(() => {
+                const handler = window.open(downloadUrl);
+                handler.blur();
+                window.focus();
+            }, 1500);
         }
 
         setErrorMessageId('error.something_went_wrong_parsing');
