@@ -70,7 +70,6 @@ const UploadPage = ({ pageContext, location }) => {
     const intl = useIntl();
     const [textInputValue, setTextInputValue] = useState('');
     const [loading, setLoading] = useState(false);
-    // console.log(JSON.stringify(state));
 
     const setResumesAndForward = useCallback((jsonResume) => {
         dispatch(setJsonResume(jsonResume));
