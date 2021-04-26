@@ -1,6 +1,6 @@
 {
     "name": "resume-builder",
-    "version": "3.0.6",
+    "version": "3.0.7",
     "description": "Resume Builder",
     "main": "index.js",
     "author": "Pablo Pirata",
@@ -79,6 +79,7 @@
         "eslint-plugin-react": "^7.23.2",
         "eslint-plugin-react-hooks": "^4.2.0",
         "eslint-plugin-unicorn": "^22.0.0",
+        "eslint-plugin-unused-imports": "^1.1.1",
         "gatsby-plugin-eslint": "^2.0.8",
         "npm-check-updates": "^11.5.1",
         "prettier": "2.2.1"

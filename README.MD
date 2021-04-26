@@ -165,6 +165,9 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v3/screenshot_3.png)
 
 ## Release Notes
+- **v3.0.7:**
+	- Fix template selector not using the global state
+	- Other small improvements (lintering) in the code
 - **v3.0.6:**
 	- Update dependency packages versions
 - **v3.0.5:**

@@ -23,6 +23,7 @@ module.exports = {
         'react-hooks',
         'unicorn',
         'graphql',
+        'unused-imports',
     ],
     globals: {
         before: true,
@@ -34,6 +35,7 @@ module.exports = {
         GOOGLE_ANALYTICS_KEY: false,
     },
     settings: {
+        'import/extensions': ['.js', '.jsx'],
         react: {
             version: '16.13.1',
         },
@@ -427,5 +429,8 @@ module.exports = {
                 ],
             },
         ],
+        'jsx-a11y/click-events-have-key-events': 'off',
+        'jsx-a11y/no-static-element-interactions': 'off',
+        'unused-imports/no-unused-imports': 'error',
     },
 };
