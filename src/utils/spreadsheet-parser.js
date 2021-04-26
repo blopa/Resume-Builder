@@ -18,9 +18,10 @@ export const readSpreadsheetFile = (file, callback) => {
 
 export const downloadSpreadsheetFile =
     (spreadsheetId, sheetId, callback, errorCallback, forceCors = true) => {
-        let url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/export?format=xlsx&gid=${sheetId}`;
+        const downloadUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/export?format=xlsx&gid=${sheetId}`;
+        let url = downloadUrl;
         if (forceCors) {
-            url = `https://cors-anywhere.herokuapp.com/${url}`;
+            url = `https://cors-anywhere.herokuapp.com/${downloadUrl}`;
         }
 
         const xhr = new XMLHttpRequest();
@@ -33,7 +34,7 @@ export const downloadSpreadsheetFile =
                 return readSpreadsheetData(xhr.responseText, callback);
             }
 
-            return errorCallback(event);
+            return errorCallback(downloadUrl);
         };
         xhr.onerror = (event) => errorCallback(event);
         xhr.send(null);

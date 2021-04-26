@@ -92,7 +92,13 @@ const UploadPage = ({ pageContext, location }) => {
         }
     }, [setResumesAndForward]);
 
-    const readSpreadsheetErrorCallback = useCallback(() => {
+    const readSpreadsheetErrorCallback = useCallback((downloadUrl) => {
+        if (downloadUrl) {
+            const handler = window.open(downloadUrl);
+            handler.blur();
+            window.focus();
+        }
+
         setErrorMessageId('error.something_went_wrong_parsing');
         setIsShowingErrorSnackbar(true);
         setLoading(false);
