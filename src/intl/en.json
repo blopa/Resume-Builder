@@ -34,7 +34,8 @@
     "select_your_template": "Select your template",
     "select_template": "Select template",
     "error": {
-        "something_went_wrong_parsing": "Whoops, something went wrong when parsing your spreadsheet URL. Try downloading the spreadsheet and uploading it here."
+        "something_went_wrong_parsing": "Whoops, something went wrong when parsing your spreadsheet URL. Try downloading the spreadsheet and uploading it here.",
+        "something_went_wrong_loading": "Whoops, something went wrong, please try again."
     },
     "notfound": {
         "title": "404: Not found",

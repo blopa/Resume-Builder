@@ -70,6 +70,7 @@ const UploadPage = ({ pageContext, location }) => {
     const dispatch = useDispatch();
     const intl = useIntl();
     const [textInputValue, setTextInputValue] = useState('');
+    const [errorMessageId, setErrorMessageId] = useState('');
     const [loading, setLoading] = useState(false);
     const [isShowingErrorSnackbar, setIsShowingErrorSnackbar] = useState(false);
 
@@ -85,10 +86,14 @@ const UploadPage = ({ pageContext, location }) => {
         if (spreadsheetArray && spreadsheetArray.length) {
             const jsonResume = spreadsheetToJsonResume(spreadsheetArray);
             setResumesAndForward(jsonResume);
+        } else {
+            setErrorMessageId('error.something_went_wrong_loading');
+            setIsShowingErrorSnackbar(true);
         }
     }, [setResumesAndForward]);
 
     const readSpreadsheetErrorCallback = useCallback(() => {
+        setErrorMessageId('error.something_went_wrong_parsing');
         setIsShowingErrorSnackbar(true);
         setLoading(false);
     }, []);
@@ -106,6 +111,9 @@ const UploadPage = ({ pageContext, location }) => {
             readJsonFile(file, (jsonString) => {
                 setResumesAndForward(JSON.parse(jsonString));
             });
+        } else {
+            setErrorMessageId('error.something_went_wrong_loading');
+            setIsShowingErrorSnackbar(true);
         }
     }, [readSpreadsheetCallback, setResumesAndForward]);
 
@@ -198,7 +206,7 @@ const UploadPage = ({ pageContext, location }) => {
                     severity="error"
                     onClose={handleCloseErrorSnackbar}
                 >
-                    {isShowingErrorSnackbar && intl.formatMessage({ id: 'error.something_went_wrong_parsing' })}
+                    {isShowingErrorSnackbar && intl.formatMessage({ id: errorMessageId })}
                 </Alert>
             </Snackbar>
         </Layout>
