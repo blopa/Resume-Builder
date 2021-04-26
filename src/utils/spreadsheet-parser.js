@@ -16,39 +16,45 @@ export const readSpreadsheetFile = (file, callback) => {
     reader.readAsBinaryString(file);
 };
 
-export const downloadSpreadsheetFile = (spreadsheetId, sheetId, callback, forceCors = true) => {
-    let url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/export?format=xlsx&gid=${sheetId}`;
-    if (forceCors) {
-        url = `https://cors-anywhere.herokuapp.com/${url}`;
-    }
+export const downloadSpreadsheetFile =
+    (spreadsheetId, sheetId, callback, errorCallback, forceCors = true) => {
+        let url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/export?format=xlsx&gid=${sheetId}`;
+        if (forceCors) {
+            url = `https://cors-anywhere.herokuapp.com/${url}`;
+        }
 
-    const xhr = new XMLHttpRequest();
+        const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', url, true);
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.overrideMimeType('text/plain; charset=x-user-defined');
-    xhr.onload = () => {
-        const data = xhr.responseText;
-        readSpreadsheetData(data, callback);
+        xhr.open('GET', url, true);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.overrideMimeType('text/plain; charset=x-user-defined');
+        xhr.onload = (event) => {
+            if (event.currentTarget.status === 200) {
+                return readSpreadsheetData(xhr.responseText, callback);
+            }
+
+            return errorCallback(event);
+        };
+        xhr.onerror = (event) => errorCallback(event);
+        xhr.send(null);
     };
-    xhr.send(null);
-};
 
-export const parseSpreadsheetUrl = (spreadsheetUrl, callback) => {
-    const spreadsheetIdResult = new RegExp('/spreadsheets/d/([a-zA-Z0-9-_]+)').exec(spreadsheetUrl);
-    if (!spreadsheetIdResult) {
-        return;
-    }
+export const parseSpreadsheetUrl =
+    (spreadsheetUrl, callback, errorCallback) => {
+        const spreadsheetIdResult = new RegExp('/spreadsheets/d/([a-zA-Z0-9-_]+)').exec(spreadsheetUrl);
+        if (!spreadsheetIdResult) {
+            return;
+        }
 
-    let sheetId = 0;
-    const sheetIdResult = new RegExp('[#&]gid=([0-9]+)').exec(spreadsheetUrl);
-    if (sheetIdResult) {
-        sheetId = sheetIdResult[1];
-    }
-    const spreadsheetId = spreadsheetIdResult[1];
+        let sheetId = 0;
+        const sheetIdResult = new RegExp('[#&]gid=([0-9]+)').exec(spreadsheetUrl);
+        if (sheetIdResult) {
+            sheetId = sheetIdResult[1];
+        }
+        const spreadsheetId = spreadsheetIdResult[1];
 
-    downloadSpreadsheetFile(spreadsheetId, sheetId, callback);
-};
+        downloadSpreadsheetFile(spreadsheetId, sheetId, callback, errorCallback);
+    };
 
 export default function readSpreadsheet(file, callback) {
     readSpreadsheetFile(file, callback);

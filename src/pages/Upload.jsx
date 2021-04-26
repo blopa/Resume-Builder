@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Typography, TextField } from '@material-ui/core';
+import { Button, Typography, TextField, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { cloneDeep } from 'lodash';
 import { navigate, useIntl } from 'gatsby-plugin-intl';
 
@@ -70,6 +71,7 @@ const UploadPage = ({ pageContext, location }) => {
     const intl = useIntl();
     const [textInputValue, setTextInputValue] = useState('');
     const [loading, setLoading] = useState(false);
+    const [isShowingErrorSnackbar, setIsShowingErrorSnackbar] = useState(false);
 
     const setResumesAndForward = useCallback((jsonResume) => {
         dispatch(setJsonResume(jsonResume));
@@ -85,6 +87,15 @@ const UploadPage = ({ pageContext, location }) => {
             setResumesAndForward(jsonResume);
         }
     }, [setResumesAndForward]);
+
+    const readSpreadsheetErrorCallback = useCallback(() => {
+        setIsShowingErrorSnackbar(true);
+        setLoading(false);
+    }, []);
+
+    const handleCloseErrorSnackbar = useCallback(() => {
+        setIsShowingErrorSnackbar(false);
+    }, []);
 
     const handleFile = useCallback((file) => {
         const fileExtension = file.path && file.path.split('.').pop();
@@ -111,9 +122,10 @@ const UploadPage = ({ pageContext, location }) => {
 
         parseSpreadsheetUrl(
             textInputValue,
-            readSpreadsheetCallback
+            readSpreadsheetCallback,
+            readSpreadsheetErrorCallback
         );
-    }, [readSpreadsheetCallback, textInputValue]);
+    }, [readSpreadsheetCallback, readSpreadsheetErrorCallback, textInputValue]);
 
     const handleTemplateSelected = useCallback((selectedTemplate) => {
         dispatch(setResumeTemplate(selectedTemplate));
@@ -173,6 +185,22 @@ const UploadPage = ({ pageContext, location }) => {
                     </Button>
                 </div>
             </div>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                }}
+                autoHideDuration={12000}
+                open={isShowingErrorSnackbar}
+                onClose={handleCloseErrorSnackbar}
+            >
+                <Alert
+                    severity="error"
+                    onClose={handleCloseErrorSnackbar}
+                >
+                    {isShowingErrorSnackbar && intl.formatMessage({ id: 'error.something_went_wrong_parsing' })}
+                </Alert>
+            </Snackbar>
         </Layout>
     );
 };
