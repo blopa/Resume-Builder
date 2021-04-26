@@ -14,7 +14,7 @@ import TemplateSelector from '../components/TemplateSelector';
 // Utils
 import { traverseObject } from '../utils/utils';
 import spreadsheetToJsonResume from '../utils/spreadsheet-to-json-resume';
-import readSpreadsheet, { parseSpreadsheetUrl } from '../utils/spreadsheet-parser';
+import { readSpreadsheet, parseSpreadsheetUrl } from '../utils/spreadsheet-parser';
 import { readJsonFile } from '../utils/json-parser';
 
 // Hooks

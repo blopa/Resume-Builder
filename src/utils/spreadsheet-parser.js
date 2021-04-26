@@ -56,6 +56,6 @@ export const parseSpreadsheetUrl =
         downloadSpreadsheetFile(spreadsheetId, sheetId, callback, errorCallback);
     };
 
-export default function readSpreadsheet(file, callback) {
+export const readSpreadsheet = (file, callback) => {
     readSpreadsheetFile(file, callback);
-}
+};

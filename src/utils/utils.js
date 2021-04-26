@@ -7,6 +7,7 @@ export const isObjectEmpty = (obj) =>
 export const isObjectNotEmpty = (obj) =>
     isObject(obj) && Object.keys(obj).length > 0;
 
+// TODO make this return a copy of the obj
 export const traverseObject = (obj) => {
     // eslint-disable-next-line no-restricted-syntax
     for (const property in obj) {

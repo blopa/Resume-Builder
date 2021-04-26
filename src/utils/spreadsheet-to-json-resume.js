@@ -59,7 +59,6 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     let references = {};
     const referencesArray = [];
 
-    // console.log(jsonSpreadsheet);
     jsonSpreadsheet.forEach((value) => {
         if (value[disabledAttr]) {
             return;
@@ -194,6 +193,5 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     jsonResume.interests = [...interestsArray, interests];
     jsonResume.references = [...referencesArray, references];
 
-    // console.log(jsonResume);
     return jsonResume;
 }
