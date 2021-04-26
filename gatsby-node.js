@@ -1,5 +1,6 @@
 const path = require('path');
 const { promises: fs } = require('fs');
+const packageJson = require('./package.json');
 
 const TEMPLATES_PATH = path.resolve(__dirname, 'src/components/ResumeTemplates');
 const ignoredPages = ['/Home/'];
@@ -91,6 +92,7 @@ exports.onCreateWebpackConfig = async ({
         plugins: [
             plugins.define({
                 TEMPLATES_LIST: JSON.stringify(templates),
+                VERSION: JSON.stringify(packageJson.version),
             }),
         ],
     });

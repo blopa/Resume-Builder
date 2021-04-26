@@ -1,4 +1,5 @@
 # Resume Builder
+### [resume-builder.js.org](https://resume-builder.js.org/)
 
 **Gotta find a job!** Alright, let's make a new resume with this awesome template I found on Google, the problem is, this template might not be as awesome next month, or you might need to constantly add your new experience to the document. Gosh. Wouldn't be better to focus on adding new experiences in a raw format and let a automation process handle the layout? I agreed, and that's why Resume Builder is here.
 
@@ -10,8 +11,6 @@
 - [http://monster.com](https://www.monster.com/career-advice/article/resume-look-important-as-content)
 
 <img src="/screenshots/v3/resume_builder.gif?raw=true" width="890px">
-
-**TESTED ONLY ON GOOGLE CHROME**
 
 ## About
 [Resume Builder](https://resume-builder.js.org) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://resume-builder.js.org).**
