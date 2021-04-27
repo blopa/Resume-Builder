@@ -76,47 +76,47 @@ const Default = ({
                         basics={basics?.value || {}}
                     />
                 )}
-                {work?.enabled && (
+                {(work?.enabled && work.value.length) && (
                     <Work
                         work={work?.value || {}}
                     />
                 )}
-                {skills?.enabled && (
+                {(skills?.enabled && skills.value.length) && (
                     <Skills
                         skills={skills?.value || {}}
                     />
                 )}
-                {education?.enabled && (
+                {(education?.enabled && education.value.length) && (
                     <Education
                         education={education?.value || {}}
                     />
                 )}
-                {awards?.enabled && (
+                {(awards?.enabled && awards.value.length) && (
                     <Awards
                         awards={awards?.value || {}}
                     />
                 )}
-                {volunteer?.enabled && (
+                {(volunteer?.enabled && volunteer.value.length) && (
                     <Volunteer
                         volunteer={volunteer?.value || {}}
                     />
                 )}
-                {publications?.enabled && (
+                {(publications?.enabled && publications.value.length) && (
                     <Publications
                         publications={publications?.value || {}}
                     />
                 )}
-                {languages?.enabled && (
+                {(languages?.enabled && languages.value.length) && (
                     <Languages
                         languages={languages?.value || {}}
                     />
                 )}
-                {interests?.enabled && (
+                {(interests?.enabled && interests.value.length) && (
                     <Interests
                         interests={interests?.value || {}}
                     />
                 )}
-                {references?.enabled && (
+                {(references?.enabled && references.value.length) && (
                     <References
                         references={references?.value || {}}
                     />

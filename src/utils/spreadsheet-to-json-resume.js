@@ -182,16 +182,55 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         }
     });
 
-    jsonResume.basics.profiles = [...profilesArray, profiles];
-    jsonResume.work = [...workArray, work];
-    jsonResume.volunteer = [...volunteerArray, volunteer];
-    jsonResume.education = [...educationArray, education];
-    jsonResume.awards = [...awardsArray, awards];
-    jsonResume.publications = [...publicationsArray, publications];
-    jsonResume.skills = [...skillsArray, skills];
-    jsonResume.languages = [...languagesArray, languages];
-    jsonResume.interests = [...interestsArray, interests];
-    jsonResume.references = [...referencesArray, references];
+    if (isObjectNotEmpty(profiles)) {
+        profilesArray.push(profiles);
+    }
+    jsonResume.basics.profiles = [...profilesArray];
+
+    if (isObjectNotEmpty(work)) {
+        workArray.push(work);
+    }
+    jsonResume.work = [...workArray];
+
+    if (isObjectNotEmpty(volunteer)) {
+        volunteerArray.push(volunteer);
+    }
+    jsonResume.volunteer = [...volunteerArray];
+
+    if (isObjectNotEmpty(education)) {
+        educationArray.push(education);
+    }
+    jsonResume.education = [...educationArray];
+
+    if (isObjectNotEmpty(awards)) {
+        awardsArray.push(awards);
+    }
+    jsonResume.awards = [...awardsArray];
+
+    if (isObjectNotEmpty(publications)) {
+        publicationsArray.push(publications);
+    }
+    jsonResume.publications = [...publicationsArray];
+
+    if (isObjectNotEmpty(skills)) {
+        skillsArray.push(skills);
+    }
+    jsonResume.skills = [...skillsArray];
+
+    if (isObjectNotEmpty(languages)) {
+        languagesArray.push(languages);
+    }
+    jsonResume.languages = [...languagesArray];
+
+    if (isObjectNotEmpty(interests)) {
+        interestsArray.push(interests);
+    }
+    jsonResume.interests = [...interestsArray];
+
+    if (isObjectNotEmpty(references)) {
+        referencesArray.push(references);
+    }
+    jsonResume.references = [...referencesArray];
 
     return jsonResume;
 }

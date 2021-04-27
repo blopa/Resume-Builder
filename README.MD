@@ -49,7 +49,7 @@ First of all you need to create a Google Spreadsheet following the same rules as
 - **region:** Region where you're located
 - **countryCode:** Country code where you're located
 - **network:** Social media name
-- **username:** Social media name
+- **username:** Social media username
 
 ## Libraries
 - I'm using [gatsby.js](https://github.com/gatsbyjs/gatsby), [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx) and [Material UI](https://material-ui.com/).
