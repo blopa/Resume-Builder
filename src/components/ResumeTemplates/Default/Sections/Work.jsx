@@ -72,7 +72,7 @@ const Work = ({ work: works }) => {
                                     {(startDate?.enabled || endDate?.enabled) && (
                                         <span className={classes.positionDate}>
                                             {' ('}
-                                            {startDate?.enabled && endDate?.value}
+                                            {startDate?.enabled && startDate?.value}
                                             {(startDate?.enabled && endDate?.enabled) && ' - '}
                                             {endDate?.enabled && endDate?.value}
                                             {')'}
