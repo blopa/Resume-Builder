@@ -174,6 +174,8 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 	- Fix template selector not using the global state
 	- Add option to set language in the Resume Viewer page
 	- Other small improvements (lintering) in the code
+	- Improve JSON object generation
+	- Improve Default resume template
 - **v3.0.6:**
 	- Update dependency packages versions
 - **v3.0.5:**

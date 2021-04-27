@@ -63,10 +63,12 @@ const Volunteer = ({ volunteer: volunteers }) => {
                                     {endDate?.enabled && endDate?.value}
                                 </p>
                                 <p className={classes.website}>
-                                    {website?.enabled && website?.value}
+                                    {(website && website?.enabled && website?.value) && (
+                                        <a href={website.value}>{website.value}</a>
+                                    )}
                                 </p>
                                 <p className={classes.website}>
-                                    {url?.enabled && url?.value}
+                                    {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
                                 </p>
                                 <p className={classes.summary}>
                                     {summary?.enabled && summary?.value}

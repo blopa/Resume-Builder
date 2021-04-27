@@ -49,10 +49,13 @@ const Skills = ({ skills }) => {
                         const { name, level, keywords } = skill?.value || {};
                         return (
                             <li key={uuid()}>
-                                <p className={classes.title}>
-                                    {name?.enabled && name?.value}{', '}
-                                    {level?.enabled && level?.value}
-                                </p>
+                                {(name?.enabled || level?.enabled) && (
+                                    <p className={classes.title}>
+                                        {name?.enabled && name?.value}
+                                        {(name?.enabled && level?.enabled) && ', '}
+                                        {level?.enabled && level?.value}
+                                    </p>
+                                )}
                                 {keywords?.enabled && (
                                     <ul className={classes.keywords}>
                                         {keywords?.value.map((keyword) =>

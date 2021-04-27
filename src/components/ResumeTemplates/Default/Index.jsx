@@ -78,47 +78,47 @@ const Default = ({
                 )}
                 {(work?.enabled && work.value.length) && (
                     <Work
-                        work={work?.value || {}}
+                        work={work?.value || []}
                     />
                 )}
                 {(skills?.enabled && skills.value.length) && (
                     <Skills
-                        skills={skills?.value || {}}
+                        skills={skills?.value || []}
                     />
                 )}
                 {(education?.enabled && education.value.length) && (
                     <Education
-                        education={education?.value || {}}
+                        education={education?.value || []}
                     />
                 )}
                 {(awards?.enabled && awards.value.length) && (
                     <Awards
-                        awards={awards?.value || {}}
+                        awards={awards?.value || []}
                     />
                 )}
                 {(volunteer?.enabled && volunteer.value.length) && (
                     <Volunteer
-                        volunteer={volunteer?.value || {}}
+                        volunteer={volunteer?.value || []}
                     />
                 )}
                 {(publications?.enabled && publications.value.length) && (
                     <Publications
-                        publications={publications?.value || {}}
+                        publications={publications?.value || []}
                     />
                 )}
                 {(languages?.enabled && languages.value.length) && (
                     <Languages
-                        languages={languages?.value || {}}
+                        languages={languages?.value || []}
                     />
                 )}
                 {(interests?.enabled && interests.value.length) && (
                     <Interests
-                        interests={interests?.value || {}}
+                        interests={interests?.value || []}
                     />
                 )}
                 {(references?.enabled && references.value.length) && (
                     <References
-                        references={references?.value || {}}
+                        references={references?.value || []}
                     />
                 )}
             </div>

@@ -45,8 +45,10 @@ const Publications = ({ publications }) => {
                                     </p>
                                 )}
                                 {publisher && publisher?.enabled && <p>{publisher?.value}</p>}
-                                {website && website?.enabled && <p>{website?.value}</p>}
-                                {url && url?.enabled && <p>{url?.value}</p>}
+                                {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
+                                {(website && website?.enabled && website?.value) && (
+                                    <a href={website.value}>{website.value}</a>
+                                )}
                                 {releaseDate && releaseDate?.enabled && <p>{releaseDate?.value}</p>}
                                 {summary && summary?.enabled && <p>{summary?.value}</p>}
                             </li>
