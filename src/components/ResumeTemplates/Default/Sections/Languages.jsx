@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
         margin: '0',
         '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
     },
+    contentWrapper: {
+        marginLeft: '4px',
+    },
 }));
 
 const Languages = ({ languages }) => {
@@ -23,23 +26,25 @@ const Languages = ({ languages }) => {
             <h3>
                 {intl.formatMessage({ id: 'languages' })}
             </h3>
-            <ul className={classes.languages}>
-                {languages.map((lang) => {
-                    if (lang?.enabled) {
-                        const { language, fluency } = lang?.value || {};
-                        return (
-                            <li key={uuid()}>
-                                <p>
-                                    {language?.enabled && language?.value}{', '}
-                                    {fluency?.enabled && fluency?.value}
-                                </p>
-                            </li>
-                        );
-                    }
+            <div className={classes.contentWrapper}>
+                <ul className={classes.languages}>
+                    {languages.map((lang) => {
+                        if (lang?.enabled) {
+                            const { language, fluency } = lang?.value || {};
+                            return (
+                                <li key={uuid()}>
+                                    <p>
+                                        {language?.enabled && language?.value}{', '}
+                                        {fluency?.enabled && fluency?.value}
+                                    </p>
+                                </li>
+                            );
+                        }
 
-                    return null;
-                })}
-            </ul>
+                        return null;
+                    })}
+                </ul>
+            </div>
         </div>
     );
 };

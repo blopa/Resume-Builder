@@ -15,18 +15,27 @@ const useStyles = makeStyles((theme) => ({
         '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
     },
     position: { fontWeight: 'bold' },
+    positionDate: {
+        fontStyle: 'italic',
+        fontSize: '0.8rem',
+    },
     website: {},
     summary: {},
     highlights: {
-        margin: '0',
-        padding: '0',
-        display: 'flex',
+        marginTop: '3px',
         listStyle: 'none',
+        paddingLeft: 0,
+        display: 'inline-flex',
         '& li': {
-            margin: '0 5px 0 0',
-            '&:after': { content: '","' },
-            '&:last-child': { '&:after': { content: '""' } },
+            fontStyle: 'italic',
+            margin: '0 3px 0 0',
+            backgroundColor: theme.palette.type === 'dark' ? '#28407b' : '#dae4f4',
+            borderRadius: '3px',
+            padding: '1px 3px',
         },
+    },
+    contentWrapper: {
+        marginLeft: '4px',
     },
 }));
 
@@ -39,57 +48,69 @@ const Volunteer = ({ volunteer: volunteers }) => {
             <h3>
                 {intl.formatMessage({ id: 'volunteers' })}
             </h3>
-            <ul className={classes.volunteers}>
-                {volunteers.map((volunteer) => {
-                    if (volunteer?.enabled) {
-                        const {
-                            organization,
-                            position,
-                            website,
-                            url,
-                            startDate,
-                            endDate,
-                            summary,
-                            highlights,
-                        } = volunteer?.value || {};
+            <div className={classes.contentWrapper}>
+                <ul className={classes.volunteers}>
+                    {volunteers.map((volunteer) => {
+                        if (volunteer?.enabled) {
+                            const {
+                                organization,
+                                position,
+                                website,
+                                url,
+                                startDate,
+                                endDate,
+                                summary,
+                                highlights,
+                            } = volunteer?.value || {};
 
-                        return (
-                            <li key={uuid()}>
-                                <p className={classes.position}>
-                                    {position?.enabled && `${position?.value}, `}
-                                    {organization?.enabled && `${organization?.value}, `}
-                                    {startDate?.enabled && startDate?.value}
-                                    {' - '}
-                                    {endDate?.enabled && endDate?.value}
-                                </p>
-                                <p className={classes.website}>
-                                    {(website && website?.enabled && website?.value) && (
-                                        <a href={website.value}>{website.value}</a>
+                            return (
+                                <li key={uuid()}>
+                                    <p className={classes.position}>
+                                        {position?.enabled && position?.value}
+                                        {(
+                                            (position?.enabled && organization?.enabled)
+                                            && (position?.value && organization?.value)
+                                        ) && ` ${intl.formatMessage({ id: 'at' })} `}
+                                        {organization?.enabled && organization?.value}
+                                        {(startDate?.enabled || endDate?.enabled) && (
+                                            <span className={classes.positionDate}>
+                                                {' ('}
+                                                {startDate?.enabled && startDate?.value}
+                                                {(startDate?.enabled && endDate?.enabled) && ' - '}
+                                                {endDate?.enabled && endDate?.value}
+                                                {')'}
+                                            </span>
+                                        )}
+                                    </p>
+                                    <p className={classes.website}>
+                                        {(website && website?.enabled && website?.value) && (
+                                            <a href={website.value}>{website.value}</a>
+                                        )}
+                                    </p>
+                                    <p className={classes.website}>
+                                        {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
+                                    </p>
+                                    <p className={classes.summary}>
+                                        {summary?.enabled && summary?.value}
+                                    </p>
+                                    {highlights?.enabled && (
+                                        <ul className={classes.highlights}>
+                                            {highlights?.value.map((highlight) =>
+                                                highlight?.enabled && (
+                                                    <li key={uuid()}>
+                                                        {highlight?.value}
+                                                    </li>
+                                                ))}
+                                        </ul>
                                     )}
-                                </p>
-                                <p className={classes.website}>
-                                    {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
-                                </p>
-                                <p className={classes.summary}>
-                                    {summary?.enabled && summary?.value}
-                                </p>
-                                {highlights?.enabled && (
-                                    <ul className={classes.highlights}>
-                                        {highlights?.value.map((highlight) =>
-                                            highlight && highlight?.enabled && (
-                                                <li key={uuid()}>
-                                                    {highlight?.value}
-                                                </li>
-                                            ))}
-                                    </ul>
-                                )}
-                            </li>
-                        );
-                    }
+                                </li>
+                            );
+                        }
 
-                    return null;
-                })}
-            </ul>
+                        return null;
+                    })}
+                </ul>
+            </div>
         </div>
     );
 };

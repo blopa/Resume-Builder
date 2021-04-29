@@ -44,6 +44,12 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     website: {},
+    detailsWrapper: {
+        marginLeft: '4px',
+    },
+    summaryWrapper: {
+        marginLeft: '4px',
+    },
 }));
 
 const Basics = ({
@@ -77,71 +83,75 @@ const Basics = ({
             <div className={classes.resumeBasics}>
                 {name?.enabled && <h2>{name?.value}</h2>}
                 {label?.enabled && <h3>{label?.value}</h3>}
-                {locationEnabled && (
-                    <ul className={classes.address}>
-                        {address?.enabled && <li key={uuid()}>{address?.value}</li>}
-                        {city?.enabled && <li key={uuid()}>{city?.value}</li>}
-                        {region?.enabled && <li key={uuid()}>{region?.value}</li>}
-                        {postalCode?.enabled && <li key={uuid()}>{postalCode?.value}</li>}
-                        {countryCode?.enabled && <li key={uuid()}>{countryCode?.value}</li>}
-                    </ul>
-                )}
-                <ul className={classes['contact-info']}>
-                    {url?.enabled && (
-                        <li key={uuid()}>
-                            <a
-                                className={classes.url}
-                                href={url?.value}
-                                target="_blank"
-                            >
-                                {url?.value}
-                            </a>
-                        </li>
+                <div className={classes.detailsWrapper}>
+                    {locationEnabled && (
+                        <ul className={classes.address}>
+                            {address?.enabled && <li key={uuid()}>{address?.value}</li>}
+                            {city?.enabled && <li key={uuid()}>{city?.value}</li>}
+                            {region?.enabled && <li key={uuid()}>{region?.value}</li>}
+                            {postalCode?.enabled && <li key={uuid()}>{postalCode?.value}</li>}
+                            {countryCode?.enabled && <li key={uuid()}>{countryCode?.value}</li>}
+                        </ul>
                     )}
-                    {website?.enabled && (
-                        <li key={uuid()}>
-                            <a
-                                className={classes.website}
-                                href={website?.value}
-                                target="_blank"
-                            >
-                                {website?.value}
-                            </a>
-                        </li>
-                    )}
-                    {phone?.enabled && <li key={uuid()}>{phone?.value}</li>}
-                    {email?.enabled && <li key={uuid()}>{email?.value}</li>}
-                </ul>
-                {profiles?.enabled && (
-                    <ul className={classes['social-media']}>
-                        {profiles?.value.map((profile) => {
-                            if (profile?.enabled) {
-                                const { url: profileUrl, network, username } = profile?.value || {};
-
-                                return profileUrl?.enabled && network?.enabled && username?.enabled && (
-                                    <li key={uuid()}>
-                                        <a
-                                            href={profileUrl?.value}
-                                            title={username?.value}
-                                            target="_blank"
-                                        >
-                                            {network?.value}
-                                        </a>
-                                    </li>
-                                );
-                            }
-
-                            return null;
-                        })}
+                    <ul className={classes['contact-info']}>
+                        {url?.enabled && (
+                            <li key={uuid()}>
+                                <a
+                                    className={classes.url}
+                                    href={url?.value}
+                                    target="_blank"
+                                >
+                                    {url?.value}
+                                </a>
+                            </li>
+                        )}
+                        {website?.enabled && (
+                            <li key={uuid()}>
+                                <a
+                                    className={classes.website}
+                                    href={website?.value}
+                                    target="_blank"
+                                >
+                                    {website?.value}
+                                </a>
+                            </li>
+                        )}
+                        {phone?.enabled && <li key={uuid()}>{phone?.value}</li>}
+                        {email?.enabled && <li key={uuid()}>{email?.value}</li>}
                     </ul>
-                )}
+                    {profiles?.enabled && (
+                        <ul className={classes['social-media']}>
+                            {profiles?.value.map((profile) => {
+                                if (profile?.enabled) {
+                                    const { url: profileUrl, network, username } = profile?.value || {};
+
+                                    return profileUrl?.enabled && network?.enabled && username?.enabled && (
+                                        <li key={uuid()}>
+                                            <a
+                                                href={profileUrl?.value}
+                                                title={username?.value}
+                                                target="_blank"
+                                            >
+                                                {network?.value}
+                                            </a>
+                                        </li>
+                                    );
+                                }
+
+                                return null;
+                            })}
+                        </ul>
+                    )}
+                </div>
             </div>
             {summary?.enabled && (
                 <div className={classes.resumeSummary}>
                     <h3>
                         {intl.formatMessage({ id: 'summary' })}
                     </h3>
-                    <p>{summary?.value}</p>
+                    <div className={classes.summaryWrapper}>
+                        <p>{summary?.value}</p>
+                    </div>
                 </div>
             )}
         </Fragment>

@@ -16,15 +16,20 @@ const useStyles = makeStyles((theme) => ({
     },
     interest: { fontWeight: 'bold' },
     keywords: {
-        margin: '0',
-        padding: '0',
-        display: 'flex',
+        marginTop: '3px',
         listStyle: 'none',
+        paddingLeft: 0,
+        display: 'inline-flex',
         '& li': {
-            margin: '0 5px 0 0',
-            '&:after': { content: '","' },
-            '&:last-child': { '&:after': { content: '""' } },
+            fontStyle: 'italic',
+            margin: '0 3px 0 0',
+            backgroundColor: theme.palette.type === 'dark' ? '#28407b' : '#dae4f4',
+            borderRadius: '3px',
+            padding: '1px 3px',
         },
+    },
+    contentWrapper: {
+        marginLeft: '4px',
     },
 }));
 
@@ -37,34 +42,36 @@ const Interests = ({ interests }) => {
             <h3>
                 {intl.formatMessage({ id: 'interests' })}
             </h3>
-            <ul className={classes.interests}>
-                {interests.map((interest) => {
-                    if (interest?.enabled) {
-                        const { name, keywords } = interest?.value || {};
-                        return (
-                            <li key={uuid()}>
-                                {name?.enabled && (
-                                    <p className={classes.interest}>
-                                        {name?.value}
-                                    </p>
-                                )}
-                                {keywords?.enabled && (
-                                    <ul className={classes.keywords}>
-                                        {keywords?.value.map((keyword) =>
-                                            keyword?.enabled && (
-                                                <li key={uuid()}>
-                                                    {keyword?.value}
-                                                </li>
-                                            ))}
-                                    </ul>
-                                )}
-                            </li>
-                        );
-                    }
+            <div className={classes.contentWrapper}>
+                <ul className={classes.interests}>
+                    {interests.map((interest) => {
+                        if (interest?.enabled) {
+                            const { name, keywords } = interest?.value || {};
+                            return (
+                                <li key={uuid()}>
+                                    {name?.enabled && (
+                                        <p className={classes.interest}>
+                                            {name?.value}
+                                        </p>
+                                    )}
+                                    {keywords?.enabled && (
+                                        <ul className={classes.keywords}>
+                                            {keywords?.value.map((keyword) =>
+                                                keyword?.enabled && (
+                                                    <li key={uuid()}>
+                                                        {keyword?.value}
+                                                    </li>
+                                                ))}
+                                        </ul>
+                                    )}
+                                </li>
+                            );
+                        }
 
-                    return null;
-                })}
-            </ul>
+                        return null;
+                    })}
+                </ul>
+            </div>
         </div>
     );
 };

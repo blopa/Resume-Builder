@@ -206,6 +206,7 @@ A: I can try. Open a issue and I'll see what I can do.
 A: Thank you! You can help by codding more features, creating pull requests, or donating via [https://bunq.me/BuyMeASoda](https://bunq.me/BuyMeASoda)
 
 ## TODO
+- Add unit tests
 - Add list of recent used documents
 - Add option to save a built resume
 - Add check for valid spreadsheet URL on text input

@@ -21,16 +21,20 @@ const useStyles = makeStyles((theme) => ({
     },
     title: { fontWeight: 'bold' },
     keywords: {
-        fontStyle: 'italic',
-        margin: '0',
-        padding: '0',
-        display: 'flex',
+        marginTop: '3px',
         listStyle: 'none',
+        paddingLeft: 0,
+        display: 'inline-flex',
         '& li': {
-            margin: '0 5px 0 0',
-            '&:after': { content: '","' },
-            '&:last-child': { '&:after': { content: '""' } },
+            fontStyle: 'italic',
+            margin: '0 3px 0 0',
+            backgroundColor: theme.palette.type === 'dark' ? '#28407b' : '#dae4f4',
+            borderRadius: '3px',
+            padding: '1px 3px',
         },
+    },
+    contentWrapper: {
+        marginLeft: '4px',
     },
 }));
 
@@ -43,32 +47,38 @@ const Skills = ({ skills }) => {
             <h3>
                 {intl.formatMessage({ id: 'skills' })}
             </h3>
-            <ul className={classes.skills}>
-                {skills.map((skill) => {
-                    if (skill?.enabled) {
-                        const { name, level, keywords } = skill?.value || {};
-                        return (
-                            <li key={uuid()}>
-                                {(name?.enabled || level?.enabled) && (
-                                    <p className={classes.title}>
-                                        {name?.enabled && name?.value}
-                                        {(name?.enabled && level?.enabled) && ', '}
-                                        {level?.enabled && level?.value}
-                                    </p>
-                                )}
-                                {keywords?.enabled && (
-                                    <ul className={classes.keywords}>
-                                        {keywords?.value.map((keyword) =>
-                                            keywords?.enabled && <li key={uuid()}>{keyword?.value}</li>)}
-                                    </ul>
-                                )}
-                            </li>
-                        );
-                    }
+            <div className={classes.contentWrapper}>
+                <ul className={classes.skills}>
+                    {skills.map((skill) => {
+                        if (skill?.enabled) {
+                            const { name, level, keywords } = skill?.value || {};
+                            return (
+                                <li key={uuid()}>
+                                    {(name?.enabled || level?.enabled) && (
+                                        <p className={classes.title}>
+                                            {name?.enabled && name?.value}
+                                            {(name?.enabled && level?.enabled) && ', '}
+                                            {level?.enabled && level?.value}
+                                        </p>
+                                    )}
+                                    {keywords?.enabled && (
+                                        <ul className={classes.keywords}>
+                                            {keywords?.value.map((keyword) =>
+                                                keyword?.enabled && (
+                                                    <li key={uuid()}>
+                                                        {keyword?.value}
+                                                    </li>
+                                                ))}
+                                        </ul>
+                                    )}
+                                </li>
+                            );
+                        }
 
-                    return null;
-                })}
-            </ul>
+                        return null;
+                    })}
+                </ul>
+            </div>
         </div>
     );
 };

@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
         listStyle: 'none',
         '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
     },
+    contentWrapper: {
+        marginLeft: '4px',
+    },
 }));
 
 const Awards = ({ awards }) => {
@@ -26,25 +29,27 @@ const Awards = ({ awards }) => {
             <h3>
                 {intl.formatMessage({ id: 'awards' })}
             </h3>
-            <ul className={classes.awards}>
-                {awards.map((award) => {
-                    if (award?.enabled) {
-                        const { title, date, awarder, summary } = award?.value || {};
-                        return (
-                            <li key={uuid()}>
-                                <p className={classes.award}>
-                                    {title?.enabled && title?.value}
-                                </p>
-                                <p>{awarder?.enabled && awarder?.value}</p>
-                                <p>{date?.enabled && date?.value}</p>
-                                <p>{summary?.enabled && summary?.value}</p>
-                            </li>
-                        );
-                    }
+            <div className={classes.contentWrapper}>
+                <ul className={classes.awards}>
+                    {awards.map((award) => {
+                        if (award?.enabled) {
+                            const { title, date, awarder, summary } = award?.value || {};
+                            return (
+                                <li key={uuid()}>
+                                    <p className={classes.award}>
+                                        {title?.enabled && title?.value}
+                                    </p>
+                                    <p>{awarder?.enabled && awarder?.value}</p>
+                                    <p>{date?.enabled && date?.value}</p>
+                                    <p>{summary?.enabled && summary?.value}</p>
+                                </li>
+                            );
+                        }
 
-                    return null;
-                })}
-            </ul>
+                        return null;
+                    })}
+                </ul>
+            </div>
         </div>
     );
 };

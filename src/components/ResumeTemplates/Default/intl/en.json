@@ -8,5 +8,6 @@
     "interests": "Interests",
     "education": "Education",
     "summary": "Summary",
-    "experience": "Experience"
+    "experience": "Experience",
+    "at": "@"
 }
