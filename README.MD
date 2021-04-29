@@ -35,7 +35,7 @@ We currently have translations for **English**, **Spanish** and **Brazilian Port
 Would you like to have your language added to Resume Builder? [Create a Pull Request](https://github.com/blopa/Resume-Builder/issues/18).
 
 ## Usage
-First of all you need to create a Google Spreadsheet following the same rules as [this one](https://docs.google.com/spreadsheets/d/1UCdsEiyO68IEdfVhW-Gfrg7FfI4pLaij37D5Eh-v8hQ/copy) (you can make a copy if you like) and populate with your resume information.
+First of all you need to create a Google Spreadsheet following the same rules as [this one](https://docs.google.com/spreadsheets/d/1wHJ_n_DwT_U4pknZh9e0r2wxhjxmd_Z5G2A4LUFpnLk/copy) (you can make a copy if you like) and populate with your resume information.
 - **name:** Your full name
 - **label:** Your resume Job Title
 - **picture:** A URL for your picture
@@ -62,7 +62,7 @@ So a big thanks to all the developers that worked really hard on these libs and 
 Run `npm run build` then copy the `public/` folder into your website root directory. Done.
 
 ## Example
-The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.google.com/spreadsheets/d/1UCdsEiyO68IEdfVhW-Gfrg7FfI4pLaij37D5Eh-v8hQ/edit). For a better view of the ``JSON`` [click here](https://codebeautify.org/jsonviewer/cb7c68a1).
+The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.google.com/spreadsheets/d/1wHJ_n_DwT_U4pknZh9e0r2wxhjxmd_Z5G2A4LUFpnLk/edit). For a better view of the ``JSON`` [click here](https://codebeautify.org/jsonviewer/cb7c68a1).
 ```json
 {
   "basics": {
@@ -160,7 +160,7 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 ```
 
 ## Screenshot
-**[Google Spreadsheet example](https://docs.google.com/spreadsheets/d/1UCdsEiyO68IEdfVhW-Gfrg7FfI4pLaij37D5Eh-v8hQ/copy)**
+**[Google Spreadsheet example](https://docs.google.com/spreadsheets/d/1wHJ_n_DwT_U4pknZh9e0r2wxhjxmd_Z5G2A4LUFpnLk/copy)**
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v3/screenshot_1.png)
 
 **Built Resume**

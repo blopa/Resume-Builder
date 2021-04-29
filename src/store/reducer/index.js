@@ -1,5 +1,12 @@
 export default (state, action) => {
     switch (action.type) {
+        case 'SET_CUSTOM_TRANSLATIONS':
+            return {
+                ...state,
+                customTranslations: {
+                    ...action.translations,
+                },
+            };
         case 'SET_JSON_RESUME':
             return {
                 ...state,

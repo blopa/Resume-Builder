@@ -5,6 +5,7 @@ const initialState = {
     jsonResume: {},
     togglableJsonResume: {},
     resumeTemplate: 'Default',
+    customTranslations: {},
 };
 
 export const StoreContext = createContext(

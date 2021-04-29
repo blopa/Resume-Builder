@@ -24,6 +24,7 @@ import { useDispatch } from '../store/StoreProvider';
 import setJsonResume from '../store/actions/setJsonResume';
 import setTogglableJsonResume from '../store/actions/setTogglableJsonResume';
 import setResumeTemplate from '../store/actions/setResumeTemplate';
+import setCustomTranslations from "../store/actions/setCustomTranslations";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -84,7 +85,8 @@ const UploadPage = ({ pageContext, location }) => {
 
     const readSpreadsheetCallback = useCallback((spreadsheetArray) => {
         if (spreadsheetArray && spreadsheetArray.length) {
-            const jsonResume = spreadsheetToJsonResume(spreadsheetArray);
+            const [jsonResume, customTranslations] = spreadsheetToJsonResume(spreadsheetArray);
+            dispatch(setCustomTranslations(customTranslations));
             setResumesAndForward(jsonResume);
         } else {
             setErrorMessageId('error.something_went_wrong_loading');
