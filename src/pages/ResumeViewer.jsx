@@ -29,7 +29,7 @@ const importTemplate = (template) => lazy(() =>
 
 const ResumeViewer = ({ params, uri }) => {
     const intl = useIntl();
-    const [username, lang] = params['*'].split('/'); // TODO
+    const [username, lang] = (params['*'] || '').split('/'); // TODO
     const template = uri.split('/').pop(); // TODO
 
     const pageIntl = useMemo(() => {
