@@ -200,7 +200,8 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v3/screenshot_3.png)
 
 ## Release Notes
-- **v3.0.7:**
+- **v3.1.0:**
+	- Update spreadsheet and JSON schema
 	- Fix template selector not using the global state
 	- Add option to set language in the Resume Viewer page
 	- Other small improvements (lintering) in the code
