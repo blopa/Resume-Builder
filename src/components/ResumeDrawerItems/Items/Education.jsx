@@ -1,16 +1,22 @@
-import React, { Fragment, useContext, useCallback, memo } from 'react';
+import React, { Fragment, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
+import { makeStyles } from '@material-ui/styles';
 
 // Components
-import { makeStyles } from '@material-ui/styles';
 import ItemInput from './List/ItemInput';
 import ItemsList from './List/ItemsList';
 
-// Actions
+// Styles
 import style from '../resumeDrawerStyles';
+
+// Actions
 import setResumeEducation from '../../../store/actions/setResumeEducation';
+
+// Utils
 import { varNameToString } from '../../../utils/utils';
-import { StoreContext } from '../../../store/StoreProvider';
+
+// Hooks
+import { useDispatch } from '../../../store/StoreProvider';
 
 const useStyles = makeStyles((theme) => ({
     ...style,
@@ -18,11 +24,11 @@ const useStyles = makeStyles((theme) => ({
 
 function Education({ education: educations }) {
     const classes = useStyles();
-    const { state, dispatch } = useContext(StoreContext);
+    const dispatch = useDispatch();
 
     const setResumeEducationState = useCallback((education) => {
         dispatch(setResumeEducation(education));
-    }, []);
+    }, [dispatch]);
 
     const toggleEducations = () => {
         const currentState = educations?.enabled;

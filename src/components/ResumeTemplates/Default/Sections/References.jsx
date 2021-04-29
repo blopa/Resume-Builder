@@ -14,6 +14,12 @@ const useStyles = makeStyles((theme) => ({
         listStyle: 'none',
         '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
     },
+    contentWrapper: {
+        marginLeft: '4px',
+    },
+    referenceWrapper: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
 const References = ({ references }) => {
@@ -25,25 +31,27 @@ const References = ({ references }) => {
             <h3>
                 {intl.formatMessage({ id: 'references' })}
             </h3>
-            <ul className={classes.references}>
-                {references.map((ref) => {
-                    if (ref?.enabled) {
-                        const { name, reference } = ref?.value || {};
-                        return (
-                            <li key={uuid()}>
-                                {name?.enabled && (
-                                    <p className={classes.name}>
-                                        {name?.value}
-                                    </p>
-                                )}
-                                {reference?.enabled && <p>{reference?.value}</p>}
-                            </li>
-                        );
-                    }
+            <div className={classes.contentWrapper}>
+                <ul className={classes.references}>
+                    {references.map((ref) => {
+                        if (ref?.enabled) {
+                            const { name, reference } = ref?.value || {};
+                            return (
+                                <li className={classes.referenceWrapper} key={uuid()}>
+                                    {name?.enabled && (
+                                        <p className={classes.name}>
+                                            {name?.value}
+                                        </p>
+                                    )}
+                                    {reference?.enabled && <p>{reference?.value}</p>}
+                                </li>
+                            );
+                        }
 
-                    return null;
-                })}
-            </ul>
+                        return null;
+                    })}
+                </ul>
+            </div>
         </div>
     );
 };

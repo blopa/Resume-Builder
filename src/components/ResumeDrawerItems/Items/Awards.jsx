@@ -1,16 +1,22 @@
-import React, { Fragment, useContext, useCallback, memo } from 'react';
+import React, { Fragment, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
+import { makeStyles } from '@material-ui/styles';
 
 // Components
-import { makeStyles } from '@material-ui/styles';
 import ItemInput from './List/ItemInput';
 import ItemsList from './List/ItemsList';
 
-// Actions
+// Styles
 import style from '../resumeDrawerStyles';
+
+// Actions
 import setResumeAwards from '../../../store/actions/setResumeAwards';
+
+// Utils
 import { varNameToString } from '../../../utils/utils';
-import { StoreContext } from '../../../store/StoreProvider';
+
+// Hooks
+import { useDispatch } from '../../../store/StoreProvider';
 
 const useStyles = makeStyles((theme) => ({
     ...style,
@@ -18,11 +24,11 @@ const useStyles = makeStyles((theme) => ({
 
 function Awards({ awards }) {
     const classes = useStyles();
-    const { state, dispatch } = useContext(StoreContext);
+    const dispatch = useDispatch();
 
     const setResumeAwardsState = useCallback((newAwards) => {
         dispatch(setResumeAwards(newAwards));
-    }, []);
+    }, [dispatch]);
 
     const toggleAwards = () => {
         const currentState = awards?.enabled;

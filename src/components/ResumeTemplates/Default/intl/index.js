@@ -1,6 +1,7 @@
 import { createIntl, createIntlCache } from 'gatsby-plugin-intl';
 import en from './en.json';
 import ptBr from './pt-br.json';
+import es from './es.json';
 
 const translations = [
     {
@@ -10,6 +11,10 @@ const translations = [
     {
         locale: 'pt-br',
         messages: ptBr,
+    },
+    {
+        locale: 'es',
+        messages: es,
     },
 ];
 

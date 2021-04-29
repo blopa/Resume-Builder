@@ -5,15 +5,21 @@ import { makeStyles } from '@material-ui/core/styles';
 import { v4 as uuid } from 'uuid';
 import { useIntl } from 'gatsby-plugin-intl';
 
+// Hooks
+import { useSelector } from '../store/StoreProvider';
+
+// Actions
+import { selectResumeTemplate } from '../store/selectors';
+
 const useStyles = makeStyles((theme) => ({
     // TODO
 }));
 
 const TemplateSelector = ({ onSelect, className }) => {
     const intl = useIntl();
-    const [resumeTemplate, setResumeTemplate] = useState('Default');
+    const stateTemplate = useSelector(selectResumeTemplate);
+    const [resumeTemplate, setResumeTemplate] = useState(stateTemplate);
     const classes = useStyles();
-    // console.log(TEMPLATES_LIST);
 
     const handleChange = useCallback((e) => {
         setResumeTemplate(e.target.value);

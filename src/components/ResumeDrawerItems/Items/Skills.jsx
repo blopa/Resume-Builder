@@ -1,8 +1,8 @@
-import React, { Fragment, useContext, useCallback, memo } from 'react';
+import React, { Fragment, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
+import { makeStyles } from '@material-ui/styles';
 
 // Components
-import { makeStyles } from '@material-ui/styles';
 import ItemInput from './List/ItemInput';
 import ItemsList from './List/ItemsList';
 
@@ -10,7 +10,7 @@ import ItemsList from './List/ItemsList';
 import style from '../resumeDrawerStyles';
 import setResumeSkills from '../../../store/actions/setResumeSkills';
 import { varNameToString } from '../../../utils/utils';
-import { StoreContext } from '../../../store/StoreProvider';
+import { useDispatch } from '../../../store/StoreProvider';
 
 const useStyles = makeStyles((theme) => ({
     ...style,
@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
 
 function Skills({ skills }) {
     const classes = useStyles();
-    const { state, dispatch } = useContext(StoreContext);
+    const dispatch = useDispatch();
 
     const setResumeSkillsState = useCallback((newSkills) => {
         dispatch(setResumeSkills(newSkills));
-    }, []);
+    }, [dispatch]);
 
     const toggleSkills = () => {
         const currentState = skills?.enabled;

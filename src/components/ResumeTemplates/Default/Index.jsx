@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { RawIntlProvider, useIntl } from 'gatsby-plugin-intl';
+import { createIntl, createIntlCache, RawIntlProvider, useIntl } from 'gatsby-plugin-intl';
 
 // local template translations
 import templateIntls from './intl';
@@ -16,6 +16,9 @@ import References from './Sections/References';
 import Skills from './Sections/Skills';
 import Volunteer from './Sections/Volunteer';
 import Work from './Sections/Work';
+
+// Utils
+import { isObjectNotEmpty } from '../../../utils/utils';
 
 const useStyles = makeStyles((theme) => ({
     resumeDefaultTemplate: {
@@ -37,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Default = ({
+    customTranslations = {},
     resume: {
         basics,
         work,
@@ -53,18 +57,28 @@ const Default = ({
     const intl = useIntl();
     const classes = useStyles();
     const templateIntl = useMemo(() => {
-        const newIntl = templateIntls.find(
+        let newIntl = templateIntls.find(
             (tempIntl) => tempIntl.locale === intl.locale
         );
 
         if (!newIntl) {
-            return templateIntls.find(
+            newIntl = templateIntls.find(
                 (tempIntl) => tempIntl.locale === intl.defaultLocale
             );
         }
 
+        if (isObjectNotEmpty(customTranslations)) {
+            return createIntl({
+                locale: newIntl.locale,
+                messages: {
+                    ...newIntl.messages,
+                    ...customTranslations,
+                },
+            }, createIntlCache());
+        }
+
         return newIntl;
-    }, [intl.locale]);
+    }, [customTranslations, intl.defaultLocale, intl.locale]);
 
     return (
         <RawIntlProvider
@@ -76,49 +90,49 @@ const Default = ({
                         basics={basics?.value || {}}
                     />
                 )}
-                {work?.enabled && (
-                    <Work
-                        work={work?.value || {}}
-                    />
-                )}
-                {skills?.enabled && (
+                {(skills?.enabled && skills.value.length) && (
                     <Skills
-                        skills={skills?.value || {}}
+                        skills={skills?.value || []}
                     />
                 )}
-                {education?.enabled && (
+                {(work?.enabled && work.value.length) && (
+                    <Work
+                        work={work?.value || []}
+                    />
+                )}
+                {(education?.enabled && education.value.length) && (
                     <Education
-                        education={education?.value || {}}
+                        education={education?.value || []}
                     />
                 )}
-                {awards?.enabled && (
+                {(awards?.enabled && awards.value.length) && (
                     <Awards
-                        awards={awards?.value || {}}
+                        awards={awards?.value || []}
                     />
                 )}
-                {volunteer?.enabled && (
+                {(volunteer?.enabled && volunteer.value.length) && (
                     <Volunteer
-                        volunteer={volunteer?.value || {}}
+                        volunteer={volunteer?.value || []}
                     />
                 )}
-                {publications?.enabled && (
+                {(publications?.enabled && publications.value.length) && (
                     <Publications
-                        publications={publications?.value || {}}
+                        publications={publications?.value || []}
                     />
                 )}
-                {languages?.enabled && (
+                {(languages?.enabled && languages.value.length) && (
                     <Languages
-                        languages={languages?.value || {}}
+                        languages={languages?.value || []}
                     />
                 )}
-                {interests?.enabled && (
+                {(interests?.enabled && interests.value.length) && (
                     <Interests
-                        interests={interests?.value || {}}
+                        interests={interests?.value || []}
                     />
                 )}
-                {references?.enabled && (
+                {(references?.enabled && references.value.length) && (
                     <References
-                        references={references?.value || {}}
+                        references={references?.value || []}
                     />
                 )}
             </div>

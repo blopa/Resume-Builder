@@ -37,13 +37,6 @@ exports.onCreatePage = async ({ page, actions }) => {
     let matchPath = page.matchPath;
     let pagePath = convertToKebabCase(page.path);
     deletePage(page);
-    // console.log(page);
-
-    // console.log('CREATING PAGE:', {
-    //     path: page.path,
-    //     locale: language,
-    //     blogLocale: locale,
-    // });
 
     if (ignoredPages.includes(page.context.intl.originalPath)) {
         return;
@@ -87,7 +80,6 @@ exports.onCreateWebpackConfig = async ({
     actions,
 }) => {
     const templates = await fs.readdir(TEMPLATES_PATH);
-    // console.log({ templates });
     actions.setWebpackConfig({
         plugins: [
             plugins.define({

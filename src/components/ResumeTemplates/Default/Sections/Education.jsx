@@ -30,6 +30,12 @@ const useStyles = makeStyles((theme) => ({
             },
         },
     },
+    contentWrapper: {
+        marginLeft: '4px',
+    },
+    educationWrapper: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
 const Education = ({ education: educations }) => {
@@ -41,51 +47,62 @@ const Education = ({ education: educations }) => {
             <h3>
                 {intl.formatMessage({ id: 'education' })}
             </h3>
-            <ul className={classes.courses}>
-                {educations.map((education) => {
-                    if (education?.enabled) {
-                        const {
-                            institution,
-                            area,
-                            studyType,
-                            startDate,
-                            endDate,
-                            gpa,
-                            courses,
-                        } = education?.value || {};
+            <div className={classes.contentWrapper}>
+                <ul className={classes.courses}>
+                    {educations.map((education) => {
+                        if (education?.enabled) {
+                            const {
+                                institution,
+                                area,
+                                studyType,
+                                startDate,
+                                endDate,
+                                gpa,
+                                courses,
+                            } = education?.value || {};
 
-                        return (
-                            <li key={uuid()}>
-                                <p className={classes.type}>
-                                    {area?.enabled && area?.value}{', '}
-                                    {studyType?.enabled && studyType?.value}
-                                </p>
-                                <p className={classes.institution}>
-                                    {institution && institution?.enabled && institution?.value}{', '}
-                                    {startDate && startDate?.enabled && startDate?.value}
-                                    {' - '}
-                                    {endDate && endDate?.enabled && endDate?.value}{', '}
-                                    {gpa && gpa?.enabled && `GPA: ${gpa?.value}`}
-                                </p>
-                                {courses && courses?.enabled && (
-                                    <div className={classes.coursesDetails}>
-                                        <p>Courses: </p>
-                                        <ul>
-                                            {courses?.value.map((course) => course?.enabled && (
-                                                <li key={uuid()}>
-                                                    {course?.value}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                )}
-                            </li>
-                        );
-                    }
+                            return (
+                                <li className={classes.educationWrapper} key={uuid()}>
+                                    <p className={classes.type}>
+                                        {area?.enabled && area?.value}
+                                        {(
+                                            (area?.enabled && studyType?.enabled)
+                                            && (area?.value && studyType?.value)
+                                        ) && ', '}
+                                        {studyType?.enabled && studyType?.value}
+                                    </p>
+                                    <p className={classes.institution}>
+                                        {institution && institution?.enabled && institution?.value}
+                                        {(startDate?.enabled && startDate?.value) && ', '}
+                                        {startDate && startDate?.enabled && startDate?.value}
+                                        {(
+                                            (startDate?.enabled && endDate?.enabled)
+                                            && (startDate?.value && endDate?.value)
+                                        ) && ' - '}
+                                        {endDate && endDate?.enabled && endDate?.value}
+                                        {/* TODO this */}
+                                        {gpa && gpa?.enabled && `, GPA: ${gpa?.value}`}
+                                    </p>
+                                    {courses && courses?.enabled && (
+                                        <div className={classes.coursesDetails}>
+                                            <p>Courses: </p>
+                                            <ul>
+                                                {courses?.value.map((course) => course?.enabled && (
+                                                    <li key={uuid()}>
+                                                        {course?.value}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                </li>
+                            );
+                        }
 
-                    return null;
-                })}
-            </ul>
+                        return null;
+                    })}
+                </ul>
+            </div>
         </div>
     );
 };

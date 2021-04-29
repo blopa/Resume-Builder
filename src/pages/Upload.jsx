@@ -1,19 +1,28 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Typography, TextField } from '@material-ui/core';
+import { Button, Typography, TextField, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { cloneDeep } from 'lodash';
 import { navigate, useIntl } from 'gatsby-plugin-intl';
+
+// Components
 import SEO from '../components/SEO';
 import Layout from '../components/Layout';
 import DropZone from '../components/DropZone';
+import TemplateSelector from '../components/TemplateSelector';
+
+// Utils
 import { traverseObject } from '../utils/utils';
 import spreadsheetToJsonResume from '../utils/spreadsheet-to-json-resume';
-import readSpreadsheet, { parseSpreadsheetUrl } from '../utils/spreadsheet-parser';
+import { readSpreadsheet, parseSpreadsheetUrl } from '../utils/spreadsheet-parser';
 import { readJsonFile } from '../utils/json-parser';
-import { StoreContext } from '../store/StoreProvider';
+
+// Hooks
+import { useDispatch } from '../store/StoreProvider';
+
+// Actions
 import setJsonResume from '../store/actions/setJsonResume';
 import setTogglableJsonResume from '../store/actions/setTogglableJsonResume';
-import TemplateSelector from '../components/TemplateSelector';
 import setResumeTemplate from '../store/actions/setResumeTemplate';
 
 const useStyles = makeStyles((theme) => ({
@@ -58,14 +67,18 @@ const SHEET_EXTENSIONS = [
 
 const UploadPage = ({ pageContext, location }) => {
     const classes = useStyles();
-    const { state, dispatch } = useContext(StoreContext);
+    const dispatch = useDispatch();
     const intl = useIntl();
     const [textInputValue, setTextInputValue] = useState('');
+    const [errorMessageId, setErrorMessageId] = useState('');
     const [loading, setLoading] = useState(false);
-    // console.log(JSON.stringify(state));
+    const [isShowingErrorSnackbar, setIsShowingErrorSnackbar] = useState(false);
 
-    const setResumesAndForward = useCallback((jsonResume) => {
-        dispatch(setJsonResume(jsonResume));
+    const setResumesAndForward = useCallback((jsonResume, customTranslations) => {
+        dispatch(setJsonResume({
+            ...jsonResume,
+            __translation__: customTranslations,
+        }));
         const togglableJsonResume = traverseObject(cloneDeep(jsonResume));
         dispatch(setTogglableJsonResume(togglableJsonResume));
 
@@ -74,10 +87,31 @@ const UploadPage = ({ pageContext, location }) => {
 
     const readSpreadsheetCallback = useCallback((spreadsheetArray) => {
         if (spreadsheetArray && spreadsheetArray.length) {
-            const jsonResume = spreadsheetToJsonResume(spreadsheetArray);
-            setResumesAndForward(jsonResume);
+            const [jsonResume, customTranslations] = spreadsheetToJsonResume(spreadsheetArray);
+            setResumesAndForward(jsonResume, customTranslations);
+        } else {
+            setErrorMessageId('error.something_went_wrong_loading');
+            setIsShowingErrorSnackbar(true);
         }
     }, [setResumesAndForward]);
+
+    const readSpreadsheetErrorCallback = useCallback((downloadUrl) => {
+        if (downloadUrl) {
+            setTimeout(() => {
+                const handler = window.open(downloadUrl);
+                handler.blur();
+                window.focus();
+            }, 1500);
+        }
+
+        setErrorMessageId('error.something_went_wrong_parsing');
+        setIsShowingErrorSnackbar(true);
+        setLoading(false);
+    }, []);
+
+    const handleCloseErrorSnackbar = useCallback(() => {
+        setIsShowingErrorSnackbar(false);
+    }, []);
 
     const handleFile = useCallback((file) => {
         const fileExtension = file.path && file.path.split('.').pop();
@@ -88,6 +122,9 @@ const UploadPage = ({ pageContext, location }) => {
             readJsonFile(file, (jsonString) => {
                 setResumesAndForward(JSON.parse(jsonString));
             });
+        } else {
+            setErrorMessageId('error.something_went_wrong_loading');
+            setIsShowingErrorSnackbar(true);
         }
     }, [readSpreadsheetCallback, setResumesAndForward]);
 
@@ -104,9 +141,10 @@ const UploadPage = ({ pageContext, location }) => {
 
         parseSpreadsheetUrl(
             textInputValue,
-            readSpreadsheetCallback
+            readSpreadsheetCallback,
+            readSpreadsheetErrorCallback
         );
-    }, [readSpreadsheetCallback, textInputValue]);
+    }, [readSpreadsheetCallback, readSpreadsheetErrorCallback, textInputValue]);
 
     const handleTemplateSelected = useCallback((selectedTemplate) => {
         dispatch(setResumeTemplate(selectedTemplate));
@@ -166,6 +204,22 @@ const UploadPage = ({ pageContext, location }) => {
                     </Button>
                 </div>
             </div>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                }}
+                autoHideDuration={12000}
+                open={isShowingErrorSnackbar}
+                onClose={handleCloseErrorSnackbar}
+            >
+                <Alert
+                    severity="error"
+                    onClose={handleCloseErrorSnackbar}
+                >
+                    {isShowingErrorSnackbar && intl.formatMessage({ id: errorMessageId })}
+                </Alert>
+            </Snackbar>
         </Layout>
     );
 };

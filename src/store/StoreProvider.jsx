@@ -1,15 +1,26 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 import reducer from './reducer';
 
 const initialState = {
     jsonResume: {},
     togglableJsonResume: {},
     resumeTemplate: 'Default',
+    customTranslations: {},
 };
 
 export const StoreContext = createContext(
     initialState
 );
+
+export const useSelector = (func) => {
+    const { state } = useContext(StoreContext);
+    return func(state);
+};
+
+export const useDispatch = () => {
+    const { dispatch } = useContext(StoreContext);
+    return dispatch;
+};
 
 // eslint-disable-next-line react/prop-types
 const StoreProvider = ({ children }) => {

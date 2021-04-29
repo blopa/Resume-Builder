@@ -15,6 +15,12 @@ const useStyles = makeStyles((theme) => ({
         '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
     },
     publication: { fontWeight: 'bold' },
+    contentWrapper: {
+        marginLeft: '4px',
+    },
+    publicationWrapper: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
 const Publications = ({ publications }) => {
@@ -26,36 +32,40 @@ const Publications = ({ publications }) => {
             <h3>
                 {intl.formatMessage({ id: 'publications' })}
             </h3>
-            <ul className={classes.publications}>
-                {publications.map((publication) => {
-                    if (publication?.enabled) {
-                        const {
-                            name,
-                            publisher,
-                            releaseDate,
-                            website,
-                            url,
-                            summary,
-                        } = publication?.value || {};
-                        return (
-                            <li key={uuid()}>
-                                {name?.enabled && (
-                                    <p className={classes.publication}>
-                                        {name?.value}
-                                    </p>
-                                )}
-                                {publisher && publisher?.enabled && <p>{publisher?.value}</p>}
-                                {website && website?.enabled && <p>{website?.value}</p>}
-                                {url && url?.enabled && <p>{url?.value}</p>}
-                                {releaseDate && releaseDate?.enabled && <p>{releaseDate?.value}</p>}
-                                {summary && summary?.enabled && <p>{summary?.value}</p>}
-                            </li>
-                        );
-                    }
+            <div className={classes.contentWrapper}>
+                <ul className={classes.publications}>
+                    {publications.map((publication) => {
+                        if (publication?.enabled) {
+                            const {
+                                name,
+                                publisher,
+                                releaseDate,
+                                website,
+                                url,
+                                summary,
+                            } = publication?.value || {};
+                            return (
+                                <li className={classes.publicationWrapper} key={uuid()}>
+                                    {name?.enabled && (
+                                        <p className={classes.publication}>
+                                            {name?.value}
+                                        </p>
+                                    )}
+                                    {publisher && publisher?.enabled && <p>{publisher?.value}</p>}
+                                    {releaseDate && releaseDate?.enabled && <p>{releaseDate?.value}</p>}
+                                    {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
+                                    {(website && website?.enabled && website?.value) && (
+                                        <a href={website.value}>{website.value}</a>
+                                    )}
+                                    {summary && summary?.enabled && <p>{summary?.value}</p>}
+                                </li>
+                            );
+                        }
 
-                    return null;
-                })}
-            </ul>
+                        return null;
+                    })}
+                </ul>
+            </div>
         </div>
     );
 };

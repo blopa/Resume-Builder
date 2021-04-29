@@ -7,7 +7,10 @@
     "languages": "Idiomas",
     "interests": "Intereses",
     "education": "Educación",
-    "summary": "Resumen",
-    "experience": "Experiencia",
-    "at": "@"
+    "about": "Acerca",
+    "contact": "Contacto",
+    "projects": "Proyectos",
+    "months": "Meses",
+    "achievements": "logros",
+    "experience": "Experiencia"
 }

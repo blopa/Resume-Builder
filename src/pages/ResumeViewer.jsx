@@ -1,16 +1,27 @@
 /* eslint template-curly-spacing: 0, indent: 0 */
 /* globals TEMPLATES_LIST */
-import React, { lazy, Suspense, useContext, useEffect, useState } from 'react';
-import { navigate, useIntl } from 'gatsby-plugin-intl';
+import React, { lazy, Suspense, useContext, useEffect, useMemo, useState } from 'react';
+import { navigate, useIntl, RawIntlProvider } from 'gatsby-plugin-intl';
 import { v4 as uuid } from 'uuid';
 import { cloneDeep } from 'lodash';
+
+// Components
 import SEO from '../components/SEO';
-import { fetchGithubResumeJson, isValidJsonString } from '../utils/gatsby-frontend-helpers';
 import A4Container from '../components/A4Container';
-import { StoreContext } from '../store/StoreProvider';
-import setJsonResume from '../store/actions/setJsonResume';
+
+// Utils
+import { fetchGithubResumeJson, isValidJsonString } from '../utils/gatsby-frontend-helpers';
 import { isObjectNotEmpty, traverseObject } from '../utils/utils';
+
+// Context
+import { StoreContext } from '../store/StoreProvider';
+
+// Actions
+import setJsonResume from '../store/actions/setJsonResume';
 import setTogglableJsonResume from '../store/actions/setTogglableJsonResume';
+
+// Translations
+import templateIntls from '../intl';
 
 const importTemplate = (template) => lazy(() =>
     import(`../components/ResumeTemplates/${template}/Index`).catch(() =>
@@ -18,11 +29,26 @@ const importTemplate = (template) => lazy(() =>
 
 const ResumeViewer = ({ params, uri }) => {
     const intl = useIntl();
+    const [username, lang] = params['*'].split('/'); // TODO
+    const template = uri.split('/').pop(); // TODO
+
+    const pageIntl = useMemo(() => {
+        const newIntl = templateIntls.find(
+            (tempIntl) => tempIntl.locale === lang
+        );
+
+        if (!newIntl) {
+            return templateIntls.find(
+                (tempIntl) => tempIntl.locale === intl.defaultLocale
+            );
+        }
+
+        return newIntl;
+    }, [intl.defaultLocale, lang]);
+
     const [resumeTemplate, setResumeTemplate] = useState(['Default']);
     const { state, dispatch } = useContext(StoreContext);
 
-    const username = params['*']; // TODO
-    const template = uri.split('/').pop(); // TODO
     const validTemplate = TEMPLATES_LIST.find(
         (templateName) => templateName.toLowerCase() === template.toLowerCase()
     );
@@ -48,7 +74,6 @@ const ResumeViewer = ({ params, uri }) => {
             dispatch(setJsonResume(jsonResume));
             dispatch(setTogglableJsonResume(togglableJsonResume));
             const Template = await importTemplate(validTemplate);
-            // console.log({validTemplate, jsonResume});
             setResumeTemplate([
                 <Template
                     key={uuid()}
@@ -62,12 +87,14 @@ const ResumeViewer = ({ params, uri }) => {
         }
 
         fetchResumeJsonAndLoadTemplate();
-    }, [dispatch, username, validTemplate]);
+    }, [dispatch, intl.defaultLocale, lang, username, validTemplate]);
 
     return (
-        <div>
+        <RawIntlProvider
+            value={pageIntl}
+        >
             <SEO
-                title={intl.formatMessage({ id: 'resume_viewer' })}
+                title={pageIntl.formatMessage({ id: 'resume_viewer' })}
                 robots="noindex, nofollow"
             />
             <A4Container
@@ -82,7 +109,7 @@ const ResumeViewer = ({ params, uri }) => {
                 )}
                 {!hasData && intl.formatMessage({ id: 'loading' })}
             </A4Container>
-        </div>
+        </RawIntlProvider>
     );
 };
 

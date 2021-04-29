@@ -12,14 +12,40 @@ const useStyles = makeStyles((theme) => ({
         margin: '0',
         padding: '0',
         listStyle: 'none',
-        '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
+        '& li': {
+            margin: '0 0 10px 0',
+            '&:last-child': {
+                margin: '3px 0 0',
+            },
+        },
     },
     position: { fontWeight: 'bold' },
+    positionDate: {
+        fontStyle: 'italic',
+        fontSize: '0.8rem',
+    },
     website: {},
-    summary: {},
+    summary: {
+        whiteSpace: 'break-spaces',
+    },
     highlights: {
-        listStyle: 'disc',
-        '& li': { fontStyle: 'italic', margin: '0' },
+        flexWrap: 'wrap',
+        listStyle: 'none',
+        paddingLeft: 0,
+        display: 'inline-flex',
+        '& li': {
+            fontStyle: 'italic',
+            margin: '3px 3px 0 0',
+            backgroundColor: theme.palette.type === 'dark' ? '#28407b' : '#dae4f4',
+            borderRadius: '3px',
+            padding: '1px 3px',
+        },
+    },
+    contentWrapper: {
+        marginLeft: '4px',
+    },
+    workWrapper: {
+        pageBreakInside: 'avoid',
     },
 }));
 
@@ -32,57 +58,77 @@ const Work = ({ work: works }) => {
             <h3>
                 {intl.formatMessage({ id: 'experience' })}
             </h3>
-            <ul className={classes.works}>
-                {works.map((work) => {
-                    if (work?.enabled) {
-                        const {
-                            company,
-                            name,
-                            position,
-                            website,
-                            url,
-                            startDate,
-                            endDate,
-                            summary,
-                            highlights,
-                        } = work?.value || {};
+            <div className={classes.contentWrapper}>
+                <ul className={classes.works}>
+                    {works.map((work) => {
+                        if (work?.enabled) {
+                            const {
+                                company,
+                                name,
+                                position,
+                                website,
+                                url,
+                                startDate,
+                                endDate,
+                                summary,
+                                highlights,
+                            } = work?.value || {};
 
-                        return (
-                            <li key={uuid()}>
-                                <p className={classes.position}>
-                                    {position?.enabled && `${position?.value}, `}
-                                    {company?.enabled && `${company?.value}, `}
-                                    {name?.enabled && `${name?.value}, `}
-                                    {startDate?.enabled && startDate?.value}
-                                    {' - '}
-                                    {endDate?.enabled && endDate?.value}
-                                </p>
-                                <p className={classes.website}>
-                                    {website?.enabled && website?.value}
-                                </p>
-                                <p className={classes.website}>
-                                    {url?.enabled && url?.value}
-                                </p>
-                                <p className={classes.summary}>
-                                    {summary?.enabled && summary?.value}
-                                </p>
-                                {highlights?.enabled && (
-                                    <ul className={classes.highlights}>
-                                        {highlights?.value.map((highlight) =>
-                                            highlight?.enabled && (
-                                                <li key={uuid()}>
-                                                    {highlight?.value}
-                                                </li>
-                                            ))}
-                                    </ul>
-                                )}
-                            </li>
-                        );
-                    }
+                            return (
+                                <li className={classes.workWrapper} key={uuid()}>
+                                    <p className={classes.position}>
+                                        {position?.enabled && position?.value}
+                                        {(
+                                            (position?.enabled && company?.enabled)
+                                            && (position?.value && company?.value)
+                                        ) && ` ${intl.formatMessage({ id: 'at' })} `}
+                                        {company?.enabled && company?.value}
+                                        {name?.enabled && name?.value}
+                                        {(startDate?.enabled || endDate?.enabled) && (
+                                            <span className={classes.positionDate}>
+                                                {' ('}
+                                                {startDate?.enabled && startDate?.value}
+                                                {(startDate?.enabled && endDate?.enabled) && ' - '}
+                                                {endDate?.enabled && endDate?.value}
+                                                {')'}
+                                            </span>
+                                        )}
+                                    </p>
+                                    <p className={classes.website}>
+                                        {website?.enabled && (
+                                            <a href={website?.value}>
+                                                {website?.value}
+                                            </a>
+                                        )}
+                                    </p>
+                                    <p className={classes.website}>
+                                        {url?.enabled && (
+                                            <a href={url?.value}>
+                                                {url?.value}
+                                            </a>
+                                        )}
+                                    </p>
+                                    <p className={classes.summary}>
+                                        {summary?.enabled && summary?.value}
+                                    </p>
+                                    {highlights?.enabled && (
+                                        <ul className={classes.highlights}>
+                                            {highlights?.value.map((highlight) =>
+                                                highlight?.enabled && (
+                                                    <li key={uuid()}>
+                                                        {highlight?.value}
+                                                    </li>
+                                                ))}
+                                        </ul>
+                                    )}
+                                </li>
+                            );
+                        }
 
-                    return null;
-                })}
-            </ul>
+                        return null;
+                    })}
+                </ul>
+            </div>
         </div>
     );
 };

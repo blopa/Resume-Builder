@@ -1,17 +1,25 @@
 /* eslint template-curly-spacing: 0, indent: 0 */
-import React, { Suspense, lazy, useContext, useEffect, useState, useRef, useCallback } from 'react';
+import React, { Suspense, lazy, useEffect, useState, useRef, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer } from '@material-ui/core';
 import { navigate, useIntl } from 'gatsby-plugin-intl';
 import { v4 as uuid } from 'uuid';
+
+// Components
 import SEO from '../components/SEO';
 import Layout from '../components/Layout';
 import A4Container from '../components/A4Container';
-import { StoreContext } from '../store/StoreProvider';
-import { isObjectNotEmpty } from '../utils/utils';
 import ResumeDrawerItems from '../components/ResumeDrawerItems/ResumeDrawerItems';
 import FloatingButton from '../components/FloatingButton';
-// import DefaultTemplate from '../components/ResumeTemplates/Default/Index';
+
+// Hooks
+import { useSelector } from '../store/StoreProvider';
+
+// Utils
+import { isObjectNotEmpty } from '../utils/utils';
+
+// Selectors
+import { selectJsonResume, selectResumeTemplate, selectTogglableJsonResume } from '../store/selectors';
 
 const useStyles = makeStyles((theme) => ({
     resumeWrapper: {
@@ -34,18 +42,12 @@ const BuildPage = () => {
     const [a4ContainerHeight, setA4ContainerHeight] = useState(null);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [resumeTemplate, setResumeTemplate] = useState([]);
-    const { state, dispatch } = useContext(StoreContext);
     const refContainer = useRef(null);
     const rerenderRef = useRef(false);
-    // console.log(JSON.stringify(state));
-    // console.log(state.resumeTemplate);
-    const {
-        jsonResume,
-        togglableJsonResume,
-        resumeTemplate: resumeTemplateName,
-    } = state || {};
+    const jsonResume = useSelector(selectJsonResume);
+    const togglableJsonResume = useSelector(selectTogglableJsonResume);
+    const resumeTemplateName = useSelector(selectResumeTemplate);
     const hasData = isObjectNotEmpty(togglableJsonResume) && isObjectNotEmpty(jsonResume);
-    // console.log(togglableJsonResume);
 
     useEffect(() => {
         if (!hasData) {
@@ -60,11 +62,13 @@ const BuildPage = () => {
                 <Template
                     key={uuid()}
                     resume={togglableJsonResume}
+                    // eslint-disable-next-line no-underscore-dangle
+                    customTranslations={jsonResume.__translation__}
                 />,
             ]);
         }
         loadTemplate();
-    }, [resumeTemplateName, togglableJsonResume]);
+    }, [resumeTemplateName, togglableJsonResume, jsonResume]);
 
     const printDocument = useCallback(() => {
         const size = 1122; // roughly A4
