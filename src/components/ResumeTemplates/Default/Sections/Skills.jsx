@@ -5,6 +5,7 @@ import { IntlContext } from 'gatsby-plugin-intl';
 
 const useStyles = makeStyles((theme) => ({
     resumeSkills: {
+        pageBreakInside: 'avoid',
         padding: '10px 0',
         borderBottom: '1px solid #ddd',
     },
@@ -15,19 +16,19 @@ const useStyles = makeStyles((theme) => ({
         '& li': {
             margin: '0 0 10px 0',
             '&:last-child': {
-                margin: '0',
+                margin: '3px 0 0',
             },
         },
     },
     title: { fontWeight: 'bold' },
     keywords: {
-        marginTop: '3px',
+        flexWrap: 'wrap',
         listStyle: 'none',
         paddingLeft: 0,
         display: 'inline-flex',
         '& li': {
             fontStyle: 'italic',
-            margin: '0 3px 0 0',
+            margin: '3px 3px 0 0',
             backgroundColor: theme.palette.type === 'dark' ? '#28407b' : '#dae4f4',
             borderRadius: '3px',
             padding: '1px 3px',

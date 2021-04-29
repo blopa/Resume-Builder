@@ -62,11 +62,13 @@ const BuildPage = () => {
                 <Template
                     key={uuid()}
                     resume={togglableJsonResume}
+                    // eslint-disable-next-line no-underscore-dangle
+                    customTranslations={jsonResume.__translation__}
                 />,
             ]);
         }
         loadTemplate();
-    }, [resumeTemplateName, togglableJsonResume]);
+    }, [resumeTemplateName, togglableJsonResume, jsonResume]);
 
     const printDocument = useCallback(() => {
         const size = 1122; // roughly A4

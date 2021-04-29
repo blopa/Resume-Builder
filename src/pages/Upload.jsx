@@ -24,7 +24,6 @@ import { useDispatch } from '../store/StoreProvider';
 import setJsonResume from '../store/actions/setJsonResume';
 import setTogglableJsonResume from '../store/actions/setTogglableJsonResume';
 import setResumeTemplate from '../store/actions/setResumeTemplate';
-import setCustomTranslations from "../store/actions/setCustomTranslations";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -75,8 +74,11 @@ const UploadPage = ({ pageContext, location }) => {
     const [loading, setLoading] = useState(false);
     const [isShowingErrorSnackbar, setIsShowingErrorSnackbar] = useState(false);
 
-    const setResumesAndForward = useCallback((jsonResume) => {
-        dispatch(setJsonResume(jsonResume));
+    const setResumesAndForward = useCallback((jsonResume, customTranslations) => {
+        dispatch(setJsonResume({
+            ...jsonResume,
+            __translation__: customTranslations,
+        }));
         const togglableJsonResume = traverseObject(cloneDeep(jsonResume));
         dispatch(setTogglableJsonResume(togglableJsonResume));
 
@@ -86,8 +88,7 @@ const UploadPage = ({ pageContext, location }) => {
     const readSpreadsheetCallback = useCallback((spreadsheetArray) => {
         if (spreadsheetArray && spreadsheetArray.length) {
             const [jsonResume, customTranslations] = spreadsheetToJsonResume(spreadsheetArray);
-            dispatch(setCustomTranslations(customTranslations));
-            setResumesAndForward(jsonResume);
+            setResumesAndForward(jsonResume, customTranslations);
         } else {
             setErrorMessageId('error.something_went_wrong_loading');
             setIsShowingErrorSnackbar(true);

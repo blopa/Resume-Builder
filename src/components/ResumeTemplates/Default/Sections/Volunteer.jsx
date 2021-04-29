@@ -12,7 +12,12 @@ const useStyles = makeStyles((theme) => ({
         margin: '0',
         padding: '0',
         listStyle: 'none',
-        '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
+        '& li': {
+            margin: '0 0 10px 0',
+            '&:last-child': {
+                margin: '3px 0 0',
+            },
+        },
     },
     position: { fontWeight: 'bold' },
     positionDate: {
@@ -22,13 +27,13 @@ const useStyles = makeStyles((theme) => ({
     website: {},
     summary: {},
     highlights: {
-        marginTop: '3px',
+        flexWrap: 'wrap',
         listStyle: 'none',
         paddingLeft: 0,
         display: 'inline-flex',
         '& li': {
             fontStyle: 'italic',
-            margin: '0 3px 0 0',
+            margin: '3px 3px 0 0',
             backgroundColor: theme.palette.type === 'dark' ? '#28407b' : '#dae4f4',
             borderRadius: '3px',
             padding: '1px 3px',
@@ -36,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
     },
     contentWrapper: {
         marginLeft: '4px',
+    },
+    volunteerWrapper: {
+        pageBreakInside: 'avoid',
     },
 }));
 
@@ -64,7 +72,7 @@ const Volunteer = ({ volunteer: volunteers }) => {
                             } = volunteer?.value || {};
 
                             return (
-                                <li key={uuid()}>
+                                <li className={classes.volunteerWrapper} key={uuid()}>
                                     <p className={classes.position}>
                                         {position?.enabled && position?.value}
                                         {(

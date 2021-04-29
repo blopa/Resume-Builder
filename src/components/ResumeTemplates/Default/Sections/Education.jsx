@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     contentWrapper: {
         marginLeft: '4px',
     },
+    educationWrapper: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
 const Education = ({ education: educations }) => {
@@ -59,17 +62,26 @@ const Education = ({ education: educations }) => {
                             } = education?.value || {};
 
                             return (
-                                <li key={uuid()}>
+                                <li className={classes.educationWrapper} key={uuid()}>
                                     <p className={classes.type}>
-                                        {area?.enabled && area?.value}{', '}
+                                        {area?.enabled && area?.value}
+                                        {(
+                                            (area?.enabled && studyType?.enabled)
+                                            && (area?.value && studyType?.value)
+                                        ) && ', '}
                                         {studyType?.enabled && studyType?.value}
                                     </p>
                                     <p className={classes.institution}>
-                                        {institution && institution?.enabled && institution?.value}{', '}
+                                        {institution && institution?.enabled && institution?.value}
+                                        {(startDate?.enabled && startDate?.value) && ', '}
                                         {startDate && startDate?.enabled && startDate?.value}
-                                        {' - '}
-                                        {endDate && endDate?.enabled && endDate?.value}{', '}
-                                        {gpa && gpa?.enabled && `GPA: ${gpa?.value}`}
+                                        {(
+                                            (startDate?.enabled && endDate?.enabled)
+                                            && (startDate?.value && endDate?.value)
+                                        ) && ' - '}
+                                        {endDate && endDate?.enabled && endDate?.value}
+                                        {/* TODO this */}
+                                        {gpa && gpa?.enabled && `, GPA: ${gpa?.value}`}
                                     </p>
                                     {courses && courses?.enabled && (
                                         <div className={classes.coursesDetails}>

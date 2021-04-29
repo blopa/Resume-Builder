@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
     contentWrapper: {
         marginLeft: '4px',
     },
+    referenceWrapper: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
 const References = ({ references }) => {
@@ -34,7 +37,7 @@ const References = ({ references }) => {
                         if (ref?.enabled) {
                             const { name, reference } = ref?.value || {};
                             return (
-                                <li key={uuid()}>
+                                <li className={classes.referenceWrapper} key={uuid()}>
                                     {name?.enabled && (
                                         <p className={classes.name}>
                                             {name?.value}

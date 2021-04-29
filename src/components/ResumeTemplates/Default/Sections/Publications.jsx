@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     contentWrapper: {
         marginLeft: '4px',
     },
+    publicationWrapper: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
 const Publications = ({ publications }) => {
@@ -42,7 +45,7 @@ const Publications = ({ publications }) => {
                                 summary,
                             } = publication?.value || {};
                             return (
-                                <li key={uuid()}>
+                                <li className={classes.publicationWrapper} key={uuid()}>
                                     {name?.enabled && (
                                         <p className={classes.publication}>
                                             {name?.value}

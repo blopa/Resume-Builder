@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
             '& *': {
                 visibility: 'visible !important',
                 '& div': {
-                    pageBreakInside: 'avoid',
                     '&:last-child': {
                         borderBottom: 'none',
                     },
@@ -36,7 +35,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function A4Container({ children, customHeight, alignCenter = true }) {
+function A4Container({
+    children,
+    customHeight,
+    alignCenter = true,
+}) {
     const classes = useStyles();
     let style = {};
 

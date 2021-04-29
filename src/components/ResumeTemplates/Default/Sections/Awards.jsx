@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     contentWrapper: {
         marginLeft: '4px',
     },
+    awardWrapper: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
 const Awards = ({ awards }) => {
@@ -35,7 +38,7 @@ const Awards = ({ awards }) => {
                         if (award?.enabled) {
                             const { title, date, awarder, summary } = award?.value || {};
                             return (
-                                <li key={uuid()}>
+                                <li className={classes.awardWrapper} key={uuid()}>
                                     <p className={classes.award}>
                                         {title?.enabled && title?.value}
                                     </p>

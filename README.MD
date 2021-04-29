@@ -30,7 +30,23 @@ Create a Github repo [like this one](https://github.com/blopa/resume.json) with 
 Then you can access your resume via https://resume-builder.js.org/view/TEMPLATE/GITHUB_USER, for example this URL: [https://resume-builder.js.org/view/default/blopa](https://resume-builder.js.org/view/default/blopa). You can also append `/lang` to the end of the URL to add a proper translation to your resume, for example [https://resume-builder.js.org/view/default/blopa/es](https://resume-builder.js.org/view/default/blopa/es).
 
 ## Available Translations
-We currently have translations for **English**, **Spanish** and **Brazilian Portuguese**, those are going to be used to translate sections of your resume, like the title "Experience", etc.
+We currently have translations for **English**, **Spanish** and **Brazilian Portuguese**, those are going to be used to translate sections of your resume, like the title "Publications", etc.
+
+Don't like the way a translation key is translated? For example, you might prefer using "Projects" instead of "Publications".
+
+Simply add a custom `__translations__` object to your `resume.json` file with the keys you would like to translate and their new translation, for example:
+
+```json
+{
+  "__translation__": {
+    "publications": "Projects",
+    "education": "Study"
+  }
+}
+```
+
+You can also add it to your spreadsheet by creating columns with the value `__translation__`, like:
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v3/translations.png)
 
 Would you like to have your language added to Resume Builder? [Create a Pull Request](https://github.com/blopa/Resume-Builder/issues/18).
 
@@ -50,6 +66,7 @@ First of all you need to create a Google Spreadsheet following the same rules as
 - **countryCode:** Country code where you're located
 - **network:** Social media name
 - **username:** Social media username
+- **__translation__:** Add your custom translations
 
 ## Libraries
 - I'm using [gatsby.js](https://github.com/gatsbyjs/gatsby), [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx) and [Material UI](https://material-ui.com/).
@@ -155,7 +172,20 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
   "references": [{
     "name": "Jane Doe",
     "reference": "Reference..."
-  }]
+  }],
+  "__translation__": {
+    "awards": "Prizes",
+    "volunteers": "Volunteers",
+    "skills": "Skills",
+    "references": "References",
+    "publications": "Projects",
+    "languages": "Languages",
+    "interests": "Interests",
+    "education": "Education", 
+    "summary": "Summary",
+    "experience": "Experience",
+    "at": "at"
+  }
 }
 ```
 
@@ -176,6 +206,7 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 	- Other small improvements (lintering) in the code
 	- Improve JSON object generation
 	- Improve Default resume template
+	- Add custom translations
 - **v3.0.6:**
 	- Update dependency packages versions
 - **v3.0.5:**
@@ -199,13 +230,14 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 ## F.A.Q.
 **Q: Can you implement <???> function?**
 
-A: I can try. Open a issue and I'll see what I can do.
+A: I can try. Open an issue, and I'll see what I can do.
 
 **Q: Your project is awesome. How can I help?**
 
 A: Thank you! You can help by codding more features, creating pull requests, or donating via [https://bunq.me/BuyMeASoda](https://bunq.me/BuyMeASoda)
 
 ## TODO
+- Actually create a second template
 - Add unit tests
 - Add list of recent used documents
 - Add option to save a built resume
@@ -216,7 +248,7 @@ A: Thank you! You can help by codding more features, creating pull requests, or 
 ## License
 MIT License
 
-Copyright (c) 2020 blopa
+Copyright (c) 2021 blopa
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

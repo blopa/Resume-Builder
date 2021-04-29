@@ -4,8 +4,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { IntlContext } from 'gatsby-plugin-intl';
 
 const useStyles = makeStyles((theme) => ({
-    resumeSummary: { padding: '10px 0', borderBottom: '1px solid #ddd' },
+    resumeSummary: {
+        padding: '10px 0',
+        borderBottom: '1px solid #ddd',
+    },
     resumeBasics: {
+        pageBreakInside: 'avoid',
         padding: '10px 0',
         borderBottom: '1px solid #ddd',
         '& h2': { textTransform: 'uppercase', margin: '0' },
@@ -50,6 +54,10 @@ const useStyles = makeStyles((theme) => ({
     summaryWrapper: {
         marginLeft: '4px',
     },
+    picture: {
+        width: '100px',
+        float: 'right',
+    },
 }));
 
 const Basics = ({
@@ -81,6 +89,13 @@ const Basics = ({
     return (
         <Fragment>
             <div className={classes.resumeBasics}>
+                {(picture?.enabled && picture.value) && (
+                    <img
+                        className={classes.picture}
+                        src={picture.value}
+                        alt="avatar"
+                    />
+                )}
                 {name?.enabled && <h2>{name?.value}</h2>}
                 {label?.enabled && <h3>{label?.value}</h3>}
                 <div className={classes.detailsWrapper}>

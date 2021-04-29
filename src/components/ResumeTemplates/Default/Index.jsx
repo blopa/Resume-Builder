@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {createIntl, createIntlCache, RawIntlProvider, useIntl} from 'gatsby-plugin-intl';
+import { createIntl, createIntlCache, RawIntlProvider, useIntl } from 'gatsby-plugin-intl';
 
 // local template translations
 import templateIntls from './intl';
@@ -17,12 +17,8 @@ import Skills from './Sections/Skills';
 import Volunteer from './Sections/Volunteer';
 import Work from './Sections/Work';
 
-// Hooks
-import { useSelector } from '../../../store/StoreProvider';
-
-// Selectors
-import { selectCustomTranslations } from '../../../store/selectors';
-import {isObjectNotEmpty} from "../../../utils/utils";
+// Utils
+import { isObjectNotEmpty } from '../../../utils/utils';
 
 const useStyles = makeStyles((theme) => ({
     resumeDefaultTemplate: {
@@ -44,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Default = ({
+    customTranslations = {},
     resume: {
         basics,
         work,
@@ -59,7 +56,6 @@ const Default = ({
 }) => {
     const intl = useIntl();
     const classes = useStyles();
-    const customTranslations = useSelector(selectCustomTranslations);
     const templateIntl = useMemo(() => {
         let newIntl = templateIntls.find(
             (tempIntl) => tempIntl.locale === intl.locale
@@ -94,14 +90,14 @@ const Default = ({
                         basics={basics?.value || {}}
                     />
                 )}
-                {(work?.enabled && work.value.length) && (
-                    <Work
-                        work={work?.value || []}
-                    />
-                )}
                 {(skills?.enabled && skills.value.length) && (
                     <Skills
                         skills={skills?.value || []}
+                    />
+                )}
+                {(work?.enabled && work.value.length) && (
+                    <Work
+                        work={work?.value || []}
                     />
                 )}
                 {(education?.enabled && education.value.length) && (

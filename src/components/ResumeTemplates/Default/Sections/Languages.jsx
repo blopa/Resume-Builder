@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     contentWrapper: {
         marginLeft: '4px',
     },
+    languageWrapper: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
 const Languages = ({ languages }) => {
@@ -32,7 +35,7 @@ const Languages = ({ languages }) => {
                         if (lang?.enabled) {
                             const { language, fluency } = lang?.value || {};
                             return (
-                                <li key={uuid()}>
+                                <li className={classes.languageWrapper} key={uuid()}>
                                     <p>
                                         {language?.enabled && language?.value}{', '}
                                         {fluency?.enabled && fluency?.value}
