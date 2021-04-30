@@ -1,6 +1,11 @@
 {
-    "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v0.0.12/schema.json",
     "basics": {
+        "name": "Richard Hendriks",
+        "label": "Programmer",
+        "email": "richard.hendriks@gmail.com",
+        "phone": "(912) 555-4321",
+        "website": "http://richardhendricks.com",
+        "summary": "Richard hails from Tulsa. He has earned degrees from the University of Oklahoma and Stanford. (Go Sooners and Cardinals!) Before starting Pied Piper, he worked for Hooli as a part time software developer. While his work focuses on applied information theory, mostly optimizing lossless compression schema of both the length-limited and adaptive variants, his non-work interests range widely, everything from quantum computing to chaos theory. He could tell you about it, but THAT would NOT be a “length-limited” conversation!",
         "location": {
             "address": "2712 Broadway St",
             "postalCode": "CA 94115",
@@ -10,215 +15,63 @@
         },
         "profiles": [
             {
-                "network": "Twitter",
-                "username": "john",
-                "url": "http://twitter.com/john"
+                "network": "Facebook",
+                "username": "neutralthoughts"
             },
             {
-                "network": "Facebook",
-                "username": "john",
-                "url": "http://facebook.com/john"
+                "network": "Twitter",
+                "url": "https://www.facebook.com/1231453342"
+            },
+            {
+                "network": "SoundCloud",
+                "username": "dandymusicnl",
+                "url": "https://soundcloud.com/dandymusicnl"
             }
-        ],
-        "name": "John Doe",
-        "label": "Programmer",
-        "email": "john@gmail.com",
-        "phone": "(912) 555-4321",
-        "website": "http://johndoe.com",
-        "summary": "A summary of John Doe..."
+        ]
     },
-    "work": [
-        {
-            "company": "Company X",
-            "position": "CEO",
-            "website": "http://company-x.com",
-            "startDate": "2013-01-01",
-            "endDate": "2014-01-01",
-            "summary": "Description...",
-            "highlights": [
-                "team work",
-                "dream work"
-            ]
-        },
-        {
-            "company": "Company Y",
-            "position": "President",
-            "website": "http://company-y.com",
-            "startDate": "2010-01-01",
-            "endDate": "2013-01-01",
-            "summary": "Description...",
-            "highlights": [
-                "team work",
-                "dream work"
-            ]
-        }
-    ],
-    "volunteer": [
-        {
-            "organization": "Organization",
-            "position": "Volunteer",
-            "website": "http://organization.com/",
-            "startDate": "2013-01-01",
-            "endDate": "2014-01-01",
-            "summary": "Description...",
-            "highlights": [
-                "community work",
-                "society"
-            ]
-        },
-        {
-            "organization": "Organization",
-            "position": "Volunteer",
-            "website": "http://organization.com/",
-            "startDate": "2011-01-01",
-            "endDate": "2013-01-01",
-            "summary": "Description...",
-            "highlights": [
-                "community work",
-                "society"
-            ]
-        }
-    ],
-    "education": [
-        {
-            "institution": "University",
-            "area": "Software Development",
-            "studyType": "Bachelor",
-            "startDate": "2014-11-01",
-            "endDate": "2014-11-01",
-            "gpa": "4",
-            "courses": [
-                "math",
-                "science"
-            ]
-        },
-        {
-            "institution": "University",
-            "area": "Software Development",
-            "studyType": "Bachelor",
-            "startDate": "2011-01-01",
-            "endDate": "2013-01-01",
-            "gpa": "4",
-            "courses": [
-                "math",
-                "science"
-            ]
-        }
-    ],
-    "awards": [
-        {
-            "title": "Award",
-            "date": "2014-11-01",
-            "awarder": "Company",
-            "summary": "There is no spoon."
-        },
-        {
-            "title": "Award",
-            "date": "2014-01-01",
-            "awarder": "Company",
-            "summary": "There is no spoon."
-        }
-    ],
-    "publications": [
-        {
-            "name": "Publication",
-            "publisher": "Company",
-            "releaseDate": "2014-11-01",
-            "website": "http://publication.com",
-            "summary": "Description..."
-        },
-        {
-            "name": "Publication",
-            "publisher": "Company",
-            "releaseDate": "2014-10-01",
-            "website": "http://publication.com",
-            "summary": "Description..."
-        }
-    ],
-    "skills": [
-        {
-            "name": "Web Development",
-            "level": "Master",
-            "keywords": [
-                "css",
-                "html"
-            ]
-        },
-        {
-            "name": "Web Development",
-            "level": "Master",
-            "keywords": [
-                "css",
-                "html"
-            ]
-        },
-        {
-            "name": "Web Development",
-            "level": "Master",
-            "keywords": [
-                "css",
-                "html"
-            ]
-        }
-    ],
-    "languages": [
-        {
-            "language": "English",
-            "fluency": "Native speaker"
-        },
-        {
-            "language": "English",
-            "fluency": "Native speaker"
-        },
-        {
-            "language": "English",
-            "fluency": "Native speaker"
-        }
-    ],
-    "interests": [
-        {
-            "name": "Wildlife",
-            "keywords": [
-                "nature",
-                "trees"
-            ]
-        },
-        {
-            "name": "Wildlife",
-            "keywords": [
-                "nature",
-                "trees"
-            ]
-        },
-        {
-            "name": "Wildlife",
-            "keywords": [
-                "nature",
-                "trees"
-            ]
-        }
-    ],
-    "references": [
-        {
-            "name": "Jane Doe",
-            "reference": "Reference text..."
-        },
-        {
-            "name": "Jane Doe",
-            "reference": "Reference text..."
-        }
-    ],
-    "__translation__": {
-        "awards": "Prizes",
-        "volunteers": "Volunteers",
-        "skills": "Skills",
-        "references": "References",
-        "publications": "Projects",
-        "languages": "Languages",
-        "interests": "Interests",
-        "education": "Education",
-        "summary": "Summary",
-        "experience": "Experience",
-        "at": "at"
-    }
+    "work": [{
+        "startDate": "2013-12-01",
+        "position": "CEO/President",
+        "company": "Pied Piper",
+        "website": "http://piedpiper.com",
+        "summary": "Pied Piper is a multi-platform technology based on a proprietary universal compression algorithm that has consistently fielded high Weisman Scores™ that are not merely competitive, but approach the theoretical limit of lossless compression.",
+        "highlights": [
+            "Build an algorithm for artist to detect if their music was violating copy right infringement laws",
+            "Successfully won Techcrunch Disrupt",
+            "Optimized an algorithm that holds the current world record for Weisman Scores"
+        ]
+    }],
+    "education": [{
+        "institution": "University of Oklahoma",
+        "startDate": "2011-06-01",
+        "endDate": "2014-01-01",
+        "area": "Information Technology",
+        "studyType": "Bachelor",
+        "courses": ["DB1101 - Basic SQL", "CS2011 - Java Introduction"]
+    }],
+    "awards": [{
+        "title": "Digital Compression Pioneer Award",
+        "date": "2014-11-01",
+        "awarder": "Techcrunch"
+    }],
+    "publications": [{
+        "name": "Video compression for 3d media",
+        "publisher": "Hooli",
+        "releaseDate": "2014-10-01",
+        "website": "http://en.wikipedia.org/wiki/Silicon_Valley_(TV_series)",
+        "summary": "Innovative middle-out compression algorithm that changes the way we store data."
+    }],
+    "skills": [{
+        "name": "Web Development",
+        "level": "Master",
+        "keywords": ["HTML", "CSS", "Javascript"]
+    },{
+        "name": "Compression",
+        "level": "Master",
+        "keywords": ["Mpeg", "MP4", "GIF"]
+    }],
+    "references": [{
+        "name": "Erlich Bachman",
+        "reference": "It is my pleasure to recommend Richard, his performance working as a consultant for Main St. Company proved that he will be a valuable addition to any company."
+    }]
 }
