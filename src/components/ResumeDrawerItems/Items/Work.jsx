@@ -123,6 +123,8 @@ function Work({ work: workData }) {
                     {works.map((work) => {
                         const {
                             name,
+                            location,
+                            description,
                             position,
                             url,
                             startDate,
