@@ -1,4 +1,5 @@
 {
+    "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v0.0.12/schema.json",
     "basics": {
         "location": {
             "address": "2712 Broadway St",

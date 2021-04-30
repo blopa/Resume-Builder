@@ -20,12 +20,12 @@ For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/main/REA
 ## Features
 - Multiple Resume templates (soon)
 - Parse data from Google Spreadsheet URL, .xls file or .json file.
-- Support Json format from [jsonresume.org](https://jsonresume.org/schema/).
-- Convert Google Spreadsheet data into [jsonresume.org](https://jsonresume.org/schema/) format.
+- Support Json format from [github.com/jsonresume/resume-schema](https://github.com/jsonresume/resume-schema/tree/v0.0.12).
+- Convert Google Spreadsheet data into [github.com/jsonresume/resume-schema](https://github.com/jsonresume/resume-schema/tree/v0.0.12) format.
 - Theme created with [material-ui-theme-editor](https://in-your-saas.github.io/material-ui-theme-editor/), so it's easy for you to customize.
 
 ## Online viewer
-Create a Github repo [like this one](https://github.com/blopa/resume.json) with the name `resume.json` and a file called `resume.json` in a branch called `main` and following the JSON schema from [jsonresume.org](https://jsonresume.org/schema/).
+Create a Github repo [like this one](https://github.com/blopa/resume.json) with the name `resume.json` and a file called `resume.json` in a branch called `main` and following the JSON schema from [github.com/jsonresume/resume-schema](https://github.com/jsonresume/resume-schema/tree/v0.0.12) v0.0.12.
 
 Then you can access your resume via https://resume-builder.js.org/view/TEMPLATE/GITHUB_USER, for example this URL: [https://resume-builder.js.org/view/default/blopa](https://resume-builder.js.org/view/default/blopa). You can also append `/lang` to the end of the URL to add a proper translation to your resume, for example [https://resume-builder.js.org/view/default/blopa/es](https://resume-builder.js.org/view/default/blopa/es).
 
