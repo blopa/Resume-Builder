@@ -5,8 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-intl';
 import style from './resumeDrawerStyles';
 
-// Utils
-
 // Components
 import Awards from './Items/Awards';
 import Basics from './Items/Basics';
@@ -14,10 +12,13 @@ import Education from './Items/Education';
 import Interests from './Items/Interests';
 import Languages from './Items/Languages';
 import Publications from './Items/Publications';
+import Projects from './Items/Projects';
 import References from './Items/References';
 import Skills from './Items/Skills';
 import Volunteer from './Items/Volunteer';
 import Work from './Items/Work';
+
+// Utils
 import { isObjectNotEmpty } from '../../utils/utils';
 import { downloadJson } from '../../utils/json-parser';
 
@@ -41,6 +42,7 @@ const ResumeDrawerItems = ({
         languages,
         interests,
         references,
+        projects,
     },
     onClose,
     jsonResume,
@@ -124,6 +126,11 @@ const ResumeDrawerItems = ({
             {isObjectNotEmpty(publications) && (
                 <Publications
                     publications={publications}
+                />
+            )}
+            {isObjectNotEmpty(projects) && (
+                <Projects
+                    projects={projects}
                 />
             )}
             {isObjectNotEmpty(languages) && (

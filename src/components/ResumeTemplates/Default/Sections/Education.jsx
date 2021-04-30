@@ -57,7 +57,7 @@ const Education = ({ education: educations }) => {
                                 studyType,
                                 startDate,
                                 endDate,
-                                gpa,
+                                score,
                                 courses,
                             } = education?.value || {};
 
@@ -81,7 +81,7 @@ const Education = ({ education: educations }) => {
                                         ) && ' - '}
                                         {endDate && endDate?.enabled && endDate?.value}
                                         {/* TODO this */}
-                                        {gpa && gpa?.enabled && `, GPA: ${gpa?.value}`}
+                                        {score && score?.enabled && `, score: ${score?.value}`}
                                     </p>
                                     {courses && courses?.enabled && (
                                         <div className={classes.coursesDetails}>

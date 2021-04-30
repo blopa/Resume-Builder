@@ -63,8 +63,9 @@ const Work = ({ work: works }) => {
                     {works.map((work) => {
                         if (work?.enabled) {
                             const {
-                                company,
                                 name,
+                                location,
+                                description,
                                 position,
                                 url,
                                 startDate,
@@ -78,11 +79,12 @@ const Work = ({ work: works }) => {
                                     <p className={classes.position}>
                                         {position?.enabled && position?.value}
                                         {(
-                                            (position?.enabled && company?.enabled)
-                                            && (position?.value && company?.value)
+                                            (position?.enabled && name?.enabled)
+                                            && (position?.value && name?.value)
                                         ) && ` ${intl.formatMessage({ id: 'at' })} `}
-                                        {company?.enabled && company?.value}
                                         {name?.enabled && name?.value}
+                                        {description?.enabled && description?.value}
+                                        {location?.enabled && location?.value}
                                         {(startDate?.enabled || endDate?.enabled) && (
                                             <span className={classes.positionDate}>
                                                 {' ('}

@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     summaryWrapper: {
         marginLeft: '4px',
     },
-    picture: {
+    image: {
         width: '100px',
         float: 'right',
     },
@@ -64,7 +64,7 @@ const Basics = ({
     basics: {
         name,
         label,
-        picture,
+        image,
         email,
         phone,
         url,
@@ -88,10 +88,10 @@ const Basics = ({
     return (
         <Fragment>
             <div className={classes.resumeBasics}>
-                {(picture?.enabled && picture.value) && (
+                {(image?.enabled && image.value) && (
                     <img
-                        className={classes.picture}
-                        src={picture.value}
+                        className={classes.image}
+                        src={image.value}
                         alt="avatar"
                     />
                 )}

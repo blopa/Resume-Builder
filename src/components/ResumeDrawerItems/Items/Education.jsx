@@ -90,7 +90,7 @@ function Education({ education: educations }) {
                             studyType,
                             startDate,
                             endDate,
-                            gpa,
+                            score,
                             courses,
                         } = education?.value || {};
                         return (
@@ -156,13 +156,13 @@ function Education({ education: educations }) {
                                                 )}
                                             />
                                         )}
-                                        {gpa && (
+                                        {score && (
                                             <ItemsList
-                                                label={varNameToString({ gpa })}
-                                                checked={gpa?.enabled}
+                                                label={varNameToString({ score })}
+                                                checked={score?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
-                                                    varNameToString({ gpa })
+                                                    varNameToString({ score })
                                                 )}
                                             />
                                         )}

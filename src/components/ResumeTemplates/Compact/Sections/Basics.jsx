@@ -59,7 +59,7 @@ const Basics = ({
     basics: {
         name,
         label,
-        picture,
+        image,
         email,
         phone,
         url,

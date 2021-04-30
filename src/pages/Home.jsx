@@ -107,7 +107,7 @@ const HomePage = () => {
                             <a
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                href="https://docs.google.com/spreadsheets/d/1wHJ_n_DwT_U4pknZh9e0r2wxhjxmd_Z5G2A4LUFpnLk/copy"
+                                href="https://docs.google.com/spreadsheets/d/1jRMEvfI6OsWUwnaHgH5UwnoikZA0a3s8wPnCortNJ_A/copy"
                             >
                                 {msg}
                             </a>

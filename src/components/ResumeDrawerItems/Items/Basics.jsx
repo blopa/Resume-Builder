@@ -92,7 +92,7 @@ function Basics({ basics }) {
         value: {
             name,
             label,
-            picture,
+            image,
             email,
             phone,
             url,

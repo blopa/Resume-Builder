@@ -122,7 +122,6 @@ function Work({ work: workData }) {
                 <ul>
                     {works.map((work) => {
                         const {
-                            company,
                             name,
                             position,
                             url,
@@ -136,23 +135,13 @@ function Work({ work: workData }) {
                             <Fragment key={uuid()}>
                                 {work && (
                                     <ItemsList
-                                        label={company?.value || name?.value}
+                                        label={name?.value}
                                         checked={work?.enabled}
                                         onClick={toggleWork(work)}
                                     />
                                 )}
                                 {work?.enabled && (
                                     <ul>
-                                        {company && (
-                                            <ItemsList
-                                                label={varNameToString({ company })}
-                                                checked={company?.enabled}
-                                                onClick={toggleWorkDetail(
-                                                    work,
-                                                    varNameToString({ company })
-                                                )}
-                                            />
-                                        )}
                                         {name && (
                                             <ItemsList
                                                 label={varNameToString({ name })}

@@ -120,7 +120,7 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
   }],
   "publications": [{
     "name": "Publication",
-    "publisher": "Company",
+    "description": "Company",
     "releaseDate": "2014-10-01",
     "website": "http://publication.com",
     "summary": "Description..."

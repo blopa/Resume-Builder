@@ -8,12 +8,15 @@ export const isObjectNotEmpty = (obj) =>
     isObject(obj) && Object.keys(obj).length > 0;
 
 // TODO make this return a copy of the obj
-export const traverseObject = (obj) => {
+export const traverseObject = (
+    obj,
+    ignoredProperties = ['meta', '$schema', '__translation__']
+) => {
     // eslint-disable-next-line no-restricted-syntax
     for (const property in obj) {
         // eslint-disable-next-line no-prototype-builtins
         if (obj.hasOwnProperty(property)) {
-            if (obj[property]?.length === 0) {
+            if (obj[property]?.length === 0 || ignoredProperties.includes(property)) {
                 // eslint-disable-next-line no-param-reassign
                 delete obj[property];
             } else {

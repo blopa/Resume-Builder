@@ -1,7 +1,7 @@
 export const readJsonFile = (file, callback) => {
     const reader = new FileReader();
     reader.onload = (e) => callback(e.target.result);
-    // eslint-disable-next-line standard/no-callback-literal
+    // eslint-disable-next-line
     reader.onerror = () => callback('{}');
     reader.readAsText(file);
 };

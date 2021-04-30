@@ -91,6 +91,16 @@ export default (state, action) => {
                     },
                 },
             };
+        case 'SET_RESUME_PROJECTS':
+            return {
+                ...state,
+                togglableJsonResume: {
+                    ...state.togglableJsonResume,
+                    projects: {
+                        ...action.projects,
+                    },
+                },
+            };
         case 'SET_RESUME_LANGUAGES':
             return {
                 ...state,

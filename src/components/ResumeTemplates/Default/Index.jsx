@@ -16,6 +16,7 @@ import References from './Sections/References';
 import Skills from './Sections/Skills';
 import Volunteer from './Sections/Volunteer';
 import Work from './Sections/Work';
+import Projects from './Sections/Projects';
 
 // Utils
 import { isObjectNotEmpty } from '../../../utils/utils';
@@ -52,6 +53,7 @@ const Default = ({
         languages,
         interests,
         references,
+        projects,
     },
 }) => {
     const intl = useIntl();
@@ -118,6 +120,11 @@ const Default = ({
                 {(publications?.enabled && publications.value.length) && (
                     <Publications
                         publications={publications?.value || []}
+                    />
+                )}
+                {(projects?.enabled && projects.value.length) && (
+                    <Projects
+                        projects={projects?.value || []}
                     />
                 )}
                 {(languages?.enabled && languages.value.length) && (
