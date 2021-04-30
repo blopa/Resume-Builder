@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         fontStyle: 'italic',
         fontSize: '0.8rem',
     },
-    website: {},
+    url: {},
     summary: {},
     highlights: {
         flexWrap: 'wrap',
@@ -63,7 +63,6 @@ const Volunteer = ({ volunteer: volunteers }) => {
                             const {
                                 organization,
                                 position,
-                                website,
                                 url,
                                 startDate,
                                 endDate,
@@ -90,12 +89,7 @@ const Volunteer = ({ volunteer: volunteers }) => {
                                             </span>
                                         )}
                                     </p>
-                                    <p className={classes.website}>
-                                        {(website && website?.enabled && website?.value) && (
-                                            <a href={website.value}>{website.value}</a>
-                                        )}
-                                    </p>
-                                    <p className={classes.website}>
+                                    <p className={classes.url}>
                                         {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
                                     </p>
                                     <p className={classes.summary}>

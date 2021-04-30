@@ -95,7 +95,6 @@ function Basics({ basics }) {
             picture,
             email,
             phone,
-            website,
             url,
             summary,
             location: {
@@ -194,15 +193,6 @@ function Basics({ basics }) {
                                 />
                             )}
                         </ul>
-                    )}
-                    {website && (
-                        <ItemsList
-                            label={varNameToString({ website })}
-                            checked={website?.enabled}
-                            onClick={toggleBasicsDetail(
-                                varNameToString({ website })
-                            )}
-                        />
                     )}
                     {url && (
                         <ItemsList

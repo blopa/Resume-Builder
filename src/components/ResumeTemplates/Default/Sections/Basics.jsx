@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
             '&:last-child': { '&:after': { content: '""' } },
         },
     },
-    website: {},
+    url: {},
     detailsWrapper: {
         marginLeft: '4px',
     },
@@ -67,7 +67,6 @@ const Basics = ({
         picture,
         email,
         phone,
-        website,
         url,
         summary,
         location: {
@@ -117,17 +116,6 @@ const Basics = ({
                                     target="_blank"
                                 >
                                     {url?.value}
-                                </a>
-                            </li>
-                        )}
-                        {website?.enabled && (
-                            <li key={uuid()}>
-                                <a
-                                    className={classes.website}
-                                    href={website?.value}
-                                    target="_blank"
-                                >
-                                    {website?.value}
                                 </a>
                             </li>
                         )}

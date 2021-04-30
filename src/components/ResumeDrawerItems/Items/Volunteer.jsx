@@ -124,7 +124,6 @@ function Volunteer({ volunteer: volunteerData }) {
                         const {
                             organization,
                             position,
-                            website,
                             url,
                             startDate,
                             endDate,
@@ -160,16 +159,6 @@ function Volunteer({ volunteer: volunteerData }) {
                                                 onClick={toggleVolunteerDetail(
                                                     volunteer,
                                                     varNameToString({ position })
-                                                )}
-                                            />
-                                        )}
-                                        {website && (
-                                            <ItemsList
-                                                label={varNameToString({ website })}
-                                                checked={website?.enabled}
-                                                onClick={toggleVolunteerDetail(
-                                                    volunteer,
-                                                    varNameToString({ website })
                                                 )}
                                             />
                                         )}

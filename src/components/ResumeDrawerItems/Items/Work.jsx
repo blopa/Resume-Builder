@@ -125,7 +125,6 @@ function Work({ work: workData }) {
                             company,
                             name,
                             position,
-                            website,
                             url,
                             startDate,
                             endDate,
@@ -171,16 +170,6 @@ function Work({ work: workData }) {
                                                 onClick={toggleWorkDetail(
                                                     work,
                                                     varNameToString({ position })
-                                                )}
-                                            />
-                                        )}
-                                        {website && (
-                                            <ItemsList
-                                                label={varNameToString({ website })}
-                                                checked={website?.enabled}
-                                                onClick={toggleWorkDetail(
-                                                    work,
-                                                    varNameToString({ website })
                                                 )}
                                             />
                                         )}

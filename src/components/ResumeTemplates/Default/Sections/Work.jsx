@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         fontStyle: 'italic',
         fontSize: '0.8rem',
     },
-    website: {},
+    url: {},
     summary: {
         whiteSpace: 'break-spaces',
     },
@@ -66,7 +66,6 @@ const Work = ({ work: works }) => {
                                 company,
                                 name,
                                 position,
-                                website,
                                 url,
                                 startDate,
                                 endDate,
@@ -94,14 +93,7 @@ const Work = ({ work: works }) => {
                                             </span>
                                         )}
                                     </p>
-                                    <p className={classes.website}>
-                                        {website?.enabled && (
-                                            <a href={website?.value}>
-                                                {website?.value}
-                                            </a>
-                                        )}
-                                    </p>
-                                    <p className={classes.website}>
+                                    <p className={classes.url}>
                                         {url?.enabled && (
                                             <a href={url?.value}>
                                                 {url?.value}

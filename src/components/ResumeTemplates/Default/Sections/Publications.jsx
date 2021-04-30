@@ -40,7 +40,6 @@ const Publications = ({ publications }) => {
                                 name,
                                 publisher,
                                 releaseDate,
-                                website,
                                 url,
                                 summary,
                             } = publication?.value || {};
@@ -54,9 +53,6 @@ const Publications = ({ publications }) => {
                                     {publisher && publisher?.enabled && <p>{publisher?.value}</p>}
                                     {releaseDate && releaseDate?.enabled && <p>{releaseDate?.value}</p>}
                                     {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
-                                    {(website && website?.enabled && website?.value) && (
-                                        <a href={website.value}>{website.value}</a>
-                                    )}
                                     {summary && summary?.enabled && <p>{summary?.value}</p>}
                                 </li>
                             );
