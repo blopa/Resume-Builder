@@ -14,7 +14,7 @@
 **TESTED ONLY ON GOOGLE CHROME**
 
 ## About
-[Resume Builder](https://blopa.github.io/Resume-Builder-V1/) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://blopa.github.io/Resume-Builder-V1/).**
+[Resume Builder](https://blopa.github.io/Legacy-Resume-Builder/v1) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://blopa.github.io/Legacy-Resume-Builder/v1).**
 
 For the latest version, access [https://resume-builder.js.org](https://resume-builder.js.org).
 
@@ -54,7 +54,7 @@ First of all you need to create a Google Spreadsheet following the same rules as
 So whenever you want a part of the resume to be an sub-item of another item, you should use the ``data-for`` field. Use your creativity.
 
 ## Libraries
-- For the [react.js version](https://blopa.github.io/Resume-Builder-V1/) of this project I'm using [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx) and [Bootstrap](https://github.com/twbs/bootstrap).
+- For the [react.js version](https://blopa.github.io/Legacy-Resume-Builder/v1) of this project I'm using [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx) and [Bootstrap](https://github.com/twbs/bootstrap).
 - Honorable mentions: [babel](https://github.com/babel/babel), [webpack](https://github.com/webpack/webpack), [IntelliJ IDEA](https://github.com/JetBrains/intellij-community) and [Squarespace](https://logo.squarespace.com).
 
 So a big thanks to all the developers that worked really hard on these libs and make our day easier :D and also a big thanks to [cdnjs.com](https://cdnjs.com/) for hosting those libs for us.

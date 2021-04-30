@@ -14,7 +14,7 @@
 **TESTED ONLY ON GOOGLE CHROME**
 
 ## About
-[Resume Builder](https://blopa.github.io/Resume-Builder-V2/) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://blopa.github.io/Resume-Builder-V2/).**
+[Resume Builder](https://blopa.github.io/Legacy-Resume-Builder/v2) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://blopa.github.io/Legacy-Resume-Builder/v2).**
 
 For the latest version, access [https://resume-builder.js.org](https://resume-builder.js.org).
 
