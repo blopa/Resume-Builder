@@ -19,26 +19,27 @@ const useStyles = makeStyles((theme) => ({
             },
         },
     },
-    position: { fontWeight: 'bold' },
+    position: {
+        fontWeight: 'bold',
+    },
     positionDate: {
         fontStyle: 'italic',
         fontSize: '0.8rem',
     },
-    url: {},
+    urlAndLocation: {
+        fontStyle: 'italic',
+        color: theme.palette.type === 'dark' ? '#b7bfc1' : '#6a5e5e',
+    },
     summary: {
         whiteSpace: 'break-spaces',
     },
+    description: {
+        whiteSpace: 'break-spaces',
+    },
     highlights: {
-        flexWrap: 'wrap',
-        listStyle: 'none',
-        paddingLeft: 0,
-        display: 'inline-flex',
         '& li': {
+            marginBottom: '1px',
             fontStyle: 'italic',
-            margin: '3px 3px 0 0',
-            backgroundColor: theme.palette.type === 'dark' ? '#28407b' : '#dae4f4',
-            borderRadius: '3px',
-            padding: '1px 3px',
         },
     },
     contentWrapper: {
@@ -46,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
     },
     workWrapper: {
         pageBreakInside: 'avoid',
+    },
+    workHeader: {
+        marginBottom: '5px',
     },
 }));
 
@@ -76,34 +80,42 @@ const Work = ({ work: works }) => {
 
                             return (
                                 <li className={classes.workWrapper} key={uuid()}>
-                                    <p className={classes.position}>
-                                        {position?.enabled && position?.value}
-                                        {(
-                                            (position?.enabled && name?.enabled)
-                                            && (position?.value && name?.value)
-                                        ) && ` ${intl.formatMessage({ id: 'at' })} `}
-                                        {name?.enabled && name?.value}
-                                        {description?.enabled && description?.value}
-                                        {location?.enabled && location?.value}
-                                        {(startDate?.enabled || endDate?.enabled) && (
-                                            <span className={classes.positionDate}>
-                                                {' ('}
-                                                {startDate?.enabled && startDate?.value}
-                                                {(startDate?.enabled && endDate?.enabled) && ' - '}
-                                                {endDate?.enabled && endDate?.value}
-                                                {')'}
-                                            </span>
-                                        )}
-                                    </p>
-                                    <p className={classes.url}>
-                                        {url?.enabled && (
-                                            <a href={url?.value}>
-                                                {url?.value}
-                                            </a>
-                                        )}
-                                    </p>
+                                    <div className={classes.workHeader}>
+                                        <p className={classes.position}>
+                                            {position?.enabled && position?.value}
+                                            {(
+                                                (position?.enabled && name?.enabled)
+                                                && (position?.value && name?.value)
+                                            ) && ` ${intl.formatMessage({ id: 'at' })} `}
+                                            {name?.enabled && name?.value}
+                                            {(startDate?.enabled || endDate?.enabled) && (
+                                                <span className={classes.positionDate}>
+                                                    {' ('}
+                                                    {startDate?.enabled && startDate?.value}
+                                                    {(startDate?.enabled && endDate?.enabled) && ' - '}
+                                                    {endDate?.enabled && endDate?.value}
+                                                    {')'}
+                                                </span>
+                                            )}
+                                        </p>
+                                        <p className={classes.urlAndLocation}>
+                                            {location?.enabled && location?.value}
+                                            {(
+                                                (location?.enabled && url?.enabled)
+                                                && (location?.value && url?.value)
+                                            ) && ', '}
+                                            {url?.enabled && (
+                                                <a href={url?.value}>
+                                                    {url?.value}
+                                                </a>
+                                            )}
+                                        </p>
+                                    </div>
                                     <p className={classes.summary}>
                                         {summary?.enabled && summary?.value}
+                                    </p>
+                                    <p className={classes.description}>
+                                        {description?.enabled && description?.value}
                                     </p>
                                     {highlights?.enabled && (
                                         <ul className={classes.highlights}>

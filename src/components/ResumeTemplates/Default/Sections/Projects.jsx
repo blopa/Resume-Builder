@@ -50,15 +50,22 @@ const Projects = ({ projects }) => {
                             } = project?.value || {};
                             return (
                                 <li className={classes.projectWrapper} key={uuid()}>
-                                    {name?.enabled && (
-                                        <p className={classes.project}>
-                                            {name?.value}
-                                        </p>
-                                    )}
-                                    {description && description?.enabled && <p>{description?.value}</p>}
-                                    {startDate && startDate?.enabled && <p>{startDate?.value}</p>}
-                                    {endDate && endDate?.enabled && <p>{endDate?.value}</p>}
+                                    <p className={classes.project}>
+                                        {name?.enabled && name?.value}
+                                        {(startDate?.enabled || endDate?.enabled) && (
+                                            <span className={classes.positionDate}>
+                                                {' ('}
+                                                {startDate?.enabled && startDate?.value}
+                                                {(startDate?.enabled && endDate?.enabled) && ' - '}
+                                                {endDate?.enabled && endDate?.value}
+                                                {')'}
+                                            </span>
+                                        )}
+                                    </p>
+                                    {type && type?.enabled && <p>{type?.value}</p>}
+                                    {entity && entity?.enabled && <p>{entity?.value}</p>}
                                     {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
+                                    {description && description?.enabled && <p>{description?.value}</p>}
                                 </li>
                             );
                         }

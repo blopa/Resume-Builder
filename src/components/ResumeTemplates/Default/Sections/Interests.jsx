@@ -19,7 +19,9 @@ const useStyles = makeStyles((theme) => ({
             },
         },
     },
-    interest: { fontWeight: 'bold' },
+    interest: {
+        fontWeight: 'bold',
+    },
     keywords: {
         flexWrap: 'wrap',
         listStyle: 'none',
@@ -54,7 +56,11 @@ const Interests = ({ interests }) => {
                 <ul className={classes.interests}>
                     {interests.map((interest) => {
                         if (interest?.enabled) {
-                            const { name, keywords } = interest?.value || {};
+                            const {
+                                name,
+                                keywords,
+                            } = interest?.value || {};
+
                             return (
                                 <li className={classes.interestWrapper} key={uuid()}>
                                     {name?.enabled && (

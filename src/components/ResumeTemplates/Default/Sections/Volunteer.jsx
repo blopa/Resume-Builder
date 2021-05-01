@@ -27,16 +27,9 @@ const useStyles = makeStyles((theme) => ({
     url: {},
     summary: {},
     highlights: {
-        flexWrap: 'wrap',
-        listStyle: 'none',
-        paddingLeft: 0,
-        display: 'inline-flex',
         '& li': {
+            marginBottom: '1px',
             fontStyle: 'italic',
-            margin: '3px 3px 0 0',
-            backgroundColor: theme.palette.type === 'dark' ? '#28407b' : '#dae4f4',
-            borderRadius: '3px',
-            padding: '1px 3px',
         },
     },
     contentWrapper: {

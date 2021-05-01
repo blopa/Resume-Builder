@@ -33,7 +33,11 @@ const Languages = ({ languages }) => {
                 <ul className={classes.languages}>
                     {languages.map((lang) => {
                         if (lang?.enabled) {
-                            const { language, fluency } = lang?.value || {};
+                            const {
+                                language,
+                                fluency,
+                            } = lang?.value || {};
+
                             return (
                                 <li className={classes.languageWrapper} key={uuid()}>
                                     <p>

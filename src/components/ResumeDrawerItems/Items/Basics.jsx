@@ -120,6 +120,15 @@ function Basics({ basics }) {
             />
             {basicsEnabled && (
                 <ul>
+                    {image && (
+                        <ItemsList
+                            label={varNameToString({ image })}
+                            checked={image?.enabled}
+                            onClick={toggleBasicsDetail(
+                                varNameToString({ image })
+                            )}
+                        />
+                    )}
                     {name && (
                         <ItemsList
                             label={varNameToString({ name })}

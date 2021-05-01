@@ -136,6 +136,16 @@ function Projects({ projects }) {
                                                 )}
                                             />
                                         )}
+                                        {endDate && (
+                                            <ItemsList
+                                                label={varNameToString({ endDate })}
+                                                checked={endDate?.enabled}
+                                                onClick={toggleProjectsDetail(
+                                                    project,
+                                                    varNameToString({ endDate })
+                                                )}
+                                            />
+                                        )}
                                         {url && (
                                             <ItemsList
                                                 label={varNameToString({ url })}
@@ -153,6 +163,16 @@ function Projects({ projects }) {
                                                 onClick={toggleProjectsDetail(
                                                     project,
                                                     varNameToString({ description })
+                                                )}
+                                            />
+                                        )}
+                                        {type && (
+                                            <ItemsList
+                                                label={varNameToString({ type })}
+                                                checked={type?.enabled}
+                                                onClick={toggleProjectsDetail(
+                                                    project,
+                                                    varNameToString({ type })
                                                 )}
                                             />
                                         )}

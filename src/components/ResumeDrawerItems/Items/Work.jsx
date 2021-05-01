@@ -174,6 +174,16 @@ function Work({ work: workData }) {
                                                 )}
                                             />
                                         )}
+                                        {location && (
+                                            <ItemsList
+                                                label={varNameToString({ location })}
+                                                checked={location?.enabled}
+                                                onClick={toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ location })
+                                                )}
+                                            />
+                                        )}
                                         {startDate && (
                                             <ItemsList
                                                 label={varNameToString({ startDate })}
@@ -201,6 +211,16 @@ function Work({ work: workData }) {
                                                 onClick={toggleWorkDetail(
                                                     work,
                                                     varNameToString({ summary })
+                                                )}
+                                            />
+                                        )}
+                                        {description && (
+                                            <ItemsList
+                                                label={varNameToString({ description })}
+                                                checked={description?.enabled}
+                                                onClick={toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ description })
                                                 )}
                                             />
                                         )}

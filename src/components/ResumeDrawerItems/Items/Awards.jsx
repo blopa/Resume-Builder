@@ -84,7 +84,13 @@ function Awards({ awards }) {
             {awards?.enabled && (
                 <ul>
                     {awards?.value.map((award) => {
-                        const { title, date, awarder, summary } = award?.value || {};
+                        const {
+                            title,
+                            date,
+                            awarder,
+                            summary,
+                        } = award?.value || {};
+
                         return (
                             <Fragment key={uuid()}>
                                 <ItemsList

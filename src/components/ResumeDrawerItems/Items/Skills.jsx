@@ -78,7 +78,12 @@ function Skills({ skills }) {
             {skills?.enabled && (
                 <ul>
                     {skills?.value.map((skill) => {
-                        const { keywords, level, name } = skill?.value || {};
+                        const {
+                            name,
+                            level,
+                            keywords,
+                        } = skill?.value || {};
+
                         return (
                             <Fragment key={uuid()}>
                                 {skill && (

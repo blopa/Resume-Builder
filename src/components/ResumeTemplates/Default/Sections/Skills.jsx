@@ -52,7 +52,12 @@ const Skills = ({ skills }) => {
                 <ul className={classes.skills}>
                     {skills.map((skill) => {
                         if (skill?.enabled) {
-                            const { name, level, keywords } = skill?.value || {};
+                            const {
+                                name,
+                                level,
+                                keywords,
+                            } = skill?.value || {};
+
                             return (
                                 <li key={uuid()}>
                                     {(name?.enabled || level?.enabled) && (

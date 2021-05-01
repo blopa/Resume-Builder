@@ -14,12 +14,18 @@ const useStyles = makeStyles((theme) => ({
         listStyle: 'none',
         '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
     },
-    publication: { fontWeight: 'bold' },
+    publication: {
+        fontWeight: 'bold',
+    },
     contentWrapper: {
         marginLeft: '4px',
     },
     publicationWrapper: {
         pageBreakInside: 'avoid',
+    },
+    positionDate: {
+        fontStyle: 'italic',
+        fontSize: '0.8rem',
     },
 }));
 
@@ -45,13 +51,19 @@ const Publications = ({ publications }) => {
                             } = publication?.value || {};
                             return (
                                 <li className={classes.publicationWrapper} key={uuid()}>
-                                    {name?.enabled && (
-                                        <p className={classes.publication}>
-                                            {name?.value}
-                                        </p>
-                                    )}
-                                    {publisher && publisher?.enabled && <p>{publisher?.value}</p>}
-                                    {releaseDate && releaseDate?.enabled && <p>{releaseDate?.value}</p>}
+                                    <p className={classes.publication}>
+                                        {name?.enabled && name?.value}
+                                        {(
+                                            (publisher?.enabled && name?.enabled)
+                                            && (publisher?.value && name?.value)
+                                        ) && ` ${intl.formatMessage({ id: 'at' })} `}
+                                        {publisher?.enabled && publisher?.value}
+                                        {(releaseDate?.enabled && releaseDate?.value) && (
+                                            <span className={classes.positionDate}>
+                                                {` (${releaseDate?.value})`}
+                                            </span>
+                                        )}
+                                    </p>
                                     {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
                                     {summary && summary?.enabled && <p>{summary?.value}</p>}
                                 </li>

@@ -86,6 +86,7 @@ function Education({ education: educations }) {
                     {educations?.value.map((education) => {
                         const {
                             institution,
+                            url,
                             area,
                             studyType,
                             startDate,
@@ -93,6 +94,7 @@ function Education({ education: educations }) {
                             score,
                             courses,
                         } = education?.value || {};
+
                         return (
                             <Fragment key={uuid()}>
                                 {educations && (
@@ -113,6 +115,16 @@ function Education({ education: educations }) {
                                                 onClick={toggleEducationDetail(
                                                     education,
                                                     varNameToString({ institution })
+                                                )}
+                                            />
+                                        )}
+                                        {url && (
+                                            <ItemsList
+                                                label={varNameToString({ url })}
+                                                checked={url?.enabled}
+                                                onClick={toggleEducationDetail(
+                                                    education,
+                                                    varNameToString({ url })
                                                 )}
                                             />
                                         )}

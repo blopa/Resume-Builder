@@ -10,6 +10,10 @@ const useStyles = makeStyles((theme) => ({
     },
     type: { fontWeight: 'bold' },
     institution: {},
+    positionDate: {
+        fontStyle: 'italic',
+        fontSize: '0.8rem',
+    },
     courses: {
         margin: '0',
         padding: '0',
@@ -53,6 +57,7 @@ const Education = ({ education: educations }) => {
                         if (education?.enabled) {
                             const {
                                 institution,
+                                url,
                                 area,
                                 studyType,
                                 startDate,
@@ -70,17 +75,26 @@ const Education = ({ education: educations }) => {
                                             && (area?.value && studyType?.value)
                                         ) && ', '}
                                         {studyType?.enabled && studyType?.value}
+                                        {(startDate?.enabled || endDate?.enabled) && (
+                                            <span className={classes.positionDate}>
+                                                {' ('}
+                                                {startDate?.enabled && startDate?.value}
+                                                {(startDate?.enabled && endDate?.enabled) && ' - '}
+                                                {endDate?.enabled && endDate?.value}
+                                                {')'}
+                                            </span>
+                                        )}
                                     </p>
                                     <p className={classes.institution}>
-                                        {institution && institution?.enabled && institution?.value}
-                                        {(startDate?.enabled && startDate?.value) && ', '}
-                                        {startDate && startDate?.enabled && startDate?.value}
-                                        {(
-                                            (startDate?.enabled && endDate?.enabled)
-                                            && (startDate?.value && endDate?.value)
-                                        ) && ' - '}
-                                        {endDate && endDate?.enabled && endDate?.value}
-                                        {/* TODO this */}
+                                        {
+                                            (url?.enabled && institution?.enabled)
+                                            && (url?.value && institution?.value) ?
+                                                (
+                                                    <a href={url?.value}>
+                                                        {institution?.value}
+                                                    </a>
+                                                )
+                                                : institution?.value}
                                         {score && score?.enabled && `, score: ${score?.value}`}
                                     </p>
                                     {courses && courses?.enabled && (

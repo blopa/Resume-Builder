@@ -35,7 +35,11 @@ const References = ({ references }) => {
                 <ul className={classes.references}>
                     {references.map((ref) => {
                         if (ref?.enabled) {
-                            const { name, reference } = ref?.value || {};
+                            const {
+                                name,
+                                reference,
+                            } = ref?.value || {};
+
                             return (
                                 <li className={classes.referenceWrapper} key={uuid()}>
                                     {name?.enabled && (
