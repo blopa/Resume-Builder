@@ -51,6 +51,7 @@
         "lodash": "^4.17.21",
         "material-ui-dropzone": "^3.5.0",
         "material-ui-flags": "^1.2.4",
+        "mustache": "^4.2.0",
         "prop-types": "^15.7.2",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
@@ -81,7 +82,7 @@
         "eslint-plugin-unicorn": "^31.0.0",
         "eslint-plugin-unused-imports": "^1.1.1",
         "gatsby-plugin-eslint": "^3.0.0",
-        "npm-check-updates": "^11.5.7",
+        "npm-check-updates": "^11.5.9",
         "prettier": "2.2.1"
     },
     "repository": {

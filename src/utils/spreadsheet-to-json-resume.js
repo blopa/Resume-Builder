@@ -21,6 +21,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const interestsCategory = 'interests';
     const referencesCategory = 'references';
     const translationsCategory = '__translation__';
+    const coverLetterCategory = 'coverLetter';
 
     // base jsonResume
     const jsonResume = {
@@ -60,6 +61,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     let references = {};
     const referencesArray = [];
     const translations = {};
+    let coverLetter = '';
 
     jsonSpreadsheet.forEach((value) => {
         if (value[disabledAttr]) {
@@ -67,7 +69,9 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         }
 
         const category = value[categoryAttr].toLowerCase();
-        if (category === translationsCategory) {
+        if (category === coverLetterCategory) {
+            coverLetter = value[contentAttr];
+        } else if (category === translationsCategory) {
             translations[value[typeAttr]] = value[contentAttr];
         } else if (category === basicsCategory) {
             jsonResume.basics[value[typeAttr]] = value[contentAttr];
@@ -236,5 +240,9 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     }
     jsonResume.references = [...referencesArray];
 
-    return [jsonResume, translations];
+    return {
+        ...jsonResume,
+        __translation__: translations,
+        coverLetter,
+    };
 }

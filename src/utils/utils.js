@@ -10,7 +10,12 @@ export const isObjectNotEmpty = (obj) =>
 // TODO make this return a copy of the obj
 export const traverseObject = (
     obj,
-    ignoredProperties = ['meta', '$schema', '__translation__']
+    ignoredProperties = [
+        'coverLetter',
+        'meta',
+        '$schema',
+        '__translation__',
+    ]
 ) => {
     // eslint-disable-next-line no-restricted-syntax
     for (const property in obj) {

@@ -217,6 +217,7 @@ A: I can try. Open an issue, and I'll see what I can do.
 A: Thank you! You can help by codding more features, creating pull requests, or donating via [https://bunq.me/BuyMeASoda](https://bunq.me/BuyMeASoda)
 
 ## TODO
+- Add cover letter
 - Update JSON Schema
 - Actually create a second template
 - Add unit tests

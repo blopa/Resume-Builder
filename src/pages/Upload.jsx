@@ -4,6 +4,7 @@ import { Button, Typography, TextField, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { cloneDeep } from 'lodash';
 import { navigate, useIntl } from 'gatsby-plugin-intl';
+import Mustache from 'mustache';
 
 // Components
 import SEO from '../components/SEO';
@@ -74,10 +75,30 @@ const UploadPage = ({ pageContext, location }) => {
     const [loading, setLoading] = useState(false);
     const [isShowingErrorSnackbar, setIsShowingErrorSnackbar] = useState(false);
 
-    const setResumesAndForward = useCallback((jsonResume, customTranslations) => {
+    const setResumesAndForward = useCallback((jsonResume) => {
+        let coverLetter = {};
+
+        if (jsonResume.coverLetter) {
+            const variables = Mustache.parse(jsonResume.coverLetter)
+                .filter((v) => v[0] === 'name')
+                .map((v) => v[1])
+                .reduce(
+                    (acc, curr) => ({ ...acc, [curr]: null }),
+                    {}
+                );
+
+            coverLetter = {
+                enabled: true,
+                value: {
+                    text: jsonResume.coverLetter,
+                    variables,
+                },
+            };
+        }
+
         dispatch(setJsonResume({
             ...jsonResume,
-            __translation__: customTranslations,
+            coverLetter,
         }));
         const togglableJsonResume = traverseObject(cloneDeep(jsonResume));
         dispatch(setTogglableJsonResume(togglableJsonResume));
@@ -87,8 +108,8 @@ const UploadPage = ({ pageContext, location }) => {
 
     const readSpreadsheetCallback = useCallback((spreadsheetArray) => {
         if (spreadsheetArray && spreadsheetArray.length) {
-            const [jsonResume, customTranslations] = spreadsheetToJsonResume(spreadsheetArray);
-            setResumesAndForward(jsonResume, customTranslations);
+            const jsonResume = spreadsheetToJsonResume(spreadsheetArray);
+            setResumesAndForward(jsonResume);
         } else {
             setErrorMessageId('error.something_went_wrong_loading');
             setIsShowingErrorSnackbar(true);

@@ -64,6 +64,7 @@ const BuildPage = () => {
                     resume={togglableJsonResume}
                     // eslint-disable-next-line no-underscore-dangle
                     customTranslations={jsonResume.__translation__}
+                    coverLetter={jsonResume.coverLetter}
                 />,
             ]);
         }
