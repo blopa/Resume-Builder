@@ -201,6 +201,8 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 
 ## Release Notes
 - **v4.0.0:**
+	- Fix page break between title and items using a dirty hack (but hey it works).
+	- Add cover letter editor.
 	- Update JSON Schema to v1.0.0.
 	- Update Gatsby to v3.
 
@@ -217,8 +219,6 @@ A: I can try. Open an issue, and I'll see what I can do.
 A: Thank you! You can help by codding more features, creating pull requests, or donating via [https://bunq.me/BuyMeASoda](https://bunq.me/BuyMeASoda)
 
 ## TODO
-- Add cover letter
-- Update JSON Schema
 - Actually create a second template
 - Add unit tests
 - Add list of recent used documents

@@ -1,7 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { IntlContext } from 'gatsby-plugin-intl';
+
+// Hooks
+import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
     resumePublications: {
@@ -27,20 +30,30 @@ const useStyles = makeStyles((theme) => ({
         fontStyle: 'italic',
         fontSize: '0.8rem',
     },
+    title: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
 const Publications = ({ publications }) => {
     const classes = useStyles();
     const intl = useContext(IntlContext);
+    const firstItem = useRef(null);
+    const sectionTitle = useRef(null);
+    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
     return publications.length > 0 && (
         <div className={classes.resumePublications}>
-            <h3>
+            <h3
+                ref={sectionTitle}
+                className={classes.title}
+                style={titleStyle}
+            >
                 {intl.formatMessage({ id: 'publications' })}
             </h3>
             <div className={classes.contentWrapper}>
                 <ul className={classes.publications}>
-                    {publications.map((publication) => {
+                    {publications.map((publication, index) => {
                         if (publication?.enabled) {
                             const {
                                 name,
@@ -49,8 +62,21 @@ const Publications = ({ publications }) => {
                                 url,
                                 summary,
                             } = publication?.value || {};
+
+                            let refProps = {};
+                            if (index === 0) {
+                                refProps = {
+                                    ref: firstItem,
+                                };
+                            }
+
                             return (
-                                <li className={classes.publicationWrapper} key={uuid()}>
+                                <li
+                                    className={classes.publicationWrapper}
+                                    key={uuid()}
+                                    // eslint-disable-next-line react/jsx-props-no-spreading
+                                    {...refProps}
+                                >
                                     <p className={classes.publication}>
                                         {name?.enabled && name?.value}
                                         {(

@@ -1,7 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { IntlContext } from 'gatsby-plugin-intl';
+
+// Hooks
+import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
     resumeProjects: {
@@ -12,13 +15,27 @@ const useStyles = makeStyles((theme) => ({
         margin: '0',
         padding: '0',
         listStyle: 'none',
-        '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
+        '& li': {
+            margin: '0 0 10px 0',
+            '&:last-child': {
+                margin: '0',
+            },
+        },
     },
-    project: { fontWeight: 'bold' },
+    project: {
+        fontWeight: 'bold',
+    },
     contentWrapper: {
         marginLeft: '4px',
     },
     projectWrapper: {
+        pageBreakInside: 'avoid',
+    },
+    positionDate: {
+        fontStyle: 'italic',
+        fontSize: '0.8rem',
+    },
+    title: {
         pageBreakInside: 'avoid',
     },
 }));
@@ -26,15 +43,22 @@ const useStyles = makeStyles((theme) => ({
 const Projects = ({ projects }) => {
     const classes = useStyles();
     const intl = useContext(IntlContext);
+    const firstItem = useRef(null);
+    const sectionTitle = useRef(null);
+    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
     return projects.length > 0 && (
         <div className={classes.resumeProjects}>
-            <h3>
+            <h3
+                ref={sectionTitle}
+                className={classes.title}
+                style={titleStyle}
+            >
                 {intl.formatMessage({ id: 'projects' })}
             </h3>
             <div className={classes.contentWrapper}>
                 <ul className={classes.projects}>
-                    {projects.map((project) => {
+                    {projects.map((project, index) => {
                         if (project?.enabled) {
                             const {
                                 name,
@@ -48,8 +72,21 @@ const Projects = ({ projects }) => {
                                 entity,
                                 type,
                             } = project?.value || {};
+
+                            let refProps = {};
+                            if (index === 0) {
+                                refProps = {
+                                    ref: firstItem,
+                                };
+                            }
+
                             return (
-                                <li className={classes.projectWrapper} key={uuid()}>
+                                <li
+                                    className={classes.projectWrapper}
+                                    key={uuid()}
+                                    // eslint-disable-next-line react/jsx-props-no-spreading
+                                    {...refProps}
+                                >
                                     <p className={classes.project}>
                                         {name?.enabled && name?.value}
                                         {(startDate?.enabled || endDate?.enabled) && (

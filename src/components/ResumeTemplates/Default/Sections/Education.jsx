@@ -1,7 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { IntlContext } from 'gatsby-plugin-intl';
+
+// Hooks
+import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
     resumeEducation: {
@@ -40,20 +43,30 @@ const useStyles = makeStyles((theme) => ({
     educationWrapper: {
         pageBreakInside: 'avoid',
     },
+    title: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
 const Education = ({ education: educations }) => {
     const classes = useStyles();
     const intl = useContext(IntlContext);
+    const firstItem = useRef(null);
+    const sectionTitle = useRef(null);
+    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
     return educations.length > 0 && (
         <div className={classes.resumeEducation}>
-            <h3>
+            <h3
+                ref={sectionTitle}
+                className={classes.title}
+                style={titleStyle}
+            >
                 {intl.formatMessage({ id: 'education' })}
             </h3>
             <div className={classes.contentWrapper}>
                 <ul className={classes.courses}>
-                    {educations.map((education) => {
+                    {educations.map((education, index) => {
                         if (education?.enabled) {
                             const {
                                 institution,
@@ -66,8 +79,17 @@ const Education = ({ education: educations }) => {
                                 courses,
                             } = education?.value || {};
 
+                            let refProps = {};
+                            if (index === 0) {
+                                refProps = firstItem;
+                            }
+
                             return (
-                                <li className={classes.educationWrapper} key={uuid()}>
+                                <li
+                                    className={classes.educationWrapper}
+                                    key={uuid()}
+                                    ref={refProps}
+                                >
                                     <p className={classes.type}>
                                         {area?.enabled && area?.value}
                                         {(

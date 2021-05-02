@@ -1,7 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { IntlContext } from 'gatsby-plugin-intl';
+
+// Hooks
+import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
     resumeAwards: {
@@ -25,20 +28,30 @@ const useStyles = makeStyles((theme) => ({
         fontStyle: 'italic',
         fontSize: '0.8rem',
     },
+    title: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
 const Awards = ({ awards }) => {
     const classes = useStyles();
     const intl = useContext(IntlContext);
+    const firstItem = useRef(null);
+    const sectionTitle = useRef(null);
+    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
     return awards.length > 0 && (
         <div className={classes.resumeAwards}>
-            <h3>
+            <h3
+                ref={sectionTitle}
+                className={classes.title}
+                style={titleStyle}
+            >
                 {intl.formatMessage({ id: 'awards' })}
             </h3>
             <div className={classes.contentWrapper}>
                 <ul className={classes.awards}>
-                    {awards.map((award) => {
+                    {awards.map((award, index) => {
                         if (award?.enabled) {
                             const {
                                 title,
@@ -47,8 +60,20 @@ const Awards = ({ awards }) => {
                                 summary,
                             } = award?.value || {};
 
+                            let refProps = {};
+                            if (index === 0) {
+                                refProps = {
+                                    ref: firstItem,
+                                };
+                            }
+
                             return (
-                                <li className={classes.awardWrapper} key={uuid()}>
+                                <li
+                                    className={classes.awardWrapper}
+                                    key={uuid()}
+                                    // eslint-disable-next-line react/jsx-props-no-spreading
+                                    {...refProps}
+                                >
                                     <p className={classes.award}>
                                         {title?.enabled && title?.value}
                                         {(date?.enabled && date?.value) && (

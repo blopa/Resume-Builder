@@ -38,12 +38,14 @@ const useStyles = makeStyles((theme) => ({
             marginBlockStart: 0,
             marginBlockEnd: 0,
         },
+        '@media print': {
+            padding: 0,
+        },
     },
 }));
 
 const Default = ({
     customTranslations = {},
-    coverLetter = {},
     resume: {
         basics,
         work,
@@ -56,6 +58,7 @@ const Default = ({
         interests,
         references,
         projects,
+        coverLetter,
     },
 }) => {
     const intl = useIntl();

@@ -21,6 +21,16 @@ export default (state, action) => {
                     ...action.resume,
                 },
             };
+        case 'SET_RESUME_COVER_LETTER':
+            return {
+                ...state,
+                togglableJsonResume: {
+                    ...state.togglableJsonResume,
+                    coverLetter: {
+                        ...action.coverLetter,
+                    },
+                },
+            };
         case 'SET_RESUME_BASICS':
             return {
                 ...state,

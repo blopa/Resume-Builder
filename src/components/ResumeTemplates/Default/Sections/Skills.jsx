@@ -1,7 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { IntlContext } from 'gatsby-plugin-intl';
+
+// Hooks
+import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
     resumeSkills: {
@@ -20,7 +23,9 @@ const useStyles = makeStyles((theme) => ({
             },
         },
     },
-    title: { fontWeight: 'bold' },
+    skillTitle: {
+        fontWeight: 'bold',
+    },
     keywords: {
         flexWrap: 'wrap',
         listStyle: 'none',
@@ -37,20 +42,30 @@ const useStyles = makeStyles((theme) => ({
     contentWrapper: {
         marginLeft: '4px',
     },
+    title: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
 const Skills = ({ skills }) => {
     const classes = useStyles();
     const intl = useContext(IntlContext);
+    const firstItem = useRef(null);
+    const sectionTitle = useRef(null);
+    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
     return skills.length > 0 && (
         <div className={classes.resumeSkills}>
-            <h3>
+            <h3
+                ref={sectionTitle}
+                className={classes.title}
+                style={titleStyle}
+            >
                 {intl.formatMessage({ id: 'skills' })}
             </h3>
             <div className={classes.contentWrapper}>
                 <ul className={classes.skills}>
-                    {skills.map((skill) => {
+                    {skills.map((skill, index) => {
                         if (skill?.enabled) {
                             const {
                                 name,
@@ -58,10 +73,21 @@ const Skills = ({ skills }) => {
                                 keywords,
                             } = skill?.value || {};
 
+                            let refProps = {};
+                            if (index === 0) {
+                                refProps = {
+                                    ref: firstItem,
+                                };
+                            }
+
                             return (
-                                <li key={uuid()}>
+                                <li
+                                    key={uuid()}
+                                    // eslint-disable-next-line react/jsx-props-no-spreading
+                                    {...refProps}
+                                >
                                     {(name?.enabled || level?.enabled) && (
-                                        <p className={classes.title}>
+                                        <p className={classes.skillTitle}>
                                             {name?.enabled && name?.value}
                                             {(name?.enabled && level?.enabled) && ', '}
                                             {level?.enabled && level?.value}

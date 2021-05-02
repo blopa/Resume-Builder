@@ -77,22 +77,18 @@ const UploadPage = ({ pageContext, location }) => {
 
     const setResumesAndForward = useCallback((jsonResume) => {
         let coverLetter = {};
-
         if (jsonResume.coverLetter) {
             const variables = Mustache.parse(jsonResume.coverLetter)
                 .filter((v) => v[0] === 'name')
                 .map((v) => v[1])
                 .reduce(
-                    (acc, curr) => ({ ...acc, [curr]: null }),
+                    (acc, curr) => ({ ...acc, [curr]: curr }),
                     {}
                 );
 
             coverLetter = {
-                enabled: true,
-                value: {
-                    text: jsonResume.coverLetter,
-                    variables,
-                },
+                text: jsonResume.coverLetter,
+                variables,
             };
         }
 
@@ -100,8 +96,14 @@ const UploadPage = ({ pageContext, location }) => {
             ...jsonResume,
             coverLetter,
         }));
-        const togglableJsonResume = traverseObject(cloneDeep(jsonResume));
-        dispatch(setTogglableJsonResume(togglableJsonResume));
+
+        dispatch(setTogglableJsonResume({
+            ...traverseObject(cloneDeep(jsonResume)),
+            coverLetter: {
+                enabled: true,
+                value: coverLetter,
+            },
+        }));
 
         navigate('/build');
     }, [dispatch]);

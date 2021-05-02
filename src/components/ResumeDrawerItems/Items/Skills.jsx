@@ -24,13 +24,13 @@ function Skills({ skills }) {
         dispatch(setResumeSkills(newSkills));
     }, [dispatch]);
 
-    const toggleSkills = () => {
+    const toggleSkills = useCallback(() => {
         const currentState = skills?.enabled;
         setResumeSkillsState({
             ...skills,
             enabled: !currentState,
         });
-    };
+    }, [setResumeSkillsState, skills]);
 
     const toggleSkill = useCallback((skill) => () => {
         const newSkills = { ...skills };

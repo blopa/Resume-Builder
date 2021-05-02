@@ -1,6 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
-    "coverLetter": "Some text with {{some}} custom {{variable}}, cool {{cool}}",
+    "coverLetter": "Some text with {{some}} custom {{variable}}, cool {{cool}} and now a {{superDuperBigVariable}}",
     "basics": {
         "name": "Richard Hendriks",
         "label": "Programmer",
@@ -89,6 +89,13 @@
             "releaseDate": "2014-10-01",
             "url": "http://en.wikipedia.org/wiki/Silicon_Valley_(TV_series)",
             "summary": "Innovative middle-out compression algorithm that changes the way we store data."
+        },
+        {
+            "name": "Video compression for 3d media part 2",
+            "publisher": "Hooli",
+            "releaseDate": "2015-10-01",
+            "url": "http://hooli.com",
+            "summary": "Innovative middle-out compression algorithm that changes the way we store data. Again!"
         }
     ],
     "skills": [
@@ -167,7 +174,7 @@
         "volunteers": "Volunteers",
         "skills": "Skills",
         "references": "References",
-        "publications": "Projects",
+        "publications": "Publications",
         "languages": "Languages",
         "interests": "Interests",
         "education": "Education",

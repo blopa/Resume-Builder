@@ -21,6 +21,7 @@ import Work from './Items/Work';
 // Utils
 import { isObjectNotEmpty } from '../../utils/utils';
 import { downloadJson } from '../../utils/json-parser';
+import CoverLetter from "./Items/CoverLetter";
 
 const useStyles = makeStyles((theme) => ({
     ...style,
@@ -43,6 +44,7 @@ const ResumeDrawerItems = ({
         interests,
         references,
         projects,
+        coverLetter,
     },
     onClose,
     jsonResume,
@@ -93,6 +95,11 @@ const ResumeDrawerItems = ({
                     {intl.formatMessage({ id: 'print' })}
                 </Button>
             </div>
+            {isObjectNotEmpty(coverLetter) && (
+                <CoverLetter
+                    coverLetter={coverLetter}
+                />
+            )}
             {isObjectNotEmpty(basics) && (
                 <Basics
                     basics={basics}

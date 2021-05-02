@@ -11,8 +11,8 @@
     "scripts": {
         "inspect": "node --inspect-brk --no-lazy node_modules/gatsby/dist/bin/gatsby develop",
         "clean": "gatsby clean",
-        "build": "gatsby build --prefix-paths",
-        "develop": "gatsby develop",
+        "build": "NODE_ENV=production && gatsby build --prefix-paths",
+        "develop": "NODE_ENV=development && gatsby develop",
         "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
         "start": "npm run develop",
         "serve": "gatsby serve",
