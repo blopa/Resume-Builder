@@ -16,6 +16,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const educationCategory = 'education';
     const awardsCategory = 'awards';
     const publicationsCategory = 'publications';
+    const certificatesCategory = 'certificates';
     const skillsCategory = 'skills';
     const languagesCategory = 'languages';
     const interestsCategory = 'interests';
@@ -34,6 +35,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         education: [],
         awards: [],
         publications: [],
+        certificates: [],
         skills: [],
         languages: [],
         interests: [],
@@ -53,6 +55,8 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const awardsArray = [];
     let publications = {};
     const publicationsArray = [];
+    let certificates = {};
+    const certificatesArray = [];
     let skills = {};
     const skillsArray = [];
     let languages = {};
@@ -135,6 +139,15 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             }
 
             awards[value[typeAttr]] = value[contentAttr];
+        } else if (category === certificatesCategory) {
+            if (value[typeAttr] === 'name') {
+                if (isObjectNotEmpty(certificates)) {
+                    certificatesArray.push({ ...certificates });
+                    certificates = {};
+                }
+            }
+
+            certificates[value[typeAttr]] = value[contentAttr];
         } else if (category === publicationsCategory) {
             if (value[typeAttr] === 'name') {
                 if (isObjectNotEmpty(publications)) {
@@ -221,6 +234,11 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     }
     jsonResume.publications = [...publicationsArray];
 
+    if (isObjectNotEmpty(certificates)) {
+        certificatesArray.push(certificates);
+    }
+    jsonResume.certificates = [...certificatesArray];
+
     if (isObjectNotEmpty(skills)) {
         skillsArray.push(skills);
     }
@@ -241,6 +259,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     }
     jsonResume.references = [...referencesArray];
 
+    console.log(jsonResume);
     return {
         ...jsonResume,
         __translation__: translations,

@@ -81,6 +81,16 @@ export default (state, action) => {
                     },
                 },
             };
+        case 'SET_RESUME_CERTIFICATES':
+            return {
+                ...state,
+                togglableJsonResume: {
+                    ...state.togglableJsonResume,
+                    certificates: {
+                        ...action.certificates,
+                    },
+                },
+            };
         case 'SET_RESUME_VOLUNTEER':
             return {
                 ...state,

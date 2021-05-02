@@ -18,6 +18,7 @@ import Volunteer from './Sections/Volunteer';
 import Work from './Sections/Work';
 import Projects from './Sections/Projects';
 import CoverLetter from './Sections/CoverLetter';
+import Certificates from './Sections/Certificates';
 
 // Utils
 import { isObjectNotEmpty } from '../../../utils/utils';
@@ -59,6 +60,7 @@ const Default = ({
         references,
         projects,
         coverLetter,
+        certificates,
     },
 }) => {
     const intl = useIntl();
@@ -120,6 +122,11 @@ const Default = ({
                 {(awards?.enabled && awards?.value.length) && (
                     <Awards
                         awards={awards?.value || []}
+                    />
+                )}
+                {(certificates?.enabled && certificates?.value.length) && (
+                    <Certificates
+                        certificates={certificates?.value || []}
                     />
                 )}
                 {(volunteer?.enabled && volunteer?.value.length) && (

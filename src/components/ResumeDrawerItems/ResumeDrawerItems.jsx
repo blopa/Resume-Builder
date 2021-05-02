@@ -3,6 +3,8 @@ import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-intl';
+
+// Styles
 import style from './resumeDrawerStyles';
 
 // Components
@@ -17,11 +19,12 @@ import References from './Items/References';
 import Skills from './Items/Skills';
 import Volunteer from './Items/Volunteer';
 import Work from './Items/Work';
+import CoverLetter from './Items/CoverLetter';
+import Certificates from './Items/Certificates';
 
 // Utils
 import { isObjectNotEmpty } from '../../utils/utils';
 import { downloadJson } from '../../utils/json-parser';
-import CoverLetter from "./Items/CoverLetter";
 
 const useStyles = makeStyles((theme) => ({
     ...style,
@@ -45,6 +48,7 @@ const ResumeDrawerItems = ({
         references,
         projects,
         coverLetter,
+        certificates,
     },
     onClose,
     jsonResume,
@@ -133,6 +137,11 @@ const ResumeDrawerItems = ({
             {isObjectNotEmpty(publications) && (
                 <Publications
                     publications={publications}
+                />
+            )}
+            {isObjectNotEmpty(certificates) && (
+                <Certificates
+                    certificates={certificates}
                 />
             )}
             {isObjectNotEmpty(projects) && (
