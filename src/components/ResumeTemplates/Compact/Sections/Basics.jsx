@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     socialMedia: {
         // TODO
     },
-    website: {
+    url: {
         // TODO
     },
     aboutAndContactWrapper: {
@@ -59,10 +59,9 @@ const Basics = ({
     basics: {
         name,
         label,
-        picture,
+        image,
         email,
         phone,
-        website,
         url,
         summary,
         location: {

@@ -1,7 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { IntlContext } from 'gatsby-plugin-intl';
+
+// Hooks
+import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
     resumeWork: {
@@ -19,26 +22,27 @@ const useStyles = makeStyles((theme) => ({
             },
         },
     },
-    position: { fontWeight: 'bold' },
+    position: {
+        fontWeight: 'bold',
+    },
     positionDate: {
         fontStyle: 'italic',
         fontSize: '0.8rem',
     },
-    website: {},
+    urlAndLocation: {
+        fontStyle: 'italic',
+        color: theme.palette.type === 'dark' ? '#b7bfc1' : '#6a5e5e',
+    },
     summary: {
         whiteSpace: 'break-spaces',
     },
+    description: {
+        whiteSpace: 'break-spaces',
+    },
     highlights: {
-        flexWrap: 'wrap',
-        listStyle: 'none',
-        paddingLeft: 0,
-        display: 'inline-flex',
         '& li': {
+            marginBottom: '1px',
             fontStyle: 'italic',
-            margin: '3px 3px 0 0',
-            backgroundColor: theme.palette.type === 'dark' ? '#28407b' : '#dae4f4',
-            borderRadius: '3px',
-            padding: '1px 3px',
         },
     },
     contentWrapper: {
@@ -47,15 +51,28 @@ const useStyles = makeStyles((theme) => ({
     workWrapper: {
         pageBreakInside: 'avoid',
     },
+    workHeader: {
+        marginBottom: '5px',
+    },
+    title: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
 const Work = ({ work: works }) => {
     const classes = useStyles();
     const intl = useContext(IntlContext);
+    const firstItem = useRef(null);
+    const sectionTitle = useRef(null);
+    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
     return works.length > 0 && (
         <div className={classes.resumeWork}>
-            <h3>
+            <h3
+                ref={sectionTitle}
+                className={classes.title}
+                style={titleStyle}
+            >
                 {intl.formatMessage({ id: 'experience' })}
             </h3>
             <div className={classes.contentWrapper}>
@@ -63,10 +80,10 @@ const Work = ({ work: works }) => {
                     {works.map((work) => {
                         if (work?.enabled) {
                             const {
-                                company,
                                 name,
+                                location,
+                                description,
                                 position,
-                                website,
                                 url,
                                 startDate,
                                 endDate,
@@ -74,42 +91,56 @@ const Work = ({ work: works }) => {
                                 highlights,
                             } = work?.value || {};
 
+                            let refProps = {};
+                            if (!firstItem.current) {
+                                refProps = {
+                                    ref: firstItem,
+                                };
+                            }
+
                             return (
-                                <li className={classes.workWrapper} key={uuid()}>
-                                    <p className={classes.position}>
-                                        {position?.enabled && position?.value}
-                                        {(
-                                            (position?.enabled && company?.enabled)
-                                            && (position?.value && company?.value)
-                                        ) && ` ${intl.formatMessage({ id: 'at' })} `}
-                                        {company?.enabled && company?.value}
-                                        {name?.enabled && name?.value}
-                                        {(startDate?.enabled || endDate?.enabled) && (
-                                            <span className={classes.positionDate}>
-                                                {' ('}
-                                                {startDate?.enabled && startDate?.value}
-                                                {(startDate?.enabled && endDate?.enabled) && ' - '}
-                                                {endDate?.enabled && endDate?.value}
-                                                {')'}
-                                            </span>
-                                        )}
-                                    </p>
-                                    <p className={classes.website}>
-                                        {website?.enabled && (
-                                            <a href={website?.value}>
-                                                {website?.value}
-                                            </a>
-                                        )}
-                                    </p>
-                                    <p className={classes.website}>
-                                        {url?.enabled && (
-                                            <a href={url?.value}>
-                                                {url?.value}
-                                            </a>
-                                        )}
-                                    </p>
+                                <li
+                                    className={classes.workWrapper}
+                                    key={uuid()}
+                                    // eslint-disable-next-line react/jsx-props-no-spreading
+                                    {...refProps}
+                                >
+                                    <div className={classes.workHeader}>
+                                        <p className={classes.position}>
+                                            {position?.enabled && position?.value}
+                                            {(
+                                                (position?.enabled && name?.enabled)
+                                                && (position?.value && name?.value)
+                                            ) && ` ${intl.formatMessage({ id: 'at' })} `}
+                                            {name?.enabled && name?.value}
+                                            {(startDate?.enabled || endDate?.enabled) && (
+                                                <span className={classes.positionDate}>
+                                                    {' ('}
+                                                    {startDate?.enabled && startDate?.value}
+                                                    {(startDate?.enabled && endDate?.enabled) && ' - '}
+                                                    {endDate?.enabled && endDate?.value}
+                                                    {')'}
+                                                </span>
+                                            )}
+                                        </p>
+                                        <p className={classes.urlAndLocation}>
+                                            {location?.enabled && location?.value}
+                                            {(
+                                                (location?.enabled && url?.enabled)
+                                                && (location?.value && url?.value)
+                                            ) && ', '}
+                                            {url?.enabled && (
+                                                <a href={url?.value}>
+                                                    {url?.value}
+                                                </a>
+                                            )}
+                                        </p>
+                                    </div>
                                     <p className={classes.summary}>
                                         {summary?.enabled && summary?.value}
+                                    </p>
+                                    <p className={classes.description}>
+                                        {description?.enabled && description?.value}
                                     </p>
                                     {highlights?.enabled && (
                                         <ul className={classes.highlights}>

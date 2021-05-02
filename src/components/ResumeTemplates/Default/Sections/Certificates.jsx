@@ -7,23 +7,21 @@ import { IntlContext } from 'gatsby-plugin-intl';
 import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
-    resumePublications: {
+    resumeCertificates: {
         padding: '10px 0',
         borderBottom: '1px solid #ddd',
     },
-    publications: {
+    award: { fontWeight: 'bold' },
+    certificates: {
         margin: '0',
         padding: '0',
         listStyle: 'none',
         '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
     },
-    publication: {
-        fontWeight: 'bold',
-    },
     contentWrapper: {
         marginLeft: '4px',
     },
-    publicationWrapper: {
+    awardWrapper: {
         pageBreakInside: 'avoid',
     },
     positionDate: {
@@ -35,33 +33,32 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Publications = ({ publications }) => {
+const Certificates = ({ certificates }) => {
     const classes = useStyles();
     const intl = useContext(IntlContext);
     const firstItem = useRef(null);
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return publications.length > 0 && (
-        <div className={classes.resumePublications}>
+    return certificates.length > 0 && (
+        <div className={classes.resumeCertificates}>
             <h3
                 ref={sectionTitle}
                 className={classes.title}
                 style={titleStyle}
             >
-                {intl.formatMessage({ id: 'publications' })}
+                {intl.formatMessage({ id: 'certificates' })}
             </h3>
             <div className={classes.contentWrapper}>
-                <ul className={classes.publications}>
-                    {publications.map((publication) => {
-                        if (publication?.enabled) {
+                <ul className={classes.certificates}>
+                    {certificates.map((award) => {
+                        if (award?.enabled) {
                             const {
                                 name,
-                                publisher,
-                                releaseDate,
+                                date,
                                 url,
-                                summary,
-                            } = publication?.value || {};
+                                issuer,
+                            } = award?.value || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -72,26 +69,21 @@ const Publications = ({ publications }) => {
 
                             return (
                                 <li
-                                    className={classes.publicationWrapper}
+                                    className={classes.awardWrapper}
                                     key={uuid()}
                                     // eslint-disable-next-line react/jsx-props-no-spreading
                                     {...refProps}
                                 >
-                                    <p className={classes.publication}>
+                                    <p className={classes.award}>
                                         {name?.enabled && name?.value}
-                                        {(
-                                            (publisher?.enabled && name?.enabled)
-                                            && (publisher?.value && name?.value)
-                                        ) && ` ${intl.formatMessage({ id: 'at' })} `}
-                                        {publisher?.enabled && publisher?.value}
-                                        {(releaseDate?.enabled && releaseDate?.value) && (
+                                        {(date?.enabled && date?.value) && (
                                             <span className={classes.positionDate}>
-                                                {` (${releaseDate?.value})`}
+                                                {` (${date?.value})`}
                                             </span>
                                         )}
                                     </p>
                                     {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
-                                    {summary && summary?.enabled && <p>{summary?.value}</p>}
+                                    <p>{issuer?.enabled && issuer?.value}</p>
                                 </li>
                             );
                         }
@@ -104,4 +96,4 @@ const Publications = ({ publications }) => {
     );
 };
 
-export default Publications;
+export default Certificates;

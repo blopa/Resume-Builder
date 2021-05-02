@@ -24,13 +24,13 @@ function Skills({ skills }) {
         dispatch(setResumeSkills(newSkills));
     }, [dispatch]);
 
-    const toggleSkills = () => {
+    const toggleSkills = useCallback(() => {
         const currentState = skills?.enabled;
         setResumeSkillsState({
             ...skills,
             enabled: !currentState,
         });
-    };
+    }, [setResumeSkillsState, skills]);
 
     const toggleSkill = useCallback((skill) => () => {
         const newSkills = { ...skills };
@@ -78,7 +78,12 @@ function Skills({ skills }) {
             {skills?.enabled && (
                 <ul>
                     {skills?.value.map((skill) => {
-                        const { keywords, level, name } = skill?.value || {};
+                        const {
+                            name,
+                            level,
+                            keywords,
+                        } = skill?.value || {};
+
                         return (
                             <Fragment key={uuid()}>
                                 {skill && (

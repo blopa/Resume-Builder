@@ -1,7 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { IntlContext } from 'gatsby-plugin-intl';
+
+// Hooks
+import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
     resumeEducation: {
@@ -10,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
     },
     type: { fontWeight: 'bold' },
     institution: {},
+    positionDate: {
+        fontStyle: 'italic',
+        fontSize: '0.8rem',
+    },
     courses: {
         margin: '0',
         padding: '0',
@@ -36,15 +43,25 @@ const useStyles = makeStyles((theme) => ({
     educationWrapper: {
         pageBreakInside: 'avoid',
     },
+    title: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
 const Education = ({ education: educations }) => {
     const classes = useStyles();
     const intl = useContext(IntlContext);
+    const firstItem = useRef(null);
+    const sectionTitle = useRef(null);
+    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
     return educations.length > 0 && (
         <div className={classes.resumeEducation}>
-            <h3>
+            <h3
+                ref={sectionTitle}
+                className={classes.title}
+                style={titleStyle}
+            >
                 {intl.formatMessage({ id: 'education' })}
             </h3>
             <div className={classes.contentWrapper}>
@@ -53,16 +70,29 @@ const Education = ({ education: educations }) => {
                         if (education?.enabled) {
                             const {
                                 institution,
+                                url,
                                 area,
                                 studyType,
                                 startDate,
                                 endDate,
-                                gpa,
+                                score,
                                 courses,
                             } = education?.value || {};
 
+                            let refProps = {};
+                            if (!firstItem.current) {
+                                refProps = {
+                                    ref: firstItem,
+                                };
+                            }
+
                             return (
-                                <li className={classes.educationWrapper} key={uuid()}>
+                                <li
+                                    className={classes.educationWrapper}
+                                    key={uuid()}
+                                    // eslint-disable-next-line react/jsx-props-no-spreading
+                                    {...refProps}
+                                >
                                     <p className={classes.type}>
                                         {area?.enabled && area?.value}
                                         {(
@@ -70,18 +100,27 @@ const Education = ({ education: educations }) => {
                                             && (area?.value && studyType?.value)
                                         ) && ', '}
                                         {studyType?.enabled && studyType?.value}
+                                        {(startDate?.enabled || endDate?.enabled) && (
+                                            <span className={classes.positionDate}>
+                                                {' ('}
+                                                {startDate?.enabled && startDate?.value}
+                                                {(startDate?.enabled && endDate?.enabled) && ' - '}
+                                                {endDate?.enabled && endDate?.value}
+                                                {')'}
+                                            </span>
+                                        )}
                                     </p>
                                     <p className={classes.institution}>
-                                        {institution && institution?.enabled && institution?.value}
-                                        {(startDate?.enabled && startDate?.value) && ', '}
-                                        {startDate && startDate?.enabled && startDate?.value}
-                                        {(
-                                            (startDate?.enabled && endDate?.enabled)
-                                            && (startDate?.value && endDate?.value)
-                                        ) && ' - '}
-                                        {endDate && endDate?.enabled && endDate?.value}
-                                        {/* TODO this */}
-                                        {gpa && gpa?.enabled && `, GPA: ${gpa?.value}`}
+                                        {
+                                            (url?.enabled && institution?.enabled)
+                                            && (url?.value && institution?.value) ?
+                                                (
+                                                    <a href={url?.value}>
+                                                        {institution?.value}
+                                                    </a>
+                                                )
+                                                : institution?.value}
+                                        {score && score?.enabled && `, score: ${score?.value}`}
                                     </p>
                                     {courses && courses?.enabled && (
                                         <div className={classes.coursesDetails}>

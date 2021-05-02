@@ -33,7 +33,6 @@ const Publications = ({
                             name,
                             publisher,
                             releaseDate,
-                            website,
                             url,
                             summary,
                         } = publication?.value || {};

@@ -1,20 +1,36 @@
 import { createIntl, createIntlCache } from 'gatsby-plugin-intl';
-import en from './en.json';
-import ptBr from './pt-br.json';
-import es from './es.json';
+
+// local translations
+import localEn from './en.json';
+import localPtBr from './pt-br.json';
+import localEs from './es.json';
+
+// global translations
+import globalEn from '../../../../intl/en.json';
+import globalPtBr from '../../../../intl/pt-br.json';
+import globalEs from '../../../../intl/es.json';
 
 const translations = [
     {
         locale: 'en',
-        messages: en,
+        messages: {
+            ...globalEn,
+            ...localEn,
+        },
     },
     {
         locale: 'pt-br',
-        messages: ptBr,
+        messages: {
+            ...globalPtBr,
+            ...localPtBr,
+        },
     },
     {
         locale: 'es',
-        messages: es,
+        messages: {
+            ...globalEs,
+            ...localEs,
+        },
     },
 ];
 

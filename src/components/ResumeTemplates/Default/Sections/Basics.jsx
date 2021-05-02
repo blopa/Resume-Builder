@@ -47,14 +47,14 @@ const useStyles = makeStyles((theme) => ({
             '&:last-child': { '&:after': { content: '""' } },
         },
     },
-    website: {},
+    url: {},
     detailsWrapper: {
         marginLeft: '4px',
     },
     summaryWrapper: {
         marginLeft: '4px',
     },
-    picture: {
+    image: {
         width: '100px',
         float: 'right',
     },
@@ -64,10 +64,9 @@ const Basics = ({
     basics: {
         name,
         label,
-        picture,
+        image,
         email,
         phone,
-        website,
         url,
         summary,
         location: {
@@ -89,10 +88,10 @@ const Basics = ({
     return (
         <Fragment>
             <div className={classes.resumeBasics}>
-                {(picture?.enabled && picture.value) && (
+                {(image?.enabled && image.value) && (
                     <img
-                        className={classes.picture}
-                        src={picture.value}
+                        className={classes.image}
+                        src={image.value}
                         alt="avatar"
                     />
                 )}
@@ -117,17 +116,6 @@ const Basics = ({
                                     target="_blank"
                                 >
                                     {url?.value}
-                                </a>
-                            </li>
-                        )}
-                        {website?.enabled && (
-                            <li key={uuid()}>
-                                <a
-                                    className={classes.website}
-                                    href={website?.value}
-                                    target="_blank"
-                                >
-                                    {website?.value}
                                 </a>
                             </li>
                         )}

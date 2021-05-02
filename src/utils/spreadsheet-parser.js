@@ -11,7 +11,7 @@ export const readSpreadsheetData = (data, callback) => {
 export const readSpreadsheetFile = (file, callback) => {
     const reader = new FileReader();
     reader.onload = (e) => readSpreadsheetData(e.target.result, callback);
-    // eslint-disable-next-line standard/no-callback-literal
+    // eslint-disable-next-line
     reader.onerror = () => callback([]);
     reader.readAsBinaryString(file);
 };
@@ -42,12 +42,16 @@ export const downloadSpreadsheetFile =
 
 export const parseSpreadsheetUrl =
     (spreadsheetUrl, callback, errorCallback) => {
+        // TODO
+        // eslint-disable-next-line prefer-regex-literals
         const spreadsheetIdResult = new RegExp('/spreadsheets/d/([a-zA-Z0-9-_]+)').exec(spreadsheetUrl);
         if (!spreadsheetIdResult) {
             return;
         }
 
         let sheetId = 0;
+        // TODO
+        // eslint-disable-next-line prefer-regex-literals
         const sheetIdResult = new RegExp('[#&]gid=([0-9]+)').exec(spreadsheetUrl);
         if (sheetIdResult) {
             sheetId = sheetIdResult[1];

@@ -21,6 +21,16 @@ export default (state, action) => {
                     ...action.resume,
                 },
             };
+        case 'SET_RESUME_COVER_LETTER':
+            return {
+                ...state,
+                togglableJsonResume: {
+                    ...state.togglableJsonResume,
+                    coverLetter: {
+                        ...action.coverLetter,
+                    },
+                },
+            };
         case 'SET_RESUME_BASICS':
             return {
                 ...state,
@@ -71,6 +81,16 @@ export default (state, action) => {
                     },
                 },
             };
+        case 'SET_RESUME_CERTIFICATES':
+            return {
+                ...state,
+                togglableJsonResume: {
+                    ...state.togglableJsonResume,
+                    certificates: {
+                        ...action.certificates,
+                    },
+                },
+            };
         case 'SET_RESUME_VOLUNTEER':
             return {
                 ...state,
@@ -88,6 +108,16 @@ export default (state, action) => {
                     ...state.togglableJsonResume,
                     publications: {
                         ...action.publications,
+                    },
+                },
+            };
+        case 'SET_RESUME_PROJECTS':
+            return {
+                ...state,
+                togglableJsonResume: {
+                    ...state.togglableJsonResume,
+                    projects: {
+                        ...action.projects,
                     },
                 },
             };

@@ -10,7 +10,7 @@ import ItemsList from './List/ItemsList';
 import style from '../resumeDrawerStyles';
 
 // Actions
-import setResumeAwards from '../../../store/actions/setResumeAwards';
+import setResumeCertificates from '../../../store/actions/setResumeCertificates';
 
 // Utils
 import { varNameToString } from '../../../utils/utils';
@@ -22,26 +22,26 @@ const useStyles = makeStyles((theme) => ({
     ...style,
 }));
 
-function Awards({ awards }) {
+function Certificates({ certificates }) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const setResumeAwardsState = useCallback((newAwards) => {
-        dispatch(setResumeAwards(newAwards));
+    const setResumeCertificatesState = useCallback((newCertificates) => {
+        dispatch(setResumeCertificates(newCertificates));
     }, [dispatch]);
 
-    const toggleAwards = () => {
-        const currentState = awards?.enabled;
-        setResumeAwardsState({
-            ...awards,
+    const toggleCertificates = () => {
+        const currentState = certificates?.enabled;
+        setResumeCertificatesState({
+            ...certificates,
             enabled: !currentState,
         });
     };
 
     const toggleAward = useCallback((award) => () => {
-        const newAwards = { ...awards };
-        newAwards.value =
-            newAwards?.value.map((awd) => {
+        const newCertificates = { ...certificates };
+        newCertificates.value =
+            newCertificates?.value.map((awd) => {
                 if (JSON.stringify(awd?.value) === JSON.stringify(award?.value)) {
                     return {
                         ...awd,
@@ -50,13 +50,13 @@ function Awards({ awards }) {
                 }
                 return awd;
             });
-        setResumeAwardsState(newAwards);
-    }, [awards, setResumeAwardsState]);
+        setResumeCertificatesState(newCertificates);
+    }, [certificates, setResumeCertificatesState]);
 
-    const toggleAwardsDetail = useCallback((award, propName) => () => {
-        const newAwards = { ...awards };
-        newAwards.value =
-            newAwards?.value.map((awd) => {
+    const toggleCertificatesDetail = useCallback((award, propName) => () => {
+        const newCertificates = { ...certificates };
+        newCertificates.value =
+            newCertificates?.value.map((awd) => {
                 if (JSON.stringify(awd?.value) === JSON.stringify(award?.value)) {
                     return {
                         ...awd,
@@ -71,42 +71,42 @@ function Awards({ awards }) {
                 }
                 return awd;
             });
-        setResumeAwardsState(newAwards);
-    }, [awards, setResumeAwardsState]);
+        setResumeCertificatesState(newCertificates);
+    }, [certificates, setResumeCertificatesState]);
 
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
-                label="awards"
-                onChange={toggleAwards}
-                checked={awards?.enabled}
+                label="certificates"
+                onChange={toggleCertificates}
+                checked={certificates?.enabled}
             />
-            {awards?.enabled && (
+            {certificates?.enabled && (
                 <ul>
-                    {awards?.value.map((award) => {
+                    {certificates?.value.map((award) => {
                         const {
-                            title,
+                            name,
                             date,
-                            awarder,
-                            summary,
+                            url,
+                            issuer,
                         } = award?.value || {};
 
                         return (
                             <Fragment key={uuid()}>
                                 <ItemsList
-                                    label={title?.value}
+                                    label={name?.value}
                                     checked={award?.enabled}
                                     onClick={toggleAward(award)}
                                 />
                                 {award?.enabled && (
                                     <ul>
-                                        {title && (
+                                        {name && (
                                             <ItemsList
-                                                label={varNameToString({ title })}
-                                                checked={title?.enabled}
-                                                onClick={toggleAwardsDetail(
+                                                label={varNameToString({ name })}
+                                                checked={name?.enabled}
+                                                onClick={toggleCertificatesDetail(
                                                     award,
-                                                    varNameToString({ title })
+                                                    varNameToString({ name })
                                                 )}
                                             />
                                         )}
@@ -114,29 +114,29 @@ function Awards({ awards }) {
                                             <ItemsList
                                                 label={varNameToString({ date })}
                                                 checked={date?.enabled}
-                                                onClick={toggleAwardsDetail(
+                                                onClick={toggleCertificatesDetail(
                                                     award,
                                                     varNameToString({ date })
                                                 )}
                                             />
                                         )}
-                                        {awarder && (
+                                        {issuer && (
                                             <ItemsList
-                                                label={varNameToString({ awarder })}
-                                                checked={awarder?.enabled}
-                                                onClick={toggleAwardsDetail(
+                                                label={varNameToString({ issuer })}
+                                                checked={issuer?.enabled}
+                                                onClick={toggleCertificatesDetail(
                                                     award,
-                                                    varNameToString({ awarder })
+                                                    varNameToString({ issuer })
                                                 )}
                                             />
                                         )}
-                                        {summary && (
+                                        {url && (
                                             <ItemsList
-                                                label={varNameToString({ summary })}
-                                                checked={summary?.enabled}
-                                                onClick={toggleAwardsDetail(
+                                                label={varNameToString({ url })}
+                                                checked={url?.enabled}
+                                                onClick={toggleCertificatesDetail(
                                                     award,
-                                                    varNameToString({ summary })
+                                                    varNameToString({ url })
                                                 )}
                                             />
                                         )}
@@ -151,4 +151,4 @@ function Awards({ awards }) {
     );
 }
 
-export default memo(Awards);
+export default memo(Certificates);

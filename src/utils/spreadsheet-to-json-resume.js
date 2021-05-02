@@ -16,11 +16,13 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const educationCategory = 'education';
     const awardsCategory = 'awards';
     const publicationsCategory = 'publications';
+    const certificatesCategory = 'certificates';
     const skillsCategory = 'skills';
     const languagesCategory = 'languages';
     const interestsCategory = 'interests';
     const referencesCategory = 'references';
     const translationsCategory = '__translation__';
+    const coverLetterCategory = 'cover_letter';
 
     // base jsonResume
     const jsonResume = {
@@ -33,10 +35,12 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         education: [],
         awards: [],
         publications: [],
+        certificates: [],
         skills: [],
         languages: [],
         interests: [],
         references: [],
+        coverLetter: '',
     };
 
     let profiles = {};
@@ -51,6 +55,8 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const awardsArray = [];
     let publications = {};
     const publicationsArray = [];
+    let certificates = {};
+    const certificatesArray = [];
     let skills = {};
     const skillsArray = [];
     let languages = {};
@@ -60,6 +66,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     let references = {};
     const referencesArray = [];
     const translations = {};
+    let coverLetter = '';
 
     jsonSpreadsheet.forEach((value) => {
         if (value[disabledAttr]) {
@@ -67,7 +74,9 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         }
 
         const category = value[categoryAttr].toLowerCase();
-        if (category === translationsCategory) {
+        if (category === coverLetterCategory) {
+            coverLetter = value[contentAttr];
+        } else if (category === translationsCategory) {
             translations[value[typeAttr]] = value[contentAttr];
         } else if (category === basicsCategory) {
             jsonResume.basics[value[typeAttr]] = value[contentAttr];
@@ -130,6 +139,15 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             }
 
             awards[value[typeAttr]] = value[contentAttr];
+        } else if (category === certificatesCategory) {
+            if (value[typeAttr] === 'name') {
+                if (isObjectNotEmpty(certificates)) {
+                    certificatesArray.push({ ...certificates });
+                    certificates = {};
+                }
+            }
+
+            certificates[value[typeAttr]] = value[contentAttr];
         } else if (category === publicationsCategory) {
             if (value[typeAttr] === 'name') {
                 if (isObjectNotEmpty(publications)) {
@@ -216,6 +234,11 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     }
     jsonResume.publications = [...publicationsArray];
 
+    if (isObjectNotEmpty(certificates)) {
+        certificatesArray.push(certificates);
+    }
+    jsonResume.certificates = [...certificatesArray];
+
     if (isObjectNotEmpty(skills)) {
         skillsArray.push(skills);
     }
@@ -236,5 +259,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     }
     jsonResume.references = [...referencesArray];
 
-    return [jsonResume, translations];
+    console.log(jsonResume);
+    return {
+        ...jsonResume,
+        __translation__: translations,
+        coverLetter,
+    };
 }

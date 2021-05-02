@@ -86,13 +86,15 @@ function Education({ education: educations }) {
                     {educations?.value.map((education) => {
                         const {
                             institution,
+                            url,
                             area,
                             studyType,
                             startDate,
                             endDate,
-                            gpa,
+                            score,
                             courses,
                         } = education?.value || {};
+
                         return (
                             <Fragment key={uuid()}>
                                 {educations && (
@@ -113,6 +115,16 @@ function Education({ education: educations }) {
                                                 onClick={toggleEducationDetail(
                                                     education,
                                                     varNameToString({ institution })
+                                                )}
+                                            />
+                                        )}
+                                        {url && (
+                                            <ItemsList
+                                                label={varNameToString({ url })}
+                                                checked={url?.enabled}
+                                                onClick={toggleEducationDetail(
+                                                    education,
+                                                    varNameToString({ url })
                                                 )}
                                             />
                                         )}
@@ -156,13 +168,13 @@ function Education({ education: educations }) {
                                                 )}
                                             />
                                         )}
-                                        {gpa && (
+                                        {score && (
                                             <ItemsList
-                                                label={varNameToString({ gpa })}
-                                                checked={gpa?.enabled}
+                                                label={varNameToString({ score })}
+                                                checked={score?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
-                                                    varNameToString({ gpa })
+                                                    varNameToString({ score })
                                                 )}
                                             />
                                         )}

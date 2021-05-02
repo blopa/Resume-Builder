@@ -1,7 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { IntlContext } from 'gatsby-plugin-intl';
+
+// Hooks
+import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
     resumeVolunteer: {
@@ -24,19 +27,12 @@ const useStyles = makeStyles((theme) => ({
         fontStyle: 'italic',
         fontSize: '0.8rem',
     },
-    website: {},
+    url: {},
     summary: {},
     highlights: {
-        flexWrap: 'wrap',
-        listStyle: 'none',
-        paddingLeft: 0,
-        display: 'inline-flex',
         '& li': {
+            marginBottom: '1px',
             fontStyle: 'italic',
-            margin: '3px 3px 0 0',
-            backgroundColor: theme.palette.type === 'dark' ? '#28407b' : '#dae4f4',
-            borderRadius: '3px',
-            padding: '1px 3px',
         },
     },
     contentWrapper: {
@@ -45,15 +41,25 @@ const useStyles = makeStyles((theme) => ({
     volunteerWrapper: {
         pageBreakInside: 'avoid',
     },
+    title: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
 const Volunteer = ({ volunteer: volunteers }) => {
     const classes = useStyles();
     const intl = useContext(IntlContext);
+    const firstItem = useRef(null);
+    const sectionTitle = useRef(null);
+    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
     return volunteers.length > 0 && (
         <div className={classes.resumeVolunteer}>
-            <h3>
+            <h3
+                ref={sectionTitle}
+                className={classes.title}
+                style={titleStyle}
+            >
                 {intl.formatMessage({ id: 'volunteers' })}
             </h3>
             <div className={classes.contentWrapper}>
@@ -63,7 +69,6 @@ const Volunteer = ({ volunteer: volunteers }) => {
                             const {
                                 organization,
                                 position,
-                                website,
                                 url,
                                 startDate,
                                 endDate,
@@ -71,8 +76,20 @@ const Volunteer = ({ volunteer: volunteers }) => {
                                 highlights,
                             } = volunteer?.value || {};
 
+                            let refProps = {};
+                            if (!firstItem.current) {
+                                refProps = {
+                                    ref: firstItem,
+                                };
+                            }
+
                             return (
-                                <li className={classes.volunteerWrapper} key={uuid()}>
+                                <li
+                                    className={classes.volunteerWrapper}
+                                    key={uuid()}
+                                    // eslint-disable-next-line react/jsx-props-no-spreading
+                                    {...refProps}
+                                >
                                     <p className={classes.position}>
                                         {position?.enabled && position?.value}
                                         {(
@@ -90,12 +107,7 @@ const Volunteer = ({ volunteer: volunteers }) => {
                                             </span>
                                         )}
                                     </p>
-                                    <p className={classes.website}>
-                                        {(website && website?.enabled && website?.value) && (
-                                            <a href={website.value}>{website.value}</a>
-                                        )}
-                                    </p>
-                                    <p className={classes.website}>
+                                    <p className={classes.url}>
                                         {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
                                     </p>
                                     <p className={classes.summary}>

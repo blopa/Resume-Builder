@@ -122,10 +122,10 @@ function Work({ work: workData }) {
                 <ul>
                     {works.map((work) => {
                         const {
-                            company,
                             name,
+                            location,
+                            description,
                             position,
-                            website,
                             url,
                             startDate,
                             endDate,
@@ -137,23 +137,13 @@ function Work({ work: workData }) {
                             <Fragment key={uuid()}>
                                 {work && (
                                     <ItemsList
-                                        label={company?.value || name?.value}
+                                        label={name?.value}
                                         checked={work?.enabled}
                                         onClick={toggleWork(work)}
                                     />
                                 )}
                                 {work?.enabled && (
                                     <ul>
-                                        {company && (
-                                            <ItemsList
-                                                label={varNameToString({ company })}
-                                                checked={company?.enabled}
-                                                onClick={toggleWorkDetail(
-                                                    work,
-                                                    varNameToString({ company })
-                                                )}
-                                            />
-                                        )}
                                         {name && (
                                             <ItemsList
                                                 label={varNameToString({ name })}
@@ -174,16 +164,6 @@ function Work({ work: workData }) {
                                                 )}
                                             />
                                         )}
-                                        {website && (
-                                            <ItemsList
-                                                label={varNameToString({ website })}
-                                                checked={website?.enabled}
-                                                onClick={toggleWorkDetail(
-                                                    work,
-                                                    varNameToString({ website })
-                                                )}
-                                            />
-                                        )}
                                         {url && (
                                             <ItemsList
                                                 label={varNameToString({ url })}
@@ -191,6 +171,16 @@ function Work({ work: workData }) {
                                                 onClick={toggleWorkDetail(
                                                     work,
                                                     varNameToString({ url })
+                                                )}
+                                            />
+                                        )}
+                                        {location && (
+                                            <ItemsList
+                                                label={varNameToString({ location })}
+                                                checked={location?.enabled}
+                                                onClick={toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ location })
                                                 )}
                                             />
                                         )}
@@ -221,6 +211,16 @@ function Work({ work: workData }) {
                                                 onClick={toggleWorkDetail(
                                                     work,
                                                     varNameToString({ summary })
+                                                )}
+                                            />
+                                        )}
+                                        {description && (
+                                            <ItemsList
+                                                label={varNameToString({ description })}
+                                                checked={description?.enabled}
+                                                onClick={toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ description })
                                                 )}
                                             />
                                         )}

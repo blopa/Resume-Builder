@@ -92,10 +92,9 @@ function Basics({ basics }) {
         value: {
             name,
             label,
-            picture,
+            image,
             email,
             phone,
-            website,
             url,
             summary,
             location: {
@@ -121,6 +120,15 @@ function Basics({ basics }) {
             />
             {basicsEnabled && (
                 <ul>
+                    {image && (
+                        <ItemsList
+                            label={varNameToString({ image })}
+                            checked={image?.enabled}
+                            onClick={toggleBasicsDetail(
+                                varNameToString({ image })
+                            )}
+                        />
+                    )}
                     {name && (
                         <ItemsList
                             label={varNameToString({ name })}
@@ -194,15 +202,6 @@ function Basics({ basics }) {
                                 />
                             )}
                         </ul>
-                    )}
-                    {website && (
-                        <ItemsList
-                            label={varNameToString({ website })}
-                            checked={website?.enabled}
-                            onClick={toggleBasicsDetail(
-                                varNameToString({ website })
-                            )}
-                        />
                     )}
                     {url && (
                         <ItemsList

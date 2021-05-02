@@ -10,6 +10,14 @@ const useStyles = makeStyles((theme) => ({
         textTransform: 'uppercase',
         fontWeight: 'bold',
     },
+    something: {
+        '&::after': {
+            content: '""',
+            display: 'block',
+            height: '25px',
+            marginBottom: '-25px',
+        },
+    },
 }));
 
 const Awards = ({

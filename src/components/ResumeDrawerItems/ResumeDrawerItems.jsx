@@ -3,9 +3,9 @@ import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-intl';
-import style from './resumeDrawerStyles';
 
-// Utils
+// Styles
+import style from './resumeDrawerStyles';
 
 // Components
 import Awards from './Items/Awards';
@@ -14,10 +14,15 @@ import Education from './Items/Education';
 import Interests from './Items/Interests';
 import Languages from './Items/Languages';
 import Publications from './Items/Publications';
+import Projects from './Items/Projects';
 import References from './Items/References';
 import Skills from './Items/Skills';
 import Volunteer from './Items/Volunteer';
 import Work from './Items/Work';
+import CoverLetter from './Items/CoverLetter';
+import Certificates from './Items/Certificates';
+
+// Utils
 import { isObjectNotEmpty } from '../../utils/utils';
 import { downloadJson } from '../../utils/json-parser';
 
@@ -41,6 +46,9 @@ const ResumeDrawerItems = ({
         languages,
         interests,
         references,
+        projects,
+        coverLetter,
+        certificates,
     },
     onClose,
     jsonResume,
@@ -91,6 +99,11 @@ const ResumeDrawerItems = ({
                     {intl.formatMessage({ id: 'print' })}
                 </Button>
             </div>
+            {isObjectNotEmpty(coverLetter) && (
+                <CoverLetter
+                    coverLetter={coverLetter}
+                />
+            )}
             {isObjectNotEmpty(basics) && (
                 <Basics
                     basics={basics}
@@ -124,6 +137,16 @@ const ResumeDrawerItems = ({
             {isObjectNotEmpty(publications) && (
                 <Publications
                     publications={publications}
+                />
+            )}
+            {isObjectNotEmpty(certificates) && (
+                <Certificates
+                    certificates={certificates}
+                />
+            )}
+            {isObjectNotEmpty(projects) && (
+                <Projects
+                    projects={projects}
                 />
             )}
             {isObjectNotEmpty(languages) && (

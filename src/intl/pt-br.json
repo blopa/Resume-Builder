@@ -33,6 +33,7 @@
     "drag_and_drop_or_click": "Arraste e solte um arquivo ou clique aqui",
     "select_your_template": "Selecione o seu template",
     "select_template": "Selecione template",
+    "this_is_a_page_break": "Isso é uma quebra de página",
     "error": {
         "something_went_wrong_parsing": "Ops, algo deu errado ao baixar a sua planilha da URL fornecida. Tente fazer o download da planilha manualmente e carregue-a aqui.",
         "something_went_wrong_loading": "Ops, algo deu errado, por favor tente novamente."

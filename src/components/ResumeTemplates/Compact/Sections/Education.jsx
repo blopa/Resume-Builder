@@ -39,7 +39,7 @@ const Education = ({
                             studyType,
                             startDate,
                             endDate,
-                            // gpa,
+                            // score,
                             courses,
                         } = education?.value || {};
 

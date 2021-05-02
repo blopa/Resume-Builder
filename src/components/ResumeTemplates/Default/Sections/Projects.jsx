@@ -7,23 +7,28 @@ import { IntlContext } from 'gatsby-plugin-intl';
 import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
-    resumePublications: {
+    resumeProjects: {
         padding: '10px 0',
         borderBottom: '1px solid #ddd',
     },
-    publications: {
+    projects: {
         margin: '0',
         padding: '0',
         listStyle: 'none',
-        '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
+        '& li': {
+            margin: '0 0 10px 0',
+            '&:last-child': {
+                margin: '0',
+            },
+        },
     },
-    publication: {
+    project: {
         fontWeight: 'bold',
     },
     contentWrapper: {
         marginLeft: '4px',
     },
-    publicationWrapper: {
+    projectWrapper: {
         pageBreakInside: 'avoid',
     },
     positionDate: {
@@ -35,33 +40,38 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Publications = ({ publications }) => {
+const Projects = ({ projects }) => {
     const classes = useStyles();
     const intl = useContext(IntlContext);
     const firstItem = useRef(null);
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return publications.length > 0 && (
-        <div className={classes.resumePublications}>
+    return projects.length > 0 && (
+        <div className={classes.resumeProjects}>
             <h3
                 ref={sectionTitle}
                 className={classes.title}
                 style={titleStyle}
             >
-                {intl.formatMessage({ id: 'publications' })}
+                {intl.formatMessage({ id: 'projects' })}
             </h3>
             <div className={classes.contentWrapper}>
-                <ul className={classes.publications}>
-                    {publications.map((publication) => {
-                        if (publication?.enabled) {
+                <ul className={classes.projects}>
+                    {projects.map((project) => {
+                        if (project?.enabled) {
                             const {
                                 name,
-                                publisher,
-                                releaseDate,
+                                description,
+                                highlights,
+                                keywords,
+                                startDate,
+                                endDate,
                                 url,
-                                summary,
-                            } = publication?.value || {};
+                                roles,
+                                entity,
+                                type,
+                            } = project?.value || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -72,26 +82,27 @@ const Publications = ({ publications }) => {
 
                             return (
                                 <li
-                                    className={classes.publicationWrapper}
+                                    className={classes.projectWrapper}
                                     key={uuid()}
                                     // eslint-disable-next-line react/jsx-props-no-spreading
                                     {...refProps}
                                 >
-                                    <p className={classes.publication}>
+                                    <p className={classes.project}>
                                         {name?.enabled && name?.value}
-                                        {(
-                                            (publisher?.enabled && name?.enabled)
-                                            && (publisher?.value && name?.value)
-                                        ) && ` ${intl.formatMessage({ id: 'at' })} `}
-                                        {publisher?.enabled && publisher?.value}
-                                        {(releaseDate?.enabled && releaseDate?.value) && (
+                                        {(startDate?.enabled || endDate?.enabled) && (
                                             <span className={classes.positionDate}>
-                                                {` (${releaseDate?.value})`}
+                                                {' ('}
+                                                {startDate?.enabled && startDate?.value}
+                                                {(startDate?.enabled && endDate?.enabled) && ' - '}
+                                                {endDate?.enabled && endDate?.value}
+                                                {')'}
                                             </span>
                                         )}
                                     </p>
+                                    {type && type?.enabled && <p>{type?.value}</p>}
+                                    {entity && entity?.enabled && <p>{entity?.value}</p>}
                                     {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
-                                    {summary && summary?.enabled && <p>{summary?.value}</p>}
+                                    {description && description?.enabled && <p>{description?.value}</p>}
                                 </li>
                             );
                         }
@@ -104,4 +115,4 @@ const Publications = ({ publications }) => {
     );
 };
 
-export default Publications;
+export default Projects;

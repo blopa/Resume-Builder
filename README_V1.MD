@@ -32,7 +32,7 @@ First of all you need to create a Google Spreadsheet following the same rules as
 - **Languages:** Languages you speak
 - **Email:** Your email
 - **Phone:** Your phone number
-- **Github:** Your Github profile link
+- **GitHub:** Your GitHub profile link
 - **City:** City where you're located
 - **Country:** Country where you're located
 - **Skills:** Your skills

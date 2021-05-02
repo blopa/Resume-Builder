@@ -88,7 +88,6 @@ function Publications({ publications }) {
                             name,
                             publisher,
                             releaseDate,
-                            website,
                             url,
                             summary,
                         } = publication?.value || {};
@@ -129,16 +128,6 @@ function Publications({ publications }) {
                                                 onClick={togglePublicationsDetail(
                                                     publication,
                                                     varNameToString({ releaseDate })
-                                                )}
-                                            />
-                                        )}
-                                        {website && (
-                                            <ItemsList
-                                                label={varNameToString({ website })}
-                                                checked={website?.enabled}
-                                                onClick={togglePublicationsDetail(
-                                                    publication,
-                                                    varNameToString({ website })
                                                 )}
                                             />
                                         )}

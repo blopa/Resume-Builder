@@ -116,7 +116,10 @@ function Interest({ interests }) {
             {interests?.enabled && (
                 <ul>
                     {interests?.value.map((interest) => {
-                        const { name, keywords } = interest?.value || {};
+                        const {
+                            name,
+                            keywords,
+                        } = interest?.value || {};
 
                         return (
                             <Fragment key={uuid()}>

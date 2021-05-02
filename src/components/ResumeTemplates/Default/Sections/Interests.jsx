@@ -1,7 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { IntlContext } from 'gatsby-plugin-intl';
+
+// Hooks
+import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
     resumeInterests: {
@@ -19,7 +22,9 @@ const useStyles = makeStyles((theme) => ({
             },
         },
     },
-    interest: { fontWeight: 'bold' },
+    interest: {
+        fontWeight: 'bold',
+    },
     keywords: {
         flexWrap: 'wrap',
         listStyle: 'none',
@@ -39,24 +44,50 @@ const useStyles = makeStyles((theme) => ({
     interestWrapper: {
         pageBreakInside: 'avoid',
     },
+    title: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
 const Interests = ({ interests }) => {
     const classes = useStyles();
     const intl = useContext(IntlContext);
+    const firstItem = useRef(null);
+    const sectionTitle = useRef(null);
+    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
     return interests.length > 0 && (
         <div className={classes.resumeInterests}>
-            <h3>
+            <h3
+                ref={sectionTitle}
+                className={classes.title}
+                style={titleStyle}
+            >
                 {intl.formatMessage({ id: 'interests' })}
             </h3>
             <div className={classes.contentWrapper}>
                 <ul className={classes.interests}>
                     {interests.map((interest) => {
                         if (interest?.enabled) {
-                            const { name, keywords } = interest?.value || {};
+                            const {
+                                name,
+                                keywords,
+                            } = interest?.value || {};
+
+                            let refProps = {};
+                            if (!firstItem.current) {
+                                refProps = {
+                                    ref: firstItem,
+                                };
+                            }
+
                             return (
-                                <li className={classes.interestWrapper} key={uuid()}>
+                                <li
+                                    className={classes.interestWrapper}
+                                    key={uuid()}
+                                    // eslint-disable-next-line react/jsx-props-no-spreading
+                                    {...refProps}
+                                >
                                     {name?.enabled && (
                                         <p className={classes.interest}>
                                             {name?.value}

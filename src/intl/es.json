@@ -33,6 +33,7 @@
     "drag_and_drop_or_click": "Arrastra un archivo o haz click",
     "select_your_template": "Selecciona tu plantilla",
     "select_template": "Selecciona tu plantilla",
+    "this_is_a_page_break": "Esto es un salto de página",
     "error": {
         "something_went_wrong_parsing": "¡Vaya! Se produjo un error al descargar la hoja de cálculo desde la URL proporcionada. Intente descargar la hoja de cálculo manualmente y cárguela aquí.",
         "something_went_wrong_loading": "Vaya, algo salió mal. Vuelve a intentarlo."
