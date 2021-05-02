@@ -65,7 +65,7 @@ const Skills = ({ skills }) => {
             </h3>
             <div className={classes.contentWrapper}>
                 <ul className={classes.skills}>
-                    {skills.map((skill, index) => {
+                    {skills.map((skill) => {
                         if (skill?.enabled) {
                             const {
                                 name,
@@ -74,7 +74,7 @@ const Skills = ({ skills }) => {
                             } = skill?.value || {};
 
                             let refProps = {};
-                            if (index === 0) {
+                            if (!firstItem.current) {
                                 refProps = {
                                     ref: firstItem,
                                 };

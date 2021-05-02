@@ -77,7 +77,7 @@ const Work = ({ work: works }) => {
             </h3>
             <div className={classes.contentWrapper}>
                 <ul className={classes.works}>
-                    {works.map((work, index) => {
+                    {works.map((work) => {
                         if (work?.enabled) {
                             const {
                                 name,
@@ -92,7 +92,7 @@ const Work = ({ work: works }) => {
                             } = work?.value || {};
 
                             let refProps = {};
-                            if (index === 0) {
+                            if (!firstItem.current) {
                                 refProps = {
                                     ref: firstItem,
                                 };

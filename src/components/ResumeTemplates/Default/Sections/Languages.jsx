@@ -44,7 +44,7 @@ const Languages = ({ languages }) => {
             </h3>
             <div className={classes.contentWrapper}>
                 <ul className={classes.languages}>
-                    {languages.map((lang, index) => {
+                    {languages.map((lang) => {
                         if (lang?.enabled) {
                             const {
                                 language,
@@ -52,7 +52,7 @@ const Languages = ({ languages }) => {
                             } = lang?.value || {};
 
                             let refProps = {};
-                            if (index === 0) {
+                            if (!firstItem.current) {
                                 refProps = {
                                     ref: firstItem,
                                 };

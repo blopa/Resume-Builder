@@ -67,7 +67,7 @@ const Interests = ({ interests }) => {
             </h3>
             <div className={classes.contentWrapper}>
                 <ul className={classes.interests}>
-                    {interests.map((interest, index) => {
+                    {interests.map((interest) => {
                         if (interest?.enabled) {
                             const {
                                 name,
@@ -75,7 +75,7 @@ const Interests = ({ interests }) => {
                             } = interest?.value || {};
 
                             let refProps = {};
-                            if (index === 0) {
+                            if (!firstItem.current) {
                                 refProps = {
                                     ref: firstItem,
                                 };

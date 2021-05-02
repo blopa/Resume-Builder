@@ -46,7 +46,7 @@ const References = ({ references }) => {
             </h3>
             <div className={classes.contentWrapper}>
                 <ul className={classes.references}>
-                    {references.map((ref, index) => {
+                    {references.map((ref) => {
                         if (ref?.enabled) {
                             const {
                                 name,
@@ -54,7 +54,7 @@ const References = ({ references }) => {
                             } = ref?.value || {};
 
                             let refProps = {};
-                            if (index === 0) {
+                            if (!firstItem.current) {
                                 refProps = {
                                     ref: firstItem,
                                 };

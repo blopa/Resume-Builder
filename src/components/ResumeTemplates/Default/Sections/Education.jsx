@@ -66,7 +66,7 @@ const Education = ({ education: educations }) => {
             </h3>
             <div className={classes.contentWrapper}>
                 <ul className={classes.courses}>
-                    {educations.map((education, index) => {
+                    {educations.map((education) => {
                         if (education?.enabled) {
                             const {
                                 institution,
@@ -80,15 +80,18 @@ const Education = ({ education: educations }) => {
                             } = education?.value || {};
 
                             let refProps = {};
-                            if (index === 0) {
-                                refProps = firstItem;
+                            if (!firstItem.current) {
+                                refProps = {
+                                    ref: firstItem,
+                                };
                             }
 
                             return (
                                 <li
                                     className={classes.educationWrapper}
                                     key={uuid()}
-                                    ref={refProps}
+                                    // eslint-disable-next-line react/jsx-props-no-spreading
+                                    {...refProps}
                                 >
                                     <p className={classes.type}>
                                         {area?.enabled && area?.value}

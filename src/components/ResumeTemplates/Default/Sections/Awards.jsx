@@ -51,7 +51,7 @@ const Awards = ({ awards }) => {
             </h3>
             <div className={classes.contentWrapper}>
                 <ul className={classes.awards}>
-                    {awards.map((award, index) => {
+                    {awards.map((award) => {
                         if (award?.enabled) {
                             const {
                                 title,
@@ -61,7 +61,7 @@ const Awards = ({ awards }) => {
                             } = award?.value || {};
 
                             let refProps = {};
-                            if (index === 0) {
+                            if (!firstItem.current) {
                                 refProps = {
                                     ref: firstItem,
                                 };

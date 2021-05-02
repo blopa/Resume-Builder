@@ -58,7 +58,7 @@ const Projects = ({ projects }) => {
             </h3>
             <div className={classes.contentWrapper}>
                 <ul className={classes.projects}>
-                    {projects.map((project, index) => {
+                    {projects.map((project) => {
                         if (project?.enabled) {
                             const {
                                 name,
@@ -74,7 +74,7 @@ const Projects = ({ projects }) => {
                             } = project?.value || {};
 
                             let refProps = {};
-                            if (index === 0) {
+                            if (!firstItem.current) {
                                 refProps = {
                                     ref: firstItem,
                                 };

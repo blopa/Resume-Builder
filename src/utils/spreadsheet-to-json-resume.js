@@ -21,7 +21,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const interestsCategory = 'interests';
     const referencesCategory = 'references';
     const translationsCategory = '__translation__';
-    const coverLetterCategory = 'coverLetter';
+    const coverLetterCategory = 'cover_letter';
 
     // base jsonResume
     const jsonResume = {
@@ -38,6 +38,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         languages: [],
         interests: [],
         references: [],
+        coverLetter: '',
     };
 
     let profiles = {};

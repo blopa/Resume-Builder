@@ -53,7 +53,7 @@ const Publications = ({ publications }) => {
             </h3>
             <div className={classes.contentWrapper}>
                 <ul className={classes.publications}>
-                    {publications.map((publication, index) => {
+                    {publications.map((publication) => {
                         if (publication?.enabled) {
                             const {
                                 name,
@@ -64,7 +64,7 @@ const Publications = ({ publications }) => {
                             } = publication?.value || {};
 
                             let refProps = {};
-                            if (index === 0) {
+                            if (!firstItem.current) {
                                 refProps = {
                                     ref: firstItem,
                                 };

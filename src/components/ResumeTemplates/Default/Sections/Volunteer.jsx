@@ -64,7 +64,7 @@ const Volunteer = ({ volunteer: volunteers }) => {
             </h3>
             <div className={classes.contentWrapper}>
                 <ul className={classes.volunteers}>
-                    {volunteers.map((volunteer, index) => {
+                    {volunteers.map((volunteer) => {
                         if (volunteer?.enabled) {
                             const {
                                 organization,
@@ -77,7 +77,7 @@ const Volunteer = ({ volunteer: volunteers }) => {
                             } = volunteer?.value || {};
 
                             let refProps = {};
-                            if (index === 0) {
+                            if (!firstItem.current) {
                                 refProps = {
                                     ref: firstItem,
                                 };
