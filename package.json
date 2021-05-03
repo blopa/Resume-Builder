@@ -11,8 +11,8 @@
     "scripts": {
         "inspect": "node --inspect-brk --no-lazy node_modules/gatsby/dist/bin/gatsby develop",
         "clean": "gatsby clean",
-        "build": "NODE_ENV=production && gatsby build --prefix-paths",
-        "develop": "NODE_ENV=development && gatsby develop",
+        "build": "cross-env NODE_ENV=production && gatsby build --prefix-paths",
+        "develop": "cross-env NODE_ENV=development && gatsby develop",
         "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
         "start": "npm run develop",
         "serve": "gatsby serve",
@@ -65,6 +65,7 @@
     },
     "devDependencies": {
         "babel-preset-gatsby": "^1.4.0",
+        "cross-env": "^7.0.3",
         "eslint": "^7.25.0",
         "eslint-config-airbnb": "^18.2.1",
         "eslint-config-gatsby-standard": "^3.0.2",
