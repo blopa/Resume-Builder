@@ -1,7 +1,7 @@
-import React, { useContext, useRef } from 'react';
+import React, { useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
-import { IntlContext } from 'gatsby-plugin-intl';
+import { useIntl } from 'gatsby-plugin-intl';
 
 // Hooks
 import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Work = ({ work: works }) => {
     const classes = useStyles();
-    const intl = useContext(IntlContext);
+    const intl = useIntl();
     const firstItem = useRef(null);
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);

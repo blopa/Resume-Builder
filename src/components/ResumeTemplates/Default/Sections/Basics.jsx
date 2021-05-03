@@ -1,7 +1,7 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
-import { IntlContext } from 'gatsby-plugin-intl';
+import { useIntl } from 'gatsby-plugin-intl';
 
 const useStyles = makeStyles((theme) => ({
     resumeSummary: {
@@ -83,7 +83,7 @@ const Basics = ({
     },
 }) => {
     const classes = useStyles();
-    const intl = useContext(IntlContext);
+    const intl = useIntl();
 
     return (
         <Fragment>

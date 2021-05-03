@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
-import { IntlContext } from 'gatsby-plugin-intl';
+import { useIntl } from 'gatsby-plugin-intl';
 import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -9,13 +9,14 @@ const useStyles = makeStyles((theme) => ({
         textTransform: 'uppercase',
         fontWeight: 'bold',
     },
+    resumePublications: {},
 }));
 
 const Publications = ({
     publications,
 }) => {
     const classes = useStyles();
-    const intl = useContext(IntlContext);
+    const intl = useIntl();
 
     return publications.length > 0 && (
         <div className={classes.resumePublications}>

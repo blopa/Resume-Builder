@@ -1,6 +1,6 @@
-import React, { Fragment, useContext, useMemo } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { IntlContext } from 'gatsby-plugin-intl';
+import { useIntl } from 'gatsby-plugin-intl';
 import Mustache from 'mustache';
 import { renderToString } from 'react-dom/server';
 
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CoverLetter = ({ coverLetter }) => {
     const classes = useStyles();
-    const intl = useContext(IntlContext);
+    const intl = useIntl();
     const variables = useMemo(() => {
         const newVariables = {};
         Object.entries(coverLetter.variables)
