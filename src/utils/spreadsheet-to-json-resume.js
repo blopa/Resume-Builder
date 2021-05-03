@@ -259,7 +259,6 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     }
     jsonResume.references = [...referencesArray];
 
-    console.log(jsonResume);
     return {
         ...jsonResume,
         __translation__: translations,

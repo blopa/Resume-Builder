@@ -10,12 +10,12 @@
    Which resume would you look at first?"
 - [http://monster.com](https://www.monster.com/career-advice/article/resume-look-important-as-content)
 
-<img src="/screenshots/v3/resume_builder.gif?raw=true" width="890px" />
+<img src="/screenshots/v4/resume_builder.gif?raw=true" width="890px" />
 
 ## About
 [Resume Builder](https://resume-builder.js.org) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://resume-builder.js.org).**
 
-For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/main/README_V1.MD) and for version 2 [check here](https://github.com/blopa/Resume-Builder/blob/main/README_V2.MD).
+Older versions: [V1](https://github.com/blopa/Resume-Builder/blob/main/README_V1.MD), [V2](https://github.com/blopa/Resume-Builder/blob/main/README_V2.MD) and [V3](https://github.com/blopa/Resume-Builder/blob/main/README_V3.MD).
 
 ## Features
 - Multiple Resume templates (soon)
@@ -23,11 +23,26 @@ For version 1 [check here](https://github.com/blopa/Resume-Builder/blob/main/REA
 - Support Json format from [github.com/jsonresume/resume-schema](https://github.com/jsonresume/resume-schema/tree/v1.0.0).
 - Convert Google Spreadsheet data into [github.com/jsonresume/resume-schema](https://github.com/jsonresume/resume-schema/tree/v1.0.0) format.
 - Theme created with [material-ui-theme-editor](https://in-your-saas.github.io/material-ui-theme-editor/), so it's easy for you to customize.
+- Cover Letter Editor
+
+## JSON Resume Schema
+This project uses the [jsonresume/resume-schema](https://github.com/jsonresume/resume-schema) v1.0.0, but due a need to extend some of it's features, we also added 2 new fields: `__translation__` to translate template keys, and `coverLetter` so you can add your own Cover Letter template.
 
 ## Online viewer
 Create a GitHub repo [like this one](https://github.com/blopa/resume.json) with the name `resume.json` and a file called `resume.json` in a branch called `main` and following the JSON schema from [github.com/jsonresume/resume-schema](https://github.com/jsonresume/resume-schema/tree/v1.0.0) v1.0.0.
 
 Then you can access your resume via https://resume-builder.js.org/view/TEMPLATE/GITHUB_USER, for example this URL: [https://resume-builder.js.org/view/default/blopa](https://resume-builder.js.org/view/default/blopa). You can also append `/lang` to the end of the URL to add a proper translation to your resume, for example [https://resume-builder.js.org/view/default/blopa/es](https://resume-builder.js.org/view/default/blopa/es).
+
+## Cover Letter Editor
+Now you can edit your own Cover Letter by using [mustache.js](https://github.com/janl/mustache.js/) bracket variables, for example:
+
+With the text `This is a cover letter for {{company}}`, you will be able to edit the word `company` dynamically by typing another word in the variable input in the sidebar:
+
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/edit_variable.png)
+
+Check the gif below for more details
+
+<img src="/screenshots/v4/cover_letter_editor.gif?raw=true" width="890px" />
 
 ## Available Translations
 We currently have translations for **English**, **Spanish** and **Brazilian Portuguese**, those are going to be used to translate sections of your resume, like the title "Publications", etc.
@@ -46,7 +61,8 @@ Simply add a custom `__translations__` object to your `resume.json` file with th
 ```
 
 You can also add it to your spreadsheet by creating columns with the value `__translation__`, like:
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v3/translations.png)
+
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/translations.png)
 
 Would you like to have your language added to Resume Builder? [Create a Pull Request](https://github.com/blopa/Resume-Builder/issues/18).
 
@@ -66,30 +82,36 @@ First of all you need to create a Google Spreadsheet following the same rules as
 - **countryCode:** Country code where you're located
 - **network:** Social media name
 - **username:** Social media username
+- **coverLetter:** Your cover letter template
 - **__translation__:** Add your custom translations
 
 ## Libraries
-- I'm using [gatsby.js](https://github.com/gatsbyjs/gatsby), [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx) and [Material UI](https://material-ui.com/).
-- Honorable mentions: [babel](https://github.com/babel/babel), [webpack](https://github.com/webpack/webpack), [IntelliJ IDEA](https://github.com/JetBrains/intellij-community).
+- I'm using [gatsby.js](https://github.com/gatsbyjs/gatsby), [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx), [Material UI](https://material-ui.com/) and [mustache.js](https://github.com/janl/mustache.js/).
 - Gatsby template from [gatsby-material-ui-blog-starter](https://github.com/blopa/gatsby-material-ui-blog-starter)
+- Honorable mentions: [babel](https://github.com/babel/babel), [webpack](https://github.com/webpack/webpack), [IntelliJ IDEA](https://github.com/JetBrains/intellij-community), [and many others](package.json).
 
 So a big thanks to all the developers that worked really hard on these libs and make our day easier :D.
+
+## Development
+Run `npm run start` and access the website on `http://localhost:8000`
 
 ## Deployment
 Run `npm run build` then copy the `public/` folder into your website root directory. Done.
 
 ## Example
-The following `JSON` is a result of [this Google Spreadsheet](https://docs.google.com/spreadsheets/d/1jRMEvfI6OsWUwnaHgH5UwnoikZA0a3s8wPnCortNJ_A/edit). For a better view of the ``JSON`` [click here](https://codebeautify.org/jsonviewer/cb7c68a1).
+The following `JSON` is a result of [this Google Spreadsheet](https://docs.google.com/spreadsheets/d/1jRMEvfI6OsWUwnaHgH5UwnoikZA0a3s8wPnCortNJ_A/edit). For a better view of the `JSON` [click here](resume.json).
 ```json
 {
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "coverLetter": "Some text with {{some}} custom {{variable}}, cool {{cool}} and now a {{superDuperBigVariable}}",
   "basics": {
-    "name": "John Doe",
+    "name": "Richard Hendriks",
     "label": "Programmer",
-    "image": "",
-    "email": "john@gmail.com",
+    "image": "https://i.pravatar.cc/150?img=8",
+    "email": "richard.hendriks@mail.com",
     "phone": "(912) 555-4321",
-    "url": "http://johndoe.com",
-    "summary": "A summary of John Doe...",
+    "url": "http://richardhendricks.example.com",
+    "summary": "Richard hails from Tulsa. He has earned degrees from the University of Oklahoma and Stanford. (Go Sooners and Cardinal!) Before starting Pied Piper, he worked for Hooli as a part time software developer. While his work focuses on applied information theory, mostly optimizing lossless compression schema of both the length-limited and adaptive variants, his non-work interests range widely, everything from quantum computing to chaos theory. He could tell you about it, but THAT would NOT be a “length-limited” conversation!",
     "location": {
       "address": "2712 Broadway St",
       "postalCode": "CA 94115",
@@ -97,91 +119,168 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
       "countryCode": "US",
       "region": "California"
     },
-    "profiles": [{
-      "network": "Twitter",
-      "username": "john",
-      "url": "http://twitter.com/john"
-    }]
+    "profiles": [
+      {
+        "network": "Twitter",
+        "username": "neutralthoughts",
+        "url": ""
+      },
+      {
+        "network": "SoundCloud",
+        "username": "dandymusicnl",
+        "url": "https://soundcloud.example.com/dandymusicnl"
+      }
+    ]
   },
-  "work": [{
-    "company": "Company",
-    "position": "President",
-    "url": "http://company.com",
-    "startDate": "2013-01-01",
-    "endDate": "2014-01-01",
-    "summary": "Description...",
-    "highlights": [
-      "Started the company"
-    ]
-  }],
-  "volunteer": [{
-    "organization": "Organization",
-    "position": "Volunteer",
-    "url": "http://organization.com/",
-    "startDate": "2012-01-01",
-    "endDate": "2013-01-01",
-    "summary": "Description...",
-    "highlights": [
-      "Awarded 'Volunteer of the Month'"
-    ]
-  }],
-  "education": [{
-    "institution": "University",
-    "area": "Software Development",
-    "studyType": "Bachelor",
-    "startDate": "2011-01-01",
-    "endDate": "2013-01-01",
-    "score": "4.0",
-    "courses": [
-      "DB1101 - Basic SQL"
-    ]
-  }],
-  "awards": [{
-    "title": "Award",
-    "date": "2014-11-01",
-    "awarder": "Company",
-    "summary": "There is no spoon."
-  }],
-  "publications": [{
-    "name": "Publication",
-    "description": "Company",
-    "releaseDate": "2014-10-01",
-    "url": "http://publication.com",
-    "summary": "Description..."
-  }],
-  "skills": [{
-    "name": "Web Development",
-    "level": "Master",
-    "keywords": [
-      "HTML",
-      "CSS",
-      "Javascript"
-    ]
-  }],
-  "languages": [{
-    "language": "English",
-    "fluency": "Native speaker"
-  }],
-  "interests": [{
-    "name": "Wildlife",
-    "keywords": [
-      "Ferrets",
-      "Unicorns"
-    ]
-  }],
-  "references": [{
-    "name": "Jane Doe",
-    "reference": "Reference..."
-  }],
+  "work": [
+    {
+      "name": "Pied Piper",
+      "location": "Palo Alto, CA",
+      "description": "Awesome compression company",
+      "position": "CEO/President",
+      "url": "http://piedpiper.example.com",
+      "startDate": "2013-12-01",
+      "endDate": "2014-12-01",
+      "summary": "Pied Piper is a multi-platform technology based on a proprietary universal compression algorithm that has consistently fielded high Weisman Scores™ that are not merely competitive, but approach the theoretical limit of lossless compression.",
+      "highlights": [
+        "Build an algorithm for artist to detect if their music was violating copy right infringement laws",
+        "Successfully won Techcrunch Disrupt",
+        "Optimized an algorithm that holds the current world record for Weisman Scores"
+      ]
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "CoderDojo",
+      "position": "Teacher",
+      "url": "http://coderdojo.example.com/",
+      "startDate": "2012-01-01",
+      "endDate": "2013-01-01",
+      "summary": "Global movement of free coding clubs for young people.",
+      "highlights": [
+        "Awarded 'Teacher of the Month'"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Oklahoma",
+      "url": "https://www.ou.edu/",
+      "area": "Information Technology",
+      "studyType": "Bachelor",
+      "startDate": "2011-06-01",
+      "endDate": "2014-01-01",
+      "score": "4.0",
+      "courses": [
+        "DB1101 - Basic SQL",
+        "CS2011 - Java Introduction"
+      ]
+    }
+  ],
+  "awards": [
+    {
+      "title": "Digital Compression Pioneer Award",
+      "date": "2014-11-01",
+      "awarder": "Techcrunch",
+      "summary": "There is no spoon."
+    }
+  ],
+  "publications": [
+    {
+      "name": "Video compression for 3d media",
+      "publisher": "Hooli",
+      "releaseDate": "2014-10-01",
+      "url": "http://en.wikipedia.org/wiki/Silicon_Valley_(TV_series)",
+      "summary": "Innovative middle-out compression algorithm that changes the way we store data."
+    },
+    {
+      "name": "Video compression for 3d media part 2",
+      "publisher": "Hooli",
+      "releaseDate": "2015-10-01",
+      "url": "http://hooli.com",
+      "summary": "Innovative middle-out compression algorithm that changes the way we store data. Again!"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Web Development",
+      "level": "Master",
+      "keywords": [
+        "HTML",
+        "CSS",
+        "Javascript"
+      ]
+    },
+    {
+      "name": "Compression",
+      "level": "Master",
+      "keywords": [
+        "Mpeg",
+        "MP4",
+        "GIF"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Native speaker"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Wildlife",
+      "keywords": [
+        "Ferrets",
+        "Unicorns"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "name": "Erlich Bachman",
+      "reference": "It is my pleasure to recommend Richard, his performance working as a consultant for Main St. Company proved that he will be a valuable addition to any company."
+    }
+  ],
+  "projects": [
+    {
+      "name": "Miss Direction",
+      "description": "A mapping engine that misguides you",
+      "highlights": [
+        "Won award at AIHacks 2016",
+        "Built by all women team of newbie programmers",
+        "Using modern technologies such as GoogleMaps, Chrome Extension and Javascript"
+      ],
+      "keywords": [
+        "GoogleMaps",
+        "Chrome Extension",
+        "Javascript"
+      ],
+      "startDate": "2016-08-24",
+      "endDate": "2016-08-24",
+      "url": "missdirection.example.com",
+      "roles": [
+        "Team lead",
+        "Designer"
+      ],
+      "entity": "Smoogle",
+      "type": "application"
+    }
+  ],
+  "meta": {
+    "canonical": "https://raw.githubusercontent.com/jsonresume/resume-schema/master/resume.json",
+    "version": "v1.0.0",
+    "lastModified": "2017-12-24T15:53:00"
+  },
   "__translation__": {
     "awards": "Prizes",
     "volunteers": "Volunteers",
     "skills": "Skills",
     "references": "References",
-    "publications": "Projects",
+    "publications": "Publications",
     "languages": "Languages",
     "interests": "Interests",
-    "education": "Education", 
+    "education": "Study",
     "summary": "Summary",
     "experience": "Experience",
     "at": "at"
@@ -191,16 +290,18 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 
 ## Screenshot
 **[Google Spreadsheet example](https://docs.google.com/spreadsheets/d/1jRMEvfI6OsWUwnaHgH5UwnoikZA0a3s8wPnCortNJ_A/copy)**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v3/screenshot_1.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/screenshot_1.png)
 
 **Built Resume**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v3/screenshot_2.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/screenshot_2.png)
 
 **Printing Resume**
-![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v3/screenshot_3.png)
+![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/screenshot_3.png)
 
 ## Release Notes
-- **v4.0.0:**
+- **v4.0.1:**
+	- Add visual cue to the cover letter variables.
+- **v4.0.0:*
 	- Fix page break between title and items using a dirty hack (but hey it works).
 	- Add cover letter editor.
 	- Update JSON Schema to v1.0.0.
@@ -219,6 +320,7 @@ A: I can try. Open an issue, and I'll see what I can do.
 A: Thank you! You can help by codding more features, creating pull requests, or donating via [https://bunq.me/BuyMeASoda](https://bunq.me/BuyMeASoda)
 
 ## TODO
+- Load a JSON resume from any URL
 - Actually create a second template
 - Add unit tests
 - Add list of recent used documents
