@@ -301,7 +301,7 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 ## Release Notes
 - **v4.0.1:**
 	- Add visual cue to the cover letter variables.
-- **v4.0.0:*
+- **v4.0.0:**
 	- Fix page break between title and items using a dirty hack (but hey it works).
 	- Add cover letter editor.
 	- Update JSON Schema to v1.0.0.

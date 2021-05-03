@@ -1,5 +1,5 @@
 # Resume Builder
-### [resume-builder.js.org](https://resume-builder.js.org/)
+### Latest version here: [resume-builder.js.org](https://resume-builder.js.org/)
 
 **Gotta find a job!** Alright, let's make a new resume with this awesome template I found on Google, the problem is, this template might not be as awesome next month, or you might need to constantly add your new experience to the document. Gosh. Wouldn't be better to focus on adding new experiences in a raw format and let a automation process handle the layout? I agreed, and that's why Resume Builder is here.
 
@@ -13,7 +13,7 @@
 <img src="/screenshots/v3/resume_builder.gif?raw=true" width="890px">
 
 ## About
-[Resume Builder](https://resume-builder.js.org) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://resume-builder.js.org).**
+[Resume Builder](https://blopa.github.io/Legacy-Resume-Builder/v3) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://blopa.github.io/Legacy-Resume-Builder/v3).**
 
 For the latest version, access [https://resume-builder.js.org](https://resume-builder.js.org).
 
@@ -27,7 +27,7 @@ For the latest version, access [https://resume-builder.js.org](https://resume-bu
 ## Online viewer
 Create a GitHub repo [like this one](https://github.com/blopa/resume.json) with the name `resume.json` and a file called `resume.json` in a branch called `main` and following the JSON schema from [github.com/jsonresume/resume-schema](https://github.com/jsonresume/resume-schema/tree/v0.0.12) v0.0.12.
 
-Then you can access your resume via https://resume-builder.js.org/view/TEMPLATE/GITHUB_USER, for example this URL: [https://resume-builder.js.org/view/default/blopa](https://resume-builder.js.org/view/default/blopa). You can also append `/lang` to the end of the URL to add a proper translation to your resume, for example [https://resume-builder.js.org/view/default/blopa/es](https://resume-builder.js.org/view/default/blopa/es).
+Then you can access your resume via https://https://blopa.github.io/Legacy-Resume-Builder/v3/view/TEMPLATE/GITHUB_USER, for example this URL: [https://https://blopa.github.io/Legacy-Resume-Builder/v3/view/default/blopa](https://https://blopa.github.io/Legacy-Resume-Builder/v3/view/default/blopa). You can also append `/lang` to the end of the URL to add a proper translation to your resume, for example [https://https://blopa.github.io/Legacy-Resume-Builder/v3/view/default/blopa/es](https://https://blopa.github.io/Legacy-Resume-Builder/v3/view/default/blopa/es).
 
 ## Available Translations
 We currently have translations for **English**, **Spanish** and **Brazilian Portuguese**, those are going to be used to translate sections of your resume, like the title "Publications", etc.
@@ -217,7 +217,7 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 - **v3.0.4:**
 	- Fix React suspense on the resume viewer page.
 - **v3.0.3:**
-	- Add online resume viewer. Example: [https://resume-builder.js.org/view/default/blopa](https://resume-builder.js.org/view/default/blopa).
+	- Add online resume viewer. Example: [https://https://blopa.github.io/Legacy-Resume-Builder/v3/view/default/blopa](https://https://blopa.github.io/Legacy-Resume-Builder/v3/view/default/blopa).
 - **v3.0.2:**
 	- Fix template selector
 	- Fix interests toggler
