@@ -99,6 +99,7 @@ const UploadPage = ({ pageContext, location }) => {
 
         dispatch(setTogglableJsonResume({
             ...traverseObject(cloneDeep(jsonResume)),
+            enableSourceDataDownload: jsonResume.enableSourceDataDownload,
             coverLetter: {
                 enabled: true,
                 value: coverLetter,

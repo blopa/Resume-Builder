@@ -19,6 +19,7 @@ import Work from './Sections/Work';
 import Projects from './Sections/Projects';
 import CoverLetter from './Sections/CoverLetter';
 import Certificates from './Sections/Certificates';
+import Download from './Sections/Download';
 
 // Utils
 import { isObjectNotEmpty } from '../../../utils/utils';
@@ -59,8 +60,10 @@ const Default = ({
         interests,
         references,
         projects,
-        coverLetter,
         certificates,
+        // custom attributes
+        coverLetter,
+        enableSourceDataDownload = false,
     },
 }) => {
     const intl = useIntl();
@@ -98,6 +101,9 @@ const Default = ({
                     <CoverLetter
                         coverLetter={coverLetter?.value}
                     />
+                )}
+                {enableSourceDataDownload && (
+                    <Download />
                 )}
                 {basics?.enabled && (
                     <Basics

@@ -3,7 +3,7 @@ const { promises: fs } = require('fs');
 const packageJson = require('./package.json');
 
 const TEMPLATES_PATH = path.resolve(__dirname, 'src/components/ResumeTemplates');
-const disabledTemplates = ['Compact'];
+const disabledTemplates = ['Compact', 'VanHack'];
 const ignoredPages = ['/Home/'];
 const {
     convertToKebabCase,
@@ -44,27 +44,27 @@ exports.onCreatePage = async ({ page, actions }) => {
     }
 
     if (page.context.intl.originalPath === '/ResumeViewer/') {
-        const templates = await fs.readdir(TEMPLATES_PATH)
-            .filter((template) => !disabledTemplates.includes(template));
+        const templates = await fs.readdir(TEMPLATES_PATH);
 
-        templates.forEach((template) => {
-            if (
-                page.internalComponentName === 'ComponentResumeViewer'
+        templates.filter((template) => !disabledTemplates.includes(template))
+            .forEach((template) => {
+                if (
+                    page.internalComponentName === 'ComponentResumeViewer'
                 && language !== 'en'
-            ) {
-                return;
-            }
+                ) {
+                    return;
+                }
 
-            pagePath = `/view/${template}`.toLocaleLowerCase();
-            matchPath = `${pagePath}/*`;
-            myCreatePage(
-                createPage,
-                page,
-                pagePath,
-                matchPath,
-                language
-            );
-        });
+                pagePath = `/view/${template}`.toLocaleLowerCase();
+                matchPath = `${pagePath}/*`;
+                myCreatePage(
+                    createPage,
+                    page,
+                    pagePath,
+                    matchPath,
+                    language
+                );
+            });
 
         return;
     }
@@ -82,13 +82,14 @@ exports.onCreateWebpackConfig = async ({
     plugins,
     actions,
 }) => {
-    const templates = await fs.readdir(TEMPLATES_PATH)
-        .filter((template) => !disabledTemplates.includes(template));
+    const templates = await fs.readdir(TEMPLATES_PATH);
 
     actions.setWebpackConfig({
         plugins: [
             plugins.define({
-                TEMPLATES_LIST: JSON.stringify(templates),
+                TEMPLATES_LIST: JSON.stringify(
+                    templates.filter((template) => !disabledTemplates.includes(template))
+                ),
                 VERSION: JSON.stringify(packageJson.version),
             }),
         ],

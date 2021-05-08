@@ -227,6 +227,8 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 - **v3.0.0:**
 	- Rebuild using Gatsby.
 
+[Complete Release Notes here](https://github.com/blopa/Resume-Builder/blob/main/release-notes.md)
+
 ## Thanks to
  - SEO resume photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/resume?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText).
 

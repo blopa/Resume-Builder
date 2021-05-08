@@ -23,6 +23,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const referencesCategory = 'references';
     const translationsCategory = '__translation__';
     const coverLetterCategory = 'cover_letter';
+    const enableSourceDataDownloadCategory = 'enable_download';
 
     // base jsonResume
     const jsonResume = {
@@ -67,6 +68,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const referencesArray = [];
     const translations = {};
     let coverLetter = '';
+    let enableSourceDataDownload = false;
 
     jsonSpreadsheet.forEach((value) => {
         if (value[disabledAttr]) {
@@ -74,7 +76,9 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         }
 
         const category = value[categoryAttr].toLowerCase();
-        if (category === coverLetterCategory) {
+        if (category === enableSourceDataDownloadCategory) {
+            enableSourceDataDownload = value[contentAttr];
+        } else if (category === coverLetterCategory) {
             coverLetter = value[contentAttr];
         } else if (category === translationsCategory) {
             translations[value[typeAttr]] = value[contentAttr];
@@ -263,5 +267,6 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         ...jsonResume,
         __translation__: translations,
         coverLetter,
+        enableSourceDataDownload,
     };
 }

@@ -299,6 +299,9 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/screenshot_3.png)
 
 ## Release Notes
+- **v4.0.2:**
+	- Filter out resume templates that are not ready yet
+	- Add download link to download the JSON data
 - **v4.0.1:**
 	- Add visual cue to the cover letter variables.
 - **v4.0.0:**
@@ -306,6 +309,8 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 	- Add cover letter editor.
 	- Update JSON Schema to v1.0.0.
 	- Update Gatsby to v3.
+
+[Complete Release Notes here](https://github.com/blopa/Resume-Builder/blob/main/release-notes.md)
 
 ## Thanks to
  - SEO resume photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/resume?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText).

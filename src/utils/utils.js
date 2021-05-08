@@ -11,6 +11,7 @@ export const isObjectNotEmpty = (obj) =>
 export const traverseObject = (
     obj,
     ignoredProperties = [
+        'enableSourceDataDownload',
         'coverLetter',
         'meta',
         '$schema',
@@ -51,3 +52,5 @@ export const capitalize = (string) => {
 };
 
 export const varNameToString = (varObj) => Object.keys(varObj)[0];
+
+export const isClient = () => typeof window !== 'undefined';

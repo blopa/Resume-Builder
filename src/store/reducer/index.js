@@ -21,6 +21,14 @@ export default (state, action) => {
                     ...action.resume,
                 },
             };
+        case 'SET_ENABLE_SOURCE_DATA_DOWNLOAD':
+            return {
+                ...state,
+                togglableJsonResume: {
+                    ...state.togglableJsonResume,
+                    enableSourceDataDownload: action.enableSourceDataDownload,
+                },
+            };
         case 'SET_RESUME_COVER_LETTER':
             return {
                 ...state,

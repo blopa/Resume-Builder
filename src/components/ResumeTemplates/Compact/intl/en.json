@@ -12,5 +12,6 @@
     "projects": "Projects",
     "months": "Months",
     "achievements": "achievements",
-    "experience": "Experience"
+    "experience": "Experience",
+    "download_data": "Download the JSON data source for this resume <a>here</a>."
 }
