@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Default = ({
     customTranslations = {},
+    isPrinting = false,
     resume: {
         basics,
         work,

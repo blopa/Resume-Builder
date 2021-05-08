@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Drawer } from '@material-ui/core';
 import { navigate, useIntl } from 'gatsby-plugin-intl';
 import { v4 as uuid } from 'uuid';
+import useDetectPrint from 'use-detect-print';
 
 // Components
 import SEO from '../components/SEO';
@@ -48,6 +49,7 @@ const BuildPage = () => {
     const togglableJsonResume = useSelector(selectTogglableJsonResume);
     const resumeTemplateName = useSelector(selectResumeTemplate);
     const hasData = isObjectNotEmpty(togglableJsonResume) && isObjectNotEmpty(jsonResume);
+    const isPrinting = useDetectPrint();
 
     useEffect(() => {
         if (!hasData) {
@@ -64,12 +66,12 @@ const BuildPage = () => {
                     resume={togglableJsonResume}
                     // eslint-disable-next-line no-underscore-dangle
                     customTranslations={jsonResume.__translation__}
-                    coverLetter={jsonResume.coverLetter}
+                    isPrinting={isPrinting}
                 />,
             ]);
         }
         loadTemplate();
-    }, [resumeTemplateName, togglableJsonResume, jsonResume]);
+    }, [isPrinting, resumeTemplateName, togglableJsonResume, jsonResume]);
 
     const printDocument = useCallback(() => {
         const size = 1122; // roughly A4
