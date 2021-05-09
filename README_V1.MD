@@ -282,6 +282,8 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 - **v0.0.1:**
 	- First working version
 
+[Complete Release Notes here](https://github.com/blopa/Resume-Builder/blob/main/release-notes.md)
+
 ## F.A.Q.
 **Q: Can you implement <???> function?**
 

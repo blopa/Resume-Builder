@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
     },
     summary: {
         whiteSpace: 'break-spaces',
-        marginBottom: '5px !important',
     },
     description: {
         whiteSpace: 'break-spaces',
@@ -44,19 +43,6 @@ const useStyles = makeStyles((theme) => ({
         '& li': {
             marginBottom: '1px',
             fontStyle: 'italic',
-        },
-    },
-    keywords: {
-        flexWrap: 'wrap',
-        listStyle: 'none',
-        paddingLeft: 0,
-        display: 'inline-flex',
-        '& li': {
-            fontStyle: 'italic',
-            margin: '3px 3px 0 0',
-            backgroundColor: theme.palette.type === 'dark' ? '#28407b' : '#dae4f4',
-            borderRadius: '3px',
-            padding: '1px 3px',
         },
     },
     contentWrapper: {
@@ -103,7 +89,6 @@ const Work = ({ work: works }) => {
                                 endDate,
                                 summary,
                                 highlights,
-                                keywords,
                             } = work?.value || {};
 
                             let refProps = {};
@@ -163,16 +148,6 @@ const Work = ({ work: works }) => {
                                                 highlight?.enabled && (
                                                     <li key={uuid()}>
                                                         {highlight?.value}
-                                                    </li>
-                                                ))}
-                                        </ul>
-                                    )}
-                                    {keywords?.enabled && (
-                                        <ul className={classes.keywords}>
-                                            {keywords?.value.map((keyword) =>
-                                                keyword?.enabled && (
-                                                    <li key={uuid()}>
-                                                        {keyword?.value}
                                                     </li>
                                                 ))}
                                         </ul>

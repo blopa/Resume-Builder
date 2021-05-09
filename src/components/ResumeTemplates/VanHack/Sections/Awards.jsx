@@ -7,54 +7,58 @@ import { useIntl } from 'gatsby-plugin-intl';
 import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
-    resumeLanguages: {
+    resumeAwards: {
         padding: '10px 0',
         borderBottom: '1px solid #ddd',
     },
-    languages: {
+    award: { fontWeight: 'bold' },
+    awards: {
         margin: '0',
-        '& li': {
-            margin: '0 0 10px 0',
-            '&:last-child': {
-                margin: '3px 0 0',
-            },
-        },
+        padding: '0',
+        listStyle: 'none',
+        '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
     },
     contentWrapper: {
         marginLeft: '4px',
     },
-    languageWrapper: {
+    awardWrapper: {
         pageBreakInside: 'avoid',
+    },
+    positionDate: {
+        fontStyle: 'italic',
+        fontSize: '0.8rem',
     },
     title: {
         pageBreakInside: 'avoid',
     },
 }));
 
-const Languages = ({ languages }) => {
+const Awards = ({ awards }) => {
     const classes = useStyles();
     const intl = useIntl();
     const firstItem = useRef(null);
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return languages.length > 0 && (
-        <div className={classes.resumeLanguages}>
+    return awards.length > 0 && (
+        <div className={classes.resumeAwards}>
             <h3
                 ref={sectionTitle}
                 className={classes.title}
                 style={titleStyle}
             >
-                {intl.formatMessage({ id: 'languages' })}
+                {intl.formatMessage({ id: 'awards' })}
             </h3>
             <div className={classes.contentWrapper}>
-                <ul className={classes.languages}>
-                    {languages.map((lang) => {
-                        if (lang?.enabled) {
+                <ul className={classes.awards}>
+                    {awards.map((award) => {
+                        if (award?.enabled) {
                             const {
-                                language,
-                                fluency,
-                            } = lang?.value || {};
+                                title,
+                                date,
+                                awarder,
+                                summary,
+                            } = award?.value || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -65,15 +69,21 @@ const Languages = ({ languages }) => {
 
                             return (
                                 <li
-                                    className={classes.languageWrapper}
+                                    className={classes.awardWrapper}
                                     key={uuid()}
                                     // eslint-disable-next-line react/jsx-props-no-spreading
                                     {...refProps}
                                 >
-                                    <p>
-                                        {language?.enabled && language?.value}{', '}
-                                        {fluency?.enabled && fluency?.value}
+                                    <p className={classes.award}>
+                                        {title?.enabled && title?.value}
+                                        {(date?.enabled && date?.value) && (
+                                            <span className={classes.positionDate}>
+                                                {` (${date?.value})`}
+                                            </span>
+                                        )}
                                     </p>
+                                    <p>{awarder?.enabled && awarder?.value}</p>
+                                    <p>{summary?.enabled && summary?.value}</p>
                                 </li>
                             );
                         }
@@ -86,4 +96,4 @@ const Languages = ({ languages }) => {
     );
 };
 
-export default Languages;
+export default Awards;

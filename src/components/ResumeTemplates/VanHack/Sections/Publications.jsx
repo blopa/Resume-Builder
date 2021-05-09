@@ -7,26 +7,23 @@ import { useIntl } from 'gatsby-plugin-intl';
 import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
-    resumeCertificates: {
+    resumePublications: {
         padding: '10px 0',
         borderBottom: '1px solid #ddd',
     },
-    award: { fontWeight: 'bold' },
-    certificates: {
+    publications: {
         margin: '0',
         padding: '0',
         listStyle: 'none',
-        '& li': {
-            margin: '0 0 10px 0',
-            '&:last-child': {
-                margin: '3px 0 0',
-            },
-        },
+        '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
+    },
+    publication: {
+        fontWeight: 'bold',
     },
     contentWrapper: {
         marginLeft: '4px',
     },
-    awardWrapper: {
+    publicationWrapper: {
         pageBreakInside: 'avoid',
     },
     positionDate: {
@@ -38,32 +35,33 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Certificates = ({ certificates }) => {
+const Publications = ({ publications }) => {
     const classes = useStyles();
     const intl = useIntl();
     const firstItem = useRef(null);
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return certificates.length > 0 && (
-        <div className={classes.resumeCertificates}>
+    return publications.length > 0 && (
+        <div className={classes.resumePublications}>
             <h3
                 ref={sectionTitle}
                 className={classes.title}
                 style={titleStyle}
             >
-                {intl.formatMessage({ id: 'certificates' })}
+                {intl.formatMessage({ id: 'publications' })}
             </h3>
             <div className={classes.contentWrapper}>
-                <ul className={classes.certificates}>
-                    {certificates.map((award) => {
-                        if (award?.enabled) {
+                <ul className={classes.publications}>
+                    {publications.map((publication) => {
+                        if (publication?.enabled) {
                             const {
                                 name,
-                                date,
+                                publisher,
+                                releaseDate,
                                 url,
-                                issuer,
-                            } = award?.value || {};
+                                summary,
+                            } = publication?.value || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -74,21 +72,26 @@ const Certificates = ({ certificates }) => {
 
                             return (
                                 <li
-                                    className={classes.awardWrapper}
+                                    className={classes.publicationWrapper}
                                     key={uuid()}
                                     // eslint-disable-next-line react/jsx-props-no-spreading
                                     {...refProps}
                                 >
-                                    <p className={classes.award}>
+                                    <p className={classes.publication}>
                                         {name?.enabled && name?.value}
-                                        {(date?.enabled && date?.value) && (
+                                        {(
+                                            (publisher?.enabled && name?.enabled)
+                                            && (publisher?.value && name?.value)
+                                        ) && ` ${intl.formatMessage({ id: 'at' })} `}
+                                        {publisher?.enabled && publisher?.value}
+                                        {(releaseDate?.enabled && releaseDate?.value) && (
                                             <span className={classes.positionDate}>
-                                                {` (${date?.value})`}
+                                                {` (${releaseDate?.value})`}
                                             </span>
                                         )}
                                     </p>
                                     {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
-                                    <p>{issuer?.enabled && issuer?.value}</p>
+                                    {summary && summary?.enabled && <p>{summary?.value}</p>}
                                 </li>
                             );
                         }
@@ -101,4 +104,4 @@ const Certificates = ({ certificates }) => {
     );
 };
 
-export default Certificates;
+export default Publications;

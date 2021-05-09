@@ -1,7 +1,12 @@
 import React, { createContext, useState } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
+
+// Themes
 import { darkTheme, lightTheme } from '../themes/theme';
+
+// Utils
 import { LOCALSTORAGE_THEME_KEY } from '../utils/constants';
+import { isClient } from '../utils/utils';
 
 export const light = 'light';
 
@@ -19,7 +24,7 @@ export const CustomThemeContext = createContext(
 const CustomThemeProvider = (props) => {
     // eslint-disable-next-line react/prop-types
     const { children } = props;
-    const isWeb = typeof window !== 'undefined';
+    const isWeb = isClient();
 
     // Read current theme from localStorage or maybe from an api
     const currentTheme = (isWeb && localStorage.getItem(LOCALSTORAGE_THEME_KEY)) || 'light';

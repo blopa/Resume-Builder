@@ -21,6 +21,7 @@ import Volunteer from './Items/Volunteer';
 import Work from './Items/Work';
 import CoverLetter from './Items/CoverLetter';
 import Certificates from './Items/Certificates';
+import Download from './Items/Download';
 
 // Utils
 import { isObjectNotEmpty } from '../../utils/utils';
@@ -47,8 +48,10 @@ const ResumeDrawerItems = ({
         interests,
         references,
         projects,
-        coverLetter,
         certificates,
+        // custom attributes
+        coverLetter,
+        enableSourceDataDownload = false,
     },
     onClose,
     jsonResume,
@@ -62,7 +65,10 @@ const ResumeDrawerItems = ({
     };
 
     const handleDownloadJson = useCallback(() => {
-        downloadJson(jsonResume);
+        downloadJson({
+            ...jsonResume,
+            coverLetter: jsonResume.coverLetter.text,
+        });
     }, [jsonResume]);
 
     return (
@@ -104,6 +110,9 @@ const ResumeDrawerItems = ({
                     coverLetter={coverLetter}
                 />
             )}
+            <Download
+                enableSourceDataDownload={enableSourceDataDownload}
+            />
             {isObjectNotEmpty(basics) && (
                 <Basics
                     basics={basics}

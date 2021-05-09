@@ -13,7 +13,7 @@
 <img src="/screenshots/v3/resume_builder.gif?raw=true" width="890px">
 
 ## About
-[Resume Builder](https://blopa.github.io/Legacy-Resume-Builder/v3) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://blopa.github.io/Legacy-Resume-Builder/v3).**
+[Resume Builder](https://blopa.github.io/Legacy-Resume-Builder/v3/en) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://blopa.github.io/Legacy-Resume-Builder/v3/en).**
 
 For the latest version, access [https://resume-builder.js.org](https://resume-builder.js.org).
 
@@ -226,6 +226,8 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 	- Make toggler menu more efficient (thanks [milenagd](https://github.com/milenagd))
 - **v3.0.0:**
 	- Rebuild using Gatsby.
+
+[Complete Release Notes here](https://github.com/blopa/Resume-Builder/blob/main/release-notes.md)
 
 ## Thanks to
  - SEO resume photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/resume?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText).

@@ -21,12 +21,7 @@ const useStyles = makeStyles((theme) => ({
         margin: '0',
         padding: '0',
         listStyle: 'none',
-        '& li': {
-            margin: '0 0 10px 0',
-            '&:last-child': {
-                margin: '3px 0 0',
-            },
-        },
+        '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
     },
     coursesDetails: {
         display: 'flex',

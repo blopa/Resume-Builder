@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 
 // Components
 import ItemInput from './List/ItemInput';
+import VariableInput from './List/VariableInput';
 
 // Styles
 import style from '../resumeDrawerStyles';
@@ -12,7 +13,6 @@ import setResumeCoverLetter from '../../../store/actions/setResumeCoverLetter';
 
 // Hooks
 import { useDispatch } from '../../../store/StoreProvider';
-import VariableInput from './List/VariableInput';
 
 const useStyles = makeStyles((theme) => ({
     ...style,

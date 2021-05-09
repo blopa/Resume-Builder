@@ -4,6 +4,7 @@ import React, { lazy, Suspense, useContext, useEffect, useMemo, useState } from 
 import { navigate, useIntl, RawIntlProvider } from 'gatsby-plugin-intl';
 import { v4 as uuid } from 'uuid';
 import { cloneDeep } from 'lodash';
+import useDetectPrint from 'use-detect-print';
 
 // Components
 import SEO from '../components/SEO';
@@ -31,6 +32,7 @@ const ResumeViewer = ({ params, uri }) => {
     const intl = useIntl();
     const [username, lang] = (params['*'] || '').split('/'); // TODO
     const template = uri.split('/').pop(); // TODO
+    const isPrinting = useDetectPrint();
 
     const pageIntl = useMemo(() => {
         const newIntl = templateIntls.find(
@@ -77,7 +79,11 @@ const ResumeViewer = ({ params, uri }) => {
             setResumeTemplate([
                 <Template
                     key={uuid()}
-                    resume={togglableJsonResume}
+                    togglableJsonResume={togglableJsonResume}
+                    // eslint-disable-next-line no-underscore-dangle
+                    customTranslations={jsonResume.__translation__}
+                    isPrinting={isPrinting}
+                    jsonResume={jsonResume}
                 />,
             ]);
         };

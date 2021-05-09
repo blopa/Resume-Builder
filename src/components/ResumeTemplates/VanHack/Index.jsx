@@ -19,7 +19,6 @@ import Work from './Sections/Work';
 import Projects from './Sections/Projects';
 import CoverLetter from './Sections/CoverLetter';
 import Certificates from './Sections/Certificates';
-import Download from './Sections/Download';
 
 // Utils
 import { isObjectNotEmpty } from '../../../utils/utils';
@@ -46,11 +45,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Default = ({
+const VanHack = ({
     customTranslations = {},
-    isPrinting = false,
-    isOnlineViewer = false,
-    jsonResume,
     togglableJsonResume: {
         basics,
         work,
@@ -63,10 +59,8 @@ const Default = ({
         interests,
         references,
         projects,
-        certificates,
-        // custom attributes
         coverLetter,
-        enableSourceDataDownload = false,
+        certificates,
     },
 }) => {
     const intl = useIntl();
@@ -104,9 +98,6 @@ const Default = ({
                     <CoverLetter
                         coverLetter={coverLetter?.value}
                     />
-                )}
-                {enableSourceDataDownload && (
-                    <Download jsonResume={jsonResume} />
                 )}
                 {basics?.enabled && (
                     <Basics
@@ -173,4 +164,4 @@ const Default = ({
     );
 };
 
-export default Default;
+export default VanHack;

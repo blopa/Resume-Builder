@@ -26,7 +26,11 @@ Older versions: [V1](https://github.com/blopa/Resume-Builder/blob/main/README_V1
 - Cover Letter Editor
 
 ## JSON Resume Schema
-This project uses the [jsonresume/resume-schema](https://github.com/jsonresume/resume-schema) v1.0.0, but due a need to extend some of it's features, we also added 2 new fields: `__translation__` to translate template keys, and `coverLetter` so you can add your own Cover Letter template.
+This project uses the [jsonresume/resume-schema](https://github.com/jsonresume/resume-schema) v1.0.0, but due a need to extend some of it's features, we also added 4 new fields:
+- `__translation__` to translate template keys.
+- `coverLetter` to add your own Cover Letter template.
+- `work[].keywords` to add keywords to your work experience.
+- `enableSourceDataDownload` to allow the JSON data to be downloaded from the resume itself.
 
 ## Online viewer
 Create a GitHub repo [like this one](https://github.com/blopa/resume.json) with the name `resume.json` and a file called `resume.json` in a branch called `main` and following the JSON schema from [github.com/jsonresume/resume-schema](https://github.com/jsonresume/resume-schema/tree/v1.0.0) v1.0.0.
@@ -146,6 +150,10 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
         "Build an algorithm for artist to detect if their music was violating copy right infringement laws",
         "Successfully won Techcrunch Disrupt",
         "Optimized an algorithm that holds the current world record for Weisman Scores"
+      ],
+      "keywords": [
+        "Javascript",
+        "React"
       ]
     }
   ],
@@ -267,11 +275,6 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
       "type": "application"
     }
   ],
-  "meta": {
-    "canonical": "https://raw.githubusercontent.com/jsonresume/resume-schema/master/resume.json",
-    "version": "v1.0.0",
-    "lastModified": "2017-12-24T15:53:00"
-  },
   "__translation__": {
     "awards": "Prizes",
     "volunteers": "Volunteers",
@@ -284,7 +287,8 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
     "summary": "Summary",
     "experience": "Experience",
     "at": "at"
-  }
+  },
+  "enableSourceDataDownload": true
 }
 ```
 
@@ -299,6 +303,13 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/screenshot_3.png)
 
 ## Release Notes
+- **v4.0.2:**
+	- Filter out resume templates that are not ready yet.
+	- Add download link to download the JSON data.
+	- Fix resume viewer.
+	- Add missing fields on "work" and "projects".
+	- Small layout fixes in the "Default" template.
+	- Arrays from the spreadsheet are now parsed using `';'` instead of `','`.
 - **v4.0.1:**
 	- Add visual cue to the cover letter variables.
 - **v4.0.0:**
@@ -306,6 +317,8 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 	- Add cover letter editor.
 	- Update JSON Schema to v1.0.0.
 	- Update Gatsby to v3.
+
+[Complete Release Notes here](https://github.com/blopa/Resume-Builder/blob/main/release-notes.md)
 
 ## Thanks to
  - SEO resume photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/resume?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText).
@@ -320,6 +333,12 @@ A: I can try. Open an issue, and I'll see what I can do.
 A: Thank you! You can help by codding more features, creating pull requests, or donating via [https://bunq.me/BuyMeASoda](https://bunq.me/BuyMeASoda)
 
 ## TODO
+- Fix all TODOs in the code
+- Add proptypes to the components
+- Add documentation on how to create new templates
+- Add form to manually add resume data
+- Add support for Redux Tools extension
+- Use https://github.com/MrRio/jsPDF
 - Load a JSON resume from any URL
 - Actually create a second template
 - Add unit tests

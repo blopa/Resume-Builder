@@ -1,0 +1,58 @@
+## Release Notes
+- **v4.0.2:**
+    - Filter out resume templates that are not ready yet
+    - Add download link to download the JSON data
+- **v4.0.1:**
+    - Add visual cue to the cover letter variables.
+- **v4.0.0:**
+    - Fix page break between title and items using a dirty hack (but hey it works).
+    - Add cover letter editor.
+    - Update JSON Schema to v1.0.0.
+    - Update Gatsby to v3.
+- **v3.1.1:**
+    - Fix Resume Viewer page for SSR
+- **v3.1.0:**
+    - Update spreadsheet and JSON schema
+    - Fix template selector not using the global state
+    - Add option to set language in the Resume Viewer page
+    - Other small improvements (lintering) in the code
+    - Improve JSON object generation
+    - Improve Default resume template
+    - Add custom translations
+- **v3.0.6:**
+    - Update dependency packages versions
+- **v3.0.5:**
+    - Add Spanish translation (thanks [simonhoyos](https://github.com/simonhoyos))
+- **v3.0.4:**
+    - Fix React suspense on the resume viewer page.
+- **v3.0.3:**
+    - Add online resume viewer. Example: [https://https://blopa.github.io/Legacy-Resume-Builder/v3/view/default/blopa](https://https://blopa.github.io/Legacy-Resume-Builder/v3/view/default/blopa).
+- **v3.0.2:**
+    - Fix template selector
+    - Fix interests toggler
+- **v3.0.1:**
+    - Make schema compatible with [linkedin-to-jsonresume](https://github.com/joshuatz/linkedin-to-jsonresume)
+    - Make toggler menu more efficient (thanks [milenagd](https://github.com/milenagd))
+- **v3.0.0:**
+    - Rebuild using Gatsby.
+- **v2.0.3:** (not tagged)
+    - ~~Fix CORS problem when loading a spreadsheet from URL.~~ (still trying to figure this one out)
+    - Update packages.
+    - Add new ESlint rules.
+- **v2.0.2:**
+    - Fix printing issue when sidebar is open.
+    - Add Google Analytics option.
+- **v2.0.1:**
+    - Add option to parse spreadsheet from Google Spreadsheet URL.
+- **v2.0.0:**
+    - Everything rebuild from scratch.
+- **v0.0.4:**
+    - New resume display style
+- **v0.0.3:**
+    - Cleaning code to fit ESLint standards
+    - Get JSON object from URL to parse a Resume
+    - Replace CSS for SASS
+- **v0.0.2:**
+    - Tiny changes on template layout
+- **v0.0.1:**
+    - First working version

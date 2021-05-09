@@ -16,6 +16,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const educationCategory = 'education';
     const awardsCategory = 'awards';
     const publicationsCategory = 'publications';
+    const projectsCategory = 'projects';
     const certificatesCategory = 'certificates';
     const skillsCategory = 'skills';
     const languagesCategory = 'languages';
@@ -23,6 +24,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const referencesCategory = 'references';
     const translationsCategory = '__translation__';
     const coverLetterCategory = 'cover_letter';
+    const enableSourceDataDownloadCategory = 'enable_download';
 
     // base jsonResume
     const jsonResume = {
@@ -35,6 +37,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         education: [],
         awards: [],
         publications: [],
+        projects: [],
         certificates: [],
         skills: [],
         languages: [],
@@ -55,6 +58,8 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const awardsArray = [];
     let publications = {};
     const publicationsArray = [];
+    let projects = {};
+    const projectsArray = [];
     let certificates = {};
     const certificatesArray = [];
     let skills = {};
@@ -67,6 +72,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const referencesArray = [];
     const translations = {};
     let coverLetter = '';
+    let enableSourceDataDownload = false;
 
     jsonSpreadsheet.forEach((value) => {
         if (value[disabledAttr]) {
@@ -74,7 +80,9 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         }
 
         const category = value[categoryAttr].toLowerCase();
-        if (category === coverLetterCategory) {
+        if (category === enableSourceDataDownloadCategory) {
+            enableSourceDataDownload = value[contentAttr].toLowerCase() === 'true';
+        } else if (category === coverLetterCategory) {
             coverLetter = value[contentAttr];
         } else if (category === translationsCategory) {
             translations[value[typeAttr]] = value[contentAttr];
@@ -92,15 +100,15 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
 
             profiles[value[typeAttr]] = value[contentAttr];
         } else if (category === workCategory) {
-            if (value[typeAttr] === 'company') {
+            if (value[typeAttr] === 'name') {
                 if (isObjectNotEmpty(work)) {
                     workArray.push({ ...work });
                     work = {};
                 }
             }
 
-            if (value[typeAttr] === 'highlights') {
-                work[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+            if (value[typeAttr] === 'highlights' || value[typeAttr] === 'keywords') {
+                work[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
             } else {
                 work[value[typeAttr]] = value[contentAttr];
             }
@@ -113,7 +121,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             }
 
             if (value[typeAttr] === 'highlights') {
-                volunteer[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+                volunteer[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
             } else {
                 volunteer[value[typeAttr]] = value[contentAttr];
             }
@@ -126,7 +134,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             }
 
             if (value[typeAttr] === 'courses') {
-                education[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+                education[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
             } else {
                 education[value[typeAttr]] = value[contentAttr];
             }
@@ -157,6 +165,23 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             }
 
             publications[value[typeAttr]] = value[contentAttr];
+        } else if (category === projectsCategory) {
+            if (value[typeAttr] === 'name') {
+                if (isObjectNotEmpty(projects)) {
+                    projectsArray.push({ ...projects });
+                    projects = {};
+                }
+            }
+
+            if (
+                value[typeAttr] === 'highlights'
+                || value[typeAttr] === 'keywords'
+                || value[typeAttr] === 'roles'
+            ) {
+                projects[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
+            } else {
+                projects[value[typeAttr]] = value[contentAttr];
+            }
         } else if (category === skillsCategory) {
             if (value[typeAttr] === 'name') {
                 if (isObjectNotEmpty(skills)) {
@@ -166,7 +191,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             }
 
             if (value[typeAttr] === 'keywords') {
-                skills[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+                skills[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
             } else {
                 skills[value[typeAttr]] = value[contentAttr];
             }
@@ -188,7 +213,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             }
 
             if (value[typeAttr] === 'keywords') {
-                interests[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+                interests[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
             } else {
                 interests[value[typeAttr]] = value[contentAttr];
             }
@@ -234,6 +259,11 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     }
     jsonResume.publications = [...publicationsArray];
 
+    if (isObjectNotEmpty(projects)) {
+        projectsArray.push(projects);
+    }
+    jsonResume.projects = [...projectsArray];
+
     if (isObjectNotEmpty(certificates)) {
         certificatesArray.push(certificates);
     }
@@ -263,5 +293,6 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         ...jsonResume,
         __translation__: translations,
         coverLetter,
+        enableSourceDataDownload,
     };
 }

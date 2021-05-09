@@ -164,7 +164,7 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v2/screenshot_3.png)
 
 ## Release Notes
-- **v2.0.3:** (not tagged yet)
+- **v2.0.3:** (not tagged)
 	- ~~Fix CORS problem when loading a spreadsheet from URL.~~ (still trying to figure this one out)
 	- Update packages.
 	- Add new ESlint rules.
@@ -175,6 +175,8 @@ The following ``JSON`` is a result of [this Google Spreadsheet](https://docs.goo
 	- Add option to parse spreadsheet from Google Spreadsheet URL.
 - **v2.0.0:**
 	- Everything rebuild from scratch.
+
+[Complete Release Notes here](https://github.com/blopa/Resume-Builder/blob/main/release-notes.md)
 
 ## F.A.Q.
 **Q: Can you implement <???> function?**

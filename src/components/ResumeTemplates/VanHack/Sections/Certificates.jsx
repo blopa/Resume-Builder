@@ -7,54 +7,58 @@ import { useIntl } from 'gatsby-plugin-intl';
 import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
-    resumeLanguages: {
+    resumeCertificates: {
         padding: '10px 0',
         borderBottom: '1px solid #ddd',
     },
-    languages: {
+    award: { fontWeight: 'bold' },
+    certificates: {
         margin: '0',
-        '& li': {
-            margin: '0 0 10px 0',
-            '&:last-child': {
-                margin: '3px 0 0',
-            },
-        },
+        padding: '0',
+        listStyle: 'none',
+        '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
     },
     contentWrapper: {
         marginLeft: '4px',
     },
-    languageWrapper: {
+    awardWrapper: {
         pageBreakInside: 'avoid',
+    },
+    positionDate: {
+        fontStyle: 'italic',
+        fontSize: '0.8rem',
     },
     title: {
         pageBreakInside: 'avoid',
     },
 }));
 
-const Languages = ({ languages }) => {
+const Certificates = ({ certificates }) => {
     const classes = useStyles();
     const intl = useIntl();
     const firstItem = useRef(null);
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return languages.length > 0 && (
-        <div className={classes.resumeLanguages}>
+    return certificates.length > 0 && (
+        <div className={classes.resumeCertificates}>
             <h3
                 ref={sectionTitle}
                 className={classes.title}
                 style={titleStyle}
             >
-                {intl.formatMessage({ id: 'languages' })}
+                {intl.formatMessage({ id: 'certificates' })}
             </h3>
             <div className={classes.contentWrapper}>
-                <ul className={classes.languages}>
-                    {languages.map((lang) => {
-                        if (lang?.enabled) {
+                <ul className={classes.certificates}>
+                    {certificates.map((award) => {
+                        if (award?.enabled) {
                             const {
-                                language,
-                                fluency,
-                            } = lang?.value || {};
+                                name,
+                                date,
+                                url,
+                                issuer,
+                            } = award?.value || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -65,15 +69,21 @@ const Languages = ({ languages }) => {
 
                             return (
                                 <li
-                                    className={classes.languageWrapper}
+                                    className={classes.awardWrapper}
                                     key={uuid()}
                                     // eslint-disable-next-line react/jsx-props-no-spreading
                                     {...refProps}
                                 >
-                                    <p>
-                                        {language?.enabled && language?.value}{', '}
-                                        {fluency?.enabled && fluency?.value}
+                                    <p className={classes.award}>
+                                        {name?.enabled && name?.value}
+                                        {(date?.enabled && date?.value) && (
+                                            <span className={classes.positionDate}>
+                                                {` (${date?.value})`}
+                                            </span>
+                                        )}
                                     </p>
+                                    {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
+                                    <p>{issuer?.enabled && issuer?.value}</p>
                                 </li>
                             );
                         }
@@ -86,4 +96,4 @@ const Languages = ({ languages }) => {
     );
 };
 
-export default Languages;
+export default Certificates;

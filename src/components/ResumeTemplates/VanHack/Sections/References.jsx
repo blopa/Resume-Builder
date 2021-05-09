@@ -7,23 +7,20 @@ import { useIntl } from 'gatsby-plugin-intl';
 import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
-    resumeLanguages: {
+    resumeReferences: {
         padding: '10px 0',
-        borderBottom: '1px solid #ddd',
     },
-    languages: {
+    name: { fontWeight: 'bold' },
+    references: {
         margin: '0',
-        '& li': {
-            margin: '0 0 10px 0',
-            '&:last-child': {
-                margin: '3px 0 0',
-            },
-        },
+        padding: '0',
+        listStyle: 'none',
+        '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
     },
     contentWrapper: {
         marginLeft: '4px',
     },
-    languageWrapper: {
+    referenceWrapper: {
         pageBreakInside: 'avoid',
     },
     title: {
@@ -31,30 +28,30 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Languages = ({ languages }) => {
+const References = ({ references }) => {
     const classes = useStyles();
     const intl = useIntl();
     const firstItem = useRef(null);
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return languages.length > 0 && (
-        <div className={classes.resumeLanguages}>
+    return references.length > 0 && (
+        <div className={classes.resumeReferences}>
             <h3
                 ref={sectionTitle}
                 className={classes.title}
                 style={titleStyle}
             >
-                {intl.formatMessage({ id: 'languages' })}
+                {intl.formatMessage({ id: 'references' })}
             </h3>
             <div className={classes.contentWrapper}>
-                <ul className={classes.languages}>
-                    {languages.map((lang) => {
-                        if (lang?.enabled) {
+                <ul className={classes.references}>
+                    {references.map((ref) => {
+                        if (ref?.enabled) {
                             const {
-                                language,
-                                fluency,
-                            } = lang?.value || {};
+                                name,
+                                reference,
+                            } = ref?.value || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -65,15 +62,17 @@ const Languages = ({ languages }) => {
 
                             return (
                                 <li
-                                    className={classes.languageWrapper}
+                                    className={classes.referenceWrapper}
                                     key={uuid()}
                                     // eslint-disable-next-line react/jsx-props-no-spreading
                                     {...refProps}
                                 >
-                                    <p>
-                                        {language?.enabled && language?.value}{', '}
-                                        {fluency?.enabled && fluency?.value}
-                                    </p>
+                                    {name?.enabled && (
+                                        <p className={classes.name}>
+                                            {name?.value}
+                                        </p>
+                                    )}
+                                    {reference?.enabled && <p>{reference?.value}</p>}
                                 </li>
                             );
                         }
@@ -86,4 +85,4 @@ const Languages = ({ languages }) => {
     );
 };
 
-export default Languages;
+export default References;
