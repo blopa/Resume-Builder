@@ -1,7 +1,11 @@
 ## Release Notes
 - **v4.0.2:**
-    - Filter out resume templates that are not ready yet
-    - Add download link to download the JSON data
+  - Filter out resume templates that are not ready yet.
+  - Add download link to download the JSON data.
+  - Fix resume viewer.
+  - Add missing fields on "work" and "projects".
+  - Small layout fixes in the "Default" template.
+  - Arrays from the spreadsheet are now parsed using `';'` instead of `','`.
 - **v4.0.1:**
     - Add visual cue to the cover letter variables.
 - **v4.0.0:**
