@@ -106,6 +106,40 @@ function Work({ work: workData }) {
                         },
                     };
                 }
+
+                return wrk;
+            });
+        setResumeWorkState(newWork);
+    }, [setResumeWorkState, workData]);
+
+    const toggleWorkKeywords = useCallback((oldWork, keyword) => () => {
+        const newWork = { ...workData };
+        newWork.value =
+            newWork?.value.map((wrk) => {
+                if (JSON.stringify(wrk?.value) === JSON.stringify(oldWork?.value)) {
+                    return {
+                        ...wrk,
+                        value: {
+                            ...wrk?.value,
+                            keywords: {
+                                ...wrk?.value.keywords,
+                                value: [
+                                    ...wrk?.value.keywords?.value.map((kword) => {
+                                        if (JSON.stringify(kword?.value) === JSON.stringify(keyword?.value)) {
+                                            return {
+                                                ...kword,
+                                                enabled: !kword?.enabled,
+                                            };
+                                        }
+
+                                        return kword;
+                                    }),
+                                ],
+                            },
+                        },
+                    };
+                }
+
                 return wrk;
             });
         setResumeWorkState(newWork);
@@ -131,6 +165,7 @@ function Work({ work: workData }) {
                             endDate,
                             summary,
                             highlights,
+                            keywords,
                         } = work?.value || {};
 
                         return (
@@ -244,6 +279,31 @@ function Work({ work: workData }) {
                                                         onClick={toggleWorkHighlights(
                                                             work,
                                                             highlight
+                                                        )}
+                                                    />
+                                                ))}
+                                            </ul>
+                                        )}
+                                        {keywords && (
+                                            <ItemsList
+                                                label={varNameToString({ keywords })}
+                                                checked={keywords?.enabled}
+                                                onClick={toggleWorkDetail(
+                                                    work,
+                                                    varNameToString({ keywords })
+                                                )}
+                                            />
+                                        )}
+                                        {keywords?.enabled && (
+                                            <ul>
+                                                {keywords?.value.map((keyword) => (
+                                                    <ItemsList
+                                                        label={keyword?.value}
+                                                        key={uuid()}
+                                                        checked={keyword?.enabled}
+                                                        onClick={toggleWorkKeywords(
+                                                            work,
+                                                            keyword
                                                         )}
                                                     />
                                                 ))}

@@ -84,6 +84,11 @@ exports.onCreateWebpackConfig = async ({
 }) => {
     const templates = await fs.readdir(TEMPLATES_PATH);
 
+    // TODO this fixes the 'React Refresh Babel' error where NODE_ENV is 'local' for some reason
+    if (process.env.NODE_ENV !== 'production') {
+        process.env.NODE_ENV = 'development';
+    }
+
     actions.setWebpackConfig({
         plugins: [
             plugins.define({

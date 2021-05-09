@@ -107,8 +107,8 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
                 }
             }
 
-            if (value[typeAttr] === 'highlights') {
-                work[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+            if (value[typeAttr] === 'highlights' || value[typeAttr] === 'keywords') {
+                work[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
             } else {
                 work[value[typeAttr]] = value[contentAttr];
             }
@@ -121,7 +121,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             }
 
             if (value[typeAttr] === 'highlights') {
-                volunteer[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+                volunteer[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
             } else {
                 volunteer[value[typeAttr]] = value[contentAttr];
             }
@@ -134,7 +134,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             }
 
             if (value[typeAttr] === 'courses') {
-                education[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+                education[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
             } else {
                 education[value[typeAttr]] = value[contentAttr];
             }
@@ -173,8 +173,12 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
                 }
             }
 
-            if (value[typeAttr] === 'highlights' || value[typeAttr] === 'keywords') {
-                projects[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+            if (
+                value[typeAttr] === 'highlights'
+                || value[typeAttr] === 'keywords'
+                || value[typeAttr] === 'roles'
+            ) {
+                projects[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
             } else {
                 projects[value[typeAttr]] = value[contentAttr];
             }
@@ -187,7 +191,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             }
 
             if (value[typeAttr] === 'keywords') {
-                skills[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+                skills[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
             } else {
                 skills[value[typeAttr]] = value[contentAttr];
             }
@@ -209,7 +213,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             }
 
             if (value[typeAttr] === 'keywords') {
-                interests[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+                interests[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
             } else {
                 interests[value[typeAttr]] = value[contentAttr];
             }

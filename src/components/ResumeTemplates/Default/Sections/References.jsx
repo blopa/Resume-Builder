@@ -15,7 +15,22 @@ const useStyles = makeStyles((theme) => ({
         margin: '0',
         padding: '0',
         listStyle: 'none',
-        '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
+        '& li': {
+            margin: '0 0 10px 0',
+            '&:last-child': {
+                margin: '3px 0 0',
+            },
+        },
+    },
+    reference: {
+        fontStyle: 'italic',
+        textIndent: '15px',
+        '&:before': {
+            content: '"❝"',
+            fontSize: '25px',
+            margin: '-8px 0 0 -35px',
+            position: 'absolute',
+        },
     },
     contentWrapper: {
         marginLeft: '4px',
@@ -72,7 +87,11 @@ const References = ({ references }) => {
                                             {name?.value}
                                         </p>
                                     )}
-                                    {reference?.enabled && <p>{reference?.value}</p>}
+                                    {reference?.enabled && (
+                                        <p className={classes.reference}>
+                                            {reference?.value}
+                                        </p>
+                                    )}
                                 </li>
                             );
                         }

@@ -26,7 +26,11 @@ Older versions: [V1](https://github.com/blopa/Resume-Builder/blob/main/README_V1
 - Cover Letter Editor
 
 ## JSON Resume Schema
-This project uses the [jsonresume/resume-schema](https://github.com/jsonresume/resume-schema) v1.0.0, but due a need to extend some of it's features, we also added 2 new fields: `__translation__` to translate template keys, and `coverLetter` so you can add your own Cover Letter template.
+This project uses the [jsonresume/resume-schema](https://github.com/jsonresume/resume-schema) v1.0.0, but due a need to extend some of it's features, we also added 4 new fields:
+- `__translation__` to translate template keys.
+- `coverLetter` to add your own Cover Letter template.
+- `work[].keywords` to add keywords to your work experience.
+- `enableSourceDataDownload` to allow the JSON data to be downloaded from the resume itself.
 
 ## Online viewer
 Create a GitHub repo [like this one](https://github.com/blopa/resume.json) with the name `resume.json` and a file called `resume.json` in a branch called `main` and following the JSON schema from [github.com/jsonresume/resume-schema](https://github.com/jsonresume/resume-schema/tree/v1.0.0) v1.0.0.
@@ -146,6 +150,10 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
         "Build an algorithm for artist to detect if their music was violating copy right infringement laws",
         "Successfully won Techcrunch Disrupt",
         "Optimized an algorithm that holds the current world record for Weisman Scores"
+      ],
+      "keywords": [
+        "Javascript",
+        "React"
       ]
     }
   ],
@@ -296,9 +304,12 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 
 ## Release Notes
 - **v4.0.2:**
-	- Filter out resume templates that are not ready yet
-	- Add download link to download the JSON data
-	- Fix resume viewer
+	- Filter out resume templates that are not ready yet.
+	- Add download link to download the JSON data.
+	- Fix resume viewer.
+	- Add missing fields on "work" and "projects".
+	- Small layout fixes in the "Default" template.
+	- Arrays from the spreadsheet are now parsed using `';'` instead of `','`.
 - **v4.0.1:**
 	- Add visual cue to the cover letter variables.
 - **v4.0.0:**
