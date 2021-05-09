@@ -81,7 +81,7 @@
         "eslint-plugin-prettier": "^3.4.0",
         "eslint-plugin-react": "^7.23.2",
         "eslint-plugin-react-hooks": "^4.2.0",
-        "eslint-plugin-unicorn": "^31.0.0",
+        "eslint-plugin-unicorn": "^32.0.0",
         "eslint-plugin-unused-imports": "^1.1.1",
         "gatsby-plugin-eslint": "^3.0.0",
         "npm-check-updates": "^11.5.10",

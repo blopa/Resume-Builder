@@ -16,6 +16,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const educationCategory = 'education';
     const awardsCategory = 'awards';
     const publicationsCategory = 'publications';
+    const projectsCategory = 'projects';
     const certificatesCategory = 'certificates';
     const skillsCategory = 'skills';
     const languagesCategory = 'languages';
@@ -36,6 +37,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         education: [],
         awards: [],
         publications: [],
+        projects: [],
         certificates: [],
         skills: [],
         languages: [],
@@ -56,6 +58,8 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const awardsArray = [];
     let publications = {};
     const publicationsArray = [];
+    let projects = {};
+    const projectsArray = [];
     let certificates = {};
     const certificatesArray = [];
     let skills = {};
@@ -96,7 +100,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
 
             profiles[value[typeAttr]] = value[contentAttr];
         } else if (category === workCategory) {
-            if (value[typeAttr] === 'company') {
+            if (value[typeAttr] === 'name') {
                 if (isObjectNotEmpty(work)) {
                     workArray.push({ ...work });
                     work = {};
@@ -161,6 +165,19 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             }
 
             publications[value[typeAttr]] = value[contentAttr];
+        } else if (category === projectsCategory) {
+            if (value[typeAttr] === 'name') {
+                if (isObjectNotEmpty(projects)) {
+                    projectsArray.push({ ...projects });
+                    projects = {};
+                }
+            }
+
+            if (value[typeAttr] === 'highlights' || value[typeAttr] === 'keywords') {
+                projects[value[typeAttr]] = value[contentAttr].split(',').map((item) => item.trim());
+            } else {
+                projects[value[typeAttr]] = value[contentAttr];
+            }
         } else if (category === skillsCategory) {
             if (value[typeAttr] === 'name') {
                 if (isObjectNotEmpty(skills)) {
@@ -237,6 +254,11 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         publicationsArray.push(publications);
     }
     jsonResume.publications = [...publicationsArray];
+
+    if (isObjectNotEmpty(projects)) {
+        projectsArray.push(projects);
+    }
+    jsonResume.projects = [...projectsArray];
 
     if (isObjectNotEmpty(certificates)) {
         certificatesArray.push(certificates);
