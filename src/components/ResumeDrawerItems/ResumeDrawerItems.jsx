@@ -65,7 +65,10 @@ const ResumeDrawerItems = ({
     };
 
     const handleDownloadJson = useCallback(() => {
-        downloadJson(jsonResume);
+        downloadJson({
+            ...jsonResume,
+            coverLetter: jsonResume.coverLetter.text,
+        });
     }, [jsonResume]);
 
     return (

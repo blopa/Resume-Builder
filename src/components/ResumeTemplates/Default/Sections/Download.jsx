@@ -15,10 +15,9 @@ const useStyles = makeStyles((theme) => ({
     resumeDownload: {},
 }));
 
-const Download = () => {
+const Download = ({ jsonResume }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const jsonResume = useSelector(selectJsonResume);
 
     return (
         <div className={classes.resumeDownload}>
@@ -30,7 +29,7 @@ const Download = () => {
                 a: (msg) => (
                     <DownloadJsonLink
                         json={jsonResume}
-                        name={`resume-${Date.now()}.json`}
+                        name={`jsonResume-${Date.now()}.json`}
                     >
                         {msg}
                     </DownloadJsonLink>

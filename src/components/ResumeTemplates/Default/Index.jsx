@@ -49,6 +49,8 @@ const useStyles = makeStyles((theme) => ({
 const Default = ({
     customTranslations = {},
     isPrinting = false,
+    isOnlineViewer = false,
+    jsonResume,
     resume: {
         basics,
         work,
@@ -104,7 +106,7 @@ const Default = ({
                     />
                 )}
                 {enableSourceDataDownload && (
-                    <Download />
+                    <Download jsonResume={jsonResume} />
                 )}
                 {basics?.enabled && (
                     <Basics

@@ -10,7 +10,7 @@ export const downloadJson = (jsonResume) => {
     const jsonString = JSON.stringify(jsonResume);
     const timestamp = new Date().getTime();
     const anchor = document.createElement('a');
-    const file = new Blob([jsonString], { type: 'text/json' });
+    const file = new Blob([jsonString], { type: 'application/json' });
 
     anchor.href = URL.createObjectURL(file);
     anchor.download = `jsonResume-${timestamp}.json`;

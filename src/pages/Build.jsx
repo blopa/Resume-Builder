@@ -63,10 +63,14 @@ const BuildPage = () => {
             setResumeTemplate([
                 <Template
                     key={uuid()}
-                    resume={togglableJsonResume}
+                    togglableJsonResume={togglableJsonResume}
                     // eslint-disable-next-line no-underscore-dangle
                     customTranslations={jsonResume.__translation__}
                     isPrinting={isPrinting}
+                    jsonResume={{
+                        ...jsonResume,
+                        coverLetter: jsonResume.coverLetter.text,
+                    }}
                 />,
             ]);
         }
