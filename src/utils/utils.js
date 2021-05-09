@@ -43,6 +43,41 @@ export const convertToToggleableObject = (
     return obj;
 };
 
+// TODO make this return a copy of the obj
+export const convertToRegularObject = (obj) => {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const property in obj) {
+        if (property === 'enableSourceDataDownload') {
+            // eslint-disable-next-line no-continue
+            continue;
+        }
+
+        // eslint-disable-next-line no-prototype-builtins
+        if (obj.hasOwnProperty(property)) {
+            // eslint-disable-next-line no-prototype-builtins
+            if (isObject(obj[property]) && obj[property].hasOwnProperty('value')) {
+                // eslint-disable-next-line no-param-reassign
+                obj[property] = obj[property].value;
+            }
+
+            if (isObject(obj[property])) {
+                convertToRegularObject(obj[property]);
+            } else if (Array.isArray(obj[property])) {
+                // eslint-disable-next-line no-param-reassign
+                obj[property] = obj[property].map((value) => {
+                    if (isObject(value.value)) {
+                        convertToRegularObject(value.value);
+                    }
+
+                    return value.value;
+                });
+            }
+        }
+    }
+
+    return obj;
+};
+
 export const capitalize = (string) => {
     if (!string) {
         return '';
