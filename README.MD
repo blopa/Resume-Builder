@@ -298,6 +298,7 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 - **v4.0.2:**
 	- Filter out resume templates that are not ready yet
 	- Add download link to download the JSON data
+	- Fix resume viewer
 - **v4.0.1:**
 	- Add visual cue to the cover letter variables.
 - **v4.0.0:**
