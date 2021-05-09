@@ -267,11 +267,6 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
       "type": "application"
     }
   ],
-  "meta": {
-    "canonical": "https://raw.githubusercontent.com/jsonresume/resume-schema/master/resume.json",
-    "version": "v1.0.0",
-    "lastModified": "2017-12-24T15:53:00"
-  },
   "__translation__": {
     "awards": "Prizes",
     "volunteers": "Volunteers",
@@ -284,7 +279,8 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
     "summary": "Summary",
     "experience": "Experience",
     "at": "at"
-  }
+  },
+  "enableSourceDataDownload": true
 }
 ```
 
@@ -325,6 +321,11 @@ A: I can try. Open an issue, and I'll see what I can do.
 A: Thank you! You can help by codding more features, creating pull requests, or donating via [https://bunq.me/BuyMeASoda](https://bunq.me/BuyMeASoda)
 
 ## TODO
+- Fix all TODOs in the code
+- Add proptypes to the components
+- Add documentation on how to create new templates
+- Add form to manually add resume data
+- Add support for Redux Tools extension
 - Use https://github.com/MrRio/jsPDF
 - Load a JSON resume from any URL
 - Actually create a second template

@@ -51,7 +51,7 @@ const Default = ({
     isPrinting = false,
     isOnlineViewer = false,
     jsonResume,
-    resume: {
+    togglableJsonResume: {
         basics,
         work,
         skills,

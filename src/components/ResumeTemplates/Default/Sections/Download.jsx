@@ -5,12 +5,6 @@ import { useIntl } from 'gatsby-plugin-intl';
 // Components
 import DownloadJsonLink from '../../../DownloadJsonLink';
 
-// Hooks
-import { useSelector } from '../../../../store/StoreProvider';
-
-// Selectors
-import { selectJsonResume } from '../../../../store/selectors';
-
 const useStyles = makeStyles((theme) => ({
     resumeDownload: {},
 }));

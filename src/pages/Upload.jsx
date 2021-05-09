@@ -13,7 +13,7 @@ import DropZone from '../components/DropZone';
 import TemplateSelector from '../components/TemplateSelector';
 
 // Utils
-import { traverseObject } from '../utils/utils';
+import { isObjectNotEmpty, traverseObject } from '../utils/utils';
 import spreadsheetToJsonResume from '../utils/spreadsheet-to-json-resume';
 import { readSpreadsheet, parseSpreadsheetUrl } from '../utils/spreadsheet-parser';
 import { readJsonFile } from '../utils/json-parser';
@@ -92,17 +92,15 @@ const UploadPage = ({ pageContext, location }) => {
             };
         }
 
-        dispatch(setJsonResume({
-            ...jsonResume,
-            coverLetter,
-        }));
-
+        dispatch(setJsonResume(jsonResume));
         dispatch(setTogglableJsonResume({
             ...traverseObject(cloneDeep(jsonResume)),
             enableSourceDataDownload: jsonResume.enableSourceDataDownload,
-            coverLetter: {
-                enabled: true,
-                value: coverLetter,
+            ...isObjectNotEmpty(coverLetter) && {
+                coverLetter: {
+                    enabled: true,
+                    value: coverLetter,
+                },
             },
         }));
 

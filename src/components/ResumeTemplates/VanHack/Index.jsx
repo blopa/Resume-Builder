@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 const VanHack = ({
     customTranslations = {},
-    resume: {
+    togglableJsonResume: {
         basics,
         work,
         skills,
