@@ -8,7 +8,7 @@ export const isObjectNotEmpty = (obj) =>
     isObject(obj) && Object.keys(obj).length > 0;
 
 // TODO make this return a copy of the obj
-export const traverseObject = (
+export const convertToToggleableObject = (
     obj,
     ignoredProperties = [
         'enableSourceDataDownload',
@@ -27,7 +27,7 @@ export const traverseObject = (
                 delete obj[property];
             } else {
                 if (typeof obj[property] === 'object') {
-                    traverseObject(obj[property]);
+                    convertToToggleableObject(obj[property]);
                 }
 
                 // eslint-disable-next-line no-param-reassign

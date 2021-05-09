@@ -14,26 +14,26 @@ export default (state, action) => {
                     ...action.resume,
                 },
             };
-        case 'SET_TOGGLABLE_JSON_RESUME':
+        case 'SET_TOGGLEABLE_JSON_RESUME':
             return {
                 ...state,
-                togglableJsonResume: {
+                toggleableJsonResume: {
                     ...action.resume,
                 },
             };
         case 'SET_ENABLE_SOURCE_DATA_DOWNLOAD':
             return {
                 ...state,
-                togglableJsonResume: {
-                    ...state.togglableJsonResume,
+                toggleableJsonResume: {
+                    ...state.toggleableJsonResume,
                     enableSourceDataDownload: action.enableSourceDataDownload,
                 },
             };
         case 'SET_RESUME_COVER_LETTER':
             return {
                 ...state,
-                togglableJsonResume: {
-                    ...state.togglableJsonResume,
+                toggleableJsonResume: {
+                    ...state.toggleableJsonResume,
                     coverLetter: {
                         ...action.coverLetter,
                     },
@@ -42,8 +42,8 @@ export default (state, action) => {
         case 'SET_RESUME_BASICS':
             return {
                 ...state,
-                togglableJsonResume: {
-                    ...state.togglableJsonResume,
+                toggleableJsonResume: {
+                    ...state.toggleableJsonResume,
                     basics: {
                         ...action.basics,
                     },
@@ -52,8 +52,8 @@ export default (state, action) => {
         case 'SET_RESUME_WORK':
             return {
                 ...state,
-                togglableJsonResume: {
-                    ...state.togglableJsonResume,
+                toggleableJsonResume: {
+                    ...state.toggleableJsonResume,
                     work: {
                         ...action.work,
                     },
@@ -62,8 +62,8 @@ export default (state, action) => {
         case 'SET_RESUME_SKILLS':
             return {
                 ...state,
-                togglableJsonResume: {
-                    ...state.togglableJsonResume,
+                toggleableJsonResume: {
+                    ...state.toggleableJsonResume,
                     skills: {
                         ...action.skills,
                     },
@@ -72,8 +72,8 @@ export default (state, action) => {
         case 'SET_RESUME_EDUCATION':
             return {
                 ...state,
-                togglableJsonResume: {
-                    ...state.togglableJsonResume,
+                toggleableJsonResume: {
+                    ...state.toggleableJsonResume,
                     education: {
                         ...action.education,
                     },
@@ -82,8 +82,8 @@ export default (state, action) => {
         case 'SET_RESUME_AWARDS':
             return {
                 ...state,
-                togglableJsonResume: {
-                    ...state.togglableJsonResume,
+                toggleableJsonResume: {
+                    ...state.toggleableJsonResume,
                     awards: {
                         ...action.awards,
                     },
@@ -92,8 +92,8 @@ export default (state, action) => {
         case 'SET_RESUME_CERTIFICATES':
             return {
                 ...state,
-                togglableJsonResume: {
-                    ...state.togglableJsonResume,
+                toggleableJsonResume: {
+                    ...state.toggleableJsonResume,
                     certificates: {
                         ...action.certificates,
                     },
@@ -102,8 +102,8 @@ export default (state, action) => {
         case 'SET_RESUME_VOLUNTEER':
             return {
                 ...state,
-                togglableJsonResume: {
-                    ...state.togglableJsonResume,
+                toggleableJsonResume: {
+                    ...state.toggleableJsonResume,
                     volunteer: {
                         ...action.volunteer,
                     },
@@ -112,8 +112,8 @@ export default (state, action) => {
         case 'SET_RESUME_PUBLICATIONS':
             return {
                 ...state,
-                togglableJsonResume: {
-                    ...state.togglableJsonResume,
+                toggleableJsonResume: {
+                    ...state.toggleableJsonResume,
                     publications: {
                         ...action.publications,
                     },
@@ -122,8 +122,8 @@ export default (state, action) => {
         case 'SET_RESUME_PROJECTS':
             return {
                 ...state,
-                togglableJsonResume: {
-                    ...state.togglableJsonResume,
+                toggleableJsonResume: {
+                    ...state.toggleableJsonResume,
                     projects: {
                         ...action.projects,
                     },
@@ -132,8 +132,8 @@ export default (state, action) => {
         case 'SET_RESUME_LANGUAGES':
             return {
                 ...state,
-                togglableJsonResume: {
-                    ...state.togglableJsonResume,
+                toggleableJsonResume: {
+                    ...state.toggleableJsonResume,
                     languages: {
                         ...action.languages,
                     },
@@ -142,8 +142,8 @@ export default (state, action) => {
         case 'SET_RESUME_INTERESTS':
             return {
                 ...state,
-                togglableJsonResume: {
-                    ...state.togglableJsonResume,
+                toggleableJsonResume: {
+                    ...state.toggleableJsonResume,
                     interests: {
                         ...action.interests,
                     },
@@ -152,8 +152,8 @@ export default (state, action) => {
         case 'SET_RESUME_REFERENCES':
             return {
                 ...state,
-                togglableJsonResume: {
-                    ...state.togglableJsonResume,
+                toggleableJsonResume: {
+                    ...state.toggleableJsonResume,
                     references: {
                         ...action.references,
                     },

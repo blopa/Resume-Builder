@@ -3,7 +3,7 @@ import reducer from './reducer';
 
 const initialState = {
     jsonResume: {},
-    togglableJsonResume: {},
+    toggleableJsonResume: {},
     resumeTemplate: 'Default',
     customTranslations: {},
 };

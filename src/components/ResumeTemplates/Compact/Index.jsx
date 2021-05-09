@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Compact = ({
-    togglableJsonResume: {
+    toggleableJsonResume: {
         basics,
         work,
         skills,

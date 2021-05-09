@@ -20,7 +20,7 @@ import { useSelector } from '../store/StoreProvider';
 import { isObjectNotEmpty } from '../utils/utils';
 
 // Selectors
-import { selectJsonResume, selectResumeTemplate, selectTogglableJsonResume } from '../store/selectors';
+import { selectJsonResume, selectResumeTemplate, selectToggleableJsonResume } from '../store/selectors';
 
 const useStyles = makeStyles((theme) => ({
     resumeWrapper: {
@@ -46,9 +46,9 @@ const BuildPage = () => {
     const refContainer = useRef(null);
     const rerenderRef = useRef(false);
     const jsonResume = useSelector(selectJsonResume);
-    const togglableJsonResume = useSelector(selectTogglableJsonResume);
+    const toggleableJsonResume = useSelector(selectToggleableJsonResume);
     const resumeTemplateName = useSelector(selectResumeTemplate);
-    const hasData = isObjectNotEmpty(togglableJsonResume) && isObjectNotEmpty(jsonResume);
+    const hasData = isObjectNotEmpty(toggleableJsonResume) && isObjectNotEmpty(jsonResume);
     const isPrinting = useDetectPrint();
 
     useEffect(() => {
@@ -63,7 +63,7 @@ const BuildPage = () => {
             setResumeTemplate([
                 <Template
                     key={uuid()}
-                    togglableJsonResume={togglableJsonResume}
+                    toggleableJsonResume={toggleableJsonResume}
                     // eslint-disable-next-line no-underscore-dangle
                     customTranslations={jsonResume.__translation__}
                     isPrinting={isPrinting}
@@ -72,7 +72,7 @@ const BuildPage = () => {
             ]);
         }
         loadTemplate();
-    }, [isPrinting, resumeTemplateName, togglableJsonResume, jsonResume]);
+    }, [isPrinting, resumeTemplateName, toggleableJsonResume, jsonResume]);
 
     const printDocument = useCallback(() => {
         const size = 1122; // roughly A4
@@ -121,7 +121,7 @@ const BuildPage = () => {
                         onClose={() => setIsDrawerOpen(false)}
                     >
                         <ResumeDrawerItems
-                            resume={togglableJsonResume}
+                            resume={toggleableJsonResume}
                             jsonResume={jsonResume}
                             onClose={() => setIsDrawerOpen(false)}
                             onPrint={printDocument}

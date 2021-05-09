@@ -13,7 +13,7 @@ import DropZone from '../components/DropZone';
 import TemplateSelector from '../components/TemplateSelector';
 
 // Utils
-import { isObjectNotEmpty, traverseObject } from '../utils/utils';
+import { isObjectNotEmpty, convertToToggleableObject } from '../utils/utils';
 import spreadsheetToJsonResume from '../utils/spreadsheet-to-json-resume';
 import { readSpreadsheet, parseSpreadsheetUrl } from '../utils/spreadsheet-parser';
 import { readJsonFile } from '../utils/json-parser';
@@ -23,7 +23,7 @@ import { useDispatch } from '../store/StoreProvider';
 
 // Actions
 import setJsonResume from '../store/actions/setJsonResume';
-import setTogglableJsonResume from '../store/actions/setTogglableJsonResume';
+import setToggleableJsonResume from '../store/actions/setToggleableJsonResume';
 import setResumeTemplate from '../store/actions/setResumeTemplate';
 
 const useStyles = makeStyles((theme) => ({
@@ -93,8 +93,8 @@ const UploadPage = ({ pageContext, location }) => {
         }
 
         dispatch(setJsonResume(jsonResume));
-        dispatch(setTogglableJsonResume({
-            ...traverseObject(cloneDeep(jsonResume)),
+        dispatch(setToggleableJsonResume({
+            ...convertToToggleableObject(cloneDeep(jsonResume)),
             enableSourceDataDownload: jsonResume.enableSourceDataDownload,
             ...isObjectNotEmpty(coverLetter) && {
                 coverLetter: {

@@ -12,14 +12,14 @@ import A4Container from '../components/A4Container';
 
 // Utils
 import { fetchGithubResumeJson, isValidJsonString } from '../utils/gatsby-frontend-helpers';
-import { isObjectNotEmpty, traverseObject } from '../utils/utils';
+import { isObjectNotEmpty, convertToToggleableObject } from '../utils/utils';
 
 // Context
 import { StoreContext } from '../store/StoreProvider';
 
 // Actions
 import setJsonResume from '../store/actions/setJsonResume';
-import setTogglableJsonResume from '../store/actions/setTogglableJsonResume';
+import setToggleableJsonResume from '../store/actions/setToggleableJsonResume';
 
 // Translations
 import templateIntls from '../intl';
@@ -54,7 +54,7 @@ const ResumeViewer = ({ params, uri }) => {
     const validTemplate = TEMPLATES_LIST.find(
         (templateName) => templateName.toLowerCase() === template.toLowerCase()
     );
-    const hasData = isObjectNotEmpty(state?.togglableJsonResume) && isObjectNotEmpty(state?.jsonResume);
+    const hasData = isObjectNotEmpty(state?.toggleableJsonResume) && isObjectNotEmpty(state?.jsonResume);
 
     useEffect(() => {
         const fetchResumeJsonAndLoadTemplate = async () => {
@@ -68,18 +68,18 @@ const ResumeViewer = ({ params, uri }) => {
                 navigate('/');
             }
 
-            const togglableJsonResume = traverseObject(cloneDeep(jsonResume));
-            if (!isObjectNotEmpty(togglableJsonResume)) {
+            const toggleableJsonResume = convertToToggleableObject(cloneDeep(jsonResume));
+            if (!isObjectNotEmpty(toggleableJsonResume)) {
                 navigate('/');
             }
 
             dispatch(setJsonResume(jsonResume));
-            dispatch(setTogglableJsonResume(togglableJsonResume));
+            dispatch(setToggleableJsonResume(toggleableJsonResume));
             const Template = await importTemplate(validTemplate);
             setResumeTemplate([
                 <Template
                     key={uuid()}
-                    togglableJsonResume={togglableJsonResume}
+                    toggleableJsonResume={toggleableJsonResume}
                     // eslint-disable-next-line no-underscore-dangle
                     customTranslations={jsonResume.__translation__}
                     isPrinting={isPrinting}
