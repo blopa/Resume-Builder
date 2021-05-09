@@ -4,14 +4,13 @@
     "skills": "Habilidades",
     "references": "Referências",
     "publications": "Publicações",
+    "certificates": "Certificados",
+    "projects": "Projetos",
     "languages": "Línguas",
     "interests": "Interesses",
     "education": "Educação",
-    "about": "Sobre",
-    "contact": "Contato",
-    "projects": "Projetos",
-    "months": "Meses",
-    "achievements": "Conquistas",
+    "summary": "Sumário",
     "experience": "Experiência",
+    "at": "@",
     "download_data": "Baixe os dados JSON desse currículo clicando <a>aqui</a>."
 }

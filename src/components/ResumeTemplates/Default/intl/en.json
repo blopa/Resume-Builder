@@ -11,5 +11,6 @@
     "education": "Education",
     "summary": "Summary",
     "experience": "Experience",
-    "at": "@"
+    "at": "@",
+    "download_data": "Download the JSON data source for this resume <a>here</a>."
 }

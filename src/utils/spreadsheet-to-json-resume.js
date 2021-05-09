@@ -77,7 +77,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
 
         const category = value[categoryAttr].toLowerCase();
         if (category === enableSourceDataDownloadCategory) {
-            enableSourceDataDownload = value[contentAttr];
+            enableSourceDataDownload = value[contentAttr].toLowerCase() === 'true';
         } else if (category === coverLetterCategory) {
             coverLetter = value[contentAttr];
         } else if (category === translationsCategory) {

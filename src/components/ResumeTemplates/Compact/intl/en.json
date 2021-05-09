@@ -4,14 +4,13 @@
     "skills": "Skills",
     "references": "References",
     "publications": "Publications",
+    "certificates": "Certificates",
+    "projects": "Projects",
     "languages": "Languages",
     "interests": "Interests",
     "education": "Education",
-    "about": "About",
-    "contact": "Contact",
-    "projects": "Projects",
-    "months": "Months",
-    "achievements": "achievements",
+    "summary": "Summary",
     "experience": "Experience",
+    "at": "@",
     "download_data": "Download the JSON data source for this resume <a>here</a>."
 }

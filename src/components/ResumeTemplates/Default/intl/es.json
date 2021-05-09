@@ -11,5 +11,6 @@
     "education": "Educación",
     "summary": "Resumen",
     "experience": "Experiencia",
-    "at": "@"
+    "at": "@",
+    "download_data": "Descargue los datos JSON para esta hoja de vida haciendo clic <a>aquí</a>"
 }

@@ -4,14 +4,13 @@
     "skills": "Habilidades",
     "references": "Referencias",
     "publications": "Publicaciones",
+    "certificates": "Certificados",
+    "projects": "Proyectos",
     "languages": "Idiomas",
     "interests": "Intereses",
     "education": "Educación",
-    "about": "Acerca",
-    "contact": "Contacto",
-    "projects": "Proyectos",
-    "months": "Meses",
-    "achievements": "logros",
+    "summary": "Resumen",
     "experience": "Experiencia",
+    "at": "@",
     "download_data": "Descargue los datos JSON para esta hoja de vida haciendo clic <a>aquí</a>"
 }
