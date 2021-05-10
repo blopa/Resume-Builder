@@ -50,7 +50,7 @@ const References = ({ references }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return references.length > 0 && (
+    return references?.length > 0 && (
         <div className={classes.resumeReferences}>
             <h3
                 ref={sectionTitle}
@@ -62,11 +62,11 @@ const References = ({ references }) => {
             <div className={classes.contentWrapper}>
                 <ul className={classes.references}>
                     {references.map((ref) => {
-                        if (ref?.enabled) {
+                        if (ref) {
                             const {
                                 name,
                                 reference,
-                            } = ref?.value || {};
+                            } = ref || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -82,14 +82,14 @@ const References = ({ references }) => {
                                     // eslint-disable-next-line react/jsx-props-no-spreading
                                     {...refProps}
                                 >
-                                    {name?.enabled && (
+                                    {name && (
                                         <p className={classes.name}>
-                                            {name?.value}
+                                            {name}
                                         </p>
                                     )}
-                                    {reference?.enabled && (
+                                    {reference && (
                                         <p className={classes.reference}>
-                                            {reference?.value}
+                                            {reference}
                                         </p>
                                     )}
                                 </li>

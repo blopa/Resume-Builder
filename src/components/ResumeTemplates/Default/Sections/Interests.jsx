@@ -56,7 +56,7 @@ const Interests = ({ interests }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return interests.length > 0 && (
+    return interests?.length > 0 && (
         <div className={classes.resumeInterests}>
             <h3
                 ref={sectionTitle}
@@ -68,11 +68,11 @@ const Interests = ({ interests }) => {
             <div className={classes.contentWrapper}>
                 <ul className={classes.interests}>
                     {interests.map((interest) => {
-                        if (interest?.enabled) {
+                        if (interest) {
                             const {
                                 name,
                                 keywords,
-                            } = interest?.value || {};
+                            } = interest || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -88,17 +88,17 @@ const Interests = ({ interests }) => {
                                     // eslint-disable-next-line react/jsx-props-no-spreading
                                     {...refProps}
                                 >
-                                    {name?.enabled && (
+                                    {name && (
                                         <p className={classes.interest}>
-                                            {name?.value}
+                                            {name}
                                         </p>
                                     )}
-                                    {keywords?.enabled && (
+                                    {keywords?.length > 0 && (
                                         <ul className={classes.keywords}>
-                                            {keywords?.value.map((keyword) =>
-                                                keyword?.enabled && (
+                                            {keywords?.map((keyword) =>
+                                                keyword && (
                                                     <li key={uuid()}>
-                                                        {keyword?.value}
+                                                        {keyword}
                                                     </li>
                                                 ))}
                                         </ul>

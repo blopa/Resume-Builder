@@ -45,7 +45,7 @@ const Certificates = ({ certificates }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return certificates.length > 0 && (
+    return certificates?.length > 0 && (
         <div className={classes.resumeCertificates}>
             <h3
                 ref={sectionTitle}
@@ -57,13 +57,13 @@ const Certificates = ({ certificates }) => {
             <div className={classes.contentWrapper}>
                 <ul className={classes.certificates}>
                     {certificates.map((award) => {
-                        if (award?.enabled) {
+                        if (award) {
                             const {
                                 name,
                                 date,
                                 url,
                                 issuer,
-                            } = award?.value || {};
+                            } = award || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -80,15 +80,15 @@ const Certificates = ({ certificates }) => {
                                     {...refProps}
                                 >
                                     <p className={classes.award}>
-                                        {name?.enabled && name?.value}
-                                        {(date?.enabled && date?.value) && (
+                                        {name}
+                                        {(date) && (
                                             <span className={classes.positionDate}>
-                                                {` (${date?.value})`}
+                                                {` (${date})`}
                                             </span>
                                         )}
                                     </p>
-                                    {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
-                                    <p>{issuer?.enabled && issuer?.value}</p>
+                                    {url && <a href={url}>{url}</a>}
+                                    <p>{issuer}</p>
                                 </li>
                             );
                         }

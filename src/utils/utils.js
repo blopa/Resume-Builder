@@ -1,5 +1,5 @@
 export const isObject = (obj) =>
-    typeof obj === 'object' && obj.constructor === Object;
+    typeof obj === 'object' && obj?.constructor === Object;
 
 export const isObjectEmpty = (obj) =>
     isObject(obj) && Object.keys(obj).length === 0;
@@ -54,6 +54,14 @@ export const convertToRegularObject = (obj) => {
 
         // eslint-disable-next-line no-prototype-builtins
         if (obj.hasOwnProperty(property)) {
+            if (!obj[property].enabled) {
+                // TODO this part
+                // eslint-disable-next-line no-param-reassign
+                obj[property] = null;
+                // eslint-disable-next-line no-continue
+                continue;
+            }
+
             // eslint-disable-next-line no-prototype-builtins
             if (isObject(obj[property]) && obj[property].hasOwnProperty('value')) {
                 // eslint-disable-next-line no-param-reassign
@@ -64,13 +72,15 @@ export const convertToRegularObject = (obj) => {
                 convertToRegularObject(obj[property]);
             } else if (Array.isArray(obj[property])) {
                 // eslint-disable-next-line no-param-reassign
-                obj[property] = obj[property].map((value) => {
-                    if (isObject(value.value)) {
-                        convertToRegularObject(value.value);
-                    }
+                obj[property] = obj[property]
+                    .filter((value) => value.enabled)
+                    .map((value) => {
+                        if (isObject(value.value)) {
+                            convertToRegularObject(value.value);
+                        }
 
-                    return value.value;
-                });
+                        return value.value;
+                    });
             }
         }
     }

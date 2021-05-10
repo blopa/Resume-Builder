@@ -60,7 +60,7 @@ const Education = ({ education: educations }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return educations.length > 0 && (
+    return educations?.length > 0 && (
         <div className={classes.resumeEducation}>
             <h3
                 ref={sectionTitle}
@@ -72,7 +72,7 @@ const Education = ({ education: educations }) => {
             <div className={classes.contentWrapper}>
                 <ul className={classes.courses}>
                     {educations.map((education) => {
-                        if (education?.enabled) {
+                        if (education) {
                             const {
                                 institution,
                                 url,
@@ -82,7 +82,7 @@ const Education = ({ education: educations }) => {
                                 endDate,
                                 score,
                                 courses,
-                            } = education?.value || {};
+                            } = education || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -99,41 +99,37 @@ const Education = ({ education: educations }) => {
                                     {...refProps}
                                 >
                                     <p className={classes.type}>
-                                        {area?.enabled && area?.value}
-                                        {(
-                                            (area?.enabled && studyType?.enabled)
-                                            && (area?.value && studyType?.value)
-                                        ) && ', '}
-                                        {studyType?.enabled && studyType?.value}
-                                        {(startDate?.enabled || endDate?.enabled) && (
+                                        {area}
+                                        {(area && studyType) && ', '}
+                                        {studyType}
+                                        {(startDate || endDate) && (
                                             <span className={classes.positionDate}>
                                                 {' ('}
-                                                {startDate?.enabled && startDate?.value}
-                                                {(startDate?.enabled && endDate?.enabled) && ' - '}
-                                                {endDate?.enabled && endDate?.value}
+                                                {startDate}
+                                                {(startDate && endDate) && ' - '}
+                                                {endDate}
                                                 {')'}
                                             </span>
                                         )}
                                     </p>
                                     <p className={classes.institution}>
                                         {
-                                            (url?.enabled && institution?.enabled)
-                                            && (url?.value && institution?.value) ?
+                                            (url && institution) ?
                                                 (
-                                                    <a href={url?.value}>
-                                                        {institution?.value}
+                                                    <a href={url}>
+                                                        {institution}
                                                     </a>
                                                 )
-                                                : institution?.value}
-                                        {score && score?.enabled && `, score: ${score?.value}`}
+                                                : institution}
+                                        {score && `, score: ${score}`}
                                     </p>
-                                    {courses && courses?.enabled && (
+                                    {courses?.length > 0 && (
                                         <div className={classes.coursesDetails}>
                                             <p>Courses: </p>
                                             <ul>
-                                                {courses?.value.map((course) => course?.enabled && (
+                                                {courses?.map((course) => course && (
                                                     <li key={uuid()}>
-                                                        {course?.value}
+                                                        {course}
                                                     </li>
                                                 ))}
                                             </ul>

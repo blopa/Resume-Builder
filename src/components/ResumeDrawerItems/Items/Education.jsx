@@ -97,7 +97,7 @@ function Education({ education: educations }) {
 
                         return (
                             <Fragment key={uuid()}>
-                                {educations && (
+                                {educations?.value && (
                                     <ItemsList
                                         label={institution?.value}
                                         checked={education?.enabled}
@@ -106,9 +106,9 @@ function Education({ education: educations }) {
                                         )}
                                     />
                                 )}
-                                {educations?.enabled && (
+                                {(education?.enabled && educations?.enabled) && (
                                     <ul>
-                                        {institution && (
+                                        {institution?.value && (
                                             <ItemsList
                                                 label={varNameToString({ institution })}
                                                 checked={institution?.enabled}

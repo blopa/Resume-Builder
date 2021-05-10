@@ -51,7 +51,9 @@ const Default = ({
     isPrinting = false,
     isOnlineViewer = false,
     jsonResume,
-    toggleableJsonResume: {
+    resume,
+    toggleableJsonResume,
+    resume: {
         basics,
         work,
         skills,
@@ -100,72 +102,72 @@ const Default = ({
             value={templateIntl}
         >
             <div className={classes.resumeDefaultTemplate}>
-                {(coverLetter?.enabled && coverLetter?.value) && (
+                {(coverLetter) && (
                     <CoverLetter
-                        coverLetter={coverLetter?.value}
+                        coverLetter={coverLetter}
                     />
                 )}
                 {enableSourceDataDownload && (
-                    <Download jsonResume={jsonResume} />
+                    <Download jsonResume={resume} />
                 )}
-                {basics?.enabled && (
+                {isObjectNotEmpty(basics) && (
                     <Basics
-                        basics={basics?.value || {}}
+                        basics={basics}
                     />
                 )}
-                {(skills?.enabled && skills?.value.length) && (
+                {(skills?.length > 0) && (
                     <Skills
-                        skills={skills?.value || []}
+                        skills={skills}
                     />
                 )}
-                {(work?.enabled && work?.value.length) && (
+                {(work?.length > 0) && (
                     <Work
-                        work={work?.value || []}
+                        work={work}
                     />
                 )}
-                {(education?.enabled && education?.value.length) && (
+                {(education?.length > 0) && (
                     <Education
-                        education={education?.value || []}
+                        education={education}
                     />
                 )}
-                {(awards?.enabled && awards?.value.length) && (
+                {(awards?.length > 0) && (
                     <Awards
-                        awards={awards?.value || []}
+                        awards={awards}
                     />
                 )}
-                {(certificates?.enabled && certificates?.value.length) && (
+                {(certificates?.length > 0) && (
                     <Certificates
-                        certificates={certificates?.value || []}
+                        certificates={certificates}
                     />
                 )}
-                {(volunteer?.enabled && volunteer?.value.length) && (
+                {(volunteer?.length > 0) && (
                     <Volunteer
-                        volunteer={volunteer?.value || []}
+                        volunteer={volunteer}
                     />
                 )}
-                {(publications?.enabled && publications?.value.length) && (
+                {(publications?.length > 0) && (
                     <Publications
-                        publications={publications?.value || []}
+                        publications={publications}
                     />
                 )}
-                {(projects?.enabled && projects?.value.length) && (
+                {(projects?.length > 0) && (
                     <Projects
-                        projects={projects?.value || []}
+                        projects={projects}
                     />
                 )}
-                {(languages?.enabled && languages?.value.length) && (
+                {(languages?.length > 0) && (
                     <Languages
-                        languages={languages?.value || []}
+                        languages={languages}
                     />
                 )}
-                {(interests?.enabled && interests?.value.length) && (
+                {(interests?.length > 0) && (
                     <Interests
-                        interests={interests?.value || []}
+                        interests={interests}
                     />
                 )}
-                {(references?.enabled && references?.value.length) && (
+                {(references?.length > 0) && (
                     <References
-                        references={references?.value || []}
+                        references={references}
                     />
                 )}
             </div>

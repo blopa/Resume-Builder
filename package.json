@@ -56,15 +56,16 @@
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-helmet": "^6.1.0",
-        "react-typography": "^0.16.19",
+        "react-typography": "^0.16.20",
         "typeface-roboto": "1.1.13",
-        "typography": "^0.16.19",
+        "typography": "^0.16.20",
         "typography-theme-wordpress-2016": "^0.16.19",
         "use-detect-print": "0.0.2",
         "uuid": "^8.3.2",
         "xlsx": "^0.16.9"
     },
     "devDependencies": {
+        "@babel/eslint-parser": "^7.13.14",
         "babel-preset-gatsby": "^1.4.0",
         "cross-env": "^7.0.3",
         "eslint": "^7.26.0",

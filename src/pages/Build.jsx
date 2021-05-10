@@ -5,6 +5,8 @@ import { Drawer } from '@material-ui/core';
 import { navigate, useIntl } from 'gatsby-plugin-intl';
 import { v4 as uuid } from 'uuid';
 import useDetectPrint from 'use-detect-print';
+import { cloneDeep } from 'lodash';
+import baseResume from '../store/resume.json';
 
 // Components
 import SEO from '../components/SEO';
@@ -17,7 +19,7 @@ import FloatingButton from '../components/FloatingButton';
 import { useSelector } from '../store/StoreProvider';
 
 // Utils
-import { isObjectNotEmpty } from '../utils/utils';
+import { convertToRegularObject, isObjectNotEmpty } from '../utils/utils';
 
 // Selectors
 import { selectJsonResume, selectResumeTemplate, selectToggleableJsonResume } from '../store/selectors';
@@ -68,9 +70,14 @@ const BuildPage = () => {
                     customTranslations={jsonResume.__translation__}
                     isPrinting={isPrinting}
                     jsonResume={jsonResume}
+                    resume={{
+                        ...baseResume,
+                        ...convertToRegularObject(cloneDeep(toggleableJsonResume)),
+                    }}
                 />,
             ]);
         }
+
         loadTemplate();
     }, [isPrinting, resumeTemplateName, toggleableJsonResume, jsonResume]);
 
