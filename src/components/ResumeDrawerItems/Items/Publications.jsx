@@ -30,13 +30,13 @@ function Publications({ publications }) {
         dispatch(setResumePublications(newPublications));
     }, [dispatch]);
 
-    const togglePublications = () => {
+    const togglePublications = useCallback(() => {
         const currentState = publications?.enabled;
         setResumePublicationsState({
             ...publications,
             enabled: !currentState,
         });
-    };
+    }, [publications, setResumePublicationsState]);
 
     const togglePublication = useCallback((publication) => () => {
         const newPublications = { ...publications };

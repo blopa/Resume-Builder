@@ -6,6 +6,8 @@ import { navigate, useIntl } from 'gatsby-plugin-intl';
 import { v4 as uuid } from 'uuid';
 import useDetectPrint from 'use-detect-print';
 import { cloneDeep } from 'lodash';
+
+// Base resume
 import baseResume from '../store/resume.json';
 
 // Components
@@ -65,21 +67,27 @@ const BuildPage = () => {
             setResumeTemplate([
                 <Template
                     key={uuid()}
-                    toggleableJsonResume={toggleableJsonResume}
                     // eslint-disable-next-line no-underscore-dangle
                     customTranslations={jsonResume.__translation__}
                     isPrinting={isPrinting}
-                    jsonResume={jsonResume}
-                    resume={{
+                    jsonResume={{
                         ...baseResume,
-                        ...convertToRegularObject(cloneDeep(toggleableJsonResume)),
+                        ...convertToRegularObject(
+                            cloneDeep(toggleableJsonResume)
+                        ),
                     }}
                 />,
             ]);
         }
 
         loadTemplate();
-    }, [isPrinting, resumeTemplateName, toggleableJsonResume, jsonResume]);
+    }, [
+        isPrinting,
+        // eslint-disable-next-line no-underscore-dangle
+        jsonResume.__translation__,
+        resumeTemplateName,
+        toggleableJsonResume,
+    ]);
 
     const printDocument = useCallback(() => {
         const size = 1122; // roughly A4

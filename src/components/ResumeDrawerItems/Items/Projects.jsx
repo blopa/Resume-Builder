@@ -30,13 +30,13 @@ function Projects({ projects }) {
         dispatch(setResumeProjects(newProjects));
     }, [dispatch]);
 
-    const toggleProjects = () => {
+    const toggleProjects = useCallback(() => {
         const currentState = projects?.enabled;
         setResumeProjectsState({
             ...projects,
             enabled: !currentState,
         });
-    };
+    }, [projects, setResumeProjectsState]);
 
     const toggleProject = useCallback((project) => () => {
         const newProjects = { ...projects };

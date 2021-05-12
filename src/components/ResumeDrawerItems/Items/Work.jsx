@@ -35,13 +35,13 @@ function Work({ work: workData }) {
         dispatch(setResumeWork(newWork));
     }, [dispatch]);
 
-    const toggleWorks = () => {
+    const toggleWorks = useCallback(() => {
         const currentState = workData?.enabled;
         setResumeWorkState({
             ...workData,
             enabled: !currentState,
         });
-    };
+    }, [setResumeWorkState, workData]);
 
     const toggleWork = useCallback((oldWork) => () => {
         const newWork = { ...workData };

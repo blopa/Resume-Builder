@@ -30,13 +30,13 @@ function Education({ education: educations }) {
         dispatch(setResumeEducation(education));
     }, [dispatch]);
 
-    const toggleEducations = () => {
+    const toggleEducations = useCallback(() => {
         const currentState = educations?.enabled;
         setResumeEducationState({
             ...educations,
             enabled: !currentState,
         });
-    };
+    }, [educations, setResumeEducationState]);
 
     const toggleEducation = useCallback((education) => () => {
         const newEducation = { ...educations };

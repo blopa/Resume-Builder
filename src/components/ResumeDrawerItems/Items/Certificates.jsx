@@ -30,13 +30,13 @@ function Certificates({ certificates }) {
         dispatch(setResumeCertificates(newCertificates));
     }, [dispatch]);
 
-    const toggleCertificates = () => {
+    const toggleCertificates = useCallback(() => {
         const currentState = certificates?.enabled;
         setResumeCertificatesState({
             ...certificates,
             enabled: !currentState,
         });
-    };
+    }, [certificates, setResumeCertificatesState]);
 
     const toggleAward = useCallback((award) => () => {
         const newCertificates = { ...certificates };

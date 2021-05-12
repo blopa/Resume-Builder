@@ -30,13 +30,13 @@ function References({ references }) {
         dispatch(setResumeReferences(newReferences));
     }, [dispatch]);
 
-    const toggleReferences = () => {
+    const toggleReferences = useCallback(() => {
         const currentState = references?.enabled;
         setResumeReferencesState({
             ...references,
             enabled: !currentState,
         });
-    };
+    }, [references, setResumeReferencesState]);
 
     const toggleReference = useCallback((reference) => () => {
         const newReferences = { ...references };

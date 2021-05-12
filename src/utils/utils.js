@@ -55,9 +55,8 @@ export const convertToRegularObject = (obj) => {
         // eslint-disable-next-line no-prototype-builtins
         if (obj.hasOwnProperty(property)) {
             if (!obj[property].enabled) {
-                // TODO this part
                 // eslint-disable-next-line no-param-reassign
-                obj[property] = null;
+                obj[property] = getDefaultValueForVariableType(obj[property]);
                 // eslint-disable-next-line no-continue
                 continue;
             }
@@ -86,6 +85,27 @@ export const convertToRegularObject = (obj) => {
     }
 
     return obj;
+};
+
+export const getDefaultValueForVariableType = (variable) => {
+    switch (typeof variable) {
+        case 'boolean': {
+            return false;
+        }
+
+        case 'string': {
+            return '';
+        }
+
+        case 'number': {
+            return 0;
+        }
+
+        case 'object':
+        default: {
+            return Array.isArray(variable) ? [] : {};
+        }
+    }
 };
 
 export const capitalize = (string) => {

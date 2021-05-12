@@ -30,13 +30,13 @@ function Awards({ awards }) {
         dispatch(setResumeAwards(newAwards));
     }, [dispatch]);
 
-    const toggleAwards = () => {
+    const toggleAwards = useCallback(() => {
         const currentState = awards?.enabled;
         setResumeAwardsState({
             ...awards,
             enabled: !currentState,
         });
-    };
+    }, [awards, setResumeAwardsState]);
 
     const toggleAward = useCallback((award) => () => {
         const newAwards = { ...awards };

@@ -51,9 +51,7 @@ const Default = ({
     isPrinting = false,
     isOnlineViewer = false,
     jsonResume,
-    resume,
-    toggleableJsonResume,
-    resume: {
+    jsonResume: {
         basics,
         work,
         skills,
@@ -108,7 +106,7 @@ const Default = ({
                     />
                 )}
                 {enableSourceDataDownload && (
-                    <Download jsonResume={resume} />
+                    <Download jsonResume={jsonResume} />
                 )}
                 {isObjectNotEmpty(basics) && (
                     <Basics

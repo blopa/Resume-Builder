@@ -30,13 +30,13 @@ function Interest({ interests }) {
         dispatch(setResumeInterests(interest));
     }, [dispatch]);
 
-    const toggleInterests = () => {
+    const toggleInterests = useCallback(() => {
         const currentState = interests?.enabled;
         setResumeInterestsState({
             ...interests,
             enabled: !currentState,
         });
-    };
+    }, [interests, setResumeInterestsState]);
 
     const toggleInterest = useCallback((interest) => () => {
         const newInterest = { ...interests };

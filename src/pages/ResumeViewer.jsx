@@ -12,7 +12,7 @@ import A4Container from '../components/A4Container';
 
 // Utils
 import { fetchGithubResumeJson, isValidJsonString } from '../utils/gatsby-frontend-helpers';
-import { isObjectNotEmpty, convertToToggleableObject } from '../utils/utils';
+import { isObjectNotEmpty, convertToToggleableObject, convertToRegularObject } from '../utils/utils';
 
 // Context
 import { StoreContext } from '../store/StoreProvider';
@@ -23,6 +23,9 @@ import setToggleableJsonResume from '../store/actions/setToggleableJsonResume';
 
 // Translations
 import templateIntls from '../intl';
+
+// Base resume
+import baseResume from '../store/resume.json';
 
 const importTemplate = (template) => lazy(() =>
     import(`../components/ResumeTemplates/${template}/Index`).catch(() =>
@@ -79,11 +82,15 @@ const ResumeViewer = ({ params, uri }) => {
             setResumeTemplate([
                 <Template
                     key={uuid()}
-                    toggleableJsonResume={toggleableJsonResume}
                     // eslint-disable-next-line no-underscore-dangle
                     customTranslations={jsonResume.__translation__}
                     isPrinting={isPrinting}
-                    jsonResume={jsonResume}
+                    jsonResume={{
+                        ...baseResume,
+                        ...convertToRegularObject(
+                            cloneDeep(toggleableJsonResume)
+                        ),
+                    }}
                 />,
             ]);
         };

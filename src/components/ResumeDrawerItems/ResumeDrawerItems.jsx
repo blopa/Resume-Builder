@@ -60,9 +60,9 @@ const ResumeDrawerItems = ({
     const classes = useStyles();
     const intl = useIntl();
 
-    const printDocument = () => {
+    const printDocument = useCallback(() => {
         window.print();
-    };
+    }, []);
 
     const handleDownloadJson = useCallback(() => {
         downloadJson({

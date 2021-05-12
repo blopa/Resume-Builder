@@ -30,13 +30,13 @@ function Basics({ basics }) {
         dispatch(setResumeBasics(newBasics));
     }, [dispatch]);
 
-    const toggleBasics = () => {
+    const toggleBasics = useCallback(() => {
         const currentState = basics?.enabled;
         setResumeBasicsState({
             ...basics,
             enabled: !currentState,
         });
-    };
+    }, [basics, setResumeBasicsState]);
 
     const toggleBasicsDetail = useCallback((propName) => () => {
         const currentState = basics?.value[propName]?.enabled;

@@ -30,13 +30,13 @@ function Languages({ languages }) {
         dispatch(setResumeLanguages(newLanguages));
     }, [dispatch]);
 
-    function toggleLanguages() {
+    const toggleLanguages = useCallback(() => {
         const currentState = languages?.enabled;
         setResumeLanguagesState({
             ...languages,
             enabled: !currentState,
         });
-    }
+    }, [languages, setResumeLanguagesState]);
 
     const toggleLanguage = useCallback((language) => () => {
         const newLanguages = { ...languages };
