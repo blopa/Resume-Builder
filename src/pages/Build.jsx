@@ -136,7 +136,7 @@ const BuildPage = () => {
                         onClose={() => setIsDrawerOpen(false)}
                     >
                         <ResumeDrawerItems
-                            resume={toggleableJsonResume}
+                            toggleableJsonResume={toggleableJsonResume}
                             jsonResume={jsonResume}
                             onClose={() => setIsDrawerOpen(false)}
                             onPrint={printDocument}
