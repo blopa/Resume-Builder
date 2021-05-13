@@ -1,10 +1,22 @@
 {
-    "coverLetter": "",
+    "coverLetter": {
+        "enabled": false,
+        "value": {
+            "text": "",
+            "variables": []
+        }
+    },
     "basics": {
         "enabled": false,
         "value": {
-            "location": {},
-            "profiles": []
+            "location": {
+                "enabled": false,
+                "value": {}
+            },
+            "profiles": {
+                "enabled": false,
+                "value": []
+            }
         }
     },
     "work": {

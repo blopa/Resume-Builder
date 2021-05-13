@@ -14,6 +14,9 @@ import setResumeCoverLetter from '../../../store/actions/setResumeCoverLetter';
 // Hooks
 import { useDispatch } from '../../../store/StoreProvider';
 
+// Utils
+import { varNameToString } from '../../../utils/utils';
+
 const useStyles = makeStyles((theme) => ({
     ...style,
 }));
@@ -44,7 +47,7 @@ function CoverLetter({ coverLetter }) {
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
-                label="coverLetter"
+                label={varNameToString({ coverLetter })}
                 onChange={toggleCoverLetter}
                 checked={coverLetter?.enabled}
             />

@@ -30,72 +30,36 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     // base toggleable jsonResume
     const jsonResume = { ...toggleableResume };
 
-    let profile = {
-        enabled: false,
-        value: {},
-    };
+    let profile = {};
     const profilesArray = [];
-    let work = {
-        enabled: false,
-        value: {},
-    };
+    let work = {};
     const worksArray = [];
-    let volunteer = {
-        enabled: false,
-        value: {},
-    };
+    let volunteer = {};
     const volunteersArray = [];
-    let education = {
-        enabled: false,
-        value: {},
-    };
+    let education = {};
     const educationsArray = [];
-    let award = {
-        enabled: false,
-        value: {},
-    };
+    let award = {};
     const awardsArray = [];
-    let publication = {
-        enabled: false,
-        value: {},
-    };
+    let publication = {};
     const publicationsArray = [];
-    let project = {
-        enabled: false,
-        value: {},
-    };
+    let project = {};
     const projectsArray = [];
-    let certificate = {
-        enabled: false,
-        value: {},
-    };
+    let certificate = {};
     const certificatesArray = [];
-    let skill = {
-        enabled: false,
-        value: {},
-    };
+    let skill = {};
     const skillsArray = [];
-    let language = {
-        enabled: false,
-        value: {},
-    };
+    let language = {};
     const languagesArray = [];
-    let interest = {
-        enabled: false,
-        value: {},
-    };
+    let interest = {};
     const interestsArray = [];
-    let reference = {
-        enabled: false,
-        value: {},
-    };
+    let reference = {};
     const referencesArray = [];
     const translations = {};
     let coverLetter = '';
     let enableSourceDataDownload = false;
 
     jsonSpreadsheet.forEach((value) => {
-        const enabled = !(value[disabledAttr].toLowerCase() === 'true');
+        const enabled = !((value[disabledAttr] || '').toLowerCase() === 'true');
 
         const category = value[categoryAttr].toLowerCase();
         if (category === enableSourceDataDownloadCategory) {
@@ -105,19 +69,31 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         } else if (category === translationsCategory) {
             translations[value[typeAttr]] = value[contentAttr];
         } else if (category === basicsCategory) {
-            jsonResume.basics[value[typeAttr]] = {
+            jsonResume.basics.value[value[typeAttr]] = {
                 enabled,
                 value: value[contentAttr],
             };
         } else if (category === basicsLocationCategory) {
-            jsonResume.basics.location[value[typeAttr]] = {
-                enabled,
-                value: value[contentAttr],
+            jsonResume.basics.value = {
+                ...jsonResume.basics.value,
+                location: {
+                    enabled: isObjectNotEmpty(jsonResume.basics.value.location.value),
+                    value: {
+                        ...jsonResume.basics.value.location.value,
+                        [value[typeAttr]]: {
+                            enabled,
+                            value: value[contentAttr],
+                        },
+                    },
+                },
             };
         } else if (category === basicsProfilesCategory) {
             if (value[typeAttr] === 'network') {
                 if (isObjectNotEmpty(profile)) {
-                    profilesArray.push({ ...profile });
+                    profilesArray.push({
+                        enabled: Object.entries(profile).some((entry) => entry[1].enabled),
+                        value: { ...profile },
+                    });
                     profile = {};
                 }
             }
@@ -129,7 +105,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         } else if (category === workCategory) {
             if (value[typeAttr] === 'name') {
                 if (isObjectNotEmpty(work)) {
-                    worksArray.push({ ...work });
+                    worksArray.push({
+                        enabled: Object.entries(work).some((entry) => entry[1].enabled),
+                        value: { ...work },
+                    });
                     work = {};
                 }
             }
@@ -137,7 +116,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             if (value[typeAttr] === 'highlights' || value[typeAttr] === 'keywords') {
                 work[value[typeAttr]] = {
                     enabled,
-                    value: value[contentAttr].split(';').map((item) => item.trim()),
+                    value: value[contentAttr].split(';').map((item) => ({
+                        enabled,
+                        value: item.trim(),
+                    })),
                 };
             } else {
                 work[value[typeAttr]] = {
@@ -148,7 +130,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         } else if (category === volunteerCategory) {
             if (value[typeAttr] === 'organization') {
                 if (isObjectNotEmpty(volunteer)) {
-                    volunteersArray.push({ ...volunteer });
+                    volunteersArray.push({
+                        enabled: Object.entries(volunteer).some((entry) => entry[1].enabled),
+                        value: { ...volunteer },
+                    });
                     volunteer = {};
                 }
             }
@@ -156,7 +141,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             if (value[typeAttr] === 'highlights') {
                 volunteer[value[typeAttr]] = {
                     enabled,
-                    value: value[contentAttr].split(';').map((item) => item.trim()),
+                    value: value[contentAttr].split(';').map((item) => ({
+                        enabled,
+                        value: item.trim(),
+                    })),
                 };
             } else {
                 volunteer[value[typeAttr]] = {
@@ -167,7 +155,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         } else if (category === educationCategory) {
             if (value[typeAttr] === 'institution') {
                 if (isObjectNotEmpty(education)) {
-                    educationsArray.push({ ...education });
+                    educationsArray.push({
+                        enabled: Object.entries(education).some((entry) => entry[1].enabled),
+                        value: { ...education },
+                    });
                     education = {};
                 }
             }
@@ -175,7 +166,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             if (value[typeAttr] === 'courses') {
                 education[value[typeAttr]] = {
                     enabled,
-                    value: value[contentAttr].split(';').map((item) => item.trim()),
+                    value: value[contentAttr].split(';').map((item) => ({
+                        enabled,
+                        value: item.trim(),
+                    })),
                 };
             } else {
                 education[value[typeAttr]] = {
@@ -186,7 +180,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         } else if (category === awardsCategory) {
             if (value[typeAttr] === 'title') {
                 if (isObjectNotEmpty(award)) {
-                    awardsArray.push({ ...award });
+                    awardsArray.push({
+                        enabled: Object.entries(award).some((entry) => entry[1].enabled),
+                        value: { ...award },
+                    });
                     award = {};
                 }
             }
@@ -198,7 +195,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         } else if (category === certificatesCategory) {
             if (value[typeAttr] === 'name') {
                 if (isObjectNotEmpty(certificate)) {
-                    certificatesArray.push({ ...certificate });
+                    certificatesArray.push({
+                        enabled: Object.entries(certificate).some((entry) => entry[1].enabled),
+                        value: { ...certificate },
+                    });
                     certificate = {};
                 }
             }
@@ -210,7 +210,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         } else if (category === publicationsCategory) {
             if (value[typeAttr] === 'name') {
                 if (isObjectNotEmpty(publication)) {
-                    publicationsArray.push({ ...publication });
+                    publicationsArray.push({
+                        enabled: Object.entries(publication).some((entry) => entry[1].enabled),
+                        value: { ...publication },
+                    });
                     publication = {};
                 }
             }
@@ -222,7 +225,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         } else if (category === projectsCategory) {
             if (value[typeAttr] === 'name') {
                 if (isObjectNotEmpty(project)) {
-                    projectsArray.push({ ...project });
+                    projectsArray.push({
+                        enabled: Object.entries(project).some((entry) => entry[1].enabled),
+                        value: { ...project },
+                    });
                     project = {};
                 }
             }
@@ -234,7 +240,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             ) {
                 project[value[typeAttr]] = {
                     enabled,
-                    value: value[contentAttr].split(';').map((item) => item.trim()),
+                    value: value[contentAttr].split(';').map((item) => ({
+                        enabled,
+                        value: item.trim(),
+                    })),
                 };
             } else {
                 project[value[typeAttr]] = {
@@ -245,7 +254,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         } else if (category === skillsCategory) {
             if (value[typeAttr] === 'name') {
                 if (isObjectNotEmpty(skill)) {
-                    skillsArray.push({ ...skill });
+                    skillsArray.push({
+                        enabled: Object.entries(skill).some((entry) => entry[1].enabled),
+                        value: { ...skill },
+                    });
                     skill = {};
                 }
             }
@@ -253,7 +265,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             if (value[typeAttr] === 'keywords') {
                 skill[value[typeAttr]] = {
                     enabled,
-                    value: value[contentAttr].split(';').map((item) => item.trim()),
+                    value: value[contentAttr].split(';').map((item) => ({
+                        enabled,
+                        value: item.trim(),
+                    })),
                 };
             } else {
                 skill[value[typeAttr]] = {
@@ -264,7 +279,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         } else if (category === languagesCategory) {
             if (value[typeAttr] === 'language') {
                 if (isObjectNotEmpty(language)) {
-                    languagesArray.push({ ...language });
+                    languagesArray.push({
+                        enabled: Object.entries(language).some((entry) => entry[1].enabled),
+                        value: { ...language },
+                    });
                     language = {};
                 }
             }
@@ -276,7 +294,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         } else if (category === interestsCategory) {
             if (value[typeAttr] === 'name') {
                 if (isObjectNotEmpty(interest)) {
-                    interestsArray.push({ ...interest });
+                    interestsArray.push({
+                        enabled: Object.entries(interest).some((entry) => entry[1].enabled),
+                        value: { ...interest },
+                    });
                     interest = {};
                 }
             }
@@ -284,7 +305,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             if (value[typeAttr] === 'keywords') {
                 interest[value[typeAttr]] = {
                     enabled,
-                    value: value[contentAttr].split(';').map((item) => item.trim()),
+                    value: value[contentAttr].split(';').map((item) => ({
+                        enabled,
+                        value: item.trim(),
+                    })),
                 };
             } else {
                 interest[value[typeAttr]] = {
@@ -295,7 +319,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         } else if (category === referencesCategory) {
             if (value[typeAttr] === 'name') {
                 if (isObjectNotEmpty(reference)) {
-                    referencesArray.push({ ...reference });
+                    referencesArray.push({
+                        enabled: Object.entries(reference).some((entry) => entry[1].enabled),
+                        value: { ...reference },
+                    });
                     reference = {};
                 }
             }
@@ -308,98 +335,143 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     });
 
     if (isObjectNotEmpty(profile)) {
-        profilesArray.push(profile);
+        profilesArray.push({
+            enabled: Object.entries(profile).some((entry) => entry[1].enabled),
+            value: profile,
+        });
     }
-    jsonResume.basics.profiles = {
-        enabled: profilesArray.length > 0,
-        value: profilesArray,
+
+    const profileEnabled = profilesArray.some((value) => value.enabled);
+    jsonResume.basics = {
+        enabled: profileEnabled || Object.entries(jsonResume.basics.value)
+            .some((entry) => entry[1].enabled),
+        value: {
+            ...jsonResume.basics.value,
+            profile: {
+                enabled: profileEnabled,
+                value: profilesArray,
+            },
+        },
     };
 
     if (isObjectNotEmpty(work)) {
-        worksArray.push(work);
+        worksArray.push({
+            enabled: Object.entries(work).some((entry) => entry[1].enabled),
+            value: work,
+        });
     }
     jsonResume.work = {
-        enabled: worksArray.length > 0,
+        enabled: worksArray.some((value) => value.enabled),
         value: worksArray,
     };
 
     if (isObjectNotEmpty(volunteer)) {
-        volunteersArray.push(volunteer);
+        volunteersArray.push({
+            enabled: Object.entries(volunteer).some((entry) => entry[1].enabled),
+            value: volunteer,
+        });
     }
     jsonResume.volunteer = {
-        enabled: volunteersArray.length > 0,
+        enabled: volunteersArray.some((value) => value.enabled),
         value: volunteersArray,
     };
 
     if (isObjectNotEmpty(education)) {
-        educationsArray.push(education);
+        educationsArray.push({
+            enabled: Object.entries(education).some((entry) => entry[1].enabled),
+            value: education,
+        });
     }
     jsonResume.education = {
-        enabled: educationsArray.length > 0,
+        enabled: educationsArray.some((value) => value.enabled),
         value: educationsArray,
     };
 
     if (isObjectNotEmpty(award)) {
-        awardsArray.push(award);
+        awardsArray.push({
+            enabled: Object.entries(award).some((entry) => entry[1].enabled),
+            value: award,
+        });
     }
     jsonResume.awards = {
-        enabled: awardsArray.length > 0,
+        enabled: awardsArray.some((value) => value.enabled),
         value: awardsArray,
     };
 
     if (isObjectNotEmpty(publication)) {
-        publicationsArray.push(publication);
+        publicationsArray.push({
+            enabled: Object.entries(publication).some((entry) => entry[1].enabled),
+            value: publication,
+        });
     }
     jsonResume.publications = {
-        enabled: publicationsArray.length > 0,
+        enabled: publicationsArray.some((value) => value.enabled),
         value: publicationsArray,
     };
 
     if (isObjectNotEmpty(project)) {
-        projectsArray.push(project);
+        projectsArray.push({
+            enabled: Object.entries(project).some((entry) => entry[1].enabled),
+            value: project,
+        });
     }
     jsonResume.projects = {
-        enabled: projectsArray.length > 0,
+        enabled: projectsArray.some((value) => value.enabled),
         value: projectsArray,
     };
 
     if (isObjectNotEmpty(certificate)) {
-        certificatesArray.push(certificate);
+        certificatesArray.push({
+            enabled: Object.entries(certificate).some((entry) => entry[1].enabled),
+            value: certificate,
+        });
     }
     jsonResume.certificates = {
-        enabled: certificatesArray.length > 0,
+        enabled: certificatesArray.some((value) => value.enabled),
         value: certificatesArray,
     };
 
     if (isObjectNotEmpty(skill)) {
-        skillsArray.push(skill);
+        skillsArray.push({
+            enabled: Object.entries(skill).some((entry) => entry[1].enabled),
+            value: skill,
+        });
     }
     jsonResume.skills = {
-        enabled: skillsArray.length > 0,
+        enabled: skillsArray.some((value) => value.enabled),
         value: skillsArray,
     };
 
     if (isObjectNotEmpty(language)) {
-        languagesArray.push(language);
+        languagesArray.push({
+            enabled: Object.entries(language).some((entry) => entry[1].enabled),
+            value: language,
+        });
     }
     jsonResume.languages = {
-        enabled: languagesArray.length > 0,
+        enabled: languagesArray.some((value) => value.enabled),
         value: languagesArray,
     };
 
     if (isObjectNotEmpty(interest)) {
-        interestsArray.push(interest);
+        interestsArray.push({
+            enabled: Object.entries(interest).some((entry) => entry[1].enabled),
+            value: interest,
+        });
     }
     jsonResume.interests = {
-        enabled: interestsArray.length > 0,
+        enabled: interestsArray.some((value) => value.enabled),
         value: interestsArray,
     };
 
     if (isObjectNotEmpty(reference)) {
-        referencesArray.push(reference);
+        referencesArray.push({
+            enabled: Object.entries(reference).some((entry) => entry[1].enabled),
+            value: reference,
+        });
     }
     jsonResume.references = {
-        enabled: referencesArray.length > 0,
+        enabled: referencesArray.some((value) => value.enabled),
         value: referencesArray,
     };
 

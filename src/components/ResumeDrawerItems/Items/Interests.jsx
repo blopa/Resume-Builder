@@ -38,84 +38,55 @@ function Interest({ interests }) {
         });
     }, [interests, setResumeInterestsState]);
 
-    const toggleInterest = useCallback((interest) => () => {
+    const toggleInterest = useCallback((interest, index) => () => {
         const newInterest = { ...interests };
-        newInterest.value =
-            newInterest?.value.map((wrk) => {
-                if (JSON.stringify(wrk?.value) === JSON.stringify(interest?.value)) {
-                    return {
-                        ...wrk,
-                        enabled: !wrk?.enabled,
-                    };
-                }
-                return wrk;
-            });
+        newInterest.value[index] = {
+            ...newInterest.value[index],
+            enabled: !newInterest.value[index].enabled,
+        };
         setResumeInterestsState(newInterest);
     }, [interests, setResumeInterestsState]);
 
-    const toggleInterestDetail = useCallback((interest, propName) => () => {
+    const toggleInterestDetail = useCallback((interest, index, propName) => () => {
         const newInterest = { ...interests };
-        newInterest.value =
-            newInterest?.value.map((vol) => {
-                if (JSON.stringify(vol?.value) === JSON.stringify(interest?.value)) {
-                    return {
-                        ...vol,
-                        value: {
-                            ...vol?.value,
-                            [propName]: {
-                                ...vol?.value[propName],
-                                enabled: !vol?.value[propName]?.enabled,
-                            },
-                        },
-                    };
-                }
-                return vol;
-            });
+        newInterest.value[index] = {
+            ...newInterest.value[index],
+            value: {
+                ...newInterest.value[index].value,
+                [propName]: {
+                    ...newInterest.value[index].value[propName],
+                    enabled: !newInterest.value[index].value[propName].enabled,
+                },
+            },
+        };
+
+        if (newInterest.value[index].enabled) {
+            newInterest.value[index].enabled =
+                Object.entries(newInterest.value[index].value).some((entry) => entry[1].enabled);
+        }
         setResumeInterestsState(newInterest);
     }, [interests, setResumeInterestsState]);
 
-    const toggleInterestKeywords = useCallback((interest, keyword) => () => {
+    const toggleInterestKeywords = useCallback((interest, interestIndex, keyword, keywordIndex) => () => {
         const newInterest = { ...interests };
-        newInterest.value =
-            newInterest?.value.map((vol) => {
-                if (JSON.stringify(vol?.value) === JSON.stringify(interest?.value)) {
-                    return {
-                        ...vol,
-                        value: {
-                            ...vol?.value,
-                            keywords: {
-                                ...vol?.value.keywords,
-                                value: [
-                                    ...vol?.value.keywords?.value.map((key) => {
-                                        if (JSON.stringify(key?.value) === JSON.stringify(keyword?.value)) {
-                                            return {
-                                                ...key,
-                                                enabled: !key?.enabled,
-                                            };
-                                        }
-
-                                        return key;
-                                    }),
-                                ],
-                            },
-                        },
-                    };
-                }
-                return vol;
-            });
+        newInterest.value[interestIndex].value.keywords.value[keywordIndex] = {
+            ...newInterest.value[interestIndex].value.keywords.value[keywordIndex],
+            enabled: !newInterest.value[interestIndex].value.keywords.value[keywordIndex].enabled,
+        };
         setResumeInterestsState(newInterest);
     }, [interests, setResumeInterestsState]);
 
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
+                // TODO varNameToString({ interest })
                 label="interest"
                 onChange={toggleInterests}
                 checked={interests?.enabled}
             />
             {interests?.enabled && (
                 <ul>
-                    {interests?.value.map((interest) => {
+                    {interests?.value.map((interest, index) => {
                         const {
                             name,
                             keywords,
@@ -127,7 +98,7 @@ function Interest({ interests }) {
                                     <ItemsList
                                         label={name?.value}
                                         checked={interest?.enabled}
-                                        onClick={toggleInterest(interest)}
+                                        onClick={toggleInterest(interest, index)}
                                     />
                                 )}
                                 {interest?.enabled && (
@@ -138,21 +109,39 @@ function Interest({ interests }) {
                                                 checked={name?.enabled}
                                                 onClick={toggleInterestDetail(
                                                     interest,
+                                                    index,
                                                     varNameToString({ name })
                                                 )}
                                             />
                                         )}
-                                        {keywords?.enabled && keywords?.value.map((keyword) => (
+                                        {keywords && (
                                             <ItemsList
-                                                label={keyword?.value}
-                                                key={uuid()}
-                                                checked={keyword?.enabled}
-                                                onClick={toggleInterestKeywords(
+                                                label={varNameToString({ keywords })}
+                                                checked={keywords?.enabled}
+                                                onClick={toggleInterestDetail(
                                                     interest,
-                                                    keyword
+                                                    index,
+                                                    varNameToString({ keywords })
                                                 )}
                                             />
-                                        ))}
+                                        )}
+                                        {keywords?.enabled && (
+                                            <ul>
+                                                {keywords?.value.map((keyword, idx) => (
+                                                    <ItemsList
+                                                        label={keyword?.value}
+                                                        key={uuid()}
+                                                        checked={keyword?.enabled}
+                                                        onClick={toggleInterestKeywords(
+                                                            interest,
+                                                            index,
+                                                            keyword,
+                                                            idx
+                                                        )}
+                                                    />
+                                                ))}
+                                            </ul>
+                                        )}
                                     </ul>
                                 )}
                             </Fragment>

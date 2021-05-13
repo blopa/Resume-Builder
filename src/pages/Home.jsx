@@ -2,6 +2,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { useIntl } from 'gatsby-plugin-intl';
+import classNames from 'classnames';
+
+// Components
 import SEO from '../components/SEO';
 import Layout from '../components/Layout';
 import Link from '../components/Link';
@@ -19,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     },
     paragraph: {
         marginBottom: '10px',
+    },
+    disclaimerTitle: {
+        color: '#e81111',
     },
     pageContent: {
         padding: '5px',
@@ -170,6 +176,40 @@ const HomePage = () => {
                     variant="body1"
                 >
                     {intl.formatMessage({ id: 'resume_builder_rescue_description' })}
+                </Typography>
+                <Typography
+                    className={classNames(classes.subtitle, classes.disclaimerTitle)}
+                    color="textPrimary"
+                    variant="h6"
+                >
+                    {intl.formatMessage({ id: 'disclaimer' })}
+                </Typography>
+                <Typography
+                    className={classes.paragraph}
+                    color="textPrimary"
+                    variant="body1"
+                >
+                    {intl.formatMessage({ id: 'disclaimer_description_1' })}
+                </Typography>
+                <Typography
+                    className={classes.paragraph}
+                    color="textPrimary"
+                    variant="body1"
+                >
+                    {intl.formatMessage({ id: 'disclaimer_description_2' })}
+                </Typography>
+                <Typography
+                    className={classes.paragraph}
+                    color="textPrimary"
+                    variant="body1"
+                >
+                    <a
+                        href="https://github.com/blopa/Resume-Builder"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        {intl.formatMessage({ id: 'source_code' })}
+                    </a>
                 </Typography>
             </div>
         </Layout>

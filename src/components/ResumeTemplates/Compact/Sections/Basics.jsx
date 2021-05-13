@@ -1,57 +1,62 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
 import { useIntl } from 'gatsby-plugin-intl';
 
 const useStyles = makeStyles((theme) => ({
-    resumeBasicsWrapper: {
-        // TODO
-    },
-    subtitle: {
-        textTransform: 'uppercase',
-        fontWeight: 'bold',
-    },
-    resumeName: {
-        textTransform: 'uppercase',
-        fontWeight: 'bold',
-    },
-    resumeLabel: {
-        fontWeight: 'bold',
-    },
     resumeSummary: {
-        // TODO
+        padding: '10px 0',
+        borderBottom: '1px solid #ddd',
+    },
+    resumeBasics: {
+        pageBreakInside: 'avoid',
+        padding: '10px 0',
+        borderBottom: '1px solid #ddd',
+        '& h2': { textTransform: 'uppercase', margin: '0' },
     },
     address: {
-        // TODO
-    },
-    contactInfo: {
-        // TODO
-    },
-    socialMedia: {
-        // TODO
-    },
-    url: {
-        // TODO
-    },
-    aboutAndContactWrapper: {
+        margin: '0',
+        padding: '0',
         display: 'flex',
-    },
-    aboutWrapper: {
-        width: '60%',
-        paddingRight: '20px',
-    },
-    contactWrapper: {
-        width: '40%',
-    },
-    locationWrapper: {
-        display: 'inline-flex',
-        '&> *': {
-            marginRight: '5px',
+        listStyle: 'none',
+        '& li': {
+            margin: '0 5px 0 0',
+            '&:after': { content: '","' },
+            '&:last-child': { '&:after': { content: '""' } },
         },
-        '&> *:last-child': {
-            marginRight: 0,
+    },
+    'contact-info': {
+        margin: '0',
+        padding: '0',
+        display: 'flex',
+        listStyle: 'none',
+        '& li': {
+            margin: '0 5px 0 0',
+            '&:after': { content: '" |"' },
+            '&:last-child': { '&:after': { content: '""' } },
         },
+    },
+    'social-media': {
+        margin: '0',
+        padding: '0',
+        display: 'flex',
+        listStyle: 'none',
+        '& li': {
+            margin: '0 5px 0 0',
+            '&:after': { content: '" |"' },
+            '&:last-child': { '&:after': { content: '""' } },
+        },
+    },
+    url: {},
+    detailsWrapper: {
+        marginLeft: '4px',
+    },
+    summaryWrapper: {
+        marginLeft: '4px',
+    },
+    image: {
+        width: '100px',
+        float: 'right',
     },
 }));
 
@@ -64,126 +69,111 @@ const Basics = ({
         phone,
         url,
         summary,
-        location: {
-            enabled: locationEnabled,
-            value: {
-                address,
-                postalCode,
-                city,
-                countryCode,
-                region,
-            },
-        },
         profiles,
+        location,
     },
 }) => {
     const classes = useStyles();
     const intl = useIntl();
+    const {
+        address,
+        postalCode,
+        city,
+        countryCode,
+        region,
+    } = location || {};
+
+    const locationEnabled = Boolean(
+        address
+        || city
+        || region
+        || postalCode
+        || countryCode
+    );
 
     return (
-        <div className={classes.resumeBasicsWrapper}>
-            {name?.enabled && (
-                <Typography
-                    className={classes.resumeName}
-                    color="textPrimary"
-                    variant="h4"
-                >
-                    {name?.value}
-                </Typography>
-            )}
-            {label?.enabled && (
-                <Typography
-                    className={classes.resumeLabel}
-                    color="textPrimary"
-                    variant="body1"
-                >
-                    {label?.value}
-                </Typography>
-            )}
-            <div className={classes.aboutAndContactWrapper}>
-                {summary?.enabled && (
-                    <div className={classes.aboutWrapper}>
-                        <Typography
-                            className={classes.subtitle}
-                            color="textPrimary"
-                            variant="body1"
-                        >
-                            {intl.formatMessage({ id: 'about' })}
-                        </Typography>
-                        <Typography
-                            color="textPrimary"
-                            variant="body1"
-                        >
-                            {summary?.value}
-                        </Typography>
-                    </div>
+        <Fragment>
+            <div className={classes.resumeBasics}>
+                {image && (
+                    <img
+                        className={classes.image}
+                        src={image}
+                        alt="avatar"
+                    />
                 )}
-                {(
-                    email?.enabled
-                    || phone?.enabled
-                    || profiles?.enabled
-                    || locationEnabled
-                ) && (
-                    <div className={classes.contactWrapper}>
-                        <Typography
-                            className={classes.subtitle}
-                            color="textPrimary"
-                            variant="body1"
-                        >
-                            {intl.formatMessage({ id: 'contact' })}
-                        </Typography>
-                        {locationEnabled && (
-                            <div className={classes.locationWrapper}>
-                                {city?.enabled && (
-                                    <Typography
-                                        color="textPrimary"
-                                        variant="body1"
-                                    >
-                                        {city?.value}{','}
-                                    </Typography>
-                                )}
-                                {postalCode?.enabled && (
-                                    <Typography
-                                        color="textPrimary"
-                                        variant="body1"
-                                    >
-                                        {postalCode?.value}
-                                    </Typography>
-                                )}
-                            </div>
-                        )}
-                        {phone?.enabled && (
-                            <Typography
-                                color="textPrimary"
-                                variant="body1"
-                            >
-                                {phone?.value}
-                            </Typography>
-                        )}
-                        {email?.enabled && (
-                            <Typography
-                                color="textPrimary"
-                                variant="body1"
-                            >
-                                {email?.value}
-                            </Typography>
-                        )}
-                        {profiles?.enabled && profiles?.value.map((profile) => {
-                            const { url: profileUrl } = profile?.value || {};
-                            return profileUrl?.enabled && (
-                                <Typography
-                                    key={uuid()}
-                                    color="textPrimary"
-                                    variant="body1"
+                {name && <h2>{name}</h2>}
+                {label && <h3>{label}</h3>}
+                <div className={classes.detailsWrapper}>
+                    {locationEnabled && (
+                        <ul className={classes.address}>
+                            {address && <li key={uuid()}>{address}</li>}
+                            {city && <li key={uuid()}>{city}</li>}
+                            {region && <li key={uuid()}>{region}</li>}
+                            {postalCode && <li key={uuid()}>{postalCode}</li>}
+                            {countryCode && <li key={uuid()}>{countryCode}</li>}
+                        </ul>
+                    )}
+                    <ul className={classes['contact-info']}>
+                        {url && (
+                            <li key={uuid()}>
+                                <a
+                                    className={classes.url}
+                                    href={url}
+                                    target="_blank"
                                 >
-                                    {profileUrl?.value}
-                                </Typography>
-                            );
-                        })}
-                    </div>
-                )}
+                                    {url}
+                                </a>
+                            </li>
+                        )}
+                        {phone && <li key={uuid()}>{phone}</li>}
+                        {email && <li key={uuid()}>{email}</li>}
+                    </ul>
+                    {profiles?.length > 0 && (
+                        <ul className={classes['social-media']}>
+                            {profiles?.map((profile) => {
+                                if (profile) {
+                                    const {
+                                        url: profileUrl,
+                                        network,
+                                        username,
+                                    } = profile || {};
+
+                                    const isProfileEnable = Boolean(
+                                        profileUrl
+                                        && network
+                                        && username
+                                    );
+
+                                    return isProfileEnable && (
+                                        <li key={uuid()}>
+                                            <a
+                                                href={profileUrl}
+                                                title={username}
+                                                target="_blank"
+                                            >
+                                                {network}
+                                            </a>
+                                        </li>
+                                    );
+                                }
+
+                                return null;
+                            })}
+                        </ul>
+                    )}
+                </div>
             </div>
-        </div>
+            {summary && (
+                <div className={classes.resumeSummary}>
+                    <h3>
+                        {intl.formatMessage({ id: 'summary' })}
+                    </h3>
+                    <div className={classes.summaryWrapper}>
+                        <p>{summary}</p>
+                    </div>
+                </div>
+            )}
+        </Fragment>
     );
 };
 

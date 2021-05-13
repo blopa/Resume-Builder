@@ -13,6 +13,9 @@ import setEnableSourceDataDownload from '../../../store/actions/setEnableSourceD
 // Hooks
 import { useDispatch } from '../../../store/StoreProvider';
 
+// Utils
+import { varNameToString } from '../../../utils/utils';
+
 const useStyles = makeStyles((theme) => ({
     ...style,
 }));
@@ -27,7 +30,7 @@ function Download({ enableSourceDataDownload }) {
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
-                label="enableSourceDataDownload"
+                label={varNameToString({ enableSourceDataDownload })}
                 onChange={toggleCoverLetter}
                 checked={enableSourceDataDownload}
             />

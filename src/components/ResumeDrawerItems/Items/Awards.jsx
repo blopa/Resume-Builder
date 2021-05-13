@@ -38,52 +38,45 @@ function Awards({ awards }) {
         });
     }, [awards, setResumeAwardsState]);
 
-    const toggleAward = useCallback((award) => () => {
+    const toggleAward = useCallback((award, index) => () => {
         const newAwards = { ...awards };
-        newAwards.value =
-            newAwards?.value.map((awd) => {
-                if (JSON.stringify(awd?.value) === JSON.stringify(award?.value)) {
-                    return {
-                        ...awd,
-                        enabled: !awd?.enabled,
-                    };
-                }
-                return awd;
-            });
+        newAwards.value[index] = {
+            ...newAwards.value[index],
+            enabled: !newAwards.value[index].enabled,
+        };
         setResumeAwardsState(newAwards);
     }, [awards, setResumeAwardsState]);
 
-    const toggleAwardsDetail = useCallback((award, propName) => () => {
+    const toggleAwardsDetail = useCallback((award, index, propName) => () => {
         const newAwards = { ...awards };
-        newAwards.value =
-            newAwards?.value.map((awd) => {
-                if (JSON.stringify(awd?.value) === JSON.stringify(award?.value)) {
-                    return {
-                        ...awd,
-                        value: {
-                            ...awd?.value,
-                            [propName]: {
-                                ...awd?.value[propName],
-                                enabled: !awd?.value[propName]?.enabled,
-                            },
-                        },
-                    };
-                }
-                return awd;
-            });
+        newAwards.value[index] = {
+            ...newAwards.value[index],
+            value: {
+                ...newAwards.value[index].value,
+                [propName]: {
+                    ...newAwards.value[index].value[propName],
+                    enabled: !newAwards.value[index].value[propName].enabled,
+                },
+            },
+        };
+
+        if (newAwards.value[index].enabled) {
+            newAwards.value[index].enabled =
+                Object.entries(newAwards.value[index].value).some((entry) => entry[1].enabled);
+        }
         setResumeAwardsState(newAwards);
     }, [awards, setResumeAwardsState]);
 
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
-                label="awards"
+                label={varNameToString({ awards })}
                 onChange={toggleAwards}
                 checked={awards?.enabled}
             />
             {awards?.enabled && (
                 <ul>
-                    {awards?.value.map((award) => {
+                    {awards?.value.map((award, index) => {
                         const {
                             title,
                             date,
@@ -96,7 +89,7 @@ function Awards({ awards }) {
                                 <ItemsList
                                     label={title?.value}
                                     checked={award?.enabled}
-                                    onClick={toggleAward(award)}
+                                    onClick={toggleAward(award, index)}
                                 />
                                 {award?.enabled && (
                                     <ul>
@@ -106,6 +99,7 @@ function Awards({ awards }) {
                                                 checked={title?.enabled}
                                                 onClick={toggleAwardsDetail(
                                                     award,
+                                                    index,
                                                     varNameToString({ title })
                                                 )}
                                             />
@@ -116,6 +110,7 @@ function Awards({ awards }) {
                                                 checked={date?.enabled}
                                                 onClick={toggleAwardsDetail(
                                                     award,
+                                                    index,
                                                     varNameToString({ date })
                                                 )}
                                             />
@@ -126,6 +121,7 @@ function Awards({ awards }) {
                                                 checked={awarder?.enabled}
                                                 onClick={toggleAwardsDetail(
                                                     award,
+                                                    index,
                                                     varNameToString({ awarder })
                                                 )}
                                             />
@@ -136,6 +132,7 @@ function Awards({ awards }) {
                                                 checked={summary?.enabled}
                                                 onClick={toggleAwardsDetail(
                                                     award,
+                                                    index,
                                                     varNameToString({ summary })
                                                 )}
                                             />

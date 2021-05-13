@@ -75,7 +75,16 @@ const ResumeViewer = ({ params, uri }) => {
                 navigate('/');
             }
 
-            const toggleableObject = convertToToggleableObject(cloneDeep(jsonResume));
+            const toggleableObject = convertToToggleableObject(
+                cloneDeep({
+                    ...jsonResume,
+                    // eslint-disable-next-line no-underscore-dangle
+                    __translation__: jsonResume.__translation__,
+                    enableSourceDataDownload: jsonResume.enableSourceDataDownload,
+                    // Cover Letter not supported for the viewer
+                    coverLetter: {},
+                })
+            );
             if (!isObjectNotEmpty(toggleableObject)) {
                 navigate('/');
             }

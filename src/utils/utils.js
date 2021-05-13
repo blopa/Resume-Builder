@@ -46,10 +46,17 @@ export const convertToToggleableObject = (
 };
 
 // TODO make this return a copy of the obj
-export const convertToRegularObject = (obj) => {
+export const convertToRegularObject = (
+    obj,
+    ignoredProperties = [
+        'enableSourceDataDownload',
+        'coverLetter',
+        '__translation__',
+    ]
+) => {
     // eslint-disable-next-line no-restricted-syntax
     for (const property in obj) {
-        if (property === 'enableSourceDataDownload') {
+        if (ignoredProperties.includes(property)) {
             // eslint-disable-next-line no-continue
             continue;
         }
@@ -58,7 +65,7 @@ export const convertToRegularObject = (obj) => {
         if (obj.hasOwnProperty(property)) {
             if (!obj[property].enabled) {
                 // eslint-disable-next-line no-param-reassign
-                obj[property] = getDefaultValueForVariableType(obj[property]);
+                obj[property] = getDefaultValueForVariableType(obj[property].value);
                 // eslint-disable-next-line no-continue
                 continue;
             }

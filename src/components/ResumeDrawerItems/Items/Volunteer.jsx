@@ -38,71 +38,41 @@ function Volunteer({ volunteer: volunteerData }) {
         });
     }, [setResumeVolunteerState, volunteerData]);
 
-    const toggleVolunteer = useCallback((volunteer) => () => {
+    const toggleVolunteer = useCallback((volunteer, index) => () => {
         const newVolunteer = { ...volunteerData };
-        newVolunteer.value =
-            newVolunteer?.value.map((wrk) => {
-                if (JSON.stringify(wrk?.value) === JSON.stringify(volunteer?.value)) {
-                    return {
-                        ...wrk,
-                        enabled: !wrk?.enabled,
-                    };
-                }
-                return wrk;
-            });
+        newVolunteer.value[index] = {
+            ...newVolunteer.value[index],
+            enabled: !newVolunteer.value[index].enabled,
+        };
         setResumeVolunteerState(newVolunteer);
     }, [setResumeVolunteerState, volunteerData]);
 
-    const toggleVolunteerDetail = useCallback((volunteer, propName) => () => {
+    const toggleVolunteerDetail = useCallback((volunteer, index, propName) => () => {
         const newVolunteer = { ...volunteerData };
-        newVolunteer.value =
-            newVolunteer?.value.map((vol) => {
-                if (JSON.stringify(vol?.value) === JSON.stringify(volunteer?.value)) {
-                    return {
-                        ...vol,
-                        value: {
-                            ...vol?.value,
-                            [propName]: {
-                                ...vol?.value[propName],
-                                enabled: !vol?.value[propName]?.enabled,
-                            },
-                        },
-                    };
-                }
-                return vol;
-            });
+        newVolunteer.value[index] = {
+            ...newVolunteer.value[index],
+            value: {
+                ...newVolunteer.value[index].value,
+                [propName]: {
+                    ...newVolunteer.value[index].value[propName],
+                    enabled: !newVolunteer.value[index].value[propName].enabled,
+                },
+            },
+        };
+
+        if (newVolunteer.value[index].enabled) {
+            newVolunteer.value[index].enabled =
+                Object.entries(newVolunteer.value[index].value).some((entry) => entry[1].enabled);
+        }
         setResumeVolunteerState(newVolunteer);
     }, [setResumeVolunteerState, volunteerData]);
 
-    const toggleVolunteerHighlights = useCallback((volunteer, highlight) => () => {
+    const toggleVolunteerHighlights = useCallback((volunteer, volunteerIndex, highlight, highlightIndex) => () => {
         const newVolunteer = { ...volunteerData };
-        newVolunteer.value =
-            newVolunteer?.value.map((vol) => {
-                if (JSON.stringify(vol?.value) === JSON.stringify(volunteer?.value)) {
-                    return {
-                        ...vol,
-                        value: {
-                            ...vol?.value,
-                            highlights: {
-                                ...vol?.value.highlights,
-                                value: [
-                                    ...vol?.value.highlights?.value.map((high) => {
-                                        if (JSON.stringify(high?.value) === JSON.stringify(highlight?.value)) {
-                                            return {
-                                                ...high,
-                                                enabled: !high?.enabled,
-                                            };
-                                        }
-
-                                        return high;
-                                    }),
-                                ],
-                            },
-                        },
-                    };
-                }
-                return vol;
-            });
+        newVolunteer.value[volunteerIndex].value.highlights.value[highlightIndex] = {
+            ...newVolunteer.value[volunteerIndex].value.highlights.value[highlightIndex],
+            enabled: !newVolunteer.value[volunteerIndex].value.highlights.value[highlightIndex].enabled,
+        };
         setResumeVolunteerState(newVolunteer);
     }, [setResumeVolunteerState, volunteerData]);
 
@@ -114,13 +84,14 @@ function Volunteer({ volunteer: volunteerData }) {
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
+                // TODO varNameToString({ volunteer })
                 label="volunteer"
                 onChange={toggleVolunteers}
                 checked={volunteerEnabled}
             />
             {volunteerEnabled && (
                 <ul>
-                    {volunteers.map((volunteer) => {
+                    {volunteers.map((volunteer, index) => {
                         const {
                             organization,
                             position,
@@ -137,7 +108,7 @@ function Volunteer({ volunteer: volunteerData }) {
                                     <ItemsList
                                         label={organization?.value}
                                         checked={volunteer?.enabled}
-                                        onClick={toggleVolunteer(volunteer)}
+                                        onClick={toggleVolunteer(volunteer, index)}
                                     />
                                 )}
                                 {volunteer?.enabled && (
@@ -148,6 +119,7 @@ function Volunteer({ volunteer: volunteerData }) {
                                                 checked={organization?.enabled}
                                                 onClick={toggleVolunteerDetail(
                                                     volunteer,
+                                                    index,
                                                     varNameToString({ organization })
                                                 )}
                                             />
@@ -158,6 +130,7 @@ function Volunteer({ volunteer: volunteerData }) {
                                                 checked={position?.enabled}
                                                 onClick={toggleVolunteerDetail(
                                                     volunteer,
+                                                    index,
                                                     varNameToString({ position })
                                                 )}
                                             />
@@ -168,6 +141,7 @@ function Volunteer({ volunteer: volunteerData }) {
                                                 checked={url?.enabled}
                                                 onClick={toggleVolunteerDetail(
                                                     volunteer,
+                                                    index,
                                                     varNameToString({ url })
                                                 )}
                                             />
@@ -178,6 +152,7 @@ function Volunteer({ volunteer: volunteerData }) {
                                                 checked={startDate?.enabled}
                                                 onClick={toggleVolunteerDetail(
                                                     volunteer,
+                                                    index,
                                                     varNameToString({ startDate })
                                                 )}
                                             />
@@ -188,6 +163,7 @@ function Volunteer({ volunteer: volunteerData }) {
                                                 checked={endDate?.enabled}
                                                 onClick={toggleVolunteerDetail(
                                                     volunteer,
+                                                    index,
                                                     varNameToString({ endDate })
                                                 )}
                                             />
@@ -198,6 +174,7 @@ function Volunteer({ volunteer: volunteerData }) {
                                                 checked={summary?.enabled}
                                                 onClick={toggleVolunteerDetail(
                                                     volunteer,
+                                                    index,
                                                     varNameToString({ summary })
                                                 )}
                                             />
@@ -208,20 +185,23 @@ function Volunteer({ volunteer: volunteerData }) {
                                                 checked={highlights?.enabled}
                                                 onClick={toggleVolunteerDetail(
                                                     volunteer,
+                                                    index,
                                                     varNameToString({ highlights })
                                                 )}
                                             />
                                         )}
                                         {highlights?.enabled && (
                                             <ul>
-                                                {highlights?.value.map((highlight) => (
+                                                {highlights?.value.map((highlight, idx) => (
                                                     <ItemsList
                                                         label={highlight?.value}
                                                         key={uuid()}
                                                         checked={highlight?.enabled}
                                                         onClick={toggleVolunteerHighlights(
                                                             volunteer,
-                                                            highlight
+                                                            index,
+                                                            highlight,
+                                                            idx
                                                         )}
                                                     />
                                                 ))}

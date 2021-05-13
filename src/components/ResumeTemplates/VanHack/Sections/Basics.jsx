@@ -69,73 +69,89 @@ const Basics = ({
         phone,
         url,
         summary,
-        location: {
-            enabled: locationEnabled,
-            value: {
-                address,
-                postalCode,
-                city,
-                countryCode,
-                region,
-            },
-        },
         profiles,
+        location,
     },
 }) => {
     const classes = useStyles();
     const intl = useIntl();
+    const {
+        address,
+        postalCode,
+        city,
+        countryCode,
+        region,
+    } = location || {};
+
+    const locationEnabled = Boolean(
+        address
+        || city
+        || region
+        || postalCode
+        || countryCode
+    );
 
     return (
         <Fragment>
             <div className={classes.resumeBasics}>
-                {(image?.enabled && image.value) && (
+                {image && (
                     <img
                         className={classes.image}
-                        src={image.value}
+                        src={image}
                         alt="avatar"
                     />
                 )}
-                {name?.enabled && <h2>{name?.value}</h2>}
-                {label?.enabled && <h3>{label?.value}</h3>}
+                {name && <h2>{name}</h2>}
+                {label && <h3>{label}</h3>}
                 <div className={classes.detailsWrapper}>
                     {locationEnabled && (
                         <ul className={classes.address}>
-                            {address?.enabled && <li key={uuid()}>{address?.value}</li>}
-                            {city?.enabled && <li key={uuid()}>{city?.value}</li>}
-                            {region?.enabled && <li key={uuid()}>{region?.value}</li>}
-                            {postalCode?.enabled && <li key={uuid()}>{postalCode?.value}</li>}
-                            {countryCode?.enabled && <li key={uuid()}>{countryCode?.value}</li>}
+                            {address && <li key={uuid()}>{address}</li>}
+                            {city && <li key={uuid()}>{city}</li>}
+                            {region && <li key={uuid()}>{region}</li>}
+                            {postalCode && <li key={uuid()}>{postalCode}</li>}
+                            {countryCode && <li key={uuid()}>{countryCode}</li>}
                         </ul>
                     )}
                     <ul className={classes['contact-info']}>
-                        {url?.enabled && (
+                        {url && (
                             <li key={uuid()}>
                                 <a
                                     className={classes.url}
-                                    href={url?.value}
+                                    href={url}
                                     target="_blank"
                                 >
-                                    {url?.value}
+                                    {url}
                                 </a>
                             </li>
                         )}
-                        {phone?.enabled && <li key={uuid()}>{phone?.value}</li>}
-                        {email?.enabled && <li key={uuid()}>{email?.value}</li>}
+                        {phone && <li key={uuid()}>{phone}</li>}
+                        {email && <li key={uuid()}>{email}</li>}
                     </ul>
-                    {profiles?.enabled && (
+                    {profiles?.length > 0 && (
                         <ul className={classes['social-media']}>
-                            {profiles?.value.map((profile) => {
-                                if (profile?.enabled) {
-                                    const { url: profileUrl, network, username } = profile?.value || {};
+                            {profiles?.map((profile) => {
+                                if (profile) {
+                                    const {
+                                        url: profileUrl,
+                                        network,
+                                        username,
+                                    } = profile || {};
 
-                                    return profileUrl?.enabled && network?.enabled && username?.enabled && (
+                                    const isProfileEnable = Boolean(
+                                        profileUrl
+                                        && network
+                                        && username
+                                    );
+
+                                    return isProfileEnable && (
                                         <li key={uuid()}>
                                             <a
-                                                href={profileUrl?.value}
-                                                title={username?.value}
+                                                href={profileUrl}
+                                                title={username}
                                                 target="_blank"
                                             >
-                                                {network?.value}
+                                                {network}
                                             </a>
                                         </li>
                                     );
@@ -147,13 +163,13 @@ const Basics = ({
                     )}
                 </div>
             </div>
-            {summary?.enabled && (
+            {summary && (
                 <div className={classes.resumeSummary}>
                     <h3>
                         {intl.formatMessage({ id: 'summary' })}
                     </h3>
                     <div className={classes.summaryWrapper}>
-                        <p>{summary?.value}</p>
+                        <p>{summary}</p>
                     </div>
                 </div>
             )}

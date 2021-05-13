@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 import { v4 as uuid } from 'uuid';
+
+// Utils
 import { capitalize } from '../../../../utils/utils';
 
 const ItemInput = ({

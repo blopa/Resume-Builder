@@ -1,5 +1,7 @@
 import React from 'react';
 import { v4 as uuid } from 'uuid';
+
+// Components
 import ItemInput from './ItemInput';
 
 const ItemsList = ({

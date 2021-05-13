@@ -1,64 +1,102 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-intl';
-import { Typography } from '@material-ui/core';
-import classNames from 'classnames';
+
+// Hooks
+import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
-    subtitle: {
-        textTransform: 'uppercase',
-        fontWeight: 'bold',
+    resumeAwards: {
+        padding: '10px 0',
+        borderBottom: '1px solid #ddd',
     },
-    something: {
-        '&::after': {
-            content: '""',
-            display: 'block',
-            height: '25px',
-            marginBottom: '-25px',
+    award: { fontWeight: 'bold' },
+    awards: {
+        margin: '0',
+        padding: '0',
+        listStyle: 'none',
+        '& li': {
+            margin: '0 0 10px 0',
+            '&:last-child': {
+                margin: '3px 0 0',
+            },
         },
     },
-    resumeAwards: {},
+    contentWrapper: {
+        marginLeft: '4px',
+    },
+    awardWrapper: {
+        pageBreakInside: 'avoid',
+    },
+    positionDate: {
+        fontStyle: 'italic',
+        fontSize: '0.8rem',
+    },
+    title: {
+        pageBreakInside: 'avoid',
+    },
 }));
 
-const Awards = ({
-    awards,
-    className = null,
-}) => {
+const Awards = ({ awards }) => {
     const classes = useStyles();
     const intl = useIntl();
+    const firstItem = useRef(null);
+    const sectionTitle = useRef(null);
+    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return awards.length > 0 && (
-        <div
-            className={classNames(className, classes.resumeAwards)}
-        >
-            <Typography
-                className={classes.subtitle}
-                color="textPrimary"
-                variant="body1"
+    return awards?.length > 0 && (
+        <div className={classes.resumeAwards}>
+            <h3
+                ref={sectionTitle}
+                className={classes.title}
+                style={titleStyle}
             >
-                {intl.formatMessage({ id: 'achievements' })}
-            </Typography>
-            <ul className={classes.awards}>
-                {awards.map((award) => {
-                    if (award?.enabled) {
-                        const {
-                            title,
-                            date,
-                            awarder,
-                            summary,
-                        } = award?.value || {};
+                {intl.formatMessage({ id: 'awards' })}
+            </h3>
+            <div className={classes.contentWrapper}>
+                <ul className={classes.awards}>
+                    {awards.map((award) => {
+                        if (award) {
+                            const {
+                                title,
+                                date,
+                                awarder,
+                                summary,
+                            } = award || {};
 
-                        return (
-                            <li key={uuid()}>
-                                lalala
-                            </li>
-                        );
-                    }
+                            let refProps = {};
+                            if (!firstItem.current) {
+                                refProps = {
+                                    ref: firstItem,
+                                };
+                            }
 
-                    return null;
-                })}
-            </ul>
+                            return (
+                                <li
+                                    className={classes.awardWrapper}
+                                    key={uuid()}
+                                    // eslint-disable-next-line react/jsx-props-no-spreading
+                                    {...refProps}
+                                >
+                                    <p className={classes.award}>
+                                        {title}
+                                        {(date) && (
+                                            <span className={classes.positionDate}>
+                                                {` (${date})`}
+                                            </span>
+                                        )}
+                                    </p>
+                                    <p>{awarder}</p>
+                                    <p>{summary}</p>
+                                </li>
+                            );
+                        }
+
+                        return null;
+                    })}
+                </ul>
+            </div>
         </div>
     );
 };

@@ -16,7 +16,12 @@ const useStyles = makeStyles((theme) => ({
         margin: '0',
         padding: '0',
         listStyle: 'none',
-        '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
+        '& li': {
+            margin: '0 0 10px 0',
+            '&:last-child': {
+                margin: '3px 0 0',
+            },
+        },
     },
     contentWrapper: {
         marginLeft: '4px',
@@ -40,7 +45,7 @@ const Awards = ({ awards }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return awards.length > 0 && (
+    return awards?.length > 0 && (
         <div className={classes.resumeAwards}>
             <h3
                 ref={sectionTitle}
@@ -52,13 +57,13 @@ const Awards = ({ awards }) => {
             <div className={classes.contentWrapper}>
                 <ul className={classes.awards}>
                     {awards.map((award) => {
-                        if (award?.enabled) {
+                        if (award) {
                             const {
                                 title,
                                 date,
                                 awarder,
                                 summary,
-                            } = award?.value || {};
+                            } = award || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -75,15 +80,15 @@ const Awards = ({ awards }) => {
                                     {...refProps}
                                 >
                                     <p className={classes.award}>
-                                        {title?.enabled && title?.value}
-                                        {(date?.enabled && date?.value) && (
+                                        {title}
+                                        {(date) && (
                                             <span className={classes.positionDate}>
-                                                {` (${date?.value})`}
+                                                {` (${date})`}
                                             </span>
                                         )}
                                     </p>
-                                    <p>{awarder?.enabled && awarder?.value}</p>
-                                    <p>{summary?.enabled && summary?.value}</p>
+                                    <p>{awarder}</p>
+                                    <p>{summary}</p>
                                 </li>
                             );
                         }
