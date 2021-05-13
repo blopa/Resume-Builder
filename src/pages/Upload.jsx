@@ -4,16 +4,17 @@ import { Button, Typography, TextField, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { cloneDeep } from 'lodash';
 import { navigate, useIntl } from 'gatsby-plugin-intl';
-import Mustache from 'mustache';
 
-// Components
 import SEO from '../components/SEO';
 import Layout from '../components/Layout';
 import DropZone from '../components/DropZone';
 import TemplateSelector from '../components/TemplateSelector';
 
 // Utils
-import { isObjectNotEmpty, traverseObject } from '../utils/utils';
+import {
+    convertToToggleableObject,
+    generateCoverLetterObject,
+} from '../utils/utils';
 import spreadsheetToJsonResume from '../utils/spreadsheet-to-json-resume';
 import { readSpreadsheet, parseSpreadsheetUrl } from '../utils/spreadsheet-parser';
 import { readJsonFile } from '../utils/json-parser';
@@ -22,8 +23,7 @@ import { readJsonFile } from '../utils/json-parser';
 import { useDispatch } from '../store/StoreProvider';
 
 // Actions
-import setJsonResume from '../store/actions/setJsonResume';
-import setTogglableJsonResume from '../store/actions/setTogglableJsonResume';
+import setToggleableJsonResume from '../store/actions/setToggleableJsonResume';
 import setResumeTemplate from '../store/actions/setResumeTemplate';
 
 const useStyles = makeStyles((theme) => ({
@@ -75,34 +75,10 @@ const UploadPage = ({ pageContext, location }) => {
     const [loading, setLoading] = useState(false);
     const [isShowingErrorSnackbar, setIsShowingErrorSnackbar] = useState(false);
 
-    const setResumesAndForward = useCallback((jsonResume) => {
-        let coverLetter = {};
-        if (jsonResume.coverLetter) {
-            const variables = Mustache.parse(jsonResume.coverLetter)
-                .filter((v) => v[0] === 'name')
-                .map((v) => v[1])
-                .reduce(
-                    (acc, curr) => ({ ...acc, [curr]: curr }),
-                    {}
-                );
-
-            coverLetter = {
-                text: jsonResume.coverLetter,
-                variables,
-            };
-        }
-
-        dispatch(setJsonResume(jsonResume));
-        dispatch(setTogglableJsonResume({
-            ...traverseObject(cloneDeep(jsonResume)),
-            enableSourceDataDownload: jsonResume.enableSourceDataDownload,
-            ...isObjectNotEmpty(coverLetter) && {
-                coverLetter: {
-                    enabled: true,
-                    value: coverLetter,
-                },
-            },
-        }));
+    const setResumesAndForward = useCallback((toggleableJsonResume) => {
+        dispatch(setToggleableJsonResume(
+            cloneDeep(toggleableJsonResume)
+        ));
 
         navigate('/build');
     }, [dispatch]);
@@ -142,7 +118,14 @@ const UploadPage = ({ pageContext, location }) => {
             readSpreadsheet(file, readSpreadsheetCallback);
         } else if (['json'].includes(fileExtension)) {
             readJsonFile(file, (jsonString) => {
-                setResumesAndForward(JSON.parse(jsonString));
+                const jsonResume = JSON.parse(jsonString);
+                setResumesAndForward({
+                    ...convertToToggleableObject(cloneDeep(jsonResume)),
+                    enableSourceDataDownload: jsonResume.enableSourceDataDownload,
+                    coverLetter: generateCoverLetterObject(jsonResume.coverLetter),
+                    // eslint-disable-next-line no-underscore-dangle
+                    __translation__: jsonResume.__translation__,
+                });
             });
         } else {
             setErrorMessageId('error.something_went_wrong_loading');

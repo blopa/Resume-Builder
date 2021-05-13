@@ -18,12 +18,31 @@ const useStyles = makeStyles((theme) => ({
         '& li': {
             margin: '0 0 10px 0',
             '&:last-child': {
-                margin: '0',
+                margin: '3px 0 0',
             },
         },
     },
     project: {
         fontWeight: 'bold',
+    },
+    highlights: {
+        '& li': {
+            marginBottom: '1px',
+            fontStyle: 'italic',
+        },
+    },
+    keywords: {
+        flexWrap: 'wrap',
+        listStyle: 'none',
+        paddingLeft: 0,
+        display: 'inline-flex',
+        '& li': {
+            fontStyle: 'italic',
+            margin: '3px 3px 0 0',
+            backgroundColor: theme.palette.type === 'dark' ? '#28407b' : '#dae4f4',
+            borderRadius: '3px',
+            padding: '1px 3px',
+        },
     },
     contentWrapper: {
         marginLeft: '4px',
@@ -47,7 +66,7 @@ const Projects = ({ projects }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return projects.length > 0 && (
+    return projects?.length > 0 && (
         <div className={classes.resumeProjects}>
             <h3
                 ref={sectionTitle}
@@ -59,7 +78,7 @@ const Projects = ({ projects }) => {
             <div className={classes.contentWrapper}>
                 <ul className={classes.projects}>
                     {projects.map((project) => {
-                        if (project?.enabled) {
+                        if (project) {
                             const {
                                 name,
                                 description,
@@ -71,7 +90,7 @@ const Projects = ({ projects }) => {
                                 roles,
                                 entity,
                                 type,
-                            } = project?.value || {};
+                            } = project || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -88,21 +107,41 @@ const Projects = ({ projects }) => {
                                     {...refProps}
                                 >
                                     <p className={classes.project}>
-                                        {name?.enabled && name?.value}
-                                        {(startDate?.enabled || endDate?.enabled) && (
+                                        {name}
+                                        {(startDate || endDate) && (
                                             <span className={classes.positionDate}>
                                                 {' ('}
-                                                {startDate?.enabled && startDate?.value}
-                                                {(startDate?.enabled && endDate?.enabled) && ' - '}
-                                                {endDate?.enabled && endDate?.value}
+                                                {startDate}
+                                                {(startDate && endDate) && ' - '}
+                                                {endDate}
                                                 {')'}
                                             </span>
                                         )}
                                     </p>
-                                    {type && type?.enabled && <p>{type?.value}</p>}
-                                    {entity && entity?.enabled && <p>{entity?.value}</p>}
-                                    {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
-                                    {description && description?.enabled && <p>{description?.value}</p>}
+                                    {type && <p>{type}</p>}
+                                    {entity && <p>{entity}</p>}
+                                    {url && <a href={url}>{url}</a>}
+                                    {description && <p>{description}</p>}
+                                    {highlights?.length > 0 && (
+                                        <ul className={classes.highlights}>
+                                            {highlights?.map((highlight) =>
+                                                highlight && (
+                                                    <li key={uuid()}>
+                                                        {highlight}
+                                                    </li>
+                                                ))}
+                                        </ul>
+                                    )}
+                                    {keywords?.length > 0 && (
+                                        <ul className={classes.keywords}>
+                                            {keywords?.map((keyword) =>
+                                                keyword && (
+                                                    <li key={uuid()}>
+                                                        {keyword}
+                                                    </li>
+                                                ))}
+                                        </ul>
+                                    )}
                                 </li>
                             );
                         }

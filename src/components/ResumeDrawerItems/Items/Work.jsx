@@ -35,126 +35,72 @@ function Work({ work: workData }) {
         dispatch(setResumeWork(newWork));
     }, [dispatch]);
 
-    const toggleWorks = () => {
+    const toggleWorks = useCallback(() => {
         const currentState = workData?.enabled;
         setResumeWorkState({
             ...workData,
             enabled: !currentState,
         });
-    };
+    }, [setResumeWorkState, workData]);
 
-    const toggleWork = useCallback((oldWork) => () => {
+    const toggleWork = useCallback((oldWork, index) => () => {
         const newWork = { ...workData };
-        newWork.value =
-            newWork?.value.map((wrk) => {
-                if (JSON.stringify(wrk?.value) === JSON.stringify(oldWork?.value)) {
-                    return {
-                        ...wrk,
-                        enabled: !wrk?.enabled,
-                    };
-                }
-                return wrk;
-            });
+        newWork.value[index] = {
+            ...newWork.value[index],
+            enabled: !newWork.value[index].enabled,
+        };
         setResumeWorkState(newWork);
     }, [setResumeWorkState, workData]);
 
-    const toggleWorkDetail = useCallback((oldWork, propName) => () => {
+    const toggleWorkDetail = useCallback((oldWork, index, propName) => () => {
         const newWork = { ...workData };
-        newWork.value =
-            newWork?.value.map((wrk) => {
-                if (JSON.stringify(wrk?.value) === JSON.stringify(oldWork?.value)) {
-                    return {
-                        ...wrk,
-                        value: {
-                            ...wrk?.value,
-                            [propName]: {
-                                ...wrk?.value[propName],
-                                enabled: !wrk?.value[propName]?.enabled,
-                            },
-                        },
-                    };
-                }
-                return wrk;
-            });
+        newWork.value[index] = {
+            ...newWork.value[index],
+            value: {
+                ...newWork.value[index].value,
+                [propName]: {
+                    ...newWork.value[index].value[propName],
+                    enabled: !newWork.value[index].value[propName].enabled,
+                },
+            },
+        };
+
+        if (newWork.value[index].enabled) {
+            newWork.value[index].enabled =
+                Object.entries(newWork.value[index].value).some((entry) => entry[1].enabled);
+        }
         setResumeWorkState(newWork);
     }, [setResumeWorkState, workData]);
 
-    const toggleWorkHighlights = useCallback((oldWork, highlight) => () => {
+    const toggleWorkHighlights = useCallback((oldWork, oldWorkIndex, highlight, highlightIndex) => () => {
         const newWork = { ...workData };
-        newWork.value =
-            newWork?.value.map((wrk) => {
-                if (JSON.stringify(wrk?.value) === JSON.stringify(oldWork?.value)) {
-                    return {
-                        ...wrk,
-                        value: {
-                            ...wrk?.value,
-                            highlights: {
-                                ...wrk?.value.highlights,
-                                value: [
-                                    ...wrk?.value.highlights?.value.map((high) => {
-                                        if (JSON.stringify(high?.value) === JSON.stringify(highlight?.value)) {
-                                            return {
-                                                ...high,
-                                                enabled: !high?.enabled,
-                                            };
-                                        }
-
-                                        return high;
-                                    }),
-                                ],
-                            },
-                        },
-                    };
-                }
-
-                return wrk;
-            });
+        newWork.value[oldWorkIndex].value.highlights.value[highlightIndex] = {
+            ...newWork.value[oldWorkIndex].value.highlights.value[highlightIndex],
+            enabled: !newWork.value[oldWorkIndex].value.highlights.value[highlightIndex].enabled,
+        };
         setResumeWorkState(newWork);
     }, [setResumeWorkState, workData]);
 
-    const toggleWorkKeywords = useCallback((oldWork, keyword) => () => {
+    const toggleWorkKeywords = useCallback((oldWork, oldWorkIndex, keyword, keywordIndex) => () => {
         const newWork = { ...workData };
-        newWork.value =
-            newWork?.value.map((wrk) => {
-                if (JSON.stringify(wrk?.value) === JSON.stringify(oldWork?.value)) {
-                    return {
-                        ...wrk,
-                        value: {
-                            ...wrk?.value,
-                            keywords: {
-                                ...wrk?.value.keywords,
-                                value: [
-                                    ...wrk?.value.keywords?.value.map((kword) => {
-                                        if (JSON.stringify(kword?.value) === JSON.stringify(keyword?.value)) {
-                                            return {
-                                                ...kword,
-                                                enabled: !kword?.enabled,
-                                            };
-                                        }
-
-                                        return kword;
-                                    }),
-                                ],
-                            },
-                        },
-                    };
-                }
-
-                return wrk;
-            });
+        newWork.value[oldWorkIndex].value.keywords.value[keywordIndex] = {
+            ...newWork.value[oldWorkIndex].value.keywords.value[keywordIndex],
+            enabled: !newWork.value[oldWorkIndex].value.keywords.value[keywordIndex].enabled,
+        };
         setResumeWorkState(newWork);
     }, [setResumeWorkState, workData]);
 
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
+                // TODO varNameToString({ work })
                 label="work"
                 onChange={toggleWorks}
                 checked={workEnabled}
             />
             {workEnabled && (
                 <ul>
-                    {works.map((work) => {
+                    {works.map((work, index) => {
                         const {
                             name,
                             location,
@@ -174,7 +120,7 @@ function Work({ work: workData }) {
                                     <ItemsList
                                         label={name?.value}
                                         checked={work?.enabled}
-                                        onClick={toggleWork(work)}
+                                        onClick={toggleWork(work, index)}
                                     />
                                 )}
                                 {work?.enabled && (
@@ -185,6 +131,7 @@ function Work({ work: workData }) {
                                                 checked={name?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
+                                                    index,
                                                     varNameToString({ name })
                                                 )}
                                             />
@@ -195,6 +142,7 @@ function Work({ work: workData }) {
                                                 checked={position?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
+                                                    index,
                                                     varNameToString({ position })
                                                 )}
                                             />
@@ -205,6 +153,7 @@ function Work({ work: workData }) {
                                                 checked={url?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
+                                                    index,
                                                     varNameToString({ url })
                                                 )}
                                             />
@@ -215,6 +164,7 @@ function Work({ work: workData }) {
                                                 checked={location?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
+                                                    index,
                                                     varNameToString({ location })
                                                 )}
                                             />
@@ -225,6 +175,7 @@ function Work({ work: workData }) {
                                                 checked={startDate?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
+                                                    index,
                                                     varNameToString({ startDate })
                                                 )}
                                             />
@@ -235,6 +186,7 @@ function Work({ work: workData }) {
                                                 checked={endDate?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
+                                                    index,
                                                     varNameToString({ endDate })
                                                 )}
                                             />
@@ -245,6 +197,7 @@ function Work({ work: workData }) {
                                                 checked={summary?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
+                                                    index,
                                                     varNameToString({ summary })
                                                 )}
                                             />
@@ -255,6 +208,7 @@ function Work({ work: workData }) {
                                                 checked={description?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
+                                                    index,
                                                     varNameToString({ description })
                                                 )}
                                             />
@@ -265,20 +219,23 @@ function Work({ work: workData }) {
                                                 checked={highlights?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
+                                                    index,
                                                     varNameToString({ highlights })
                                                 )}
                                             />
                                         )}
                                         {highlights?.enabled && (
                                             <ul>
-                                                {highlights?.value.map((highlight) => (
+                                                {highlights?.value.map((highlight, idx) => (
                                                     <ItemsList
                                                         label={highlight?.value}
                                                         key={uuid()}
                                                         checked={highlight?.enabled}
                                                         onClick={toggleWorkHighlights(
                                                             work,
-                                                            highlight
+                                                            index,
+                                                            highlight,
+                                                            idx
                                                         )}
                                                     />
                                                 ))}
@@ -290,20 +247,23 @@ function Work({ work: workData }) {
                                                 checked={keywords?.enabled}
                                                 onClick={toggleWorkDetail(
                                                     work,
+                                                    index,
                                                     varNameToString({ keywords })
                                                 )}
                                             />
                                         )}
                                         {keywords?.enabled && (
                                             <ul>
-                                                {keywords?.value.map((keyword) => (
+                                                {keywords?.value.map((keyword, idx) => (
                                                     <ItemsList
                                                         label={keyword?.value}
                                                         key={uuid()}
                                                         checked={keyword?.enabled}
                                                         onClick={toggleWorkKeywords(
                                                             work,
-                                                            keyword
+                                                            index,
+                                                            keyword,
+                                                            idx
                                                         )}
                                                     />
                                                 ))}

@@ -34,6 +34,9 @@
     "select_your_template": "Selecciona tu plantilla",
     "select_template": "Selecciona tu plantilla",
     "this_is_a_page_break": "Esto es un salto de página",
+    "disclaimer": "Descargo de responsabilidad",
+    "disclaimer_description_1": "Este software tiene licencia del MIT y se proporciona 'tal cual', sin garantía de ningún tipo, expresa o implícita, incluyendo pero no limitado a, las garantías de comerciabilidad, adecuación para un propósito particular y no infracción. En ningún caso los autores o los derechos de autor titulares será responsable de cualquier reclamación, daño u otra responsabilidad, ya sea en una acción de contrato, agravio o de otra manera, que surge de, fuera de o en conexión con el software o el uso u otras operaciones en el software.",
+    "disclaimer_description_2": "Verifique todos los datos en su currículum antes de compartirlo con otros, no me hago responsable de la información compartida incorrectamente.",
     "error": {
         "something_went_wrong_parsing": "¡Vaya! Se produjo un error al descargar la hoja de cálculo desde la URL proporcionada. Intente descargar la hoja de cálculo manualmente y cárguela aquí.",
         "something_went_wrong_loading": "Vaya, algo salió mal. Vuelve a intentarlo."

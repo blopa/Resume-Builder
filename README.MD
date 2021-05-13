@@ -26,7 +26,7 @@ Older versions: [V1](https://github.com/blopa/Resume-Builder/blob/main/README_V1
 - Cover Letter Editor
 
 ## JSON Resume Schema
-This project uses the [jsonresume/resume-schema](https://github.com/jsonresume/resume-schema) v1.0.0, but due a need to extend some of it's features, we also added 4 new fields:
+This project uses the [jsonresume/resume-schema](https://github.com/jsonresume/resume-schema) v1.0.0, but due to a need to extend some of it's features, we also added 4 new fields:
 - `__translation__` to translate template keys.
 - `coverLetter` to add your own Cover Letter template.
 - `work[].keywords` to add keywords to your work experience.
@@ -303,11 +303,17 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/screenshot_3.png)
 
 ## Release Notes
+- **v4.0.3:**
+	- Add toggler for `keywords` and `highlights` on the sidebar.
+	- Bump Gatsby and plugins to 3.5.
+	- Big refactor on the global state.
+	- Data disabled from the spreadsheet can now be enabled via the sidebar.
+	- Downloaded `JSON` resume will only contain enabled data.
 - **v4.0.2:**
 	- Filter out resume templates that are not ready yet.
 	- Add download link to download the JSON data.
 	- Fix resume viewer.
-	- Add missing fields on "work" and "projects".
+	- Add missing fields on `work` and `projects`.
 	- Small layout fixes in the "Default" template.
 	- Arrays from the spreadsheet are now parsed using `';'` instead of `','`.
 - **v4.0.1:**

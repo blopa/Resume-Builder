@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
     summary: {
         whiteSpace: 'break-spaces',
+        marginBottom: '5px !important',
     },
     description: {
         whiteSpace: 'break-spaces',
@@ -43,6 +44,19 @@ const useStyles = makeStyles((theme) => ({
         '& li': {
             marginBottom: '1px',
             fontStyle: 'italic',
+        },
+    },
+    keywords: {
+        flexWrap: 'wrap',
+        listStyle: 'none',
+        paddingLeft: 0,
+        display: 'inline-flex',
+        '& li': {
+            fontStyle: 'italic',
+            margin: '3px 3px 0 0',
+            backgroundColor: theme.palette.type === 'dark' ? '#28407b' : '#dae4f4',
+            borderRadius: '3px',
+            padding: '1px 3px',
         },
     },
     contentWrapper: {
@@ -66,7 +80,7 @@ const Work = ({ work: works }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return works.length > 0 && (
+    return works?.length > 0 && (
         <div className={classes.resumeWork}>
             <h3
                 ref={sectionTitle}
@@ -78,7 +92,7 @@ const Work = ({ work: works }) => {
             <div className={classes.contentWrapper}>
                 <ul className={classes.works}>
                     {works.map((work) => {
-                        if (work?.enabled) {
+                        if (work) {
                             const {
                                 name,
                                 location,
@@ -89,7 +103,8 @@ const Work = ({ work: works }) => {
                                 endDate,
                                 summary,
                                 highlights,
-                            } = work?.value || {};
+                                keywords,
+                            } = work || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -107,47 +122,51 @@ const Work = ({ work: works }) => {
                                 >
                                     <div className={classes.workHeader}>
                                         <p className={classes.position}>
-                                            {position?.enabled && position?.value}
-                                            {(
-                                                (position?.enabled && name?.enabled)
-                                                && (position?.value && name?.value)
-                                            ) && ` ${intl.formatMessage({ id: 'at' })} `}
-                                            {name?.enabled && name?.value}
-                                            {(startDate?.enabled || endDate?.enabled) && (
+                                            {position}
+                                            {(position && name) && ` ${intl.formatMessage({ id: 'at' })} `}
+                                            {name}
+                                            {(startDate || endDate) && (
                                                 <span className={classes.positionDate}>
                                                     {' ('}
-                                                    {startDate?.enabled && startDate?.value}
-                                                    {(startDate?.enabled && endDate?.enabled) && ' - '}
-                                                    {endDate?.enabled && endDate?.value}
+                                                    {startDate}
+                                                    {(startDate && endDate) && ' - '}
+                                                    {endDate}
                                                     {')'}
                                                 </span>
                                             )}
                                         </p>
                                         <p className={classes.urlAndLocation}>
-                                            {location?.enabled && location?.value}
-                                            {(
-                                                (location?.enabled && url?.enabled)
-                                                && (location?.value && url?.value)
-                                            ) && ', '}
-                                            {url?.enabled && (
-                                                <a href={url?.value}>
-                                                    {url?.value}
+                                            {location}
+                                            {(location && url) && ', '}
+                                            {url && (
+                                                <a href={url}>
+                                                    {url}
                                                 </a>
                                             )}
                                         </p>
                                     </div>
                                     <p className={classes.summary}>
-                                        {summary?.enabled && summary?.value}
+                                        {summary}
                                     </p>
                                     <p className={classes.description}>
-                                        {description?.enabled && description?.value}
+                                        {description}
                                     </p>
-                                    {highlights?.enabled && (
+                                    {highlights?.length > 0 && (
                                         <ul className={classes.highlights}>
-                                            {highlights?.value.map((highlight) =>
-                                                highlight?.enabled && (
+                                            {highlights?.map((highlight) =>
+                                                highlight && (
                                                     <li key={uuid()}>
-                                                        {highlight?.value}
+                                                        {highlight}
+                                                    </li>
+                                                ))}
+                                        </ul>
+                                    )}
+                                    {keywords?.length > 0 && (
+                                        <ul className={classes.keywords}>
+                                            {keywords?.map((keyword) =>
+                                                keyword && (
+                                                    <li key={uuid()}>
+                                                        {keyword}
                                                     </li>
                                                 ))}
                                         </ul>

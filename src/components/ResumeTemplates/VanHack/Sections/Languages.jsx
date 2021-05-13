@@ -13,7 +13,12 @@ const useStyles = makeStyles((theme) => ({
     },
     languages: {
         margin: '0',
-        '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
+        '& li': {
+            margin: '0 0 10px 0',
+            '&:last-child': {
+                margin: '3px 0 0',
+            },
+        },
     },
     contentWrapper: {
         marginLeft: '4px',
@@ -33,7 +38,7 @@ const Languages = ({ languages }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return languages.length > 0 && (
+    return languages?.length > 0 && (
         <div className={classes.resumeLanguages}>
             <h3
                 ref={sectionTitle}
@@ -45,11 +50,11 @@ const Languages = ({ languages }) => {
             <div className={classes.contentWrapper}>
                 <ul className={classes.languages}>
                     {languages.map((lang) => {
-                        if (lang?.enabled) {
+                        if (lang) {
                             const {
                                 language,
                                 fluency,
-                            } = lang?.value || {};
+                            } = lang || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -66,8 +71,9 @@ const Languages = ({ languages }) => {
                                     {...refProps}
                                 >
                                     <p>
-                                        {language?.enabled && language?.value}{', '}
-                                        {fluency?.enabled && fluency?.value}
+                                        {language}
+                                        {(language && fluency) && ', '}
+                                        {fluency}
                                     </p>
                                 </li>
                             );

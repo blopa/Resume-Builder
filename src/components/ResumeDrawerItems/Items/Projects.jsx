@@ -30,60 +30,80 @@ function Projects({ projects }) {
         dispatch(setResumeProjects(newProjects));
     }, [dispatch]);
 
-    const toggleProjects = () => {
+    const toggleProjects = useCallback(() => {
         const currentState = projects?.enabled;
         setResumeProjectsState({
             ...projects,
             enabled: !currentState,
         });
-    };
+    }, [projects, setResumeProjectsState]);
 
-    const toggleProject = useCallback((project) => () => {
+    const toggleProject = useCallback((project, index) => () => {
         const newProjects = { ...projects };
-        newProjects.value =
-            newProjects?.value.map((proj) => {
-                if (JSON.stringify(proj?.value) === JSON.stringify(project?.value)) {
-                    return {
-                        ...proj,
-                        enabled: !proj?.enabled,
-                    };
-                }
-                return proj;
-            });
+        newProjects.value[index] = {
+            ...newProjects.value[index],
+            enabled: !newProjects.value[index].enabled,
+        };
         setResumeProjectsState(newProjects);
     }, [projects, setResumeProjectsState]);
 
-    const toggleProjectsDetail = useCallback((project, propName) => () => {
+    const toggleProjectDetail = useCallback((project, index, propName) => () => {
         const newProjects = { ...projects };
-        newProjects.value =
-            newProjects?.value.map((proj) => {
-                if (JSON.stringify(proj?.value) === JSON.stringify(project?.value)) {
-                    return {
-                        ...proj,
-                        value: {
-                            ...proj?.value,
-                            [propName]: {
-                                ...proj?.value[propName],
-                                enabled: !proj?.value[propName]?.enabled,
-                            },
-                        },
-                    };
-                }
-                return proj;
-            });
+        newProjects.value[index] = {
+            ...newProjects.value[index],
+            value: {
+                ...newProjects.value[index].value,
+                [propName]: {
+                    ...newProjects.value[index].value[propName],
+                    enabled: !newProjects.value[index].value[propName].enabled,
+                },
+            },
+        };
+
+        if (newProjects.value[index].enabled) {
+            newProjects.value[index].enabled =
+                Object.entries(newProjects.value[index].value).some((entry) => entry[1].enabled);
+        }
+        setResumeProjectsState(newProjects);
+    }, [projects, setResumeProjectsState]);
+
+    const toggleProjectKeywords = useCallback((project, projectIndex, keyword, keywordIndex) => () => {
+        const newProjects = { ...projects };
+        newProjects.value[projectIndex].value.keywords.value[keywordIndex] = {
+            ...newProjects.value[projectIndex].value.keywords.value[keywordIndex],
+            enabled: !newProjects.value[projectIndex].value.keywords.value[keywordIndex].enabled,
+        };
+        setResumeProjectsState(newProjects);
+    }, [projects, setResumeProjectsState]);
+
+    const toggleProjectHighlights = useCallback((project, projectIndex, highlight, highlightIndex) => () => {
+        const newProjects = { ...projects };
+        newProjects.value[projectIndex].value.highlights.value[highlightIndex] = {
+            ...newProjects.value[projectIndex].value.highlights.value[highlightIndex],
+            enabled: !newProjects.value[projectIndex].value.highlights.value[highlightIndex].enabled,
+        };
+        setResumeProjectsState(newProjects);
+    }, [projects, setResumeProjectsState]);
+
+    const toggleProjectRoles = useCallback((project, projectIndex, role, roleIndex) => () => {
+        const newProjects = { ...projects };
+        newProjects.value[projectIndex].value.roles.value[roleIndex] = {
+            ...newProjects.value[projectIndex].value.roles.value[roleIndex],
+            enabled: !newProjects.value[projectIndex].value.roles.value[roleIndex].enabled,
+        };
         setResumeProjectsState(newProjects);
     }, [projects, setResumeProjectsState]);
 
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
-                label="projects"
+                label={varNameToString({ projects })}
                 onChange={toggleProjects}
                 checked={projects?.enabled}
             />
             {projects?.enabled && (
                 <ul>
-                    {projects?.value.map((project) => {
+                    {projects?.value.map((project, index) => {
                         const {
                             name,
                             description,
@@ -102,7 +122,7 @@ function Projects({ projects }) {
                                 <ItemsList
                                     label={name?.value}
                                     checked={project?.enabled}
-                                    onClick={toggleProject(project)}
+                                    onClick={toggleProject(project, index)}
                                 />
                                 {project?.enabled && (
                                     <ul>
@@ -110,8 +130,9 @@ function Projects({ projects }) {
                                             <ItemsList
                                                 label={varNameToString({ name })}
                                                 checked={name?.enabled}
-                                                onClick={toggleProjectsDetail(
+                                                onClick={toggleProjectDetail(
                                                     project,
+                                                    index,
                                                     varNameToString({ name })
                                                 )}
                                             />
@@ -120,8 +141,9 @@ function Projects({ projects }) {
                                             <ItemsList
                                                 label={varNameToString({ entity })}
                                                 checked={entity?.enabled}
-                                                onClick={toggleProjectsDetail(
+                                                onClick={toggleProjectDetail(
                                                     project,
+                                                    index,
                                                     varNameToString({ entity })
                                                 )}
                                             />
@@ -130,8 +152,9 @@ function Projects({ projects }) {
                                             <ItemsList
                                                 label={varNameToString({ startDate })}
                                                 checked={startDate?.enabled}
-                                                onClick={toggleProjectsDetail(
+                                                onClick={toggleProjectDetail(
                                                     project,
+                                                    index,
                                                     varNameToString({ startDate })
                                                 )}
                                             />
@@ -140,8 +163,9 @@ function Projects({ projects }) {
                                             <ItemsList
                                                 label={varNameToString({ endDate })}
                                                 checked={endDate?.enabled}
-                                                onClick={toggleProjectsDetail(
+                                                onClick={toggleProjectDetail(
                                                     project,
+                                                    index,
                                                     varNameToString({ endDate })
                                                 )}
                                             />
@@ -150,8 +174,9 @@ function Projects({ projects }) {
                                             <ItemsList
                                                 label={varNameToString({ url })}
                                                 checked={url?.enabled}
-                                                onClick={toggleProjectsDetail(
+                                                onClick={toggleProjectDetail(
                                                     project,
+                                                    index,
                                                     varNameToString({ url })
                                                 )}
                                             />
@@ -160,8 +185,9 @@ function Projects({ projects }) {
                                             <ItemsList
                                                 label={varNameToString({ description })}
                                                 checked={description?.enabled}
-                                                onClick={toggleProjectsDetail(
+                                                onClick={toggleProjectDetail(
                                                     project,
+                                                    index,
                                                     varNameToString({ description })
                                                 )}
                                             />
@@ -170,11 +196,96 @@ function Projects({ projects }) {
                                             <ItemsList
                                                 label={varNameToString({ type })}
                                                 checked={type?.enabled}
-                                                onClick={toggleProjectsDetail(
+                                                onClick={toggleProjectDetail(
                                                     project,
+                                                    index,
                                                     varNameToString({ type })
                                                 )}
                                             />
+                                        )}
+                                        {highlights && (
+                                            <ItemsList
+                                                label={varNameToString({ highlights })}
+                                                checked={highlights?.enabled}
+                                                onClick={toggleProjectDetail(
+                                                    project,
+                                                    index,
+                                                    varNameToString({ highlights })
+                                                )}
+                                            />
+                                        )}
+                                        {highlights?.enabled && (
+                                            <ul>
+                                                {highlights?.value.map((highlight, idx) => (
+                                                    <ItemsList
+                                                        label={highlight?.value}
+                                                        key={uuid()}
+                                                        checked={highlight?.enabled}
+                                                        onClick={toggleProjectHighlights(
+                                                            project,
+                                                            index,
+                                                            highlight,
+                                                            idx
+                                                        )}
+                                                    />
+                                                ))}
+                                            </ul>
+                                        )}
+                                        {keywords && (
+                                            <ItemsList
+                                                label={varNameToString({ keywords })}
+                                                checked={keywords?.enabled}
+                                                onClick={toggleProjectDetail(
+                                                    project,
+                                                    index,
+                                                    varNameToString({ keywords })
+                                                )}
+                                            />
+                                        )}
+                                        {keywords?.enabled && (
+                                            <ul>
+                                                {keywords?.value.map((keyword, idx) => (
+                                                    <ItemsList
+                                                        label={keyword?.value}
+                                                        key={uuid()}
+                                                        checked={keyword?.enabled}
+                                                        onClick={toggleProjectKeywords(
+                                                            project,
+                                                            index,
+                                                            keyword,
+                                                            idx
+                                                        )}
+                                                    />
+                                                ))}
+                                            </ul>
+                                        )}
+                                        {roles && (
+                                            <ItemsList
+                                                label={varNameToString({ roles })}
+                                                checked={roles?.enabled}
+                                                onClick={toggleProjectDetail(
+                                                    project,
+                                                    index,
+                                                    varNameToString({ roles })
+                                                )}
+                                            />
+                                        )}
+                                        {roles?.enabled && (
+                                            <ul>
+                                                {roles?.value.map((role, idx) => (
+                                                    <ItemsList
+                                                        label={role?.value}
+                                                        key={uuid()}
+                                                        checked={role?.enabled}
+                                                        onClick={toggleProjectRoles(
+                                                            project,
+                                                            index,
+                                                            role,
+                                                            idx
+                                                        )}
+                                                    />
+                                                ))}
+                                            </ul>
                                         )}
                                     </ul>
                                 )}

@@ -30,82 +30,76 @@ function Certificates({ certificates }) {
         dispatch(setResumeCertificates(newCertificates));
     }, [dispatch]);
 
-    const toggleCertificates = () => {
+    const toggleCertificates = useCallback(() => {
         const currentState = certificates?.enabled;
         setResumeCertificatesState({
             ...certificates,
             enabled: !currentState,
         });
-    };
+    }, [certificates, setResumeCertificatesState]);
 
-    const toggleAward = useCallback((award) => () => {
+    const toggleCertificate = useCallback((certificate, index) => () => {
         const newCertificates = { ...certificates };
-        newCertificates.value =
-            newCertificates?.value.map((awd) => {
-                if (JSON.stringify(awd?.value) === JSON.stringify(award?.value)) {
-                    return {
-                        ...awd,
-                        enabled: !awd?.enabled,
-                    };
-                }
-                return awd;
-            });
+        newCertificates.value[index] = {
+            ...newCertificates.value[index],
+            enabled: !newCertificates.value[index].enabled,
+        };
         setResumeCertificatesState(newCertificates);
     }, [certificates, setResumeCertificatesState]);
 
-    const toggleCertificatesDetail = useCallback((award, propName) => () => {
+    const toggleCertificatesDetail = useCallback((certificate, index, propName) => () => {
         const newCertificates = { ...certificates };
-        newCertificates.value =
-            newCertificates?.value.map((awd) => {
-                if (JSON.stringify(awd?.value) === JSON.stringify(award?.value)) {
-                    return {
-                        ...awd,
-                        value: {
-                            ...awd?.value,
-                            [propName]: {
-                                ...awd?.value[propName],
-                                enabled: !awd?.value[propName]?.enabled,
-                            },
-                        },
-                    };
-                }
-                return awd;
-            });
+        newCertificates.value[index] = {
+            ...newCertificates.value[index],
+            value: {
+                ...newCertificates.value[index].value,
+                [propName]: {
+                    ...newCertificates.value[index].value[propName],
+                    enabled: !newCertificates.value[index].value[propName].enabled,
+                },
+            },
+        };
+
+        if (newCertificates.value[index].enabled) {
+            newCertificates.value[index].enabled =
+                Object.entries(newCertificates.value[index].value).some((entry) => entry[1].enabled);
+        }
         setResumeCertificatesState(newCertificates);
     }, [certificates, setResumeCertificatesState]);
 
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
-                label="certificates"
+                label={varNameToString({ certificates })}
                 onChange={toggleCertificates}
                 checked={certificates?.enabled}
             />
             {certificates?.enabled && (
                 <ul>
-                    {certificates?.value.map((award) => {
+                    {certificates?.value.map((certificate, index) => {
                         const {
                             name,
                             date,
                             url,
                             issuer,
-                        } = award?.value || {};
+                        } = certificate?.value || {};
 
                         return (
                             <Fragment key={uuid()}>
                                 <ItemsList
                                     label={name?.value}
-                                    checked={award?.enabled}
-                                    onClick={toggleAward(award)}
+                                    checked={certificate?.enabled}
+                                    onClick={toggleCertificate(certificate, index)}
                                 />
-                                {award?.enabled && (
+                                {certificate?.enabled && (
                                     <ul>
                                         {name && (
                                             <ItemsList
                                                 label={varNameToString({ name })}
                                                 checked={name?.enabled}
                                                 onClick={toggleCertificatesDetail(
-                                                    award,
+                                                    certificate,
+                                                    index,
                                                     varNameToString({ name })
                                                 )}
                                             />
@@ -115,7 +109,8 @@ function Certificates({ certificates }) {
                                                 label={varNameToString({ date })}
                                                 checked={date?.enabled}
                                                 onClick={toggleCertificatesDetail(
-                                                    award,
+                                                    certificate,
+                                                    index,
                                                     varNameToString({ date })
                                                 )}
                                             />
@@ -125,7 +120,8 @@ function Certificates({ certificates }) {
                                                 label={varNameToString({ issuer })}
                                                 checked={issuer?.enabled}
                                                 onClick={toggleCertificatesDetail(
-                                                    award,
+                                                    certificate,
+                                                    index,
                                                     varNameToString({ issuer })
                                                 )}
                                             />
@@ -135,7 +131,8 @@ function Certificates({ certificates }) {
                                                 label={varNameToString({ url })}
                                                 checked={url?.enabled}
                                                 onClick={toggleCertificatesDetail(
-                                                    award,
+                                                    certificate,
+                                                    index,
                                                     varNameToString({ url })
                                                 )}
                                             />

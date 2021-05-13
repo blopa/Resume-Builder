@@ -15,7 +15,12 @@ const useStyles = makeStyles((theme) => ({
         margin: '0',
         padding: '0',
         listStyle: 'none',
-        '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
+        '& li': {
+            margin: '0 0 10px 0',
+            '&:last-child': {
+                margin: '3px 0 0',
+            },
+        },
     },
     publication: {
         fontWeight: 'bold',
@@ -42,7 +47,7 @@ const Publications = ({ publications }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return publications.length > 0 && (
+    return publications?.length > 0 && (
         <div className={classes.resumePublications}>
             <h3
                 ref={sectionTitle}
@@ -54,14 +59,14 @@ const Publications = ({ publications }) => {
             <div className={classes.contentWrapper}>
                 <ul className={classes.publications}>
                     {publications.map((publication) => {
-                        if (publication?.enabled) {
+                        if (publication) {
                             const {
                                 name,
                                 publisher,
                                 releaseDate,
                                 url,
                                 summary,
-                            } = publication?.value || {};
+                            } = publication || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -78,20 +83,17 @@ const Publications = ({ publications }) => {
                                     {...refProps}
                                 >
                                     <p className={classes.publication}>
-                                        {name?.enabled && name?.value}
-                                        {(
-                                            (publisher?.enabled && name?.enabled)
-                                            && (publisher?.value && name?.value)
-                                        ) && ` ${intl.formatMessage({ id: 'at' })} `}
-                                        {publisher?.enabled && publisher?.value}
-                                        {(releaseDate?.enabled && releaseDate?.value) && (
+                                        {name}
+                                        {(publisher && name) && ` ${intl.formatMessage({ id: 'at' })} `}
+                                        {publisher}
+                                        {(releaseDate) && (
                                             <span className={classes.positionDate}>
-                                                {` (${releaseDate?.value})`}
+                                                {` (${releaseDate})`}
                                             </span>
                                         )}
                                     </p>
-                                    {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
-                                    {summary && summary?.enabled && <p>{summary?.value}</p>}
+                                    {url && <a href={url}>{url}</a>}
+                                    {summary && <p>{summary}</p>}
                                 </li>
                             );
                         }

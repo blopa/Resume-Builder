@@ -54,7 +54,7 @@ const Skills = ({ skills }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return skills.length > 0 && (
+    return skills?.length > 0 && (
         <div className={classes.resumeSkills}>
             <h3
                 ref={sectionTitle}
@@ -66,12 +66,12 @@ const Skills = ({ skills }) => {
             <div className={classes.contentWrapper}>
                 <ul className={classes.skills}>
                     {skills.map((skill) => {
-                        if (skill?.enabled) {
+                        if (skill) {
                             const {
                                 name,
                                 level,
                                 keywords,
-                            } = skill?.value || {};
+                            } = skill || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -86,19 +86,19 @@ const Skills = ({ skills }) => {
                                     // eslint-disable-next-line react/jsx-props-no-spreading
                                     {...refProps}
                                 >
-                                    {(name?.enabled || level?.enabled) && (
+                                    {(name || level) && (
                                         <p className={classes.skillTitle}>
-                                            {name?.enabled && name?.value}
-                                            {(name?.enabled && level?.enabled) && ', '}
-                                            {level?.enabled && level?.value}
+                                            {name}
+                                            {(name && level) && ', '}
+                                            {level}
                                         </p>
                                     )}
-                                    {keywords?.enabled && (
+                                    {keywords?.length > 0 && (
                                         <ul className={classes.keywords}>
-                                            {keywords?.value.map((keyword) =>
-                                                keyword?.enabled && (
+                                            {keywords?.map((keyword) =>
+                                                keyword && (
                                                     <li key={uuid()}>
-                                                        {keyword?.value}
+                                                        {keyword}
                                                     </li>
                                                 ))}
                                         </ul>

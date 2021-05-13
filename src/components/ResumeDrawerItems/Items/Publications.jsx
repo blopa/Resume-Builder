@@ -30,60 +30,53 @@ function Publications({ publications }) {
         dispatch(setResumePublications(newPublications));
     }, [dispatch]);
 
-    const togglePublications = () => {
+    const togglePublications = useCallback(() => {
         const currentState = publications?.enabled;
         setResumePublicationsState({
             ...publications,
             enabled: !currentState,
         });
-    };
+    }, [publications, setResumePublicationsState]);
 
-    const togglePublication = useCallback((publication) => () => {
+    const togglePublication = useCallback((publication, index) => () => {
         const newPublications = { ...publications };
-        newPublications.value =
-            newPublications?.value.map((pub) => {
-                if (JSON.stringify(pub?.value) === JSON.stringify(publication?.value)) {
-                    return {
-                        ...pub,
-                        enabled: !pub?.enabled,
-                    };
-                }
-                return pub;
-            });
+        newPublications.value[index] = {
+            ...newPublications.value[index],
+            enabled: !newPublications.value[index].enabled,
+        };
         setResumePublicationsState(newPublications);
     }, [publications, setResumePublicationsState]);
 
-    const togglePublicationsDetail = useCallback((publication, propName) => () => {
+    const togglePublicationsDetail = useCallback((publication, index, propName) => () => {
         const newPublications = { ...publications };
-        newPublications.value =
-            newPublications?.value.map((pub) => {
-                if (JSON.stringify(pub?.value) === JSON.stringify(publication?.value)) {
-                    return {
-                        ...pub,
-                        value: {
-                            ...pub?.value,
-                            [propName]: {
-                                ...pub?.value[propName],
-                                enabled: !pub?.value[propName]?.enabled,
-                            },
-                        },
-                    };
-                }
-                return pub;
-            });
+        newPublications.value[index] = {
+            ...newPublications.value[index],
+            value: {
+                ...newPublications.value[index].value,
+                [propName]: {
+                    ...newPublications.value[index].value[propName],
+                    enabled: !newPublications.value[index].value[propName].enabled,
+                },
+            },
+        };
+
+        if (newPublications.value[index].enabled) {
+            newPublications.value[index].enabled =
+                Object.entries(newPublications.value[index].value).some((entry) => entry[1].enabled);
+        }
         setResumePublicationsState(newPublications);
     }, [publications, setResumePublicationsState]);
 
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
-                label="publications"
+                label={varNameToString({ publications })}
                 onChange={togglePublications}
                 checked={publications?.enabled}
             />
             {publications?.enabled && (
                 <ul>
-                    {publications?.value.map((publication) => {
+                    {publications?.value.map((publication, index) => {
                         const {
                             name,
                             publisher,
@@ -97,7 +90,7 @@ function Publications({ publications }) {
                                 <ItemsList
                                     label={name?.value}
                                     checked={publication?.enabled}
-                                    onClick={togglePublication(publication)}
+                                    onClick={togglePublication(publication, index)}
                                 />
                                 {publication?.enabled && (
                                     <ul>
@@ -107,6 +100,7 @@ function Publications({ publications }) {
                                                 checked={name?.enabled}
                                                 onClick={togglePublicationsDetail(
                                                     publication,
+                                                    index,
                                                     varNameToString({ name })
                                                 )}
                                             />
@@ -117,6 +111,7 @@ function Publications({ publications }) {
                                                 checked={publisher?.enabled}
                                                 onClick={togglePublicationsDetail(
                                                     publication,
+                                                    index,
                                                     varNameToString({ publisher })
                                                 )}
                                             />
@@ -127,6 +122,7 @@ function Publications({ publications }) {
                                                 checked={releaseDate?.enabled}
                                                 onClick={togglePublicationsDetail(
                                                     publication,
+                                                    index,
                                                     varNameToString({ releaseDate })
                                                 )}
                                             />
@@ -137,6 +133,7 @@ function Publications({ publications }) {
                                                 checked={url?.enabled}
                                                 onClick={togglePublicationsDetail(
                                                     publication,
+                                                    index,
                                                     varNameToString({ url })
                                                 )}
                                             />
@@ -147,6 +144,7 @@ function Publications({ publications }) {
                                                 checked={summary?.enabled}
                                                 onClick={togglePublicationsDetail(
                                                     publication,
+                                                    index,
                                                     varNameToString({ summary })
                                                 )}
                                             />

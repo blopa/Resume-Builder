@@ -53,7 +53,7 @@ const Volunteer = ({ volunteer: volunteers }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return volunteers.length > 0 && (
+    return volunteers?.length > 0 && (
         <div className={classes.resumeVolunteer}>
             <h3
                 ref={sectionTitle}
@@ -65,7 +65,7 @@ const Volunteer = ({ volunteer: volunteers }) => {
             <div className={classes.contentWrapper}>
                 <ul className={classes.volunteers}>
                     {volunteers.map((volunteer) => {
-                        if (volunteer?.enabled) {
+                        if (volunteer) {
                             const {
                                 organization,
                                 position,
@@ -74,7 +74,7 @@ const Volunteer = ({ volunteer: volunteers }) => {
                                 endDate,
                                 summary,
                                 highlights,
-                            } = volunteer?.value || {};
+                            } = volunteer || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -91,34 +91,31 @@ const Volunteer = ({ volunteer: volunteers }) => {
                                     {...refProps}
                                 >
                                     <p className={classes.position}>
-                                        {position?.enabled && position?.value}
-                                        {(
-                                            (position?.enabled && organization?.enabled)
-                                            && (position?.value && organization?.value)
-                                        ) && ` ${intl.formatMessage({ id: 'at' })} `}
-                                        {organization?.enabled && organization?.value}
-                                        {(startDate?.enabled || endDate?.enabled) && (
+                                        {position}
+                                        {(position && organization) && ` ${intl.formatMessage({ id: 'at' })} `}
+                                        {organization}
+                                        {(startDate || endDate) && (
                                             <span className={classes.positionDate}>
                                                 {' ('}
-                                                {startDate?.enabled && startDate?.value}
-                                                {(startDate?.enabled && endDate?.enabled) && ' - '}
-                                                {endDate?.enabled && endDate?.value}
+                                                {startDate}
+                                                {(startDate && endDate) && ' - '}
+                                                {endDate}
                                                 {')'}
                                             </span>
                                         )}
                                     </p>
                                     <p className={classes.url}>
-                                        {(url && url?.enabled && url?.value) && <a href={url.value}>{url.value}</a>}
+                                        {url && <a href={url}>{url}</a>}
                                     </p>
                                     <p className={classes.summary}>
-                                        {summary?.enabled && summary?.value}
+                                        {summary}
                                     </p>
-                                    {highlights?.enabled && (
+                                    {highlights?.length > 0 && (
                                         <ul className={classes.highlights}>
-                                            {highlights?.value.map((highlight) =>
-                                                highlight?.enabled && (
+                                            {highlights?.map((highlight) =>
+                                                highlight && (
                                                     <li key={uuid()}>
-                                                        {highlight?.value}
+                                                        {highlight}
                                                     </li>
                                                 ))}
                                         </ul>

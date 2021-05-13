@@ -47,7 +47,7 @@ function Topbar({
             position="sticky"
         >
             <Toolbar>
-                <Hidden mdUp>
+                <Hidden smUp>
                     <div className={classes.burguerMenuIcon}>
                         <MenuIcon
                             onClick={() => setIsShowingDrawer(!isShowingDrawer)}
@@ -57,7 +57,7 @@ function Topbar({
                 <Link to="/">
                     <SiteLogo />
                 </Link>
-                <Hidden smDown>
+                <Hidden xsDown>
                     <MenuItems />
                 </Hidden>
                 <div className={classes.rightItems}>

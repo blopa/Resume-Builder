@@ -15,7 +15,22 @@ const useStyles = makeStyles((theme) => ({
         margin: '0',
         padding: '0',
         listStyle: 'none',
-        '& li': { margin: '0 0 10px 0', '&:last-child': { margin: '0' } },
+        '& li': {
+            margin: '0 0 10px 0',
+            '&:last-child': {
+                margin: '3px 0 0',
+            },
+        },
+    },
+    reference: {
+        fontStyle: 'italic',
+        textIndent: '15px',
+        '&:before': {
+            content: '"❝"',
+            fontSize: '25px',
+            margin: '-8px 0 0 -35px',
+            position: 'absolute',
+        },
     },
     contentWrapper: {
         marginLeft: '4px',
@@ -35,7 +50,7 @@ const References = ({ references }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return references.length > 0 && (
+    return references?.length > 0 && (
         <div className={classes.resumeReferences}>
             <h3
                 ref={sectionTitle}
@@ -47,11 +62,11 @@ const References = ({ references }) => {
             <div className={classes.contentWrapper}>
                 <ul className={classes.references}>
                     {references.map((ref) => {
-                        if (ref?.enabled) {
+                        if (ref) {
                             const {
                                 name,
                                 reference,
-                            } = ref?.value || {};
+                            } = ref || {};
 
                             let refProps = {};
                             if (!firstItem.current) {
@@ -67,12 +82,16 @@ const References = ({ references }) => {
                                     // eslint-disable-next-line react/jsx-props-no-spreading
                                     {...refProps}
                                 >
-                                    {name?.enabled && (
+                                    {name && (
                                         <p className={classes.name}>
-                                            {name?.value}
+                                            {name}
                                         </p>
                                     )}
-                                    {reference?.enabled && <p>{reference?.value}</p>}
+                                    {reference && (
+                                        <p className={classes.reference}>
+                                            {reference}
+                                        </p>
+                                    )}
                                 </li>
                             );
                         }

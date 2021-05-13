@@ -30,60 +30,63 @@ function Education({ education: educations }) {
         dispatch(setResumeEducation(education));
     }, [dispatch]);
 
-    const toggleEducations = () => {
+    const toggleEducations = useCallback(() => {
         const currentState = educations?.enabled;
         setResumeEducationState({
             ...educations,
             enabled: !currentState,
         });
-    };
+    }, [educations, setResumeEducationState]);
 
-    const toggleEducation = useCallback((education) => () => {
+    const toggleEducation = useCallback((education, index) => () => {
         const newEducation = { ...educations };
-        newEducation.value =
-            newEducation?.value.map((edu) => {
-                if (JSON.stringify(edu?.value) === JSON.stringify(education?.value)) {
-                    return {
-                        ...edu,
-                        enabled: !edu?.enabled,
-                    };
-                }
-                return edu;
-            });
+        newEducation.value[index] = {
+            ...newEducation.value[index],
+            enabled: !newEducation.value[index].enabled,
+        };
         setResumeEducationState(newEducation);
     }, [educations, setResumeEducationState]);
 
-    const toggleEducationDetail = useCallback((education, propName) => () => {
+    const toggleEducationDetail = useCallback((education, index, propName) => () => {
         const newEducation = { ...educations };
-        newEducation.value =
-            newEducation?.value.map((edu) => {
-                if (JSON.stringify(edu?.value) === JSON.stringify(education?.value)) {
-                    return {
-                        ...edu,
-                        value: {
-                            ...edu?.value,
-                            [propName]: {
-                                ...edu?.value[propName],
-                                enabled: !edu?.value[propName]?.enabled,
-                            },
-                        },
-                    };
-                }
-                return edu;
-            });
+        newEducation.value[index] = {
+            ...newEducation.value[index],
+            value: {
+                ...newEducation.value[index].value,
+                [propName]: {
+                    ...newEducation.value[index].value[propName],
+                    enabled: !newEducation.value[index].value[propName].enabled,
+                },
+            },
+        };
+
+        if (newEducation.value[index].enabled) {
+            newEducation.value[index].enabled =
+                Object.entries(newEducation.value[index].value).some((entry) => entry[1].enabled);
+        }
+        setResumeEducationState(newEducation);
+    }, [educations, setResumeEducationState]);
+
+    const toggleEducationCourses = useCallback((education, educationIndex, course, courseIndex) => () => {
+        const newEducation = { ...educations };
+        newEducation.value[educationIndex].value.courses.value[courseIndex] = {
+            ...newEducation.value[educationIndex].value.courses.value[courseIndex],
+            enabled: !newEducation.value[educationIndex].value.courses.value[courseIndex].enabled,
+        };
         setResumeEducationState(newEducation);
     }, [educations, setResumeEducationState]);
 
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
+                // TODO varNameToString({ education })
                 label="education"
                 checked={educations?.enabled}
                 onChange={toggleEducations}
             />
             {educations?.enabled && (
                 <ul>
-                    {educations?.value.map((education) => {
+                    {educations?.value.map((education, index) => {
                         const {
                             institution,
                             url,
@@ -97,23 +100,25 @@ function Education({ education: educations }) {
 
                         return (
                             <Fragment key={uuid()}>
-                                {educations && (
+                                {educations?.value && (
                                     <ItemsList
                                         label={institution?.value}
                                         checked={education?.enabled}
                                         onClick={toggleEducation(
-                                            education
+                                            education,
+                                            index
                                         )}
                                     />
                                 )}
-                                {educations?.enabled && (
+                                {(education?.enabled && educations?.enabled) && (
                                     <ul>
-                                        {institution && (
+                                        {institution?.value && (
                                             <ItemsList
                                                 label={varNameToString({ institution })}
                                                 checked={institution?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
+                                                    index,
                                                     varNameToString({ institution })
                                                 )}
                                             />
@@ -124,6 +129,7 @@ function Education({ education: educations }) {
                                                 checked={url?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
+                                                    index,
                                                     varNameToString({ url })
                                                 )}
                                             />
@@ -134,6 +140,7 @@ function Education({ education: educations }) {
                                                 checked={area?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
+                                                    index,
                                                     varNameToString({ area })
                                                 )}
                                             />
@@ -144,6 +151,7 @@ function Education({ education: educations }) {
                                                 checked={studyType?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
+                                                    index,
                                                     varNameToString({ studyType })
                                                 )}
                                             />
@@ -154,6 +162,7 @@ function Education({ education: educations }) {
                                                 checked={startDate?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
+                                                    index,
                                                     varNameToString({ startDate })
                                                 )}
                                             />
@@ -164,6 +173,7 @@ function Education({ education: educations }) {
                                                 checked={endDate?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
+                                                    index,
                                                     varNameToString({ endDate })
                                                 )}
                                             />
@@ -174,6 +184,7 @@ function Education({ education: educations }) {
                                                 checked={score?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
+                                                    index,
                                                     varNameToString({ score })
                                                 )}
                                             />
@@ -184,9 +195,27 @@ function Education({ education: educations }) {
                                                 checked={courses?.enabled}
                                                 onClick={toggleEducationDetail(
                                                     education,
+                                                    index,
                                                     varNameToString({ courses })
                                                 )}
                                             />
+                                        )}
+                                        {courses?.enabled && (
+                                            <ul>
+                                                {courses?.value.map((course, idx) => (
+                                                    <ItemsList
+                                                        label={course?.value}
+                                                        key={uuid()}
+                                                        checked={course?.enabled}
+                                                        onClick={toggleEducationCourses(
+                                                            education,
+                                                            index,
+                                                            course,
+                                                            idx
+                                                        )}
+                                                    />
+                                                ))}
+                                            </ul>
                                         )}
                                     </ul>
                                 )}

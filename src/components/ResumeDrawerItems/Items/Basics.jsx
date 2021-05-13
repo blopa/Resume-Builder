@@ -30,13 +30,13 @@ function Basics({ basics }) {
         dispatch(setResumeBasics(newBasics));
     }, [dispatch]);
 
-    const toggleBasics = () => {
+    const toggleBasics = useCallback(() => {
         const currentState = basics?.enabled;
         setResumeBasicsState({
             ...basics,
             enabled: !currentState,
         });
-    };
+    }, [basics, setResumeBasicsState]);
 
     const toggleBasicsDetail = useCallback((propName) => () => {
         const currentState = basics?.value[propName]?.enabled;
@@ -72,18 +72,12 @@ function Basics({ basics }) {
         });
     }, [basics, setResumeBasicsState]);
 
-    const toggleBasicsProfilesDetail = useCallback((profile) => () => {
+    const toggleBasicsProfilesDetail = useCallback((profile, index) => () => {
         const newBasics = { ...basics };
-        newBasics.value.profiles.value =
-            newBasics?.value.profiles?.value.map((pro) => {
-                if (JSON.stringify(pro?.value) === JSON.stringify(profile?.value)) {
-                    return {
-                        ...pro,
-                        enabled: !pro?.enabled,
-                    };
-                }
-                return pro;
-            });
+        newBasics.value.profiles.value[index] = {
+            ...newBasics.value.profiles.value[index],
+            enabled: !newBasics.value.profiles.value[index].enabled,
+        };
         setResumeBasicsState(newBasics);
     }, [basics, setResumeBasicsState]);
 
@@ -114,7 +108,7 @@ function Basics({ basics }) {
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
-                label="basics"
+                label={varNameToString({ basics })}
                 onChange={toggleBasics}
                 checked={basicsEnabled}
             />
@@ -148,6 +142,7 @@ function Basics({ basics }) {
                         />
                     )}
                     <ItemsList
+                        // TODO varNameToString({ location })
                         label="location"
                         checked={locationEnabled}
                         onClick={toggleBasicsDetail(
@@ -243,7 +238,7 @@ function Basics({ basics }) {
                             )}
                             {profiles?.enabled && (
                                 <ul>
-                                    {profiles?.value.map((profile) => {
+                                    {profiles?.value.map((profile, index) => {
                                         const { network } = profile?.value || {};
                                         return (
                                             <ItemsList
@@ -251,7 +246,8 @@ function Basics({ basics }) {
                                                 key={uuid()}
                                                 checked={profile?.enabled}
                                                 onClick={toggleBasicsProfilesDetail(
-                                                    profile
+                                                    profile,
+                                                    index
                                                 )}
                                             />
                                         );

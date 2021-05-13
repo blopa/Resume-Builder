@@ -1,6 +1,6 @@
 /* eslint template-curly-spacing: 0, indent: 0 */
 /* globals TEMPLATES_LIST */
-import React, { lazy, Suspense, useContext, useEffect, useMemo, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { navigate, useIntl, RawIntlProvider } from 'gatsby-plugin-intl';
 import { v4 as uuid } from 'uuid';
 import { cloneDeep } from 'lodash';
@@ -12,17 +12,22 @@ import A4Container from '../components/A4Container';
 
 // Utils
 import { fetchGithubResumeJson, isValidJsonString } from '../utils/gatsby-frontend-helpers';
-import { isObjectNotEmpty, traverseObject } from '../utils/utils';
+import { isObjectNotEmpty, convertToToggleableObject, convertToRegularObject } from '../utils/utils';
 
-// Context
-import { StoreContext } from '../store/StoreProvider';
+// Hooks
+import { useDispatch, useSelector } from '../store/StoreProvider';
 
 // Actions
-import setJsonResume from '../store/actions/setJsonResume';
-import setTogglableJsonResume from '../store/actions/setTogglableJsonResume';
+import setToggleableJsonResume from '../store/actions/setToggleableJsonResume';
 
 // Translations
 import templateIntls from '../intl';
+
+// Base resume
+import baseResume from '../store/resume.json';
+
+// Selectors
+import { selectToggleableJsonResume } from '../store/selectors';
 
 const importTemplate = (template) => lazy(() =>
     import(`../components/ResumeTemplates/${template}/Index`).catch(() =>
@@ -49,12 +54,14 @@ const ResumeViewer = ({ params, uri }) => {
     }, [intl.defaultLocale, lang]);
 
     const [resumeTemplate, setResumeTemplate] = useState(['Default']);
-    const { state, dispatch } = useContext(StoreContext);
+    const toggleableJsonResume = useSelector(selectToggleableJsonResume);
+    const dispatch = useDispatch();
 
     const validTemplate = TEMPLATES_LIST.find(
         (templateName) => templateName.toLowerCase() === template.toLowerCase()
     );
-    const hasData = isObjectNotEmpty(state?.togglableJsonResume) && isObjectNotEmpty(state?.jsonResume);
+    // TODO
+    const hasData = isObjectNotEmpty(toggleableJsonResume);
 
     useEffect(() => {
         const fetchResumeJsonAndLoadTemplate = async () => {
@@ -68,22 +75,36 @@ const ResumeViewer = ({ params, uri }) => {
                 navigate('/');
             }
 
-            const togglableJsonResume = traverseObject(cloneDeep(jsonResume));
-            if (!isObjectNotEmpty(togglableJsonResume)) {
+            const toggleableObject = convertToToggleableObject(
+                cloneDeep({
+                    ...jsonResume,
+                    // eslint-disable-next-line no-underscore-dangle
+                    __translation__: jsonResume.__translation__,
+                    enableSourceDataDownload: jsonResume.enableSourceDataDownload,
+                    // Cover Letter not supported for the viewer
+                    coverLetter: {},
+                })
+            );
+            if (!isObjectNotEmpty(toggleableObject)) {
                 navigate('/');
             }
 
-            dispatch(setJsonResume(jsonResume));
-            dispatch(setTogglableJsonResume(togglableJsonResume));
+            dispatch(setToggleableJsonResume(toggleableObject));
             const Template = await importTemplate(validTemplate);
             setResumeTemplate([
                 <Template
                     key={uuid()}
-                    togglableJsonResume={togglableJsonResume}
                     // eslint-disable-next-line no-underscore-dangle
-                    customTranslations={jsonResume.__translation__}
+                    customTranslations={toggleableObject.__translation__}
                     isPrinting={isPrinting}
-                    jsonResume={jsonResume}
+                    // TODO maybe just send the JSON directly
+                    jsonResume={{
+                        ...baseResume,
+                        ...convertToRegularObject(
+                            cloneDeep(toggleableObject)
+                        ),
+                    }}
+                    coverLetterVariables={toggleableObject.coverLetter?.value?.variables || []}
                 />,
             ]);
         };
@@ -93,7 +114,7 @@ const ResumeViewer = ({ params, uri }) => {
         }
 
         fetchResumeJsonAndLoadTemplate();
-    }, [dispatch, intl.defaultLocale, lang, username, validTemplate]);
+    }, [dispatch, intl.defaultLocale, isPrinting, lang, username, validTemplate]);
 
     return (
         <RawIntlProvider

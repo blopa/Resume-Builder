@@ -34,6 +34,9 @@
     "select_your_template": "Select your template",
     "select_template": "Select template",
     "this_is_a_page_break": "This is a page break",
+    "disclaimer": "Disclaimer",
+    "disclaimer_description_1": "This software licensed under MIT and it is provided 'as is', without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. in no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.",
+    "disclaimer_description_2": "Please double check all the data on your resume before sharing it with others, I take no responsibility on wrongly shared information.",
     "error": {
         "something_went_wrong_parsing": "Whoops, something went wrong when parsing your spreadsheet URL. Try downloading the spreadsheet and uploading it here.",
         "something_went_wrong_loading": "Whoops, something went wrong, please try again."

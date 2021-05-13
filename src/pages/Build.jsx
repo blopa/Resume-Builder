@@ -5,6 +5,10 @@ import { Drawer } from '@material-ui/core';
 import { navigate, useIntl } from 'gatsby-plugin-intl';
 import { v4 as uuid } from 'uuid';
 import useDetectPrint from 'use-detect-print';
+import { cloneDeep } from 'lodash';
+
+// Base resume
+import baseResume from '../store/resume.json';
 
 // Components
 import SEO from '../components/SEO';
@@ -17,10 +21,10 @@ import FloatingButton from '../components/FloatingButton';
 import { useSelector } from '../store/StoreProvider';
 
 // Utils
-import { isObjectNotEmpty } from '../utils/utils';
+import { convertToRegularObject, isObjectNotEmpty } from '../utils/utils';
 
 // Selectors
-import { selectJsonResume, selectResumeTemplate, selectTogglableJsonResume } from '../store/selectors';
+import { selectResumeTemplate, selectToggleableJsonResume } from '../store/selectors';
 
 const useStyles = makeStyles((theme) => ({
     resumeWrapper: {
@@ -45,10 +49,9 @@ const BuildPage = () => {
     const [resumeTemplate, setResumeTemplate] = useState([]);
     const refContainer = useRef(null);
     const rerenderRef = useRef(false);
-    const jsonResume = useSelector(selectJsonResume);
-    const togglableJsonResume = useSelector(selectTogglableJsonResume);
+    const toggleableJsonResume = useSelector(selectToggleableJsonResume);
     const resumeTemplateName = useSelector(selectResumeTemplate);
-    const hasData = isObjectNotEmpty(togglableJsonResume) && isObjectNotEmpty(jsonResume);
+    const hasData = isObjectNotEmpty(toggleableJsonResume);
     const isPrinting = useDetectPrint();
 
     useEffect(() => {
@@ -60,19 +63,38 @@ const BuildPage = () => {
     useEffect(() => {
         async function loadTemplate() {
             const Template = await importTemplate(resumeTemplateName);
+            const jsonResume = {
+                ...baseResume,
+                ...convertToRegularObject(
+                    cloneDeep(toggleableJsonResume)
+                ),
+                enableSourceDataDownload: toggleableJsonResume.enableSourceDataDownload,
+                coverLetter:
+                    toggleableJsonResume.coverLetter?.enabled && (toggleableJsonResume.coverLetter?.value?.text || ''),
+                // eslint-disable-next-line no-underscore-dangle
+                __translation__: cloneDeep(toggleableJsonResume.__translation__),
+            };
+
             setResumeTemplate([
                 <Template
                     key={uuid()}
-                    togglableJsonResume={togglableJsonResume}
                     // eslint-disable-next-line no-underscore-dangle
-                    customTranslations={jsonResume.__translation__}
+                    customTranslations={toggleableJsonResume.__translation__}
                     isPrinting={isPrinting}
                     jsonResume={jsonResume}
+                    coverLetterVariables={toggleableJsonResume.coverLetter?.value?.variables || []}
                 />,
             ]);
         }
+
         loadTemplate();
-    }, [isPrinting, resumeTemplateName, togglableJsonResume, jsonResume]);
+    }, [
+        isPrinting,
+        // eslint-disable-next-line no-underscore-dangle
+        toggleableJsonResume.__translation__,
+        resumeTemplateName,
+        toggleableJsonResume,
+    ]);
 
     const printDocument = useCallback(() => {
         const size = 1122; // roughly A4
@@ -121,8 +143,7 @@ const BuildPage = () => {
                         onClose={() => setIsDrawerOpen(false)}
                     >
                         <ResumeDrawerItems
-                            resume={togglableJsonResume}
-                            jsonResume={jsonResume}
+                            toggleableJsonResume={toggleableJsonResume}
                             onClose={() => setIsDrawerOpen(false)}
                             onPrint={printDocument}
                         />

@@ -32,52 +32,54 @@ function Skills({ skills }) {
         });
     }, [setResumeSkillsState, skills]);
 
-    const toggleSkill = useCallback((skill) => () => {
+    const toggleSkill = useCallback((skill, index) => () => {
         const newSkills = { ...skills };
-        newSkills.value =
-            newSkills?.value.map((skl) => {
-                if (JSON.stringify(skl?.value) === JSON.stringify(skill?.value)) {
-                    return {
-                        ...skl,
-                        enabled: !skl?.enabled,
-                    };
-                }
-                return skl;
-            });
+        newSkills.value[index] = {
+            ...newSkills.value[index],
+            enabled: !newSkills.value[index].enabled,
+        };
         setResumeSkillsState(newSkills);
     }, [setResumeSkillsState, skills]);
 
-    const toggleSkillsDetail = useCallback((skill, propName) => () => {
+    const toggleSkillsDetail = useCallback((skill, index, propName) => () => {
         const newSkills = { ...skills };
-        newSkills.value =
-            newSkills?.value.map((skl) => {
-                if (JSON.stringify(skl?.value) === JSON.stringify(skill?.value)) {
-                    return {
-                        ...skl,
-                        value: {
-                            ...skl?.value,
-                            [propName]: {
-                                ...skl?.value[propName],
-                                enabled: !skl?.value[propName]?.enabled,
-                            },
-                        },
-                    };
-                }
-                return skl;
-            });
+        newSkills.value[index] = {
+            ...newSkills.value[index],
+            value: {
+                ...newSkills.value[index].value,
+                [propName]: {
+                    ...newSkills.value[index].value[propName],
+                    enabled: !newSkills.value[index].value[propName].enabled,
+                },
+            },
+        };
+
+        if (newSkills.value[index].enabled) {
+            newSkills.value[index].enabled =
+                Object.entries(newSkills.value[index].value).some((entry) => entry[1].enabled);
+        }
+        setResumeSkillsState(newSkills);
+    }, [setResumeSkillsState, skills]);
+
+    const toggleSkillKeywords = useCallback((skill, skillIndex, keyword, keywordIndex) => () => {
+        const newSkills = { ...skills };
+        newSkills.value[skillIndex].value.keywords.value[keywordIndex] = {
+            ...newSkills.value[skillIndex].value.keywords.value[keywordIndex],
+            enabled: !newSkills.value[skillIndex].value.keywords.value[keywordIndex].enabled,
+        };
         setResumeSkillsState(newSkills);
     }, [setResumeSkillsState, skills]);
 
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
-                label="skills"
+                label={varNameToString({ skills })}
                 onChange={toggleSkills}
                 checked={skills?.enabled}
             />
             {skills?.enabled && (
                 <ul>
-                    {skills?.value.map((skill) => {
+                    {skills?.value.map((skill, index) => {
                         const {
                             name,
                             level,
@@ -90,27 +92,18 @@ function Skills({ skills }) {
                                     <ItemsList
                                         label={name?.value}
                                         checked={skill?.enabled}
-                                        onClick={toggleSkill(skill)}
+                                        onClick={toggleSkill(skill, index)}
                                     />
                                 )}
                                 {skill?.enabled && (
                                     <ul>
-                                        {keywords && (
-                                            <ItemsList
-                                                label={varNameToString({ keywords })}
-                                                checked={keywords?.enabled}
-                                                onClick={toggleSkillsDetail(
-                                                    skill,
-                                                    varNameToString({ keywords })
-                                                )}
-                                            />
-                                        )}
                                         {level && (
                                             <ItemsList
                                                 label={varNameToString({ level })}
                                                 checked={level?.enabled}
                                                 onClick={toggleSkillsDetail(
                                                     skill,
+                                                    index,
                                                     varNameToString({ level })
                                                 )}
                                             />
@@ -121,9 +114,38 @@ function Skills({ skills }) {
                                                 checked={name?.enabled}
                                                 onClick={toggleSkillsDetail(
                                                     skill,
+                                                    index,
                                                     varNameToString({ name })
                                                 )}
                                             />
+                                        )}
+                                        {keywords && (
+                                            <ItemsList
+                                                label={varNameToString({ keywords })}
+                                                checked={keywords?.enabled}
+                                                onClick={toggleSkillsDetail(
+                                                    skill,
+                                                    index,
+                                                    varNameToString({ keywords })
+                                                )}
+                                            />
+                                        )}
+                                        {keywords?.enabled && (
+                                            <ul>
+                                                {keywords?.value.map((keyword, idx) => (
+                                                    <ItemsList
+                                                        label={keyword?.value}
+                                                        key={uuid()}
+                                                        checked={keyword?.enabled}
+                                                        onClick={toggleSkillKeywords(
+                                                            skill,
+                                                            index,
+                                                            keyword,
+                                                            idx
+                                                        )}
+                                                    />
+                                                ))}
+                                            </ul>
                                         )}
                                     </ul>
                                 )}
