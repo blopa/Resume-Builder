@@ -347,7 +347,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             .some((entry) => entry[1].enabled),
         value: {
             ...jsonResume.basics.value,
-            profile: {
+            profiles: {
                 enabled: profileEnabled,
                 value: profilesArray,
             },

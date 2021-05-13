@@ -89,6 +89,8 @@ First of all you need to create a Google Spreadsheet following the same rules as
 - **coverLetter:** Your cover letter template
 - **__translation__:** Add your custom translations
 
+###**Please make sure to [publish your Spreadsheet to the web](https://support.google.com/a/users/answer/9308870)**, otherwise it won't work.
+
 ## Libraries
 - I'm using [gatsby.js](https://github.com/gatsbyjs/gatsby), [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx), [Material UI](https://material-ui.com/) and [mustache.js](https://github.com/janl/mustache.js/).
 - Gatsby template from [gatsby-material-ui-blog-starter](https://github.com/blopa/gatsby-material-ui-blog-starter)
@@ -303,6 +305,12 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/screenshot_3.png)
 
 ## Release Notes
+- **v4.0.5:**
+	- Fix `profiles` not being parsed correctly from the Spreadsheet
+	- Fix parsing Google Spreadsheet (but you need to publish it to the web to work)
+- **v4.0.4:**
+	- *Error 404: Release not found*
+	- Sorry I had to make this joke...
 - **v4.0.3:**
 	- Add toggler for `keywords` and `highlights` on the sidebar.
 	- Bump Gatsby and plugins to 3.5.

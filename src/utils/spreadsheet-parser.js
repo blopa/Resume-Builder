@@ -31,7 +31,11 @@ export const downloadSpreadsheetFile =
         xhr.overrideMimeType('text/plain; charset=x-user-defined');
         xhr.onload = (event) => {
             if (event.currentTarget.status === 200) {
-                return readSpreadsheetData(xhr.responseText, callback);
+                if (xhr.responseText.startsWith('PK')) {
+                    return readSpreadsheetData(xhr.responseText, callback);
+                }
+
+                return errorCallback(downloadUrl);
             }
 
             return errorCallback(downloadUrl);
@@ -58,7 +62,7 @@ export const parseSpreadsheetUrl =
         }
         const spreadsheetId = spreadsheetIdResult[1];
 
-        downloadSpreadsheetFile(spreadsheetId, sheetId, callback, errorCallback);
+        downloadSpreadsheetFile(spreadsheetId, sheetId, callback, errorCallback, false);
     };
 
 export const readSpreadsheet = (file, callback) => {
