@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     externalLink: {
         textDecoration: 'none',
     },
+    menuItem: {
+        paddingLeft: '25px',
+    },
 }));
 
 function MenuItems({
@@ -40,7 +43,12 @@ function MenuItems({
                     [classes.drawerList]: isDrawer,
                 })}
             >
-                <ListItemText inset>
+                <ListItemText
+                    className={classNames({
+                        [classes.menuItem]: !isDrawer,
+                    })}
+                    inset
+                >
                     <Link
                         to="/upload"
                         onClick={onItemClick}
@@ -53,7 +61,12 @@ function MenuItems({
                         </Typography>
                     </Link>
                 </ListItemText>
-                <ListItemText inset>
+                <ListItemText
+                    className={classNames({
+                        [classes.menuItem]: !isDrawer,
+                    })}
+                    inset
+                >
                     <a
                         className={classes.externalLink}
                         target="_blank"

@@ -18,7 +18,6 @@ import { isObjectNotEmpty, convertToToggleableObject, convertToRegularObject } f
 import { StoreContext } from '../store/StoreProvider';
 
 // Actions
-import setJsonResume from '../store/actions/setJsonResume';
 import setToggleableJsonResume from '../store/actions/setToggleableJsonResume';
 
 // Translations
@@ -57,7 +56,7 @@ const ResumeViewer = ({ params, uri }) => {
     const validTemplate = TEMPLATES_LIST.find(
         (templateName) => templateName.toLowerCase() === template.toLowerCase()
     );
-    const hasData = isObjectNotEmpty(state?.toggleableJsonResume) && isObjectNotEmpty(state?.jsonResume);
+    const hasData = isObjectNotEmpty(state?.toggleableJsonResume);
 
     useEffect(() => {
         const fetchResumeJsonAndLoadTemplate = async () => {
@@ -76,21 +75,22 @@ const ResumeViewer = ({ params, uri }) => {
                 navigate('/');
             }
 
-            dispatch(setJsonResume(jsonResume));
             dispatch(setToggleableJsonResume(toggleableJsonResume));
             const Template = await importTemplate(validTemplate);
             setResumeTemplate([
                 <Template
                     key={uuid()}
                     // eslint-disable-next-line no-underscore-dangle
-                    customTranslations={jsonResume.__translation__}
+                    customTranslations={toggleableJsonResume.__translation__}
                     isPrinting={isPrinting}
+                    // TODO maybe just send the JSON directly
                     jsonResume={{
                         ...baseResume,
                         ...convertToRegularObject(
                             cloneDeep(toggleableJsonResume)
                         ),
                     }}
+                    coverLetterVariables={toggleableJsonResume.coverLetter?.value?.variables || []}
                 />,
             ]);
         };

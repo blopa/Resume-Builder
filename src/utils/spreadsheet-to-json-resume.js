@@ -1,4 +1,5 @@
-import { isObjectNotEmpty } from './utils';
+import { generateCoverLetterObject, isObjectNotEmpty } from './utils';
+import toggleableResume from '../store/toggleable-resume.json';
 
 export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     // attribute names
@@ -26,150 +27,203 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const coverLetterCategory = 'cover_letter';
     const enableSourceDataDownloadCategory = 'enable_download';
 
-    // base jsonResume
-    const jsonResume = {
-        basics: {
-            location: {},
-            profiles: [],
-        },
-        work: [],
-        volunteer: [],
-        education: [],
-        awards: [],
-        publications: [],
-        projects: [],
-        certificates: [],
-        skills: [],
-        languages: [],
-        interests: [],
-        references: [],
-        coverLetter: '',
-    };
+    // base toggleable jsonResume
+    const jsonResume = { ...toggleableResume };
 
-    let profiles = {};
+    let profile = {
+        enabled: false,
+        value: {},
+    };
     const profilesArray = [];
-    let work = {};
-    const workArray = [];
-    let volunteer = {};
-    const volunteerArray = [];
-    let education = {};
-    const educationArray = [];
-    let awards = {};
+    let work = {
+        enabled: false,
+        value: {},
+    };
+    const worksArray = [];
+    let volunteer = {
+        enabled: false,
+        value: {},
+    };
+    const volunteersArray = [];
+    let education = {
+        enabled: false,
+        value: {},
+    };
+    const educationsArray = [];
+    let award = {
+        enabled: false,
+        value: {},
+    };
     const awardsArray = [];
-    let publications = {};
+    let publication = {
+        enabled: false,
+        value: {},
+    };
     const publicationsArray = [];
-    let projects = {};
+    let project = {
+        enabled: false,
+        value: {},
+    };
     const projectsArray = [];
-    let certificates = {};
+    let certificate = {
+        enabled: false,
+        value: {},
+    };
     const certificatesArray = [];
-    let skills = {};
+    let skill = {
+        enabled: false,
+        value: {},
+    };
     const skillsArray = [];
-    let languages = {};
+    let language = {
+        enabled: false,
+        value: {},
+    };
     const languagesArray = [];
-    let interests = {};
+    let interest = {
+        enabled: false,
+        value: {},
+    };
     const interestsArray = [];
-    let references = {};
+    let reference = {
+        enabled: false,
+        value: {},
+    };
     const referencesArray = [];
     const translations = {};
     let coverLetter = '';
     let enableSourceDataDownload = false;
 
     jsonSpreadsheet.forEach((value) => {
-        if (value[disabledAttr]) {
-            return;
-        }
+        const enabled = !(value[disabledAttr].toLowerCase() === 'true');
 
         const category = value[categoryAttr].toLowerCase();
         if (category === enableSourceDataDownloadCategory) {
             enableSourceDataDownload = value[contentAttr].toLowerCase() === 'true';
         } else if (category === coverLetterCategory) {
-            coverLetter = value[contentAttr];
+            coverLetter = generateCoverLetterObject(value[contentAttr] || '');
         } else if (category === translationsCategory) {
             translations[value[typeAttr]] = value[contentAttr];
         } else if (category === basicsCategory) {
-            jsonResume.basics[value[typeAttr]] = value[contentAttr];
+            jsonResume.basics[value[typeAttr]] = {
+                enabled,
+                value: value[contentAttr],
+            };
         } else if (category === basicsLocationCategory) {
-            jsonResume.basics.location[value[typeAttr]] = value[contentAttr];
+            jsonResume.basics.location[value[typeAttr]] = {
+                enabled,
+                value: value[contentAttr],
+            };
         } else if (category === basicsProfilesCategory) {
             if (value[typeAttr] === 'network') {
-                if (isObjectNotEmpty(profiles)) {
-                    profilesArray.push({ ...profiles });
-                    profiles = {};
+                if (isObjectNotEmpty(profile)) {
+                    profilesArray.push({ ...profile });
+                    profile = {};
                 }
             }
 
-            profiles[value[typeAttr]] = value[contentAttr];
+            profile[value[typeAttr]] = {
+                enabled,
+                value: value[contentAttr],
+            };
         } else if (category === workCategory) {
             if (value[typeAttr] === 'name') {
                 if (isObjectNotEmpty(work)) {
-                    workArray.push({ ...work });
+                    worksArray.push({ ...work });
                     work = {};
                 }
             }
 
             if (value[typeAttr] === 'highlights' || value[typeAttr] === 'keywords') {
-                work[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
+                work[value[typeAttr]] = {
+                    enabled,
+                    value: value[contentAttr].split(';').map((item) => item.trim()),
+                };
             } else {
-                work[value[typeAttr]] = value[contentAttr];
+                work[value[typeAttr]] = {
+                    enabled,
+                    value: value[contentAttr],
+                };
             }
         } else if (category === volunteerCategory) {
             if (value[typeAttr] === 'organization') {
                 if (isObjectNotEmpty(volunteer)) {
-                    volunteerArray.push({ ...volunteer });
+                    volunteersArray.push({ ...volunteer });
                     volunteer = {};
                 }
             }
 
             if (value[typeAttr] === 'highlights') {
-                volunteer[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
+                volunteer[value[typeAttr]] = {
+                    enabled,
+                    value: value[contentAttr].split(';').map((item) => item.trim()),
+                };
             } else {
-                volunteer[value[typeAttr]] = value[contentAttr];
+                volunteer[value[typeAttr]] = {
+                    enabled,
+                    value: value[contentAttr],
+                };
             }
         } else if (category === educationCategory) {
             if (value[typeAttr] === 'institution') {
                 if (isObjectNotEmpty(education)) {
-                    educationArray.push({ ...education });
+                    educationsArray.push({ ...education });
                     education = {};
                 }
             }
 
             if (value[typeAttr] === 'courses') {
-                education[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
+                education[value[typeAttr]] = {
+                    enabled,
+                    value: value[contentAttr].split(';').map((item) => item.trim()),
+                };
             } else {
-                education[value[typeAttr]] = value[contentAttr];
+                education[value[typeAttr]] = {
+                    enabled,
+                    value: value[contentAttr],
+                };
             }
         } else if (category === awardsCategory) {
             if (value[typeAttr] === 'title') {
-                if (isObjectNotEmpty(awards)) {
-                    awardsArray.push({ ...awards });
-                    awards = {};
+                if (isObjectNotEmpty(award)) {
+                    awardsArray.push({ ...award });
+                    award = {};
                 }
             }
 
-            awards[value[typeAttr]] = value[contentAttr];
+            award[value[typeAttr]] = {
+                enabled,
+                value: value[contentAttr],
+            };
         } else if (category === certificatesCategory) {
             if (value[typeAttr] === 'name') {
-                if (isObjectNotEmpty(certificates)) {
-                    certificatesArray.push({ ...certificates });
-                    certificates = {};
+                if (isObjectNotEmpty(certificate)) {
+                    certificatesArray.push({ ...certificate });
+                    certificate = {};
                 }
             }
 
-            certificates[value[typeAttr]] = value[contentAttr];
+            certificate[value[typeAttr]] = {
+                enabled,
+                value: value[contentAttr],
+            };
         } else if (category === publicationsCategory) {
             if (value[typeAttr] === 'name') {
-                if (isObjectNotEmpty(publications)) {
-                    publicationsArray.push({ ...publications });
-                    publications = {};
+                if (isObjectNotEmpty(publication)) {
+                    publicationsArray.push({ ...publication });
+                    publication = {};
                 }
             }
 
-            publications[value[typeAttr]] = value[contentAttr];
+            publication[value[typeAttr]] = {
+                enabled,
+                value: value[contentAttr],
+            };
         } else if (category === projectsCategory) {
             if (value[typeAttr] === 'name') {
-                if (isObjectNotEmpty(projects)) {
-                    projectsArray.push({ ...projects });
-                    projects = {};
+                if (isObjectNotEmpty(project)) {
+                    projectsArray.push({ ...project });
+                    project = {};
                 }
             }
 
@@ -178,116 +232,176 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
                 || value[typeAttr] === 'keywords'
                 || value[typeAttr] === 'roles'
             ) {
-                projects[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
+                project[value[typeAttr]] = {
+                    enabled,
+                    value: value[contentAttr].split(';').map((item) => item.trim()),
+                };
             } else {
-                projects[value[typeAttr]] = value[contentAttr];
+                project[value[typeAttr]] = {
+                    enabled,
+                    value: value[contentAttr],
+                };
             }
         } else if (category === skillsCategory) {
             if (value[typeAttr] === 'name') {
-                if (isObjectNotEmpty(skills)) {
-                    skillsArray.push({ ...skills });
-                    skills = {};
+                if (isObjectNotEmpty(skill)) {
+                    skillsArray.push({ ...skill });
+                    skill = {};
                 }
             }
 
             if (value[typeAttr] === 'keywords') {
-                skills[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
+                skill[value[typeAttr]] = {
+                    enabled,
+                    value: value[contentAttr].split(';').map((item) => item.trim()),
+                };
             } else {
-                skills[value[typeAttr]] = value[contentAttr];
+                skill[value[typeAttr]] = {
+                    enabled,
+                    value: value[contentAttr],
+                };
             }
         } else if (category === languagesCategory) {
             if (value[typeAttr] === 'language') {
-                if (isObjectNotEmpty(languages)) {
-                    languagesArray.push({ ...languages });
-                    languages = {};
+                if (isObjectNotEmpty(language)) {
+                    languagesArray.push({ ...language });
+                    language = {};
                 }
             }
 
-            languages[value[typeAttr]] = value[contentAttr];
+            language[value[typeAttr]] = {
+                enabled,
+                value: value[contentAttr],
+            };
         } else if (category === interestsCategory) {
             if (value[typeAttr] === 'name') {
-                if (isObjectNotEmpty(interests)) {
-                    interestsArray.push({ ...interests });
-                    interests = {};
+                if (isObjectNotEmpty(interest)) {
+                    interestsArray.push({ ...interest });
+                    interest = {};
                 }
             }
 
             if (value[typeAttr] === 'keywords') {
-                interests[value[typeAttr]] = value[contentAttr].split(';').map((item) => item.trim());
+                interest[value[typeAttr]] = {
+                    enabled,
+                    value: value[contentAttr].split(';').map((item) => item.trim()),
+                };
             } else {
-                interests[value[typeAttr]] = value[contentAttr];
+                interest[value[typeAttr]] = {
+                    enabled,
+                    value: value[contentAttr],
+                };
             }
         } else if (category === referencesCategory) {
             if (value[typeAttr] === 'name') {
-                if (isObjectNotEmpty(references)) {
-                    referencesArray.push({ ...references });
-                    references = {};
+                if (isObjectNotEmpty(reference)) {
+                    referencesArray.push({ ...reference });
+                    reference = {};
                 }
             }
 
-            references[value[typeAttr]] = value[contentAttr];
+            reference[value[typeAttr]] = {
+                enabled,
+                value: value[contentAttr],
+            };
         }
     });
 
-    if (isObjectNotEmpty(profiles)) {
-        profilesArray.push(profiles);
+    if (isObjectNotEmpty(profile)) {
+        profilesArray.push(profile);
     }
-    jsonResume.basics.profiles = [...profilesArray];
+    jsonResume.basics.profiles = {
+        enabled: profilesArray.length > 0,
+        value: profilesArray,
+    };
 
     if (isObjectNotEmpty(work)) {
-        workArray.push(work);
+        worksArray.push(work);
     }
-    jsonResume.work = [...workArray];
+    jsonResume.work = {
+        enabled: worksArray.length > 0,
+        value: worksArray,
+    };
 
     if (isObjectNotEmpty(volunteer)) {
-        volunteerArray.push(volunteer);
+        volunteersArray.push(volunteer);
     }
-    jsonResume.volunteer = [...volunteerArray];
+    jsonResume.volunteer = {
+        enabled: volunteersArray.length > 0,
+        value: volunteersArray,
+    };
 
     if (isObjectNotEmpty(education)) {
-        educationArray.push(education);
+        educationsArray.push(education);
     }
-    jsonResume.education = [...educationArray];
+    jsonResume.education = {
+        enabled: educationsArray.length > 0,
+        value: educationsArray,
+    };
 
-    if (isObjectNotEmpty(awards)) {
-        awardsArray.push(awards);
+    if (isObjectNotEmpty(award)) {
+        awardsArray.push(award);
     }
-    jsonResume.awards = [...awardsArray];
+    jsonResume.awards = {
+        enabled: awardsArray.length > 0,
+        value: awardsArray,
+    };
 
-    if (isObjectNotEmpty(publications)) {
-        publicationsArray.push(publications);
+    if (isObjectNotEmpty(publication)) {
+        publicationsArray.push(publication);
     }
-    jsonResume.publications = [...publicationsArray];
+    jsonResume.publications = {
+        enabled: publicationsArray.length > 0,
+        value: publicationsArray,
+    };
 
-    if (isObjectNotEmpty(projects)) {
-        projectsArray.push(projects);
+    if (isObjectNotEmpty(project)) {
+        projectsArray.push(project);
     }
-    jsonResume.projects = [...projectsArray];
+    jsonResume.projects = {
+        enabled: projectsArray.length > 0,
+        value: projectsArray,
+    };
 
-    if (isObjectNotEmpty(certificates)) {
-        certificatesArray.push(certificates);
+    if (isObjectNotEmpty(certificate)) {
+        certificatesArray.push(certificate);
     }
-    jsonResume.certificates = [...certificatesArray];
+    jsonResume.certificates = {
+        enabled: certificatesArray.length > 0,
+        value: certificatesArray,
+    };
 
-    if (isObjectNotEmpty(skills)) {
-        skillsArray.push(skills);
+    if (isObjectNotEmpty(skill)) {
+        skillsArray.push(skill);
     }
-    jsonResume.skills = [...skillsArray];
+    jsonResume.skills = {
+        enabled: skillsArray.length > 0,
+        value: skillsArray,
+    };
 
-    if (isObjectNotEmpty(languages)) {
-        languagesArray.push(languages);
+    if (isObjectNotEmpty(language)) {
+        languagesArray.push(language);
     }
-    jsonResume.languages = [...languagesArray];
+    jsonResume.languages = {
+        enabled: languagesArray.length > 0,
+        value: languagesArray,
+    };
 
-    if (isObjectNotEmpty(interests)) {
-        interestsArray.push(interests);
+    if (isObjectNotEmpty(interest)) {
+        interestsArray.push(interest);
     }
-    jsonResume.interests = [...interestsArray];
+    jsonResume.interests = {
+        enabled: interestsArray.length > 0,
+        value: interestsArray,
+    };
 
-    if (isObjectNotEmpty(references)) {
-        referencesArray.push(references);
+    if (isObjectNotEmpty(reference)) {
+        referencesArray.push(reference);
     }
-    jsonResume.references = [...referencesArray];
+    jsonResume.references = {
+        enabled: referencesArray.length > 0,
+        value: referencesArray,
+    };
 
     return {
         ...jsonResume,

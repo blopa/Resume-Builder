@@ -24,7 +24,7 @@ import { useSelector } from '../store/StoreProvider';
 import { convertToRegularObject, isObjectNotEmpty } from '../utils/utils';
 
 // Selectors
-import { selectJsonResume, selectResumeTemplate, selectToggleableJsonResume } from '../store/selectors';
+import { selectResumeTemplate, selectToggleableJsonResume } from '../store/selectors';
 
 const useStyles = makeStyles((theme) => ({
     resumeWrapper: {
@@ -49,10 +49,9 @@ const BuildPage = () => {
     const [resumeTemplate, setResumeTemplate] = useState([]);
     const refContainer = useRef(null);
     const rerenderRef = useRef(false);
-    const jsonResume = useSelector(selectJsonResume);
     const toggleableJsonResume = useSelector(selectToggleableJsonResume);
     const resumeTemplateName = useSelector(selectResumeTemplate);
-    const hasData = isObjectNotEmpty(toggleableJsonResume) && isObjectNotEmpty(jsonResume);
+    const hasData = isObjectNotEmpty(toggleableJsonResume);
     const isPrinting = useDetectPrint();
 
     useEffect(() => {
@@ -64,18 +63,26 @@ const BuildPage = () => {
     useEffect(() => {
         async function loadTemplate() {
             const Template = await importTemplate(resumeTemplateName);
+            const jsonResume = {
+                ...baseResume,
+                ...convertToRegularObject(
+                    cloneDeep(toggleableJsonResume)
+                ),
+                enableSourceDataDownload: toggleableJsonResume.enableSourceDataDownload,
+                coverLetter:
+                    toggleableJsonResume.coverLetter?.enabled && (toggleableJsonResume.coverLetter?.value?.text || ''),
+                // eslint-disable-next-line no-underscore-dangle
+                __translation__: cloneDeep(toggleableJsonResume.__translation__),
+            };
+
             setResumeTemplate([
                 <Template
                     key={uuid()}
                     // eslint-disable-next-line no-underscore-dangle
-                    customTranslations={jsonResume.__translation__}
+                    customTranslations={toggleableJsonResume.__translation__}
                     isPrinting={isPrinting}
-                    jsonResume={{
-                        ...baseResume,
-                        ...convertToRegularObject(
-                            cloneDeep(toggleableJsonResume)
-                        ),
-                    }}
+                    jsonResume={jsonResume}
+                    coverLetterVariables={toggleableJsonResume.coverLetter?.value?.variables || []}
                 />,
             ]);
         }
@@ -84,7 +91,7 @@ const BuildPage = () => {
     }, [
         isPrinting,
         // eslint-disable-next-line no-underscore-dangle
-        jsonResume.__translation__,
+        toggleableJsonResume.__translation__,
         resumeTemplateName,
         toggleableJsonResume,
     ]);
@@ -137,7 +144,6 @@ const BuildPage = () => {
                     >
                         <ResumeDrawerItems
                             toggleableJsonResume={toggleableJsonResume}
-                            jsonResume={jsonResume}
                             onClose={() => setIsDrawerOpen(false)}
                             onPrint={printDocument}
                         />

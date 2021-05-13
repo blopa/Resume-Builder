@@ -59,7 +59,6 @@ const ResumeDrawerItems = ({
         enableSourceDataDownload = false,
     },
     onClose,
-    jsonResume,
     onPrint,
 }) => {
     const classes = useStyles();
@@ -70,12 +69,18 @@ const ResumeDrawerItems = ({
     }, []);
 
     const handleDownloadJson = useCallback(() => {
-        downloadJson({
+        const jsonResume = {
             ...baseResume,
             ...convertToRegularObject(
                 cloneDeep(toggleableJsonResume)
             ),
-        });
+            enableSourceDataDownload: toggleableJsonResume.enableSourceDataDownload,
+            coverLetter: toggleableJsonResume.coverLetter?.value?.text || '',
+            // eslint-disable-next-line no-underscore-dangle
+            __translation__: cloneDeep(toggleableJsonResume.__translation__),
+        };
+
+        downloadJson(jsonResume);
     }, [toggleableJsonResume]);
 
     return (

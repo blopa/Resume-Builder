@@ -40,12 +40,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CoverLetter = ({ coverLetter }) => {
+const CoverLetter = ({
+    coverLetterText = '',
+    coverLetterVariables = [],
+}) => {
     const classes = useStyles();
     const intl = useIntl();
     const variables = useMemo(() => {
         const newVariables = {};
-        Object.entries(coverLetter.variables)
+        Object.entries(coverLetterVariables)
             .forEach((entry) => {
                 const [key, value] = entry;
                 newVariables[key] = renderToString(
@@ -56,11 +59,11 @@ const CoverLetter = ({ coverLetter }) => {
             });
 
         return newVariables;
-    }, [classes.variable, coverLetter.variables]);
+    }, [classes.variable, coverLetterVariables]);
 
     const text = useMemo(
-        () => coverLetter.text.replaceAll('{{', '{{{').replaceAll('}}', '}}}'),
-        [coverLetter.text]
+        () => coverLetterText.replaceAll('{{', '{{{').replaceAll('}}', '}}}'),
+        [coverLetterText]
     );
 
     return (

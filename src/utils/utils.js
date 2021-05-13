@@ -1,3 +1,5 @@
+import Mustache from 'mustache';
+
 export const isObject = (obj) =>
     typeof obj === 'object' && obj?.constructor === Object;
 
@@ -119,3 +121,21 @@ export const capitalize = (string) => {
 export const varNameToString = (varObj) => Object.keys(varObj)[0];
 
 export const isClient = () => typeof window !== 'undefined';
+
+export const generateCoverLetterObject = (text) => {
+    const variables = Mustache.parse(text)
+        .filter((v) => v[0] === 'name')
+        .map((v) => v[1])
+        .reduce(
+            (acc, curr) => ({ ...acc, [curr]: curr }),
+            {}
+        );
+
+    return {
+        enabled: isObjectNotEmpty(variables),
+        value: {
+            text,
+            variables,
+        },
+    };
+};

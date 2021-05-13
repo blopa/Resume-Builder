@@ -50,6 +50,7 @@ const Default = ({
     customTranslations = {},
     isPrinting = false,
     isOnlineViewer = false,
+    coverLetterVariables = [],
     jsonResume,
     jsonResume: {
         basics,
@@ -102,7 +103,8 @@ const Default = ({
             <div className={classes.resumeDefaultTemplate}>
                 {(coverLetter) && (
                     <CoverLetter
-                        coverLetter={coverLetter}
+                        coverLetterText={coverLetter}
+                        coverLetterVariables={coverLetterVariables}
                     />
                 )}
                 {enableSourceDataDownload && (

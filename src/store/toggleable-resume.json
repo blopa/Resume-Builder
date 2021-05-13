@@ -1,0 +1,52 @@
+{
+    "coverLetter": "",
+    "basics": {
+        "enabled": false,
+        "value": {
+            "location": {},
+            "profiles": []
+        }
+    },
+    "work": {
+        "enabled": false,
+        "value": []
+    },
+    "volunteer": {
+        "enabled": false,
+        "value": []
+    },
+    "education": {
+        "enabled": false,
+        "value": []
+    },
+    "awards": {
+        "enabled": false,
+        "value": []
+    },
+    "publications": {
+        "enabled": false,
+        "value": []
+    },
+    "skills": {
+        "enabled": false,
+        "value": []
+    },
+    "languages": {
+        "enabled": false,
+        "value": []
+    },
+    "interests": {
+        "enabled": false,
+        "value": []
+    },
+    "references": {
+        "enabled": false,
+        "value": []
+    },
+    "projects": {
+        "enabled": false,
+        "value": []
+    },
+    "__translation__": {},
+    "enableSourceDataDownload": false
+}

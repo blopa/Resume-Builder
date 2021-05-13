@@ -1,6 +1,9 @@
 {
     "coverLetter": "",
-    "basics": {},
+    "basics": {
+        "location": {},
+        "profiles": []
+    },
     "work": [],
     "volunteer": [],
     "education": [],
