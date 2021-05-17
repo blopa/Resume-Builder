@@ -50,7 +50,7 @@ function MenuItems({
                     inset
                 >
                     <Link
-                        to="/upload"
+                        to="/build"
                         onClick={onItemClick}
                     >
                         <Typography
@@ -58,6 +58,24 @@ function MenuItems({
                             variant="subtitle1"
                         >
                             {intl.formatMessage({ id: 'build_resume' })}
+                        </Typography>
+                    </Link>
+                </ListItemText>
+                <ListItemText
+                    className={classNames({
+                        [classes.menuItem]: !isDrawer,
+                    })}
+                    inset
+                >
+                    <Link
+                        to="/upload"
+                        onClick={onItemClick}
+                    >
+                        <Typography
+                            className={classes.menuLink}
+                            variant="subtitle1"
+                        >
+                            {intl.formatMessage({ id: 'upload_resume' })}
                         </Typography>
                     </Link>
                 </ListItemText>

@@ -41,7 +41,7 @@ const importTemplate = (template) => lazy(() =>
     import(`../components/ResumeTemplates/${template}/Index`).catch(() =>
         import('../components/ResumeTemplates/Default/Index')));
 
-const BuildPage = () => {
+const ResumePage = () => {
     const intl = useIntl();
     const classes = useStyles();
     const [a4ContainerHeight, setA4ContainerHeight] = useState(null);
@@ -168,4 +168,4 @@ const BuildPage = () => {
     );
 };
 
-export default BuildPage;
+export default ResumePage;

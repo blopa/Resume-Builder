@@ -1,6 +1,7 @@
 {
     "title": "Resume Builder",
     "build_resume": "Build",
+    "upload_resume": "Upload",
     "home": "Home",
     "about": "About",
     "built_with": "Built with ",
@@ -21,7 +22,7 @@
     "why_question_description_4": "But then you got rejected, and a new opening show up, but this time they do care if you were a Space Police. What now? Did you save the new resume as \"resume-final-2.pdf\"? Do you still have the old version? OMG what a pain!",
     "resume_builder_rescue": "Resume Builder for the rescue!",
     "resume_builder_rescue_description": "With Resume Builder you can have Spreadsheet or JSON file with all your skills and experiences, and simply toggle on/off the ones you want out via the Resume Builder UI and save your new awesome tailed resume as PDF.",
-    "upload_resume": "Upload your resume file",
+    "upload_resume_file": "Upload your resume file",
     "upload_resume_description": "Upload your resume file",
     "upload_or_parse_url": "Upload your resume file or parse your Google Spreadsheet URL",
     "or": "or",
