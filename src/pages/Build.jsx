@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Slide } from '@material-ui/core';
 import { useIntl } from 'gatsby-plugin-intl';
@@ -45,6 +45,7 @@ const BuildPage = () => {
     const intl = useIntl();
     const classes = useStyles();
     const [index, setIndex] = useState(0);
+    const [extraFormsData, setExtraFormsData] = useState([]);
 
     const toggleableJsonResume = useSelector(selectToggleableJsonResume);
     const resumeTemplateName = useSelector(selectResumeTemplate);
@@ -75,6 +76,10 @@ const BuildPage = () => {
             label: 'Address',
         }]),
     ], [formik]);
+
+    const addExtraField = useCallback((name, extraData) => {
+        // TODO
+    }, []);
 
     const numSlides = formsData.length;
 
