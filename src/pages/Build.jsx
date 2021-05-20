@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const getFormData = (formik, key, formsData) => ({
+const getFormikData = (formik, key, formsData) => ({
     key,
     formValues: formsData.map((formData) => {
         const { name } = formData;
@@ -45,7 +45,31 @@ const BuildPage = () => {
     const intl = useIntl();
     const classes = useStyles();
     const [index, setIndex] = useState(0);
-    const [extraFormsData, setExtraFormsData] = useState([]);
+    const [formsData, setFormsData] = useState({
+        basics: [{
+            name: 'name',
+            label: 'Name',
+            type: 'string',
+        }, {
+            name: 'email',
+            label: 'Email',
+            type: 'string',
+        }, {
+            name: 'phone',
+            label: 'Phone',
+            type: 'string',
+        }],
+        company: [{
+            name: 'company',
+            label: 'Company',
+            type: 'string',
+        }, {
+            name: 'address',
+            label: 'Address',
+            type: 'array',
+            quantity: 1,
+        }],
+    });
 
     const toggleableJsonResume = useSelector(selectToggleableJsonResume);
     const resumeTemplateName = useSelector(selectResumeTemplate);
@@ -57,31 +81,26 @@ const BuildPage = () => {
         },
     });
 
-    const formsData = useMemo(() => [
-        getFormData(formik, 'basics', [{
-            name: 'name',
-            label: 'Name',
-        }, {
-            name: 'email',
-            label: 'Email',
-        }, {
-            name: 'phone',
-            label: 'Phone',
-        }]),
-        getFormData(formik, 'company', [{
-            name: 'company',
-            label: 'Company',
-        }, {
-            name: 'address',
-            label: 'Address',
-        }]),
-    ], [formik]);
+    const formikData = useMemo(
+        () => Object.entries(formsData).map(
+            ([key, value]) => getFormikData(formik, key, value)
+        ),
+        [formik, formsData]
+    );
 
     const addExtraField = useCallback((name, extraData) => {
-        // TODO
-    }, []);
+        if (formsData[name]?.length) {
+            setFormsData({
+                ...formsData,
+                [name]: [
+                    ...formsData[name],
+                    ...extraData,
+                ],
+            });
+        }
+    }, [formsData, setFormsData]);
 
-    const numSlides = formsData.length;
+    const numSlides = formikData.length;
 
     const [slideIn, setSlideIn] = useState(true);
     const [slideDirection, setSlideDirection] = useState('down');
@@ -112,7 +131,7 @@ const BuildPage = () => {
                 direction={slideDirection}
             >
                 <div>
-                    <DynamicForm formsData={formsData[index]} />
+                    <DynamicForm formsData={formikData[index]} />
                 </div>
             </Slide>
             <Button
