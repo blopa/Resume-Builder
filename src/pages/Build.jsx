@@ -34,24 +34,19 @@ const BuildPage = () => {
         basics: [{
             name: 'name',
             label: 'Name',
-            type: 'string',
         }, {
             name: 'email',
             label: 'Email',
-            type: 'string',
         }, {
             name: 'phone',
             label: 'Phone',
-            type: 'string',
         }],
         company: [{
             name: 'company',
             label: 'Company',
-            type: 'string',
         }, {
             name: 'address',
             label: 'Address',
-            type: 'array',
             quantity: 3,
         }],
     });
@@ -89,7 +84,7 @@ const BuildPage = () => {
     const getFormikData = useCallback((key, data) => {
         const formValues = [];
         data.forEach((formData) => {
-            const { name, type, quantity } = formData;
+            const { name, quantity } = formData;
             if (quantity) {
                 (new Array(quantity))
                     .fill(null)
@@ -106,7 +101,6 @@ const BuildPage = () => {
 
                         formValues.push({
                             name: newName,
-                            type,
                             quantity,
                             label: `${formData.label} ${number}`,
                             value: formik.values[newName],
@@ -119,7 +113,6 @@ const BuildPage = () => {
             } else {
                 formValues.push({
                     name,
-                    type,
                     quantity,
                     label: formData.label,
                     value: formik.values[name],
