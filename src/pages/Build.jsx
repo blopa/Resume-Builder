@@ -26,21 +26,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const getFormikData = (formik, key, formsData) => ({
-    key,
-    formValues: formsData.map((formData) => {
-        const { name } = formData;
-        return {
-            name,
-            label: formData.label,
-            value: formik.values[name],
-            handleChange: formik.handleChange,
-            error: formik.touched[name] && Boolean(formik.errors[name]),
-            helperText: formik.touched[name] && formik.errors[name],
-        };
-    }),
-});
-
 const BuildPage = () => {
     const intl = useIntl();
     const classes = useStyles();
@@ -67,7 +52,7 @@ const BuildPage = () => {
             name: 'address',
             label: 'Address',
             type: 'array',
-            quantity: 1,
+            quantity: 3,
         }],
     });
 
@@ -81,24 +66,88 @@ const BuildPage = () => {
         },
     });
 
-    const formikData = useMemo(
-        () => Object.entries(formsData).map(
-            ([key, value]) => getFormikData(formik, key, value)
-        ),
-        [formik, formsData]
-    );
-
-    const addExtraField = useCallback((name, extraData) => {
-        if (formsData[name]?.length) {
+    const addExtraField = useCallback((key, name) => () => {
+        if (formsData[key]?.length) {
             setFormsData({
                 ...formsData,
-                [name]: [
-                    ...formsData[name],
-                    ...extraData,
+                [key]: [
+                    ...formsData[key].map((data) => {
+                        if (data.name === name) {
+                            return {
+                                ...data,
+                                quantity: data.quantity + 1,
+                            };
+                        }
+
+                        return data;
+                    }),
                 ],
             });
         }
     }, [formsData, setFormsData]);
+
+    const getFormikData = useCallback((key, data) => {
+        const formValues = [];
+        data.forEach((formData) => {
+            const { name, type, quantity } = formData;
+            if (quantity) {
+                (new Array(quantity))
+                    .fill(null)
+                    .forEach((v, idx) => {
+                        const number = idx + 1;
+                        const newName = `${name}_${number}`;
+                        let extraData = {};
+                        if (quantity === number) {
+                            extraData = {
+                                showAddMore: true,
+                                onAddMore: addExtraField(key, name),
+                            };
+                        }
+
+                        formValues.push({
+                            name: newName,
+                            type,
+                            quantity,
+                            label: `${formData.label} ${number}`,
+                            value: formik.values[newName],
+                            handleChange: formik.handleChange,
+                            error: formik.touched[newName] && Boolean(formik.errors[newName]),
+                            helperText: formik.touched[newName] && formik.errors[newName],
+                            ...extraData,
+                        });
+                    });
+            } else {
+                formValues.push({
+                    name,
+                    type,
+                    quantity,
+                    label: formData.label,
+                    value: formik.values[name],
+                    handleChange: formik.handleChange,
+                    error: formik.touched[name] && Boolean(formik.errors[name]),
+                    helperText: formik.touched[name] && formik.errors[name],
+                });
+            }
+        });
+
+        return {
+            key,
+            formValues,
+        };
+    }, [
+        addExtraField,
+        formik.errors,
+        formik.handleChange,
+        formik.touched,
+        formik.values,
+    ]);
+
+    const formikData = useMemo(
+        () => Object.entries(formsData).map(
+            ([key, value]) => getFormikData(key, value)
+        ),
+        [formsData, getFormikData]
+    );
 
     const numSlides = formikData.length;
 
