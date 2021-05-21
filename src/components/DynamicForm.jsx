@@ -1,24 +1,28 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Button, TextField} from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-    card: {},
+    formWrapper: {
+        margin: '0 auto 35px',
+        width: '80%',
+    },
 }));
 
 const DynamicForm = ({ formsData }) => {
     const classes = useStyles();
 
     return (
-        <div className={classes.card}>
+        <div className={classes.formWrapper}>
             <h1>{formsData.key}</h1>
             <div>
                 {formsData.formValues.map((formValue, index) => {
+                    const { name, showAddMore, onAddMore, group } = formValue;
                     let addButton;
-                    if (formValue.showAddMore) {
+                    if (showAddMore) {
                         addButton = (
                             <Button
-                                onClick={formValue.onAddMore}
+                                onClick={onAddMore}
                                 color="primary"
                                 variant="contained"
                             >
@@ -29,11 +33,12 @@ const DynamicForm = ({ formsData }) => {
 
                     return (
                         <div
-                            key={formValue.name}
+                            key={name}
                         >
                             <TextField
-                                id={formValue.name}
-                                name={formValue.name}
+                                fullWidth
+                                id={name}
+                                name={name}
                                 label={formValue.label}
                                 value={formValue.value}
                                 onChange={formValue.handleChange}

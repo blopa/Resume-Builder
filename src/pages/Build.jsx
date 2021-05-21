@@ -33,21 +33,64 @@ const BuildPage = () => {
     const [formsData, setFormsData] = useState({
         basics: [{
             name: 'name',
-            label: 'Name',
+            label: 'name',
+        }, {
+            name: 'label',
+            label: 'label',
+        }, {
+            name: 'image',
+            label: 'image',
         }, {
             name: 'email',
-            label: 'Email',
+            label: 'email',
         }, {
             name: 'phone',
-            label: 'Phone',
+            label: 'phone',
+        }, {
+            name: 'url',
+            label: 'url',
+        }, {
+            name: 'summary',
+            label: 'summary',
         }],
-        company: [{
+        location: [{
+            name: 'address',
+            label: 'address',
+        }, {
+            name: 'postalCode',
+            label: 'postalCode',
+        }, {
+            name: 'city',
+            label: 'city',
+        }, {
+            name: 'countryCode',
+            label: 'countryCode',
+        }, {
+            name: 'region',
+            label: 'region',
+        }],
+        profiles: [{
+            name: 'profiles',
+            isGroup: true,
+            quantity: 1,
+            forms: [{
+                name: 'network',
+                label: 'network',
+            }, {
+                name: 'username',
+                label: 'username',
+            }, {
+                name: 'url',
+                label: 'url',
+            }],
+        }],
+        work: [{
             name: 'company',
-            label: 'Company',
+            label: 'company',
         }, {
             name: 'address',
-            label: 'Address',
-            quantity: 3,
+            label: 'address',
+            quantity: 1,
         }],
     });
 
@@ -84,7 +127,8 @@ const BuildPage = () => {
     const getFormikData = useCallback((key, data) => {
         const formValues = [];
         data.forEach((formData) => {
-            const { name, quantity } = formData;
+            const { name, quantity, isGroup } = formData;
+
             if (quantity) {
                 (new Array(quantity))
                     .fill(null)
@@ -99,16 +143,38 @@ const BuildPage = () => {
                             };
                         }
 
-                        formValues.push({
-                            name: newName,
-                            quantity,
-                            label: `${formData.label} ${number}`,
-                            value: formik.values[newName],
-                            handleChange: formik.handleChange,
-                            error: formik.touched[newName] && Boolean(formik.errors[newName]),
-                            helperText: formik.touched[newName] && formik.errors[newName],
-                            ...extraData,
-                        });
+                        if (isGroup) {
+                            formData.forms.forEach((form, formIdx) => {
+                                const newFormName = `${form.name}_${number}`;
+                                let groupedExtraData = {};
+                                if (formData.forms.length === formIdx + 1) {
+                                    groupedExtraData = extraData;
+                                }
+
+                                formValues.push({
+                                    group: name,
+                                    name: newFormName,
+                                    quantity,
+                                    label: `${form.label} ${number}`,
+                                    value: formik.values[newFormName],
+                                    handleChange: formik.handleChange,
+                                    error: formik.touched[newFormName] && Boolean(formik.errors[newFormName]),
+                                    helperText: formik.touched[newFormName] && formik.errors[newFormName],
+                                    ...groupedExtraData,
+                                });
+                            });
+                        } else {
+                            formValues.push({
+                                name: newName,
+                                quantity,
+                                label: `${formData.label} ${number}`,
+                                value: formik.values[newName],
+                                handleChange: formik.handleChange,
+                                error: formik.touched[newName] && Boolean(formik.errors[newName]),
+                                helperText: formik.touched[newName] && formik.errors[newName],
+                                ...extraData,
+                            });
+                        }
                     });
             } else {
                 formValues.push({
@@ -142,14 +208,13 @@ const BuildPage = () => {
         [formsData, getFormikData]
     );
 
-    const numSlides = formikData.length;
-
     const [slideIn, setSlideIn] = useState(true);
     const [slideDirection, setSlideDirection] = useState('down');
 
-    const onArrowClick = (direction) => {
+    const onArrowClick = useCallback((direction) => {
+        const formsLength = formikData.length;
         const increment = direction === 'left' ? -1 : 1;
-        const newIndex = (index + increment + numSlides) % numSlides;
+        const newIndex = (index + increment + formsLength) % formsLength;
 
         const oppDirection = direction === 'left' ? 'right' : 'left';
         setSlideDirection(direction);
@@ -160,7 +225,7 @@ const BuildPage = () => {
             setSlideDirection(oppDirection);
             setSlideIn(true);
         }, 500);
-    };
+    }, [formikData.length, index]);
 
     return (
         <Layout>
@@ -176,27 +241,26 @@ const BuildPage = () => {
                     <DynamicForm formsData={formikData[index]} />
                 </div>
             </Slide>
-            <Button
-                onClick={() => onArrowClick('right')}
-                color="primary"
-                variant="contained"
-            >
-                Next
-            </Button>
-            <Button
-                onClick={() => onArrowClick('left')}
-                color="primary"
-                variant="contained"
-            >
-                Previous
-            </Button>
-            <Button
-                onClick={() => console.log(formik.values)}
-                color="primary"
-                variant="contained"
-            >
-                debug
-            </Button>
+            <div>
+                {index > 0 && (
+                    <Button
+                        onClick={() => onArrowClick('left')}
+                        color="primary"
+                        variant="contained"
+                    >
+                        Previous
+                    </Button>
+                )}
+                {(index !== formikData.length - 1) && (
+                    <Button
+                        onClick={() => onArrowClick('right')}
+                        color="primary"
+                        variant="contained"
+                    >
+                        Next
+                    </Button>
+                )}
+            </div>
         </Layout>
     );
 };
