@@ -137,7 +137,7 @@ const BuildPage = () => {
         },
     });
 
-    const addExtraField = useCallback((key, name, add = true) => () => {
+    const addExtraField = useCallback((key, name, group = null, add = true) => () => {
         let toAdd = 1;
         if (!add) {
             toAdd = -1;
@@ -148,14 +148,7 @@ const BuildPage = () => {
                 ...formsData,
                 [key]: [
                     ...formsData[key].map((data) => {
-                        if (data.name === name) {
-                            return {
-                                ...data,
-                                quantity: data.quantity + toAdd,
-                            };
-                        }
-
-                        if (data.isGroup) {
+                        if (data.name === group && data.isGroup) {
                             return {
                                 ...data,
                                 forms: data.forms.map((data2) => {
@@ -171,6 +164,13 @@ const BuildPage = () => {
                             };
                         }
 
+                        if (data.name === name) {
+                            return {
+                                ...data,
+                                quantity: data.quantity + toAdd,
+                            };
+                        }
+
                         return data;
                     }),
                 ],
@@ -178,7 +178,10 @@ const BuildPage = () => {
         }
     }, [formsData, setFormsData]);
 
-    const removeExtraField = useCallback((key, name) => addExtraField(key, name, false), [addExtraField]);
+    const removeExtraField = useCallback(
+        (key, name, group = null) => addExtraField(key, name, group, false),
+        [addExtraField]
+    );
 
     const getFormikData = useCallback((key, data) => {
         const formValues = [];
@@ -224,13 +227,13 @@ const BuildPage = () => {
                                             if (qty === formIdx2 + 1) {
                                                 groupedExtraData2 = {
                                                     showAddMore: true,
-                                                    onAddMore: addExtraField(key, form.name),
+                                                    onAddMore: addExtraField(key, form.name, name),
                                                 };
 
                                                 if (qty > 1) {
                                                     groupedExtraData2 = {
                                                         ...groupedExtraData2,
-                                                        onRemove: removeExtraField(key, form.name),
+                                                        onRemove: removeExtraField(key, form.name, name),
                                                     };
                                                 }
                                             }
