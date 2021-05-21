@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
             zIndex: 1000,
         },
     },
+    buttonsWrapper: {
+        textAlign: 'right',
+    },
 }));
 
 const BuildPage = () => {
@@ -85,12 +88,42 @@ const BuildPage = () => {
             }],
         }],
         work: [{
-            name: 'company',
-            label: 'company',
-        }, {
-            name: 'address',
-            label: 'address',
+            name: 'work',
+            isGroup: true,
             quantity: 1,
+            forms: [{
+                name: 'name',
+                label: 'name',
+            }, {
+                name: 'location',
+                label: 'location',
+            }, {
+                name: 'description',
+                label: 'description',
+            }, {
+                name: 'position',
+                label: 'position',
+            }, {
+                name: 'url',
+                label: 'url',
+            }, {
+                name: 'startDate',
+                label: 'startDate',
+            }, {
+                name: 'endDate',
+                label: 'endDate',
+            }, {
+                name: 'summary',
+                label: 'summary',
+            }, {
+                name: 'highlights',
+                label: 'highlights',
+                quantity: 1,
+            }, {
+                name: 'keywords',
+                label: 'keywords',
+                quantity: 1,
+            }],
         }],
     });
 
@@ -145,7 +178,8 @@ const BuildPage = () => {
 
                         if (isGroup) {
                             formData.forms.forEach((form, formIdx) => {
-                                const newFormName = `${form.name}_${number}`;
+                                const qty = form.quantity;
+                                const newGroupedFormName = `${form.name}_${number}`;
                                 let groupedExtraData = {};
                                 if (formData.forms.length === formIdx + 1) {
                                     groupedExtraData = extraData;
@@ -153,13 +187,15 @@ const BuildPage = () => {
 
                                 formValues.push({
                                     group: name,
-                                    name: newFormName,
-                                    quantity,
+                                    name: newGroupedFormName,
+                                    quantity: qty,
                                     label: `${form.label} ${number}`,
-                                    value: formik.values[newFormName],
+                                    value: formik.values[newGroupedFormName],
                                     handleChange: formik.handleChange,
-                                    error: formik.touched[newFormName] && Boolean(formik.errors[newFormName]),
-                                    helperText: formik.touched[newFormName] && formik.errors[newFormName],
+                                    error: formik.touched[newGroupedFormName]
+                                            && Boolean(formik.errors[newGroupedFormName]),
+                                    helperText: formik.touched[newGroupedFormName]
+                                            && formik.errors[newGroupedFormName],
                                     ...groupedExtraData,
                                 });
                             });
@@ -241,7 +277,7 @@ const BuildPage = () => {
                     <DynamicForm formsData={formikData[index]} />
                 </div>
             </Slide>
-            <div>
+            <div className={classes.buttonsWrapper}>
                 {index > 0 && (
                     <Button
                         onClick={() => onArrowClick('left')}
