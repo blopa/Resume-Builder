@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     formWrapper: {
@@ -9,108 +9,77 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const DynamicForm = ({ formsData }) => {
+const DynamicForm = ({ schema, formik }) => {
     const classes = useStyles();
-    const groupsToSkip = [];
 
-    const fields = [];
-    formsData.formValues.forEach((formValue, index) => {
-        const { name, showAddMore, onAddMore, onRemove, group } = formValue;
-        if (groupsToSkip.includes(group)) {
-            return;
-        }
+    const getForm = useCallback((jsonSchema) => {
+        return Object.entries(jsonSchema).map(([key, value], index) => {
+            switch (value.type) {
+                case 'object': {
+                    return (
+                        <div key={key}>
+                            <h1>{key}</h1>
+                            {getForm(value.properties)}
+                        </div>
+                    );
+                }
 
-        if (group) {
-            groupsToSkip.push(group);
-            fields.push(
-                <div key={group}>
-                    <h2>{group}</h2>
-                    {formsData.formValues
-                        .filter((groupedFormValue) => groupedFormValue.group === group)
-                        .map((groupedFormValue) => (
-                            <div key={groupedFormValue.name}>
-                                <TextField
-                                    fullWidth
-                                    id={groupedFormValue.name}
-                                    name={groupedFormValue.name}
-                                    label={groupedFormValue.label}
-                                    value={groupedFormValue.value}
-                                    onChange={groupedFormValue.handleChange}
-                                    error={groupedFormValue.error}
-                                    helperText={groupedFormValue.helperText}
-                                />
-                                {groupedFormValue.showAddMore && (
-                                    <Fragment>
-                                        {groupedFormValue.onAddMore && (
-                                            <Button
-                                                onClick={groupedFormValue.onAddMore}
-                                                color="primary"
-                                                variant="contained"
-                                            >
-                                                +
-                                            </Button>
-                                        )}
-                                        {groupedFormValue.onRemove && (
-                                            <Button
-                                                onClick={groupedFormValue.onRemove}
-                                                color="secondary"
-                                                variant="contained"
-                                            >
-                                                -
-                                            </Button>
-                                        )}
-                                    </Fragment>
-                                )}
-                            </div>
-                        ))}
-                </div>
-            );
+                case 'array': {
+                    return (
+                        <div key={key}>
+                            <h1>{key}</h1>
+                            {getForm({
+                                [key]: value.items,
+                            })}
+                        </div>
+                    );
+                }
 
-            return;
-        }
+                case 'string':
+                default: {
+                    if (!key) {
+                        return null;
+                    }
 
-        fields.push(
-            <div key={name}>
-                <TextField
-                    fullWidth
-                    id={name}
-                    name={name}
-                    label={formValue.label}
-                    value={formValue.value}
-                    onChange={formValue.handleChange}
-                    error={formValue.error}
-                    helperText={formValue.helperText}
-                />
-                {showAddMore && (
-                    <Fragment>
-                        {onAddMore && (
-                            <Button
-                                onClick={onAddMore}
-                                color="primary"
-                                variant="contained"
-                            >
-                                +
-                            </Button>
-                        )}
-                        {onRemove && (
-                            <Button
-                                onClick={onRemove}
-                                color="secondary"
-                                variant="contained"
-                            >
-                                -
-                            </Button>
-                        )}
-                    </Fragment>
-                )}
-            </div>
-        );
-    });
+                    return (
+                        <div key={key}>
+                            <TextField
+                                fullWidth
+                                id={key}
+                                name={key}
+                                label={key}
+                                value={formik.values[key]}
+                                onChange={formik.handleChange}
+                                error={formik.touched[key] && Boolean(formik.errors[key])}
+                                helperText={formik.touched[key] && formik.errors[key]}
+                            />
+                        </div>
+                    );
+                }
+            }
+        });
+    }, [formik.errors, formik.handleChange, formik.touched, formik.values]);
+
+    const form = useMemo(
+        () => Object.entries(schema)
+            .map(([key, value]) => {
+                if (!key) {
+                    return null;
+                }
+
+                return getForm({
+                    [key]: value,
+                });
+            }),
+        [getForm, schema]
+    );
 
     return (
         <div className={classes.formWrapper}>
-            <h1>{formsData.key}</h1>
-            <div>{fields}</div>
+            {form}
+            <pre>
+                {JSON.stringify(schema, undefined, 2)}
+            </pre>
         </div>
     );
 };
