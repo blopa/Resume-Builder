@@ -104,9 +104,6 @@ const BuildPage = () => {
                 name: 'position',
                 label: 'position',
             }, {
-                name: 'url',
-                label: 'url',
-            }, {
                 name: 'startDate',
                 label: 'startDate',
             }, {
@@ -123,6 +120,9 @@ const BuildPage = () => {
                 name: 'keywords',
                 label: 'keywords',
                 quantity: 1,
+            }, {
+                name: 'url',
+                label: 'url',
             }],
         }],
     });
@@ -137,7 +137,12 @@ const BuildPage = () => {
         },
     });
 
-    const addExtraField = useCallback((key, name) => () => {
+    const addExtraField = useCallback((key, name, add = true) => () => {
+        let toAdd = 1;
+        if (!add) {
+            toAdd = -1;
+        }
+
         if (formsData[key]?.length) {
             setFormsData({
                 ...formsData,
@@ -146,7 +151,23 @@ const BuildPage = () => {
                         if (data.name === name) {
                             return {
                                 ...data,
-                                quantity: data.quantity + 1,
+                                quantity: data.quantity + toAdd,
+                            };
+                        }
+
+                        if (data.isGroup) {
+                            return {
+                                ...data,
+                                forms: data.forms.map((data2) => {
+                                    if (data2.name === name) {
+                                        return {
+                                            ...data2,
+                                            quantity: data2.quantity + toAdd,
+                                        };
+                                    }
+
+                                    return data2;
+                                }),
                             };
                         }
 
@@ -156,6 +177,8 @@ const BuildPage = () => {
             });
         }
     }, [formsData, setFormsData]);
+
+    const removeExtraField = useCallback((key, name) => addExtraField(key, name, false), [addExtraField]);
 
     const getFormikData = useCallback((key, data) => {
         const formValues = [];
@@ -174,6 +197,13 @@ const BuildPage = () => {
                                 showAddMore: true,
                                 onAddMore: addExtraField(key, name),
                             };
+
+                            if (quantity > 1) {
+                                extraData = {
+                                    ...extraData,
+                                    onRemove: removeExtraField(key, name),
+                                };
+                            }
                         }
 
                         if (isGroup) {
@@ -185,19 +215,55 @@ const BuildPage = () => {
                                     groupedExtraData = extraData;
                                 }
 
-                                formValues.push({
-                                    group: name,
-                                    name: newGroupedFormName,
-                                    quantity: qty,
-                                    label: `${form.label} ${number}`,
-                                    value: formik.values[newGroupedFormName],
-                                    handleChange: formik.handleChange,
-                                    error: formik.touched[newGroupedFormName]
+                                if (qty) {
+                                    (new Array(qty))
+                                        .fill(null)
+                                        .forEach((v2, formIdx2) => {
+                                            const newFormName = `${newGroupedFormName}_${formIdx2 + 1}`;
+                                            let groupedExtraData2 = {};
+                                            if (qty === formIdx2 + 1) {
+                                                groupedExtraData2 = {
+                                                    showAddMore: true,
+                                                    onAddMore: addExtraField(key, form.name),
+                                                };
+
+                                                if (qty > 1) {
+                                                    groupedExtraData2 = {
+                                                        ...groupedExtraData2,
+                                                        onRemove: removeExtraField(key, form.name),
+                                                    };
+                                                }
+                                            }
+
+                                            formValues.push({
+                                                group: name,
+                                                name: newFormName,
+                                                quantity: qty,
+                                                label: `${form.label} ${number}-${formIdx2 + 1}`,
+                                                value: formik.values[newFormName],
+                                                handleChange: formik.handleChange,
+                                                error: formik.touched[newFormName]
+                                                    && Boolean(formik.errors[newFormName]),
+                                                helperText: formik.touched[newFormName]
+                                                    && formik.errors[newFormName],
+                                                ...groupedExtraData2,
+                                            });
+                                        });
+                                } else {
+                                    formValues.push({
+                                        group: name,
+                                        name: newGroupedFormName,
+                                        quantity: qty,
+                                        label: `${form.label} ${number}`,
+                                        value: formik.values[newGroupedFormName],
+                                        handleChange: formik.handleChange,
+                                        error: formik.touched[newGroupedFormName]
                                             && Boolean(formik.errors[newGroupedFormName]),
-                                    helperText: formik.touched[newGroupedFormName]
+                                        helperText: formik.touched[newGroupedFormName]
                                             && formik.errors[newGroupedFormName],
-                                    ...groupedExtraData,
-                                });
+                                        ...groupedExtraData,
+                                    });
+                                }
                             });
                         } else {
                             formValues.push({
@@ -229,13 +295,7 @@ const BuildPage = () => {
             key,
             formValues,
         };
-    }, [
-        addExtraField,
-        formik.errors,
-        formik.handleChange,
-        formik.touched,
-        formik.values,
-    ]);
+    }, [addExtraField, formik.errors, formik.handleChange, formik.touched, formik.values, removeExtraField]);
 
     const formikData = useMemo(
         () => Object.entries(formsData).map(

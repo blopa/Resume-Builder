@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, TextField } from '@material-ui/core';
 
@@ -15,7 +15,7 @@ const DynamicForm = ({ formsData }) => {
 
     const fields = [];
     formsData.formValues.forEach((formValue, index) => {
-        const { name, showAddMore, onAddMore, group } = formValue;
+        const { name, showAddMore, onAddMore, onRemove, group } = formValue;
         if (groupsToSkip.includes(group)) {
             return;
         }
@@ -40,13 +40,26 @@ const DynamicForm = ({ formsData }) => {
                                     helperText={groupedFormValue.helperText}
                                 />
                                 {groupedFormValue.showAddMore && (
-                                    <Button
-                                        onClick={groupedFormValue.onAddMore}
-                                        color="primary"
-                                        variant="contained"
-                                    >
-                                        +
-                                    </Button>
+                                    <Fragment>
+                                        {groupedFormValue.onAddMore && (
+                                            <Button
+                                                onClick={groupedFormValue.onAddMore}
+                                                color="primary"
+                                                variant="contained"
+                                            >
+                                                +
+                                            </Button>
+                                        )}
+                                        {groupedFormValue.onRemove && (
+                                            <Button
+                                                onClick={groupedFormValue.onRemove}
+                                                color="secondary"
+                                                variant="contained"
+                                            >
+                                                -
+                                            </Button>
+                                        )}
+                                    </Fragment>
                                 )}
                             </div>
                         ))}
@@ -69,13 +82,26 @@ const DynamicForm = ({ formsData }) => {
                     helperText={formValue.helperText}
                 />
                 {showAddMore && (
-                    <Button
-                        onClick={onAddMore}
-                        color="primary"
-                        variant="contained"
-                    >
-                        +
-                    </Button>
+                    <Fragment>
+                        {onAddMore && (
+                            <Button
+                                onClick={onAddMore}
+                                color="primary"
+                                variant="contained"
+                            >
+                                +
+                            </Button>
+                        )}
+                        {onRemove && (
+                            <Button
+                                onClick={onRemove}
+                                color="secondary"
+                                variant="contained"
+                            >
+                                -
+                            </Button>
+                        )}
+                    </Fragment>
                 )}
             </div>
         );
