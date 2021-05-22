@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, {useCallback, useContext, useMemo, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Slide } from '@material-ui/core';
 import { useIntl } from 'gatsby-plugin-intl';
@@ -35,8 +35,27 @@ const useStyles = makeStyles((theme) => ({
 const BuildPage = () => {
     const intl = useIntl();
     const classes = useStyles();
+
+    const splittedSchema = useMemo(() => {
+        const schemaArray = [];
+        const propertiesToSkip = ['$schema', 'meta'];
+        Object.entries(schema.properties)
+            .forEach(([key, value]) => {
+                if (propertiesToSkip.includes(key)) {
+                    return;
+                }
+
+                schemaArray.push({
+                    [key]: value,
+                });
+            });
+
+        return schemaArray;
+    }, []);
+
     const [index, setIndex] = useState(0);
     const [formsData, setFormsData] = useState({});
+    const [formikData, setFormikData] = useState(splittedSchema);
 
     const toggleableJsonResume = useSelector(selectToggleableJsonResume);
     const resumeTemplateName = useSelector(selectResumeTemplate);
@@ -47,19 +66,6 @@ const BuildPage = () => {
             alert(JSON.stringify(values, null, 2));
         },
     });
-
-    const formikData = [];
-    const propertiesToSkip = ['$schema', 'meta'];
-    Object.entries(schema.properties)
-        .forEach(([key, value]) => {
-            if (propertiesToSkip.includes(key)) {
-                return;
-            }
-
-            formikData.push({
-                [key]: value,
-            });
-        });
 
     const [slideIn, setSlideIn] = useState(true);
     const [slideDirection, setSlideDirection] = useState('down');
@@ -80,6 +86,14 @@ const BuildPage = () => {
         }, 500);
     }, [formikData.length, index]);
 
+    const handleOnAddFields = useCallback(() => {
+        // TODO
+    }, []);
+
+    const handleOnRemoveFields = useCallback(() => {
+        // TODO
+    }, []);
+
     return (
         <Layout>
             <SEO
@@ -94,6 +108,8 @@ const BuildPage = () => {
                     <DynamicForm
                         schema={formikData[index]}
                         formik={formik}
+                        onAddFields={handleOnAddFields}
+                        onRemoveFields={handleOnRemoveFields}
                     />
                 </div>
             </Slide>
