@@ -1,116 +1,216 @@
-import React, { Fragment } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, TextField } from '@material-ui/core';
+import classNames from 'classnames';
+import { useIntl } from 'gatsby-plugin-intl';
 
 const useStyles = makeStyles((theme) => ({
     formWrapper: {
+        minHeight: '400px',
         margin: '0 auto 35px',
         width: '80%',
     },
+    section: {
+        marginLeft: '0px',
+    },
+    arraySection: {
+        display: 'block',
+        marginTop: '10px',
+    },
+    groupedFieldWrapper: {
+        display: 'inline',
+    },
+    field: {
+        width: '48%',
+        marginRight: '2%',
+    },
+    textArea: {
+        width: '98%',
+    },
+    buttonWrapper: {
+        marginTop: '15px',
+    },
+    removeButton: {
+        marginLeft: '10px',
+    },
 }));
 
-const DynamicForm = ({ formsData }) => {
+const DynamicForm = ({
+    schema,
+    formik,
+    definitions,
+    textAreaNames = [],
+}) => {
     const classes = useStyles();
-    const groupsToSkip = [];
+    const intl = useIntl();
+    const [quantitiesObject, setQuantitiesObject] = useState({});
 
-    const fields = [];
-    formsData.formValues.forEach((formValue, index) => {
-        const { name, showAddMore, onAddMore, onRemove, group } = formValue;
-        if (groupsToSkip.includes(group)) {
-            return;
-        }
+    const getForm = useCallback((jsonSchema, accKey = '', quantity = 1) =>
+        Object.entries(jsonSchema).map(([key, value], index) => {
+            let newAccKey = key;
+            if (accKey) {
+                newAccKey = `${accKey}-${key}`;
+            }
 
-        if (group) {
-            groupsToSkip.push(group);
-            fields.push(
-                <div key={group}>
-                    <h2>{group}</h2>
-                    {formsData.formValues
-                        .filter((groupedFormValue) => groupedFormValue.group === group)
-                        .map((groupedFormValue) => (
-                            <div key={groupedFormValue.name}>
-                                <TextField
-                                    fullWidth
-                                    id={groupedFormValue.name}
-                                    name={groupedFormValue.name}
-                                    label={groupedFormValue.label}
-                                    value={groupedFormValue.value}
-                                    onChange={groupedFormValue.handleChange}
-                                    error={groupedFormValue.error}
-                                    helperText={groupedFormValue.helperText}
-                                />
-                                {groupedFormValue.showAddMore && (
-                                    <Fragment>
-                                        {groupedFormValue.onAddMore && (
-                                            <Button
-                                                onClick={groupedFormValue.onAddMore}
-                                                color="primary"
-                                                variant="contained"
-                                            >
-                                                +
-                                            </Button>
-                                        )}
-                                        {groupedFormValue.onRemove && (
-                                            <Button
-                                                onClick={groupedFormValue.onRemove}
-                                                color="secondary"
-                                                variant="contained"
-                                            >
-                                                -
-                                            </Button>
-                                        )}
-                                    </Fragment>
+            switch (value.type) {
+                case 'object': {
+                    return (
+                        <div key={key} className={classes.section}>
+                            <h1>{intl.formatMessage({ id: `builder.${key}` })}</h1>
+                            {(new Array(quantity).fill(null).map(
+                                (v, i) => (
+                                    <div
+                                        className={classes.arraySection}
+                                        // eslint-disable-next-line react/no-array-index-key
+                                        key={i}
+                                    >
+                                        {getForm(value.properties, `${newAccKey}-${i}`)}
+                                    </div>
+                                )
+                            ))}
+                        </div>
+                    );
+                }
+
+                case 'array': {
+                    const currQuantity = quantitiesObject[newAccKey] || 1;
+                    return (
+                        <div key={key} className={classes.section}>
+                            {(new Array(quantity).fill(null).map((v, i) => (
+                                <div
+                                    className={classes.arraySection}
+                                    // eslint-disable-next-line react/no-array-index-key
+                                    key={i}
+                                >
+                                    {getForm({
+                                        [key]: value.items,
+                                    }, `${newAccKey}-${i}`, currQuantity)}
+                                </div>
+                            )))}
+                            <div className={classes.buttonWrapper}>
+                                <Button
+                                    onClick={() => {
+                                        setQuantitiesObject({
+                                            ...quantitiesObject,
+                                            [newAccKey]: currQuantity + 1,
+                                        });
+                                    }}
+                                    color="primary"
+                                    variant="contained"
+                                >
+                                    {`+ ${key}`}
+                                </Button>
+                                {currQuantity > 1 && (
+                                    <Button
+                                        onClick={() => {
+                                            setQuantitiesObject({
+                                                ...quantitiesObject,
+                                                [newAccKey]: currQuantity - 1,
+                                            });
+                                        }}
+                                        color="secondary"
+                                        variant="contained"
+                                        className={classes.removeButton}
+                                    >
+                                        {`- ${key}`}
+                                    </Button>
                                 )}
                             </div>
-                        ))}
-                </div>
-            );
+                        </div>
+                    );
+                }
 
-            return;
-        }
+                case 'string':
+                default: {
+                    if (!key) {
+                        return null;
+                    }
 
-        fields.push(
-            <div key={name}>
-                <TextField
-                    fullWidth
-                    id={name}
-                    name={name}
-                    label={formValue.label}
-                    value={formValue.value}
-                    onChange={formValue.handleChange}
-                    error={formValue.error}
-                    helperText={formValue.helperText}
-                />
-                {showAddMore && (
-                    <Fragment>
-                        {onAddMore && (
-                            <Button
-                                onClick={onAddMore}
-                                color="primary"
-                                variant="contained"
-                            >
-                                +
-                            </Button>
-                        )}
-                        {onRemove && (
-                            <Button
-                                onClick={onRemove}
-                                color="secondary"
-                                variant="contained"
-                            >
-                                -
-                            </Button>
-                        )}
-                    </Fragment>
-                )}
-            </div>
-        );
-    });
+                    let inputProps = {};
+                    // TODO this doesnt work
+                    if (!value.type && value.$ref) {
+                        let ref = definitions;
+                        value.$ref.split('/').forEach((k) => {
+                            if (ref[k]) {
+                                ref = ref[k];
+                            }
+                        });
+
+                        if (ref.pattern) {
+                            inputProps = {
+                                pattern: ref.pattern,
+                            };
+                        }
+                    }
+
+                    return (
+                        <div key={key} className={classes.groupedFieldWrapper}>
+                            {(new Array(quantity).fill(null).map(
+                                (v, i) => {
+                                    const newKey = `${newAccKey}-${i}`;
+                                    const isTextArea = textAreaNames.includes(key);
+
+                                    return (
+                                        <TextField
+                                            key={newKey}
+                                            className={classNames(classes.field, {
+                                                [classes.textArea]: isTextArea,
+                                            })}
+                                            multiline={isTextArea}
+                                            rows={isTextArea ? 3 : 1}
+                                            rowsMax={10}
+                                            fullWidth
+                                            id={newKey}
+                                            name={newKey}
+                                            label={intl.formatMessage({ id: `builder.${key}` })}
+                                            value={formik.values[newKey]}
+                                            onChange={formik.handleChange}
+                                            error={formik.touched[newKey] && Boolean(formik.errors[newKey])}
+                                            helperText={formik.touched[newKey] && formik.errors[newKey]}
+                                            inputProps={inputProps}
+                                        />
+                                    );
+                                }
+                            ))}
+                        </div>
+                    );
+                }
+            }
+        }), [
+        classes.section,
+        classes.arraySection,
+        classes.buttonWrapper,
+        classes.removeButton,
+        classes.groupedFieldWrapper,
+        classes.field,
+        classes.textArea,
+        intl,
+        quantitiesObject,
+        definitions,
+        textAreaNames,
+        formik.values,
+        formik.handleChange,
+        formik.touched,
+        formik.errors,
+    ]);
+
+    const form = useMemo(
+        () => Object.entries(schema)
+            .map(([key, value]) => {
+                if (!key) {
+                    return null;
+                }
+
+                return getForm({
+                    [key]: value,
+                });
+            }),
+        [getForm, schema]
+    );
 
     return (
         <div className={classes.formWrapper}>
-            <h1>{formsData.key}</h1>
-            <div>{fields}</div>
+            {form}
         </div>
     );
 };

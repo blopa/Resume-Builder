@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
+import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-intl';
 import { cloneDeep } from 'lodash';
@@ -23,6 +24,7 @@ import Work from './Items/Work';
 import CoverLetter from './Items/CoverLetter';
 import Certificates from './Items/Certificates';
 import Download from './Items/Download';
+import TemplateSelector from '../TemplateSelector';
 
 // Utils
 import { convertToRegularObject, isObjectNotEmpty } from '../../utils/utils';
@@ -31,11 +33,27 @@ import { downloadJson } from '../../utils/json-parser';
 // Base resume
 import baseResume from '../../store/resume.json';
 
+// Actions
+import setResumeTemplate from '../../store/actions/setResumeTemplate';
+
+// Hooks
+import { useDispatch } from '../../store/StoreProvider';
+
 const useStyles = makeStyles((theme) => ({
     ...style,
     actionButtons: {
         display: 'block',
         margin: '10px 10px 10px 0',
+    },
+    templateSelectorWrapper: {
+        borderTop: '1px solid #ddd',
+    },
+    templateSelector: {
+        width: '100%',
+        margin: '10px auto',
+    },
+    templateSelectorTitle: {
+        marginTop: '10px',
     },
 }));
 
@@ -63,6 +81,7 @@ const ResumeDrawerItems = ({
 }) => {
     const classes = useStyles();
     const intl = useIntl();
+    const dispatch = useDispatch();
 
     const printDocument = useCallback(() => {
         window.print();
@@ -82,6 +101,10 @@ const ResumeDrawerItems = ({
 
         downloadJson(jsonResume);
     }, [toggleableJsonResume]);
+
+    const handleTemplateSelected = useCallback((selectedTemplate) => {
+        dispatch(setResumeTemplate(selectedTemplate));
+    }, [dispatch]);
 
     return (
         <div className={classes.resumeDrawerItemsWrapper}>
@@ -116,6 +139,19 @@ const ResumeDrawerItems = ({
                 >
                     {intl.formatMessage({ id: 'print' })}
                 </Button>
+            </div>
+            <div className={classes.templateSelectorWrapper}>
+                <Typography
+                    color="textPrimary"
+                    variant="subtitle2"
+                    className={classes.templateSelectorTitle}
+                >
+                    {intl.formatMessage({ id: 'template' })}
+                </Typography>
+                <TemplateSelector
+                    className={classes.templateSelector}
+                    onSelect={handleTemplateSelected}
+                />
             </div>
             {isObjectNotEmpty(coverLetter) && (
                 <CoverLetter

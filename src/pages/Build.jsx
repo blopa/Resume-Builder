@@ -1,8 +1,12 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Slide } from '@material-ui/core';
-import { useIntl } from 'gatsby-plugin-intl';
+import { navigate, useIntl } from 'gatsby-plugin-intl';
 import { useFormik } from 'formik';
+import { cloneDeep } from 'lodash';
+
+// JSON schema
+import schema from '../../schema.json';
 
 // Components
 import DynamicForm from '../components/DynamicForm';
@@ -10,10 +14,14 @@ import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 
 // Hooks
-import { useSelector } from '../store/StoreProvider';
+import { useDispatch } from '../store/StoreProvider';
 
-// Selector
-import { selectResumeTemplate, selectToggleableJsonResume } from '../store/selectors';
+// Utils
+import { downloadJson } from '../utils/json-parser';
+import { convertToToggleableObject } from '../utils/utils';
+
+// Actions
+import setToggleableJsonResume from '../store/actions/setToggleableJsonResume';
 
 const useStyles = makeStyles((theme) => ({
     resumeWrapper: {
@@ -27,291 +35,80 @@ const useStyles = makeStyles((theme) => ({
     buttonsWrapper: {
         textAlign: 'right',
     },
+    previousButton: {
+        marginRight: '10px',
+    },
+    downloadJson: {
+        marginRight: '10px',
+    },
 }));
+
+const convertFormikToJsonArray = (formikValues, stringStart, arrayKeys = []) => Object.entries(formikValues)
+    .filter(([k, v]) => k.startsWith(stringStart))
+    .reduce((acc, [k, v]) => {
+        let value = v;
+        const key = k.split('-')[4];
+        const idx = parseInt(k.split('-')[3], 10);
+        const newAcc = [...acc];
+        if (arrayKeys.includes(key)) {
+            // const arrayIndex = parseInt(k.split('-')[7], 10);
+            value = [
+                ...newAcc?.[idx]?.[key] || [],
+                value,
+            ];
+        }
+
+        if (newAcc.length >= idx + 1) {
+            newAcc[idx] = {
+                ...newAcc[idx],
+                [key]: value,
+            };
+        } else {
+            newAcc.push({ [key]: value });
+        }
+
+        return newAcc;
+    }, []);
 
 const BuildPage = () => {
     const intl = useIntl();
     const classes = useStyles();
-    const [index, setIndex] = useState(0);
-    const [formsData, setFormsData] = useState({
-        basics: [{
-            name: 'name',
-            label: 'name',
-        }, {
-            name: 'label',
-            label: 'label',
-        }, {
-            name: 'image',
-            label: 'image',
-        }, {
-            name: 'email',
-            label: 'email',
-        }, {
-            name: 'phone',
-            label: 'phone',
-        }, {
-            name: 'url',
-            label: 'url',
-        }, {
-            name: 'summary',
-            label: 'summary',
-        }],
-        location: [{
-            name: 'address',
-            label: 'address',
-        }, {
-            name: 'postalCode',
-            label: 'postalCode',
-        }, {
-            name: 'city',
-            label: 'city',
-        }, {
-            name: 'countryCode',
-            label: 'countryCode',
-        }, {
-            name: 'region',
-            label: 'region',
-        }],
-        profiles: [{
-            name: 'profiles',
-            isGroup: true,
-            quantity: 1,
-            forms: [{
-                name: 'network',
-                label: 'network',
-            }, {
-                name: 'username',
-                label: 'username',
-            }, {
-                name: 'url',
-                label: 'url',
-            }],
-        }],
-        work: [{
-            name: 'work',
-            isGroup: true,
-            quantity: 1,
-            forms: [{
-                name: 'name',
-                label: 'name',
-            }, {
-                name: 'location',
-                label: 'location',
-            }, {
-                name: 'description',
-                label: 'description',
-            }, {
-                name: 'position',
-                label: 'position',
-            }, {
-                name: 'startDate',
-                label: 'startDate',
-            }, {
-                name: 'endDate',
-                label: 'endDate',
-            }, {
-                name: 'summary',
-                label: 'summary',
-            }, {
-                name: 'highlights',
-                label: 'highlights',
-                quantity: 1,
-            }, {
-                name: 'keywords',
-                label: 'keywords',
-                quantity: 1,
-            }, {
-                name: 'url',
-                label: 'url',
-            }],
-        }],
-    });
+    const dispatch = useDispatch();
 
-    const toggleableJsonResume = useSelector(selectToggleableJsonResume);
-    const resumeTemplateName = useSelector(selectResumeTemplate);
+    const splittedSchema = useMemo(() => {
+        const schemaArray = [];
+        const propertiesToSkip = ['$schema', 'meta'];
+        Object.entries(schema.properties)
+            .forEach(([key, value]) => {
+                if (propertiesToSkip.includes(key)) {
+                    return;
+                }
+
+                schemaArray.push({
+                    [key]: value,
+                });
+            });
+
+        return schemaArray;
+    }, []);
+
+    const [index, setIndex] = useState(0);
 
     const formik = useFormik({
         initialValues: {},
         onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
+            // TODO
+        },
+        validate: (values, props) => {
+            // TODO
         },
     });
-
-    const addExtraField = useCallback((key, name, group = null, add = true) => () => {
-        let toAdd = 1;
-        if (!add) {
-            toAdd = -1;
-        }
-
-        if (formsData[key]?.length) {
-            setFormsData({
-                ...formsData,
-                [key]: [
-                    ...formsData[key].map((data) => {
-                        if (data.name === group && data.isGroup) {
-                            return {
-                                ...data,
-                                forms: data.forms.map((data2) => {
-                                    if (data2.name === name) {
-                                        return {
-                                            ...data2,
-                                            quantity: data2.quantity + toAdd,
-                                        };
-                                    }
-
-                                    return data2;
-                                }),
-                            };
-                        }
-
-                        if (data.name === name) {
-                            return {
-                                ...data,
-                                quantity: data.quantity + toAdd,
-                            };
-                        }
-
-                        return data;
-                    }),
-                ],
-            });
-        }
-    }, [formsData, setFormsData]);
-
-    const removeExtraField = useCallback(
-        (key, name, group = null) => addExtraField(key, name, group, false),
-        [addExtraField]
-    );
-
-    const getFormikData = useCallback((key, data) => {
-        const formValues = [];
-        data.forEach((formData) => {
-            const { name, quantity, isGroup } = formData;
-
-            if (quantity) {
-                (new Array(quantity))
-                    .fill(null)
-                    .forEach((v, idx) => {
-                        const number = idx + 1;
-                        const newName = `${name}_${number}`;
-                        let extraData = {};
-                        if (quantity === number) {
-                            extraData = {
-                                showAddMore: true,
-                                onAddMore: addExtraField(key, name),
-                            };
-
-                            if (quantity > 1) {
-                                extraData = {
-                                    ...extraData,
-                                    onRemove: removeExtraField(key, name),
-                                };
-                            }
-                        }
-
-                        if (isGroup) {
-                            formData.forms.forEach((form, formIdx) => {
-                                const qty = form.quantity;
-                                const newGroupedFormName = `${form.name}_${number}`;
-                                let groupedExtraData = {};
-                                if (formData.forms.length === formIdx + 1) {
-                                    groupedExtraData = extraData;
-                                }
-
-                                if (qty) {
-                                    (new Array(qty))
-                                        .fill(null)
-                                        .forEach((v2, formIdx2) => {
-                                            const newFormName = `${newGroupedFormName}_${formIdx2 + 1}`;
-                                            let groupedExtraData2 = {};
-                                            if (qty === formIdx2 + 1) {
-                                                groupedExtraData2 = {
-                                                    showAddMore: true,
-                                                    onAddMore: addExtraField(key, form.name, name),
-                                                };
-
-                                                if (qty > 1) {
-                                                    groupedExtraData2 = {
-                                                        ...groupedExtraData2,
-                                                        onRemove: removeExtraField(key, form.name, name),
-                                                    };
-                                                }
-                                            }
-
-                                            formValues.push({
-                                                group: name,
-                                                name: newFormName,
-                                                quantity: qty,
-                                                label: `${form.label} ${number}-${formIdx2 + 1}`,
-                                                value: formik.values[newFormName],
-                                                handleChange: formik.handleChange,
-                                                error: formik.touched[newFormName]
-                                                    && Boolean(formik.errors[newFormName]),
-                                                helperText: formik.touched[newFormName]
-                                                    && formik.errors[newFormName],
-                                                ...groupedExtraData2,
-                                            });
-                                        });
-                                } else {
-                                    formValues.push({
-                                        group: name,
-                                        name: newGroupedFormName,
-                                        quantity: qty,
-                                        label: `${form.label} ${number}`,
-                                        value: formik.values[newGroupedFormName],
-                                        handleChange: formik.handleChange,
-                                        error: formik.touched[newGroupedFormName]
-                                            && Boolean(formik.errors[newGroupedFormName]),
-                                        helperText: formik.touched[newGroupedFormName]
-                                            && formik.errors[newGroupedFormName],
-                                        ...groupedExtraData,
-                                    });
-                                }
-                            });
-                        } else {
-                            formValues.push({
-                                name: newName,
-                                quantity,
-                                label: `${formData.label} ${number}`,
-                                value: formik.values[newName],
-                                handleChange: formik.handleChange,
-                                error: formik.touched[newName] && Boolean(formik.errors[newName]),
-                                helperText: formik.touched[newName] && formik.errors[newName],
-                                ...extraData,
-                            });
-                        }
-                    });
-            } else {
-                formValues.push({
-                    name,
-                    quantity,
-                    label: formData.label,
-                    value: formik.values[name],
-                    handleChange: formik.handleChange,
-                    error: formik.touched[name] && Boolean(formik.errors[name]),
-                    helperText: formik.touched[name] && formik.errors[name],
-                });
-            }
-        });
-
-        return {
-            key,
-            formValues,
-        };
-    }, [addExtraField, formik.errors, formik.handleChange, formik.touched, formik.values, removeExtraField]);
-
-    const formikData = useMemo(
-        () => Object.entries(formsData).map(
-            ([key, value]) => getFormikData(key, value)
-        ),
-        [formsData, getFormikData]
-    );
 
     const [slideIn, setSlideIn] = useState(true);
     const [slideDirection, setSlideDirection] = useState('down');
 
     const onArrowClick = useCallback((direction) => {
-        const formsLength = formikData.length;
+        const formsLength = splittedSchema.length;
         const increment = direction === 'left' ? -1 : 1;
         const newIndex = (index + increment + formsLength) % formsLength;
 
@@ -324,7 +121,77 @@ const BuildPage = () => {
             setSlideDirection(oppDirection);
             setSlideIn(true);
         }, 500);
-    }, [formikData.length, index]);
+    }, [splittedSchema.length, index]);
+
+    const getResumeJsonFromFormik = useCallback(() => {
+        const arrayKeys = ['highlights', 'keywords', 'courses', 'roles'];
+        const resume = {
+            basics: {
+                ...Object.entries(formik.values)
+                    .filter(([k, v]) => k.startsWith('basics-0-'))
+                    .reduce((acc, [k, v]) => {
+                        const key = k.split('-')[2];
+                        return {
+                            ...acc,
+                            [key]: v,
+                        };
+                    }, {}),
+                location: Object.entries(formik.values)
+                    .filter(([k, v]) => k.startsWith('basics-0-location'))
+                    .reduce((acc, [k, v]) => {
+                        const key = k.split('-')[4];
+                        return {
+                            ...acc,
+                            [key]: v,
+                        };
+                    }, {}),
+                profiles: Object.entries(formik.values)
+                    .filter(([k, v]) => k.startsWith('basics-0-profiles'))
+                    .reduce((acc, [k, v]) => {
+                        const key = k.split('-')[6];
+                        const idx = parseInt(k.split('-')[5], 10);
+                        const newAcc = [...acc];
+                        if (newAcc.length >= idx + 1) {
+                            newAcc[idx] = {
+                                ...newAcc[idx],
+                                [key]: v,
+                            };
+                        } else {
+                            newAcc.push({ [key]: v });
+                        }
+
+                        return newAcc;
+                    }, []),
+            },
+            work: convertFormikToJsonArray(formik.values, 'work-', arrayKeys),
+            volunteer: convertFormikToJsonArray(formik.values, 'volunteer-', arrayKeys),
+            education: convertFormikToJsonArray(formik.values, 'education-', arrayKeys),
+            awards: convertFormikToJsonArray(formik.values, 'awards-', arrayKeys),
+            publications: convertFormikToJsonArray(formik.values, 'publications-', arrayKeys),
+            skills: convertFormikToJsonArray(formik.values, 'skills-', arrayKeys),
+            languages: convertFormikToJsonArray(formik.values, 'languages-', arrayKeys),
+            interests: convertFormikToJsonArray(formik.values, 'interests-', arrayKeys),
+            references: convertFormikToJsonArray(formik.values, 'references-', arrayKeys),
+            projects: convertFormikToJsonArray(formik.values, 'projects-', arrayKeys),
+        };
+
+        return resume;
+    }, [formik.values]);
+
+    const handleClickDownload = useCallback(() => {
+        const resume = getResumeJsonFromFormik();
+        downloadJson(resume);
+    }, [getResumeJsonFromFormik]);
+
+    const setResumesAndForward = useCallback((toggleableJsonResume) => {
+        dispatch(setToggleableJsonResume(toggleableJsonResume));
+        navigate('/resume');
+    }, [dispatch]);
+
+    const handleClickBuild = useCallback(() => {
+        const resume = getResumeJsonFromFormik();
+        setResumesAndForward(convertToToggleableObject(cloneDeep(resume)));
+    }, [getResumeJsonFromFormik, setResumesAndForward]);
 
     return (
         <Layout>
@@ -337,27 +204,52 @@ const BuildPage = () => {
                 direction={slideDirection}
             >
                 <div>
-                    <DynamicForm formsData={formikData[index]} />
+                    <DynamicForm
+                        schema={splittedSchema[index]}
+                        formik={formik}
+                        definitions={schema.definitions}
+                        textAreaNames={['summary', 'description']}
+                    />
                 </div>
             </Slide>
             <div className={classes.buttonsWrapper}>
                 {index > 0 && (
                     <Button
+                        className={classes.previousButton}
                         onClick={() => onArrowClick('left')}
                         color="primary"
                         variant="contained"
                     >
-                        Previous
+                        {intl.formatMessage({ id: 'builder.previous' })}
                     </Button>
                 )}
-                {(index !== formikData.length - 1) && (
+                {(index !== splittedSchema.length - 1) && (
                     <Button
                         onClick={() => onArrowClick('right')}
                         color="primary"
                         variant="contained"
                     >
-                        Next
+                        {intl.formatMessage({ id: 'builder.next' })}
                     </Button>
+                )}
+                {(index === splittedSchema.length - 1) && (
+                    <Fragment>
+                        <Button
+                            className={classes.downloadJson}
+                            onClick={handleClickDownload}
+                            color="primary"
+                            variant="contained"
+                        >
+                            {intl.formatMessage({ id: 'download_json' })}
+                        </Button>
+                        <Button
+                            onClick={handleClickBuild}
+                            color="primary"
+                            variant="contained"
+                        >
+                            {intl.formatMessage({ id: 'build_resume' })}
+                        </Button>
+                    </Fragment>
                 )}
             </div>
         </Layout>

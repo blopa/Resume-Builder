@@ -32,6 +32,11 @@ This project uses the [jsonresume/resume-schema](https://github.com/jsonresume/r
 - `work[].keywords` to add keywords to your work experience.
 - `enableSourceDataDownload` to allow the JSON data to be downloaded from the resume itself.
 
+## Build your resume from scratch
+Don't have a JSON or don't fill like filling up a spreadsheet? No problem! You can make your resume from scratch by filling up some fields, and then you can download it as a JSON to use it later with this app [or others](https://github.com/search?q=json-resume).
+
+<img src="/screenshots/v4/resume_builder_form.gif?raw=true" width="890px" />
+
 ## Online viewer
 Create a GitHub repo [like this one](https://github.com/blopa/resume.json) with the name `resume.json` and a file called `resume.json` in a branch called `main` and following the JSON schema from [github.com/jsonresume/resume-schema](https://github.com/jsonresume/resume-schema/tree/v1.0.0) v1.0.0.
 
@@ -92,9 +97,9 @@ First of all you need to create a Google Spreadsheet following the same rules as
 ###**Please make sure to [publish your Spreadsheet to the web](https://support.google.com/a/users/answer/9308870)**, otherwise it won't work.
 
 ## Libraries
-- I'm using [gatsby.js](https://github.com/gatsbyjs/gatsby), [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx), [Material UI](https://material-ui.com/) and [mustache.js](https://github.com/janl/mustache.js/).
+- I'm using [gatsby.js](https://github.com/gatsbyjs/gatsby), [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx), [Material UI](https://material-ui.com/), [mustache.js](https://github.com/janl/mustache.js/) and [formik](https://github.com/formium/formik).
 - Gatsby template from [gatsby-material-ui-blog-starter](https://github.com/blopa/gatsby-material-ui-blog-starter)
-- Honorable mentions: [babel](https://github.com/babel/babel), [webpack](https://github.com/webpack/webpack), [IntelliJ IDEA](https://github.com/JetBrains/intellij-community), [and many others](package.json).
+- Honorable mentions: [babel](https://github.com/babel/babel), [webpack](https://github.com/webpack/webpack), [IntelliJ IDEA](https://github.com/JetBrains/intellij-community), [and many others](https://github.com/blopa/Resume-Builder/blob/main/package.json#L22).
 
 So a big thanks to all the developers that worked really hard on these libs and make our day easier :D.
 
@@ -305,6 +310,9 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/screenshot_3.png)
 
 ## Release Notes
+- **v4.0.6:**
+	- Create form to create a JSON resume from scratch
+	- Add theme switcher in the sidebar
 - **v4.0.5:**
 	- Fix `profiles` not being parsed correctly from the Spreadsheet
 	- Fix parsing Google Spreadsheet (but you need to publish it to the web to work)
