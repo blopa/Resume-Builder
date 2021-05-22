@@ -98,7 +98,7 @@ const DynamicForm = ({
                                     color="primary"
                                     variant="contained"
                                 >
-                                    {`+ ${key}`}
+                                    {`+ ${intl.formatMessage({ id: `builder.${key}` })}`}
                                 </Button>
                                 {currQuantity > 1 && (
                                     <Button
@@ -112,7 +112,7 @@ const DynamicForm = ({
                                         variant="contained"
                                         className={classes.removeButton}
                                     >
-                                        {`- ${key}`}
+                                        {`- ${intl.formatMessage({ id: `builder.${key}` })}`}
                                     </Button>
                                 )}
                             </div>

@@ -310,6 +310,8 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/screenshot_3.png)
 
 ## Release Notes
+- **v4.0.7:**
+	- Fix builder page translations
 - **v4.0.6:**
 	- Create form to create a JSON resume from scratch
 	- Add theme switcher in the sidebar
