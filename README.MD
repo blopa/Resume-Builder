@@ -305,6 +305,8 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/screenshot_3.png)
 
 ## Release Notes
+- **v4.0.6:**
+	- Create form to create a JSON resume from scratch
 - **v4.0.5:**
 	- Fix `profiles` not being parsed correctly from the Spreadsheet
 	- Fix parsing Google Spreadsheet (but you need to publish it to the web to work)

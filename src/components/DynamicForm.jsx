@@ -2,9 +2,11 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, TextField } from '@material-ui/core';
 import classNames from 'classnames';
+import { useIntl } from 'gatsby-plugin-intl';
 
 const useStyles = makeStyles((theme) => ({
     formWrapper: {
+        minHeight: '400px',
         margin: '0 auto 35px',
         width: '80%',
     },
@@ -40,17 +42,21 @@ const DynamicForm = ({
     textAreaNames = [],
 }) => {
     const classes = useStyles();
+    const intl = useIntl();
     const [quantitiesObject, setQuantitiesObject] = useState({});
 
-    const getForm = useCallback((jsonSchema, accKey, quantity = 1) =>
+    const getForm = useCallback((jsonSchema, accKey = '', quantity = 1) =>
         Object.entries(jsonSchema).map(([key, value], index) => {
-            const newAccKey = `${accKey}.${key}`;
+            let newAccKey = key;
+            if (accKey) {
+                newAccKey = `${accKey}-${key}`;
+            }
 
             switch (value.type) {
                 case 'object': {
                     return (
                         <div key={key} className={classes.section}>
-                            <h1>{key}</h1>
+                            <h1>{intl.formatMessage({ id: `builder.${key}` })}</h1>
                             {(new Array(quantity).fill(null).map(
                                 (v, i) => (
                                     <div
@@ -58,7 +64,7 @@ const DynamicForm = ({
                                         // eslint-disable-next-line react/no-array-index-key
                                         key={i}
                                     >
-                                        {getForm(value.properties, `${newAccKey}.${i}`)}
+                                        {getForm(value.properties, `${newAccKey}-${i}`)}
                                     </div>
                                 )
                             ))}
@@ -78,7 +84,7 @@ const DynamicForm = ({
                                 >
                                     {getForm({
                                         [key]: value.items,
-                                    }, `${newAccKey}.${i}`, currQuantity)}
+                                    }, `${newAccKey}-${i}`, currQuantity)}
                                 </div>
                             )))}
                             <div className={classes.buttonWrapper}>
@@ -120,11 +126,28 @@ const DynamicForm = ({
                         return null;
                     }
 
+                    let inputProps = {};
+                    // TODO this doesnt work
+                    if (!value.type && value.$ref) {
+                        let ref = definitions;
+                        value.$ref.split('/').forEach((k) => {
+                            if (ref[k]) {
+                                ref = ref[k];
+                            }
+                        });
+
+                        if (ref.pattern) {
+                            inputProps = {
+                                pattern: ref.pattern,
+                            };
+                        }
+                    }
+
                     return (
                         <div key={key} className={classes.groupedFieldWrapper}>
                             {(new Array(quantity).fill(null).map(
                                 (v, i) => {
-                                    const newKey = `${key}.${i}`;
+                                    const newKey = `${newAccKey}-${i}`;
                                     const isTextArea = textAreaNames.includes(key);
 
                                     return (
@@ -139,11 +162,12 @@ const DynamicForm = ({
                                             fullWidth
                                             id={newKey}
                                             name={newKey}
-                                            label={key}
+                                            label={intl.formatMessage({ id: `builder.${key}` })}
                                             value={formik.values[newKey]}
                                             onChange={formik.handleChange}
                                             error={formik.touched[newKey] && Boolean(formik.errors[newKey])}
                                             helperText={formik.touched[newKey] && formik.errors[newKey]}
+                                            inputProps={inputProps}
                                         />
                                     );
                                 }
@@ -153,19 +177,21 @@ const DynamicForm = ({
                 }
             }
         }), [
-        classes.removeButton,
+        classes.section,
         classes.arraySection,
         classes.buttonWrapper,
-        classes.field,
+        classes.removeButton,
         classes.groupedFieldWrapper,
-        classes.section,
+        classes.field,
         classes.textArea,
-        formik.errors,
+        intl,
+        quantitiesObject,
+        definitions,
+        textAreaNames,
+        formik.values,
         formik.handleChange,
         formik.touched,
-        formik.values,
-        quantitiesObject,
-        textAreaNames,
+        formik.errors,
     ]);
 
     const form = useMemo(
