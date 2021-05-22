@@ -13,16 +13,20 @@ const useStyles = makeStyles((theme) => ({
     },
     arraySection: {
         display: 'block',
+        marginTop: '10px',
     },
-    fieldWrapper: {
+    groupedFieldWrapper: {
         display: 'inline',
-        paddingRight: '2%',
     },
     field: {
         width: '48%',
+        marginRight: '2%',
     },
     textArea: {
         width: '98%',
+    },
+    buttonWrapper: {
+        marginTop: '15px',
     },
 }));
 
@@ -45,7 +49,15 @@ const DynamicForm = ({
                         <div key={key} className={classes.section}>
                             <h1>{key}</h1>
                             {(new Array(quantity).fill(null).map(
-                                (v, i) => getForm(value.properties, newAccKey)
+                                (v, i) => (
+                                    <div
+                                        className={classes.arraySection}
+                                        // eslint-disable-next-line react/no-array-index-key
+                                        key={i}
+                                    >
+                                        {getForm(value.properties, newAccKey)}
+                                    </div>
+                                )
                             ))}
                         </div>
                     );
@@ -55,10 +67,18 @@ const DynamicForm = ({
                     const currQuantity = quantitiesObject[newAccKey] || 1;
                     return (
                         <div key={key} className={classes.section}>
-                            {(new Array(quantity).fill(null).map((v, i) => getForm({
-                                [key]: value.items,
-                            }, newAccKey, currQuantity)))}
-                            <div>
+                            {(new Array(quantity).fill(null).map((v, i) => (
+                                <div
+                                    className={classes.arraySection}
+                                    // eslint-disable-next-line react/no-array-index-key
+                                    key={i}
+                                >
+                                    {getForm({
+                                        [key]: value.items,
+                                    }, newAccKey, currQuantity)}
+                                </div>
+                            )))}
+                            <div className={classes.buttonWrapper}>
                                 <Button
                                     onClick={() => {
                                         setQuantitiesObject({
@@ -69,7 +89,7 @@ const DynamicForm = ({
                                     color="primary"
                                     variant="contained"
                                 >
-                                    +
+                                    {`+ ${key}`}
                                 </Button>
                                 {currQuantity > 1 && (
                                     <Button
@@ -82,7 +102,7 @@ const DynamicForm = ({
                                         color="secondary"
                                         variant="contained"
                                     >
-                                        -
+                                        {`- ${key}`}
                                     </Button>
                                 )}
                             </div>
@@ -97,7 +117,7 @@ const DynamicForm = ({
                     }
 
                     return (
-                        <div key={key} className={classes.fieldWrapper}>
+                        <div key={key} className={classes.groupedFieldWrapper}>
                             {(new Array(quantity).fill(null).map(
                                 (v, i) => {
                                     const newKey = `${key}.${i}`;
