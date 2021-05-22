@@ -311,7 +311,8 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 
 ## Release Notes
 - **v4.0.7:**
-	- Fix builder page translations
+	- Fix builder page translations.
+	- Add more Spanish translations (Thanks Leandro).
 - **v4.0.6:**
 	- Create form to create a JSON resume from scratch
 	- Add theme switcher in the sidebar
