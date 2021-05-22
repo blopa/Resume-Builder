@@ -80,7 +80,7 @@ const UploadPage = ({ pageContext, location }) => {
             cloneDeep(toggleableJsonResume)
         ));
 
-        navigate('/build');
+        navigate('/resume');
     }, [dispatch]);
 
     const readSpreadsheetCallback = useCallback((spreadsheetArray) => {
@@ -158,13 +158,13 @@ const UploadPage = ({ pageContext, location }) => {
     return (
         <Layout>
             <SEO
-                title={intl.formatMessage({ id: 'upload_resume' })}
+                title={intl.formatMessage({ id: 'upload_resume_file' })}
             />
             <Typography
                 color="textPrimary"
                 variant="h4"
             >
-                {intl.formatMessage({ id: 'upload_resume' })}
+                {intl.formatMessage({ id: 'upload_resume_file' })}
             </Typography>
             <div
                 className={classes.pageContent}

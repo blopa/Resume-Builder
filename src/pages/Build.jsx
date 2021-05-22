@@ -1,30 +1,27 @@
-/* eslint template-curly-spacing: 0, indent: 0 */
-import React, { Suspense, lazy, useEffect, useState, useRef, useCallback } from 'react';
+import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Drawer } from '@material-ui/core';
+import { Button, Slide } from '@material-ui/core';
 import { navigate, useIntl } from 'gatsby-plugin-intl';
-import { v4 as uuid } from 'uuid';
-import useDetectPrint from 'use-detect-print';
+import { useFormik } from 'formik';
 import { cloneDeep } from 'lodash';
 
-// Base resume
-import baseResume from '../store/resume.json';
+// JSON schema
+import schema from '../../schema.json';
 
 // Components
-import SEO from '../components/SEO';
+import DynamicForm from '../components/DynamicForm';
 import Layout from '../components/Layout';
-import A4Container from '../components/A4Container';
-import ResumeDrawerItems from '../components/ResumeDrawerItems/ResumeDrawerItems';
-import FloatingButton from '../components/FloatingButton';
+import SEO from '../components/SEO';
 
 // Hooks
-import { useSelector } from '../store/StoreProvider';
+import { useDispatch } from '../store/StoreProvider';
 
 // Utils
-import { convertToRegularObject, isObjectNotEmpty } from '../utils/utils';
+import { downloadJson } from '../utils/json-parser';
+import { convertToToggleableObject } from '../utils/utils';
 
-// Selectors
-import { selectResumeTemplate, selectToggleableJsonResume } from '../store/selectors';
+// Actions
+import setToggleableJsonResume from '../store/actions/setToggleableJsonResume';
 
 const useStyles = makeStyles((theme) => ({
     resumeWrapper: {
@@ -35,94 +32,166 @@ const useStyles = makeStyles((theme) => ({
             zIndex: 1000,
         },
     },
+    buttonsWrapper: {
+        textAlign: 'right',
+    },
+    previousButton: {
+        marginRight: '10px',
+    },
+    downloadJson: {
+        marginRight: '10px',
+    },
 }));
 
-const importTemplate = (template) => lazy(() =>
-    import(`../components/ResumeTemplates/${template}/Index`).catch(() =>
-        import('../components/ResumeTemplates/Default/Index')));
+const convertFormikToJsonArray = (formikValues, stringStart, arrayKeys = []) => Object.entries(formikValues)
+    .filter(([k, v]) => k.startsWith(stringStart))
+    .reduce((acc, [k, v]) => {
+        let value = v;
+        const key = k.split('-')[4];
+        const idx = parseInt(k.split('-')[3], 10);
+        const newAcc = [...acc];
+        if (arrayKeys.includes(key)) {
+            // const arrayIndex = parseInt(k.split('-')[7], 10);
+            value = [
+                ...newAcc?.[idx]?.[key] || [],
+                value,
+            ];
+        }
+
+        if (newAcc.length >= idx + 1) {
+            newAcc[idx] = {
+                ...newAcc[idx],
+                [key]: value,
+            };
+        } else {
+            newAcc.push({ [key]: value });
+        }
+
+        return newAcc;
+    }, []);
 
 const BuildPage = () => {
     const intl = useIntl();
     const classes = useStyles();
-    const [a4ContainerHeight, setA4ContainerHeight] = useState(null);
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [resumeTemplate, setResumeTemplate] = useState([]);
-    const refContainer = useRef(null);
-    const rerenderRef = useRef(false);
-    const toggleableJsonResume = useSelector(selectToggleableJsonResume);
-    const resumeTemplateName = useSelector(selectResumeTemplate);
-    const hasData = isObjectNotEmpty(toggleableJsonResume);
-    const isPrinting = useDetectPrint();
+    const dispatch = useDispatch();
 
-    useEffect(() => {
-        if (!hasData) {
-            navigate('/');
-        }
-    }, [hasData]);
+    const splittedSchema = useMemo(() => {
+        const schemaArray = [];
+        const propertiesToSkip = ['$schema', 'meta'];
+        Object.entries(schema.properties)
+            .forEach(([key, value]) => {
+                if (propertiesToSkip.includes(key)) {
+                    return;
+                }
 
-    useEffect(() => {
-        async function loadTemplate() {
-            const Template = await importTemplate(resumeTemplateName);
-            const jsonResume = {
-                ...baseResume,
-                ...convertToRegularObject(
-                    cloneDeep(toggleableJsonResume)
-                ),
-                enableSourceDataDownload: toggleableJsonResume.enableSourceDataDownload,
-                coverLetter:
-                    toggleableJsonResume.coverLetter?.enabled && (toggleableJsonResume.coverLetter?.value?.text || ''),
-                // eslint-disable-next-line no-underscore-dangle
-                __translation__: cloneDeep(toggleableJsonResume.__translation__),
-            };
+                schemaArray.push({
+                    [key]: value,
+                });
+            });
 
-            setResumeTemplate([
-                <Template
-                    key={uuid()}
-                    // eslint-disable-next-line no-underscore-dangle
-                    customTranslations={toggleableJsonResume.__translation__}
-                    isPrinting={isPrinting}
-                    jsonResume={jsonResume}
-                    coverLetterVariables={toggleableJsonResume.coverLetter?.value?.variables || []}
-                />,
-            ]);
-        }
+        return schemaArray;
+    }, []);
 
-        loadTemplate();
-    }, [
-        isPrinting,
-        // eslint-disable-next-line no-underscore-dangle
-        toggleableJsonResume.__translation__,
-        resumeTemplateName,
-        toggleableJsonResume,
-    ]);
+    const [index, setIndex] = useState(0);
 
-    const printDocument = useCallback(() => {
-        const size = 1122; // roughly A4
-        const resumeHeight = refContainer?.current?.clientHeight;
-        const ratio = resumeHeight / size;
-        if (resumeHeight && ratio > 1) {
-            const vhs = Math.ceil(
-                parseFloat(ratio.toFixed(2))
-            );
-            setA4ContainerHeight(vhs * 100);
-        } else {
-            window.print();
-        }
-    }, [refContainer]);
+    const formik = useFormik({
+        initialValues: {},
+        onSubmit: (values) => {
+            // TODO
+        },
+        validate: (values, props) => {
+            // TODO
+        },
+    });
 
-    useEffect(() => {
-        // hack to make the printable page background correct
-        if (rerenderRef.current) {
-            if (a4ContainerHeight) {
-                window.print();
-                window.setTimeout(() => {
-                    setA4ContainerHeight(null);
-                }, 10);
-            }
-        } else {
-            rerenderRef.current = true;
-        }
-    }, [a4ContainerHeight]);
+    const [slideIn, setSlideIn] = useState(true);
+    const [slideDirection, setSlideDirection] = useState('down');
+
+    const onArrowClick = useCallback((direction) => {
+        const formsLength = splittedSchema.length;
+        const increment = direction === 'left' ? -1 : 1;
+        const newIndex = (index + increment + formsLength) % formsLength;
+
+        const oppDirection = direction === 'left' ? 'right' : 'left';
+        setSlideDirection(direction);
+        setSlideIn(false);
+
+        setTimeout(() => {
+            setIndex(newIndex);
+            setSlideDirection(oppDirection);
+            setSlideIn(true);
+        }, 500);
+    }, [splittedSchema.length, index]);
+
+    const getResumeJsonFromFormik = useCallback(() => {
+        const arrayKeys = ['highlights', 'keywords', 'courses', 'roles'];
+        const resume = {
+            basics: {
+                ...Object.entries(formik.values)
+                    .filter(([k, v]) => k.startsWith('basics-0-'))
+                    .reduce((acc, [k, v]) => {
+                        const key = k.split('-')[2];
+                        return {
+                            ...acc,
+                            [key]: v,
+                        };
+                    }, {}),
+                location: Object.entries(formik.values)
+                    .filter(([k, v]) => k.startsWith('basics-0-location'))
+                    .reduce((acc, [k, v]) => {
+                        const key = k.split('-')[4];
+                        return {
+                            ...acc,
+                            [key]: v,
+                        };
+                    }, {}),
+                profiles: Object.entries(formik.values)
+                    .filter(([k, v]) => k.startsWith('basics-0-profiles'))
+                    .reduce((acc, [k, v]) => {
+                        const key = k.split('-')[6];
+                        const idx = parseInt(k.split('-')[5], 10);
+                        const newAcc = [...acc];
+                        if (newAcc.length >= idx + 1) {
+                            newAcc[idx] = {
+                                ...newAcc[idx],
+                                [key]: v,
+                            };
+                        } else {
+                            newAcc.push({ [key]: v });
+                        }
+
+                        return newAcc;
+                    }, []),
+            },
+            work: convertFormikToJsonArray(formik.values, 'work-', arrayKeys),
+            volunteer: convertFormikToJsonArray(formik.values, 'volunteer-', arrayKeys),
+            education: convertFormikToJsonArray(formik.values, 'education-', arrayKeys),
+            awards: convertFormikToJsonArray(formik.values, 'awards-', arrayKeys),
+            publications: convertFormikToJsonArray(formik.values, 'publications-', arrayKeys),
+            skills: convertFormikToJsonArray(formik.values, 'skills-', arrayKeys),
+            languages: convertFormikToJsonArray(formik.values, 'languages-', arrayKeys),
+            interests: convertFormikToJsonArray(formik.values, 'interests-', arrayKeys),
+            references: convertFormikToJsonArray(formik.values, 'references-', arrayKeys),
+            projects: convertFormikToJsonArray(formik.values, 'projects-', arrayKeys),
+        };
+
+        return resume;
+    }, [formik.values]);
+
+    const handleClickDownload = useCallback(() => {
+        const resume = getResumeJsonFromFormik();
+        downloadJson(resume);
+    }, [getResumeJsonFromFormik]);
+
+    const setResumesAndForward = useCallback((toggleableJsonResume) => {
+        dispatch(setToggleableJsonResume(toggleableJsonResume));
+        navigate('/resume');
+    }, [dispatch]);
+
+    const handleClickBuild = useCallback(() => {
+        const resume = getResumeJsonFromFormik();
+        setResumesAndForward(convertToToggleableObject(cloneDeep(resume)));
+    }, [getResumeJsonFromFormik, setResumesAndForward]);
 
     return (
         <Layout>
@@ -130,40 +199,59 @@ const BuildPage = () => {
                 title={intl.formatMessage({ id: 'build_resume' })}
                 robots="noindex, nofollow"
             />
-            {hasData && (
-                <div className={classes.resumeWrapper}>
-                    <FloatingButton
-                        onClick={() => setIsDrawerOpen(true)}
+            <Slide
+                in={slideIn}
+                direction={slideDirection}
+            >
+                <div>
+                    <DynamicForm
+                        schema={splittedSchema[index]}
+                        formik={formik}
+                        definitions={schema.definitions}
+                        textAreaNames={['summary', 'description']}
                     />
-                    <Drawer
-                        className={classes.drawerWrapper}
-                        anchor="right"
-                        variant="persistent"
-                        open={isDrawerOpen}
-                        onClose={() => setIsDrawerOpen(false)}
-                    >
-                        <ResumeDrawerItems
-                            toggleableJsonResume={toggleableJsonResume}
-                            onClose={() => setIsDrawerOpen(false)}
-                            onPrint={printDocument}
-                        />
-                    </Drawer>
-                    <div
-                        ref={refContainer}
-                    >
-                        <A4Container
-                            alignCenter={!isDrawerOpen}
-                            customHeight={a4ContainerHeight}
-                        >
-                            <Suspense
-                                fallback={intl.formatMessage({ id: 'loading' })}
-                            >
-                                {resumeTemplate}
-                            </Suspense>
-                        </A4Container>
-                    </div>
                 </div>
-            )}
+            </Slide>
+            <div className={classes.buttonsWrapper}>
+                {index > 0 && (
+                    <Button
+                        className={classes.previousButton}
+                        onClick={() => onArrowClick('left')}
+                        color="primary"
+                        variant="contained"
+                    >
+                        {intl.formatMessage({ id: 'builder.previous' })}
+                    </Button>
+                )}
+                {(index !== splittedSchema.length - 1) && (
+                    <Button
+                        onClick={() => onArrowClick('right')}
+                        color="primary"
+                        variant="contained"
+                    >
+                        {intl.formatMessage({ id: 'builder.next' })}
+                    </Button>
+                )}
+                {(index === splittedSchema.length - 1) && (
+                    <Fragment>
+                        <Button
+                            className={classes.downloadJson}
+                            onClick={handleClickDownload}
+                            color="primary"
+                            variant="contained"
+                        >
+                            {intl.formatMessage({ id: 'download_json' })}
+                        </Button>
+                        <Button
+                            onClick={handleClickBuild}
+                            color="primary"
+                            variant="contained"
+                        >
+                            {intl.formatMessage({ id: 'build_resume' })}
+                        </Button>
+                    </Fragment>
+                )}
+            </div>
         </Layout>
     );
 };
