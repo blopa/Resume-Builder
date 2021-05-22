@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, useState} from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Slide } from '@material-ui/core';
 import { useIntl } from 'gatsby-plugin-intl';
@@ -54,8 +54,6 @@ const BuildPage = () => {
     }, []);
 
     const [index, setIndex] = useState(0);
-    const [formsData, setFormsData] = useState({});
-    const [formikData, setFormikData] = useState(splittedSchema);
 
     const toggleableJsonResume = useSelector(selectToggleableJsonResume);
     const resumeTemplateName = useSelector(selectResumeTemplate);
@@ -71,7 +69,7 @@ const BuildPage = () => {
     const [slideDirection, setSlideDirection] = useState('down');
 
     const onArrowClick = useCallback((direction) => {
-        const formsLength = formikData.length;
+        const formsLength = splittedSchema.length;
         const increment = direction === 'left' ? -1 : 1;
         const newIndex = (index + increment + formsLength) % formsLength;
 
@@ -84,7 +82,7 @@ const BuildPage = () => {
             setSlideDirection(oppDirection);
             setSlideIn(true);
         }, 500);
-    }, [formikData.length, index]);
+    }, [splittedSchema.length, index]);
 
     return (
         <Layout>
@@ -98,7 +96,7 @@ const BuildPage = () => {
             >
                 <div>
                     <DynamicForm
-                        schema={formikData[index]}
+                        schema={splittedSchema[index]}
                         formik={formik}
                         definitions={schema.definitions}
                         textAreaNames={['summary', 'description']}
@@ -115,7 +113,7 @@ const BuildPage = () => {
                         Previous
                     </Button>
                 )}
-                {(index !== formikData.length - 1) && (
+                {(index !== splittedSchema.length - 1) && (
                     <Button
                         onClick={() => onArrowClick('right')}
                         color="primary"
