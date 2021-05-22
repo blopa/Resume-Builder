@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
     buttonWrapper: {
         marginTop: '15px',
     },
+    removeButton: {
+        marginLeft: '10px',
+    },
 }));
 
 const DynamicForm = ({
@@ -55,7 +58,7 @@ const DynamicForm = ({
                                         // eslint-disable-next-line react/no-array-index-key
                                         key={i}
                                     >
-                                        {getForm(value.properties, newAccKey)}
+                                        {getForm(value.properties, `${newAccKey}.${i}`)}
                                     </div>
                                 )
                             ))}
@@ -75,7 +78,7 @@ const DynamicForm = ({
                                 >
                                     {getForm({
                                         [key]: value.items,
-                                    }, newAccKey, currQuantity)}
+                                    }, `${newAccKey}.${i}`, currQuantity)}
                                 </div>
                             )))}
                             <div className={classes.buttonWrapper}>
@@ -101,6 +104,7 @@ const DynamicForm = ({
                                         }}
                                         color="secondary"
                                         variant="contained"
+                                        className={classes.removeButton}
                                     >
                                         {`- ${key}`}
                                     </Button>
@@ -149,6 +153,13 @@ const DynamicForm = ({
                 }
             }
         }), [
+        classes.removeButton,
+        classes.arraySection,
+        classes.buttonWrapper,
+        classes.field,
+        classes.groupedFieldWrapper,
+        classes.section,
+        classes.textArea,
         formik.errors,
         formik.handleChange,
         formik.touched,
