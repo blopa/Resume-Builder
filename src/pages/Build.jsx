@@ -86,14 +86,6 @@ const BuildPage = () => {
         }, 500);
     }, [formikData.length, index]);
 
-    const handleOnAddFields = useCallback(() => {
-        // TODO
-    }, []);
-
-    const handleOnRemoveFields = useCallback(() => {
-        // TODO
-    }, []);
-
     return (
         <Layout>
             <SEO
@@ -108,8 +100,8 @@ const BuildPage = () => {
                     <DynamicForm
                         schema={formikData[index]}
                         formik={formik}
-                        onAddFields={handleOnAddFields}
-                        onRemoveFields={handleOnRemoveFields}
+                        definitions={schema.definitions}
+                        textAreaNames={['summary', 'description']}
                     />
                 </div>
             </Slide>

@@ -9,69 +9,90 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const DynamicForm = ({ schema, formik }) => {
+const DynamicForm = ({
+    schema,
+    formik,
+    definitions,
+    textAreaNames = [],
+}) => {
     const classes = useStyles();
     const [quantitiesObject, setQuantitiesObject] = useState({});
 
-    const getForm = useCallback((jsonSchema, accKey) => Object.entries(jsonSchema).map(([key, value], index) => {
-        const newAccKey = `${accKey}.${key}`;
+    const getForm = useCallback((jsonSchema, accKey, quantity = 1) =>
+        Object.entries(jsonSchema).map(([key, value], index) => {
+            const newAccKey = `${accKey}.${key}`;
 
-        switch (value.type) {
-            case 'object': {
-                return (
-                    <div key={key}>
-                        <h1>{key}</h1>
-                        {getForm(value.properties, newAccKey)}
-                    </div>
-                );
-            }
-
-            case 'array': {
-                const currQuantity = quantitiesObject[newAccKey] || 1;
-                return (
-                    <div key={key}>
-                        {(new Array(currQuantity).fill(null).map((v, i) => getForm({
-                            [key]: value.items,
-                        }, newAccKey)))}
-                        <Button
-                            onClick={() => {
-                                setQuantitiesObject({
-                                    ...quantitiesObject,
-                                    [newAccKey]: currQuantity + 1,
-                                });
-                            }}
-                            color="primary"
-                            variant="contained"
-                        >
-                            +
-                        </Button>
-                    </div>
-                );
-            }
-
-            case 'string':
-            default: {
-                if (!key) {
-                    return null;
+            switch (value.type) {
+                case 'object': {
+                    return (
+                        <div key={key}>
+                            <h1>{key}</h1>
+                            {(new Array(quantity).fill(null).map(
+                                (v, i) => getForm(value.properties, newAccKey)
+                            ))}
+                        </div>
+                    );
                 }
 
-                return (
-                    <div key={key}>
-                        <TextField
-                            fullWidth
-                            id={key}
-                            name={key}
-                            label={key}
-                            value={formik.values[key]}
-                            onChange={formik.handleChange}
-                            error={formik.touched[key] && Boolean(formik.errors[key])}
-                            helperText={formik.touched[key] && formik.errors[key]}
-                        />
-                    </div>
-                );
+                case 'array': {
+                    const currQuantity = quantitiesObject[newAccKey] || 1;
+                    return (
+                        <div key={key}>
+                            {(new Array(quantity).fill(null).map((v, i) => getForm({
+                                [key]: value.items,
+                            }, newAccKey, currQuantity)))}
+                            <Button
+                                onClick={() => {
+                                    setQuantitiesObject({
+                                        ...quantitiesObject,
+                                        [newAccKey]: currQuantity + 1,
+                                    });
+                                }}
+                                color="primary"
+                                variant="contained"
+                            >
+                                +
+                            </Button>
+                        </div>
+                    );
+                }
+
+                case 'string':
+                default: {
+                    if (!key) {
+                        return null;
+                    }
+
+                    return (
+                        <div key={key}>
+                            {(new Array(quantity).fill(null).map(
+                                (v, i) => {
+                                    const newKey = `${key}.${i}`;
+                                    const isTextArea = textAreaNames.includes(key);
+
+                                    return (
+                                        <TextField
+                                            key={newKey}
+                                            multiline={isTextArea}
+                                            rows={isTextArea ? 3 : 1}
+                                            rowsMax={10}
+                                            fullWidth
+                                            id={newKey}
+                                            name={newKey}
+                                            label={key}
+                                            value={formik.values[newKey]}
+                                            onChange={formik.handleChange}
+                                            error={formik.touched[newKey] && Boolean(formik.errors[newKey])}
+                                            helperText={formik.touched[newKey] && formik.errors[newKey]}
+                                        />
+                                    );
+                                }
+                            ))}
+                        </div>
+                    );
+                }
             }
-        }
-    }), [formik.errors, formik.handleChange, formik.touched, formik.values, quantitiesObject]);
+        }), [formik.errors, formik.handleChange, formik.touched, formik.values, quantitiesObject]);
 
     const form = useMemo(
         () => Object.entries(schema)
