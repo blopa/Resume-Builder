@@ -40,10 +40,11 @@ const DynamicForm = ({
     formik,
     definitions,
     textAreaNames = [],
+    quantitiesObject = {},
 }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const [quantitiesObject, setQuantitiesObject] = useState({});
+    const [quantitiesHashMap, setQuantitiesHashMap] = useState(quantitiesObject);
 
     const getForm = useCallback((jsonSchema, accKey = '', quantity = 1) =>
         Object.entries(jsonSchema).map(([key, value], index) => {
@@ -73,7 +74,7 @@ const DynamicForm = ({
                 }
 
                 case 'array': {
-                    const currQuantity = quantitiesObject[newAccKey] || 1;
+                    const currQuantity = quantitiesHashMap[newAccKey] || 1;
                     return (
                         <div key={key} className={classes.section}>
                             {(new Array(quantity).fill(null).map((v, i) => (
@@ -90,8 +91,8 @@ const DynamicForm = ({
                             <div className={classes.buttonWrapper}>
                                 <Button
                                     onClick={() => {
-                                        setQuantitiesObject({
-                                            ...quantitiesObject,
+                                        setQuantitiesHashMap({
+                                            ...quantitiesHashMap,
                                             [newAccKey]: currQuantity + 1,
                                         });
                                     }}
@@ -103,8 +104,8 @@ const DynamicForm = ({
                                 {currQuantity > 1 && (
                                     <Button
                                         onClick={() => {
-                                            setQuantitiesObject({
-                                                ...quantitiesObject,
+                                            setQuantitiesHashMap({
+                                                ...quantitiesHashMap,
                                                 [newAccKey]: currQuantity - 1,
                                             });
                                         }}
@@ -185,7 +186,7 @@ const DynamicForm = ({
         classes.field,
         classes.textArea,
         intl,
-        quantitiesObject,
+        quantitiesHashMap,
         definitions,
         textAreaNames,
         formik.values,

@@ -70,7 +70,7 @@ const convertFormikToJsonArray = (formikValues, stringStart, arrayKeys = []) => 
         return newAcc;
     }, []);
 
-const BuildPage = () => {
+const BuildPage = ({ params, uri }) => {
     const intl = useIntl();
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -92,7 +92,16 @@ const BuildPage = () => {
         return schemaArray;
     }, []);
 
-    const [index, setIndex] = useState(0);
+    const currentIndex = useMemo(() => {
+        const key = params['*'] || '';
+        const foundIndex = splittedSchema.findIndex(
+            (value) => Object.keys(value).includes(key)
+        );
+
+        return Math.max(foundIndex, 0);
+    }, [params, splittedSchema]);
+
+    const [index, setIndex] = useState(currentIndex);
 
     const formik = useFormik({
         initialValues: {},
@@ -124,6 +133,8 @@ const BuildPage = () => {
     }, [splittedSchema.length, index]);
 
     const getResumeJsonFromFormik = useCallback(() => {
+        console.log(formik.values);
+        debugger;
         const arrayKeys = ['highlights', 'keywords', 'courses', 'roles'];
         const resume = {
             basics: {
@@ -208,7 +219,7 @@ const BuildPage = () => {
                         schema={splittedSchema[index]}
                         formik={formik}
                         definitions={schema.definitions}
-                        textAreaNames={['summary', 'description']}
+                        textAreaNames={['summary', 'description', 'coverLetter']}
                     />
                 </div>
             </Slide>
