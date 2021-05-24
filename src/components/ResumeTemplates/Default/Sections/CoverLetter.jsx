@@ -42,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
 
 const CoverLetter = ({
     coverLetterText = '',
-    coverLetterVariables = [],
+    coverLetterVariables = {},
+    showPageBreak = true,
 }) => {
     const classes = useStyles();
     const intl = useIntl();
@@ -74,9 +75,11 @@ const CoverLetter = ({
                     __html: Mustache.render(text, variables),
                 }}
             />
-            <div className={classes.pageBreakWarning}>
-                {intl.formatMessage({ id: 'this_is_a_page_break' })}
-            </div>
+            {showPageBreak && (
+                <div className={classes.pageBreakWarning}>
+                    {intl.formatMessage({ id: 'this_is_a_page_break' })}
+                </div>
+            )}
         </Fragment>
     );
 };

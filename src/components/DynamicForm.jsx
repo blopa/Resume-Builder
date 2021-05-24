@@ -150,6 +150,10 @@ const DynamicForm = ({
                                 (v, i) => {
                                     const newKey = `${newAccKey}-${i}`;
                                     const isTextArea = textAreaNames.includes(key);
+                                    let lines = 4;
+                                    if (key === 'coverLetter') {
+                                        lines = 15;
+                                    }
 
                                     return (
                                         <TextField
@@ -158,7 +162,7 @@ const DynamicForm = ({
                                                 [classes.textArea]: isTextArea,
                                             })}
                                             multiline={isTextArea}
-                                            rows={isTextArea ? 3 : 1}
+                                            rows={isTextArea ? lines : 1}
                                             rowsMax={10}
                                             fullWidth
                                             id={newKey}

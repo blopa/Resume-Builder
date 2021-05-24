@@ -96,13 +96,43 @@ const Default = ({
         return newIntl;
     }, [customTranslations, intl.defaultLocale, intl.locale]);
 
+    const showCoverLetterPageBreak = useMemo(
+        () => isObjectNotEmpty(basics)
+        && work?.length
+        && skills?.length
+        && education?.length
+        && awards?.length
+        && volunteer?.length
+        && publications?.length
+        && languages?.length
+        && interests?.length
+        && references?.length
+        && projects?.length
+        && certificates?.length,
+        [
+            basics,
+            work,
+            skills,
+            education,
+            awards,
+            volunteer,
+            publications,
+            languages,
+            interests,
+            references,
+            projects,
+            certificates,
+        ]
+    );
+
     return (
         <RawIntlProvider
             value={templateIntl}
         >
             <div className={classes.resumeDefaultTemplate}>
-                {(coverLetter) && (
+                {coverLetter && (
                     <CoverLetter
+                        showPageBreak={showCoverLetterPageBreak}
                         coverLetterText={coverLetter}
                         coverLetterVariables={coverLetterVariables}
                     />
