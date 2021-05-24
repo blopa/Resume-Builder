@@ -70,7 +70,7 @@ const convertFormikToJsonArray = (formikValues, stringStart, arrayKeys = []) => 
         return newAcc;
     }, []);
 
-const BuildPage = ({ params, uri }) => {
+const BuildPage = ({ params, uri, location }) => {
     const intl = useIntl();
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -92,17 +92,13 @@ const BuildPage = ({ params, uri }) => {
         return schemaArray;
     }, []);
 
-    let paramFormValues = {};
-    const currentIndex = useMemo(() => {
-        const [key, base64Data] = (params['*'] || '').split('/'); // TODO
-        if (base64Data) {
-            try {
-                paramFormValues = JSON.parse(atob(base64Data));
-            } catch (e) {
-                // TODO
-            }
-        }
+    const paramFormValues = useMemo(
+        () => Object.fromEntries(new URLSearchParams(location.search)),
+        [location.search]
+    );
 
+    const currentIndex = useMemo(() => {
+        const key = params['*'] || '';
         const foundIndex = splittedSchema.findIndex(
             (value) => Object.keys(value)
                 .map((k) => k.toLowerCase())
