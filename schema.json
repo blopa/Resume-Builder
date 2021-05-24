@@ -1,6 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "additionalProperties": false,
+    "title": "Resume Schema",
+    "type": "object",
     "definitions": {
         "iso8601": {
             "type": "string",
@@ -483,6 +485,10 @@
                 }
             }
         },
+        "coverLetter": {
+            "type": "string",
+            "description": "Some text with {{some}} custom {{variables}}"
+        },
         "meta": {
             "type": "object",
             "description": "The schema version and any other tooling configuration lives here",
@@ -503,7 +509,5 @@
                 }
             }
         }
-    },
-    "title": "Resume Schema",
-    "type": "object"
+    }
 }

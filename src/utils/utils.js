@@ -28,14 +28,17 @@ export const convertToToggleableObject = (
                 // eslint-disable-next-line no-param-reassign
                 delete obj[property];
             } else {
+                let enabled = Boolean(obj[property]);
                 if (typeof obj[property] === 'object') {
+                    enabled = Object.values(obj[property])
+                        .some((value) => isObjectNotEmpty(value) || value?.length > 0);
                     convertToToggleableObject(obj[property]);
                 }
 
                 // eslint-disable-next-line no-param-reassign
                 obj[property] = {
                     value: obj[property],
-                    enabled: true,
+                    enabled,
                 };
             }
 
@@ -139,7 +142,7 @@ export const generateCoverLetterObject = (text) => {
         );
 
     return {
-        enabled: isObjectNotEmpty(variables),
+        enabled: Boolean(isObjectNotEmpty(variables) || text),
         value: {
             text,
             variables,

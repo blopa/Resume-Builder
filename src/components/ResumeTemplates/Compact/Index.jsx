@@ -101,7 +101,7 @@ const Compact = ({
             value={templateIntl}
         >
             <div className={classes.resumeDefaultTemplate}>
-                {(coverLetter) && (
+                {coverLetter && (
                     <CoverLetter
                         coverLetterText={coverLetter}
                         coverLetterVariables={coverLetterVariables}

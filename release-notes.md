@@ -1,4 +1,25 @@
 ## Release Notes
+- **v4.0.8:**
+  - Add cover letter field to the resume builder forms.
+  - Add param to the build page to go directly to a specific form.
+- **v4.0.7:**
+  - Fix builder page translations.
+  - Add more Spanish translations (Thanks Leandro).
+- **v4.0.6:**
+  - Create form to create a JSON resume from scratch
+  - Add theme switcher in the sidebar
+- **v4.0.5:**
+  - Fix `profiles` not being parsed correctly from the Spreadsheet
+  - Fix parsing Google Spreadsheet (but you need to publish it to the web to work)
+- **v4.0.4:**
+  - *Error 404: Release not found*
+  - Sorry I had to make this joke...
+- **v4.0.3:**
+  - Add toggler for `keywords` and `highlights` on the sidebar.
+  - Bump Gatsby and plugins to 3.5.
+  - Big refactor on the global state.
+  - Data disabled from the spreadsheet can now be enabled via the sidebar.
+  - Downloaded `JSON` resume will only contain enabled data.
 - **v4.0.2:**
   - Filter out resume templates that are not ready yet.
   - Add download link to download the JSON data.

@@ -43,18 +43,21 @@ exports.onCreatePage = async ({ page, actions }) => {
         return;
     }
 
-    if (page.context.intl.originalPath === '/ResumeViewer/') {
-        const templates = await fs.readdir(TEMPLATES_PATH);
+    if (page.context.intl.originalPath === '/Build/') {
+        matchPath = `${pagePath}*`;
+    }
 
+    if (page.context.intl.originalPath === '/ResumeViewer/') {
+        if (
+            page.internalComponentName === 'ComponentResumeViewer'
+            && language !== 'en'
+        ) {
+            return;
+        }
+
+        const templates = await fs.readdir(TEMPLATES_PATH);
         templates.filter((template) => !disabledTemplates.includes(template))
             .forEach((template) => {
-                if (
-                    page.internalComponentName === 'ComponentResumeViewer'
-                && language !== 'en'
-                ) {
-                    return;
-                }
-
                 pagePath = `/view/${template}`.toLocaleLowerCase();
                 matchPath = `${pagePath}/*`;
                 myCreatePage(

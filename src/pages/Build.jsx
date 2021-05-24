@@ -18,7 +18,7 @@ import { useDispatch } from '../store/StoreProvider';
 
 // Utils
 import { downloadJson } from '../utils/json-parser';
-import { convertToToggleableObject } from '../utils/utils';
+import { convertToToggleableObject, generateCoverLetterObject } from '../utils/utils';
 
 // Actions
 import setToggleableJsonResume from '../store/actions/setToggleableJsonResume';
@@ -70,7 +70,7 @@ const convertFormikToJsonArray = (formikValues, stringStart, arrayKeys = []) => 
         return newAcc;
     }, []);
 
-const BuildPage = () => {
+const BuildPage = ({ params, uri, location }) => {
     const intl = useIntl();
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -92,10 +92,28 @@ const BuildPage = () => {
         return schemaArray;
     }, []);
 
-    const [index, setIndex] = useState(0);
+    const paramFormValues = useMemo(
+        () => Object.fromEntries(new URLSearchParams(location.search)),
+        [location.search]
+    );
+
+    const currentIndex = useMemo(() => {
+        const key = params['*'] || '';
+        const foundIndex = splittedSchema.findIndex(
+            (value) => Object.keys(value)
+                .map((k) => k.toLowerCase())
+                .includes(key.toLowerCase())
+        );
+
+        return Math.max(foundIndex, 0);
+    }, [params, splittedSchema]);
+
+    const [index, setIndex] = useState(currentIndex);
 
     const formik = useFormik({
-        initialValues: {},
+        initialValues: {
+            ...paramFormValues,
+        },
         onSubmit: (values) => {
             // TODO
         },
@@ -125,7 +143,7 @@ const BuildPage = () => {
 
     const getResumeJsonFromFormik = useCallback(() => {
         const arrayKeys = ['highlights', 'keywords', 'courses', 'roles'];
-        const resume = {
+        return {
             basics: {
                 ...Object.entries(formik.values)
                     .filter(([k, v]) => k.startsWith('basics-0-'))
@@ -173,9 +191,8 @@ const BuildPage = () => {
             interests: convertFormikToJsonArray(formik.values, 'interests-', arrayKeys),
             references: convertFormikToJsonArray(formik.values, 'references-', arrayKeys),
             projects: convertFormikToJsonArray(formik.values, 'projects-', arrayKeys),
+            coverLetter: formik.values['coverLetter-0'] || '',
         };
-
-        return resume;
     }, [formik.values]);
 
     const handleClickDownload = useCallback(() => {
@@ -190,7 +207,10 @@ const BuildPage = () => {
 
     const handleClickBuild = useCallback(() => {
         const resume = getResumeJsonFromFormik();
-        setResumesAndForward(convertToToggleableObject(cloneDeep(resume)));
+        setResumesAndForward({
+            ...convertToToggleableObject(cloneDeep(resume)),
+            coverLetter: generateCoverLetterObject(resume.coverLetter),
+        });
     }, [getResumeJsonFromFormik, setResumesAndForward]);
 
     return (
@@ -208,7 +228,7 @@ const BuildPage = () => {
                         schema={splittedSchema[index]}
                         formik={formik}
                         definitions={schema.definitions}
-                        textAreaNames={['summary', 'description']}
+                        textAreaNames={['summary', 'description', 'coverLetter']}
                     />
                 </div>
             </Slide>
