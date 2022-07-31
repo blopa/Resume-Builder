@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
-import { useIntl } from 'gatsby-plugin-intl';
+import { useIntl } from 'gatsby-plugin-react-intl';
 
 // Hooks
 import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';

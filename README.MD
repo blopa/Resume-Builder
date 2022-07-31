@@ -310,6 +310,8 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/screenshot_3.png)
 
 ## Release Notes
+- **v4.0.10:**
+	- Replace `gatsby-plugin-intl` for `gatsby-plugin-react-intl`.
 - **v4.0.9:**
 	- Bump NPM packages versions.
 - **v4.0.8:**

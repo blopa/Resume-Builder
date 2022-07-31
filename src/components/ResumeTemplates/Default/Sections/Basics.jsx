@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
-import { useIntl } from 'gatsby-plugin-intl';
+import { useIntl } from 'gatsby-plugin-react-intl';
 
 const useStyles = makeStyles((theme) => ({
     resumeSummary: {

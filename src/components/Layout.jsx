@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, useStaticQuery } from 'gatsby';
 import { Button, Container, Divider, Snackbar, Typography } from '@material-ui/core';
-import { useIntl } from 'gatsby-plugin-intl';
+import { useIntl } from 'gatsby-plugin-react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 

@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Slide } from '@material-ui/core';
-import { navigate, useIntl } from 'gatsby-plugin-intl';
+import { navigate, useIntl } from 'gatsby-plugin-react-intl';
 import { useFormik } from 'formik';
 import { cloneDeep } from 'lodash';
 

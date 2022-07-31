@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { MenuItem, Select } from '@material-ui/core';
 import { IconFlagBR, IconFlagUS, IconFlagES } from 'material-ui-flags';
 import { makeStyles } from '@material-ui/core/styles';
-import { changeLocale } from 'gatsby-plugin-intl';
+import { changeLocale } from 'gatsby-plugin-react-intl';
 
 const useStyles = makeStyles((theme) => ({
     selectLanguage: {

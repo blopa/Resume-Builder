@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { MenuItem, Select } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { v4 as uuid } from 'uuid';
-import { useIntl } from 'gatsby-plugin-intl';
+import { useIntl } from 'gatsby-plugin-react-intl';
 
 // Hooks
 import { useSelector } from '../store/StoreProvider';

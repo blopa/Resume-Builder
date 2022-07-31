@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography, TextField, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { cloneDeep } from 'lodash';
-import { navigate, useIntl } from 'gatsby-plugin-intl';
+import { navigate, useIntl } from 'gatsby-plugin-react-intl';
 
 import SEO from '../components/SEO';
 import Layout from '../components/Layout';

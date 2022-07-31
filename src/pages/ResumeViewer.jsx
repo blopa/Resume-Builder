@@ -1,7 +1,7 @@
 /* eslint template-curly-spacing: 0, indent: 0 */
 /* globals TEMPLATES_LIST */
 import React, { lazy, Suspense, useEffect, useMemo, useState } from 'react';
-import { navigate, useIntl, RawIntlProvider } from 'gatsby-plugin-intl';
+import { navigate, useIntl, RawIntlProvider } from 'gatsby-plugin-react-intl';
 import { v4 as uuid } from 'uuid';
 import { cloneDeep } from 'lodash';
 import useDetectPrint from 'use-detect-print';

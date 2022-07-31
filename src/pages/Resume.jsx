@@ -2,7 +2,7 @@
 import React, { Suspense, lazy, useEffect, useState, useRef, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer } from '@material-ui/core';
-import { navigate, useIntl } from 'gatsby-plugin-intl';
+import { navigate, useIntl } from 'gatsby-plugin-react-intl';
 import { v4 as uuid } from 'uuid';
 import useDetectPrint from 'use-detect-print';
 import { cloneDeep } from 'lodash';

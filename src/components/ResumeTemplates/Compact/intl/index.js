@@ -1,4 +1,4 @@
-import { createIntl, createIntlCache } from 'gatsby-plugin-intl';
+import { createIntl, createIntlCache } from 'gatsby-plugin-react-intl';
 
 // local translations
 import localEn from './en.json';

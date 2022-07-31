@@ -36,7 +36,7 @@ module.exports = [
         },
     },
     {
-        resolve: 'gatsby-plugin-intl',
+        resolve: 'gatsby-plugin-react-intl',
         options: {
             path: `${__dirname}/src/intl`,
             languages: ['en', 'pt-br', 'es'],

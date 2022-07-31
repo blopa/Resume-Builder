@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { createIntl, createIntlCache, RawIntlProvider, useIntl } from 'gatsby-plugin-intl';
+import { createIntl, createIntlCache, RawIntlProvider, useIntl } from 'gatsby-plugin-react-intl';
 
 // local template translations
 import templateIntls from './intl';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl } from 'gatsby-plugin-intl';
+import { injectIntl } from 'gatsby-plugin-react-intl';
 
 // Components
 import SEO from '../components/SEO';

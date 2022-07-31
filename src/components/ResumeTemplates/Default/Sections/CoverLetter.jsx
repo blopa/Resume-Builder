@@ -1,6 +1,6 @@
 import React, { Fragment, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useIntl } from 'gatsby-plugin-intl';
+import { useIntl } from 'gatsby-plugin-react-intl';
 import Mustache from 'mustache';
 import { renderToString } from 'react-dom/server';
 
