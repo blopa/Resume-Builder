@@ -57,7 +57,6 @@
         "typeface-roboto": "1.1.13",
         "typography": "^0.16.21",
         "typography-theme-wordpress-2016": "^0.16.19",
-        "use-detect-print": "0.0.2",
         "uuid": "^8.3.2",
         "xlsx": "^0.18.5"
     },

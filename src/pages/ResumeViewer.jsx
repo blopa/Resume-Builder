@@ -4,7 +4,6 @@ import React, { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { navigate, useIntl, RawIntlProvider } from 'gatsby-plugin-react-intl';
 import { v4 as uuid } from 'uuid';
 import { cloneDeep } from 'lodash';
-import useDetectPrint from 'use-detect-print';
 
 // Components
 import SEO from '../components/SEO';
@@ -16,6 +15,7 @@ import { isObjectNotEmpty, convertToToggleableObject, convertToRegularObject } f
 
 // Hooks
 import { useDispatch, useSelector } from '../store/StoreProvider';
+import useDetectPrint from "../components/hooks/useDetectPrint";
 
 // Actions
 import setToggleableJsonResume from '../store/actions/setToggleableJsonResume';

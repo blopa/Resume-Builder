@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Drawer } from '@material-ui/core';
 import { navigate, useIntl } from 'gatsby-plugin-react-intl';
 import { v4 as uuid } from 'uuid';
-import useDetectPrint from 'use-detect-print';
 import { cloneDeep } from 'lodash';
 
 // Base resume
@@ -25,6 +24,9 @@ import { convertToRegularObject, isObjectNotEmpty } from '../utils/utils';
 
 // Selectors
 import { selectResumeTemplate, selectToggleableJsonResume } from '../store/selectors';
+
+// Hooks
+import useDetectPrint from "../components/hooks/useDetectPrint";
 
 const useStyles = makeStyles((theme) => ({
     resumeWrapper: {
