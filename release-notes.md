@@ -1,4 +1,10 @@
 ## Release Notes
+- **v4.0.11:**
+  - Bump NPM packages versions.
+- **v4.0.10:**
+  - Replace `gatsby-plugin-intl` for `gatsby-plugin-react-intl`.
+- **v4.0.9:**
+  - Bump NPM packages versions.
 - **v4.0.8:**
   - Add cover letter field to the resume builder forms.
   - Add param to the build page to go directly to a specific form.
