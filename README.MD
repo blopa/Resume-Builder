@@ -94,7 +94,7 @@ First of all you need to create a Google Spreadsheet following the same rules as
 - **coverLetter:** Your cover letter template
 - **__translation__:** Add your custom translations
 
-###**Please make sure to [publish your Spreadsheet to the web](https://support.google.com/a/users/answer/9308870)**, otherwise it won't work.
+### **Please make sure to [publish your Spreadsheet to the web](https://support.google.com/a/users/answer/9308870)**, otherwise it won't work.
 
 ## Libraries
 - I'm using [gatsby.js](https://github.com/gatsbyjs/gatsby), [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx), [Material UI](https://material-ui.com/), [mustache.js](https://github.com/janl/mustache.js/) and [formik](https://github.com/formium/formik).
