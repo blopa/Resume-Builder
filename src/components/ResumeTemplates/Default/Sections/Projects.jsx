@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
@@ -66,91 +66,81 @@ const Projects = ({ projects }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return projects?.length > 0 && (
-        <div className={classes.resumeProjects}>
-            <h3
-                ref={sectionTitle}
-                className={classes.title}
-                style={titleStyle}
-            >
-                {intl.formatMessage({ id: 'projects' })}
-            </h3>
-            <div className={classes.contentWrapper}>
-                <ul className={classes.projects}>
-                    {projects.map((project) => {
-                        if (project) {
-                            const {
-                                name,
-                                description,
-                                highlights,
-                                keywords,
-                                startDate,
-                                endDate,
-                                url,
-                                roles,
-                                entity,
-                                type,
-                            } = project || {};
+    return (
+        projects?.length > 0 && (
+            <div className={classes.resumeProjects}>
+                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                    {intl.formatMessage({ id: 'projects' })}
+                </h3>
+                <div className={classes.contentWrapper}>
+                    <ul className={classes.projects}>
+                        {projects.map((project) => {
+                            if (project) {
+                                const {
+                                    name,
+                                    description,
+                                    highlights,
+                                    keywords,
+                                    startDate,
+                                    endDate,
+                                    url,
+                                    roles,
+                                    entity,
+                                    type,
+                                } = project || {};
 
-                            let refProps = {};
-                            if (!firstItem.current) {
-                                refProps = {
-                                    ref: firstItem,
-                                };
+                                let refProps = {};
+                                if (!firstItem.current) {
+                                    refProps = {
+                                        ref: firstItem,
+                                    };
+                                }
+
+                                return (
+                                    <li
+                                        className={classes.projectWrapper}
+                                        key={uuid()}
+                                        // eslint-disable-next-line react/jsx-props-no-spreading
+                                        {...refProps}
+                                    >
+                                        <p className={classes.project}>
+                                            {name}
+                                            {(startDate || endDate) && (
+                                                <span className={classes.positionDate}>
+                                                    {' ('}
+                                                    {startDate}
+                                                    {startDate && endDate && ' - '}
+                                                    {endDate}
+                                                    {')'}
+                                                </span>
+                                            )}
+                                        </p>
+                                        {type && <p>{type}</p>}
+                                        {entity && <p>{entity}</p>}
+                                        {url && <a href={url}>{url}</a>}
+                                        {description && <p>{description}</p>}
+                                        {highlights?.length > 0 && (
+                                            <ul className={classes.highlights}>
+                                                {highlights?.map(
+                                                    (highlight) => highlight && <li key={uuid()}>{highlight}</li>
+                                                )}
+                                            </ul>
+                                        )}
+                                        {keywords?.length > 0 && (
+                                            <ul className={classes.keywords}>
+                                                {keywords?.map((keyword) => keyword && <li key={uuid()}>{keyword}</li>)}
+                                            </ul>
+                                        )}
+                                    </li>
+                                );
                             }
 
-                            return (
-                                <li
-                                    className={classes.projectWrapper}
-                                    key={uuid()}
-                                    // eslint-disable-next-line react/jsx-props-no-spreading
-                                    {...refProps}
-                                >
-                                    <p className={classes.project}>
-                                        {name}
-                                        {(startDate || endDate) && (
-                                            <span className={classes.positionDate}>
-                                                {' ('}
-                                                {startDate}
-                                                {(startDate && endDate) && ' - '}
-                                                {endDate}
-                                                {')'}
-                                            </span>
-                                        )}
-                                    </p>
-                                    {type && <p>{type}</p>}
-                                    {entity && <p>{entity}</p>}
-                                    {url && <a href={url}>{url}</a>}
-                                    {description && <p>{description}</p>}
-                                    {highlights?.length > 0 && (
-                                        <ul className={classes.highlights}>
-                                            {highlights?.map((highlight) =>
-                                                highlight && (
-                                                    <li key={uuid()}>
-                                                        {highlight}
-                                                    </li>
-                                                ))}
-                                        </ul>
-                                    )}
-                                    {keywords?.length > 0 && (
-                                        <ul className={classes.keywords}>
-                                            {keywords?.map((keyword) =>
-                                                keyword && (
-                                                    <li key={uuid()}>
-                                                        {keyword}
-                                                    </li>
-                                                ))}
-                                        </ul>
-                                    )}
-                                </li>
-                            );
-                        }
-
-                        return null;
-                    })}
-                </ul>
+                            return null;
+                        })}
+                    </ul>
+                </div>
             </div>
-        </div>
+        )
     );
 };
 

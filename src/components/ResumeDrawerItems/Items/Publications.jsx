@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, memo } from 'react';
+import { Fragment, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/styles';
 
@@ -26,9 +26,12 @@ function Publications({ publications }) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const setResumePublicationsState = useCallback((newPublications) => {
-        dispatch(setResumePublications(newPublications));
-    }, [dispatch]);
+    const setResumePublicationsState = useCallback(
+        (newPublications) => {
+            dispatch(setResumePublications(newPublications));
+        },
+        [dispatch]
+    );
 
     const togglePublications = useCallback(() => {
         const currentState = publications?.enabled;
@@ -38,34 +41,41 @@ function Publications({ publications }) {
         });
     }, [publications, setResumePublicationsState]);
 
-    const togglePublication = useCallback((publication, index) => () => {
-        const newPublications = { ...publications };
-        newPublications.value[index] = {
-            ...newPublications.value[index],
-            enabled: !newPublications.value[index].enabled,
-        };
-        setResumePublicationsState(newPublications);
-    }, [publications, setResumePublicationsState]);
+    const togglePublication = useCallback(
+        (publication, index) => () => {
+            const newPublications = { ...publications };
+            newPublications.value[index] = {
+                ...newPublications.value[index],
+                enabled: !newPublications.value[index].enabled,
+            };
+            setResumePublicationsState(newPublications);
+        },
+        [publications, setResumePublicationsState]
+    );
 
-    const togglePublicationsDetail = useCallback((publication, index, propName) => () => {
-        const newPublications = { ...publications };
-        newPublications.value[index] = {
-            ...newPublications.value[index],
-            value: {
-                ...newPublications.value[index].value,
-                [propName]: {
-                    ...newPublications.value[index].value[propName],
-                    enabled: !newPublications.value[index].value[propName].enabled,
+    const togglePublicationsDetail = useCallback(
+        (publication, index, propName) => () => {
+            const newPublications = { ...publications };
+            newPublications.value[index] = {
+                ...newPublications.value[index],
+                value: {
+                    ...newPublications.value[index].value,
+                    [propName]: {
+                        ...newPublications.value[index].value[propName],
+                        enabled: !newPublications.value[index].value[propName].enabled,
+                    },
                 },
-            },
-        };
+            };
 
-        if (newPublications.value[index].enabled) {
-            newPublications.value[index].enabled =
-                Object.entries(newPublications.value[index].value).some((entry) => entry[1].enabled);
-        }
-        setResumePublicationsState(newPublications);
-    }, [publications, setResumePublicationsState]);
+            if (newPublications.value[index].enabled) {
+                newPublications.value[index].enabled = Object.entries(newPublications.value[index].value).some(
+                    (entry) => entry[1].enabled
+                );
+            }
+            setResumePublicationsState(newPublications);
+        },
+        [publications, setResumePublicationsState]
+    );
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -77,13 +87,7 @@ function Publications({ publications }) {
             {publications?.enabled && (
                 <ul>
                     {publications?.value.map((publication, index) => {
-                        const {
-                            name,
-                            publisher,
-                            releaseDate,
-                            url,
-                            summary,
-                        } = publication?.value || {};
+                        const { name, publisher, releaseDate, url, summary } = publication?.value || {};
 
                         return (
                             <Fragment key={uuid()}>

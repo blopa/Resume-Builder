@@ -6,7 +6,7 @@ function useDetectPrint() {
 
     useEffect(() => {
         const printMq = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('print');
-        const mqEvent = mqList => toggleStatus(!!mqList.matches);
+        const mqEvent = (mqList) => toggleStatus(!!mqList.matches);
 
         printMq.addListener(mqEvent);
         return () => printMq.removeListener(mqEvent);

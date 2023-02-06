@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
@@ -45,59 +45,48 @@ const Certificates = ({ certificates }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return certificates?.length > 0 && (
-        <div className={classes.resumeCertificates}>
-            <h3
-                ref={sectionTitle}
-                className={classes.title}
-                style={titleStyle}
-            >
-                {intl.formatMessage({ id: 'certificates' })}
-            </h3>
-            <div className={classes.contentWrapper}>
-                <ul className={classes.certificates}>
-                    {certificates.map((award) => {
-                        if (award) {
-                            const {
-                                name,
-                                date,
-                                url,
-                                issuer,
-                            } = award || {};
+    return (
+        certificates?.length > 0 && (
+            <div className={classes.resumeCertificates}>
+                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                    {intl.formatMessage({ id: 'certificates' })}
+                </h3>
+                <div className={classes.contentWrapper}>
+                    <ul className={classes.certificates}>
+                        {certificates.map((award) => {
+                            if (award) {
+                                const { name, date, url, issuer } = award || {};
 
-                            let refProps = {};
-                            if (!firstItem.current) {
-                                refProps = {
-                                    ref: firstItem,
-                                };
+                                let refProps = {};
+                                if (!firstItem.current) {
+                                    refProps = {
+                                        ref: firstItem,
+                                    };
+                                }
+
+                                return (
+                                    <li
+                                        className={classes.awardWrapper}
+                                        key={uuid()}
+                                        // eslint-disable-next-line react/jsx-props-no-spreading
+                                        {...refProps}
+                                    >
+                                        <p className={classes.award}>
+                                            {name}
+                                            {date && <span className={classes.positionDate}>{` (${date})`}</span>}
+                                        </p>
+                                        {url && <a href={url}>{url}</a>}
+                                        <p>{issuer}</p>
+                                    </li>
+                                );
                             }
 
-                            return (
-                                <li
-                                    className={classes.awardWrapper}
-                                    key={uuid()}
-                                    // eslint-disable-next-line react/jsx-props-no-spreading
-                                    {...refProps}
-                                >
-                                    <p className={classes.award}>
-                                        {name}
-                                        {(date) && (
-                                            <span className={classes.positionDate}>
-                                                {` (${date})`}
-                                            </span>
-                                        )}
-                                    </p>
-                                    {url && <a href={url}>{url}</a>}
-                                    <p>{issuer}</p>
-                                </li>
-                            );
-                        }
-
-                        return null;
-                    })}
-                </ul>
+                            return null;
+                        })}
+                    </ul>
+                </div>
             </div>
-        </div>
+        )
     );
 };
 

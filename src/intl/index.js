@@ -18,6 +18,4 @@ const translations = [
     },
 ];
 
-export default translations.map(
-    (translation) => createIntl(translation, createIntlCache())
-);
+export default translations.map((translation) => createIntl(translation, createIntlCache()));

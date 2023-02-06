@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, memo } from 'react';
+import { Fragment, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/styles';
 
@@ -26,9 +26,12 @@ function Certificates({ certificates }) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const setResumeCertificatesState = useCallback((newCertificates) => {
-        dispatch(setResumeCertificates(newCertificates));
-    }, [dispatch]);
+    const setResumeCertificatesState = useCallback(
+        (newCertificates) => {
+            dispatch(setResumeCertificates(newCertificates));
+        },
+        [dispatch]
+    );
 
     const toggleCertificates = useCallback(() => {
         const currentState = certificates?.enabled;
@@ -38,34 +41,41 @@ function Certificates({ certificates }) {
         });
     }, [certificates, setResumeCertificatesState]);
 
-    const toggleCertificate = useCallback((certificate, index) => () => {
-        const newCertificates = { ...certificates };
-        newCertificates.value[index] = {
-            ...newCertificates.value[index],
-            enabled: !newCertificates.value[index].enabled,
-        };
-        setResumeCertificatesState(newCertificates);
-    }, [certificates, setResumeCertificatesState]);
+    const toggleCertificate = useCallback(
+        (certificate, index) => () => {
+            const newCertificates = { ...certificates };
+            newCertificates.value[index] = {
+                ...newCertificates.value[index],
+                enabled: !newCertificates.value[index].enabled,
+            };
+            setResumeCertificatesState(newCertificates);
+        },
+        [certificates, setResumeCertificatesState]
+    );
 
-    const toggleCertificatesDetail = useCallback((certificate, index, propName) => () => {
-        const newCertificates = { ...certificates };
-        newCertificates.value[index] = {
-            ...newCertificates.value[index],
-            value: {
-                ...newCertificates.value[index].value,
-                [propName]: {
-                    ...newCertificates.value[index].value[propName],
-                    enabled: !newCertificates.value[index].value[propName].enabled,
+    const toggleCertificatesDetail = useCallback(
+        (certificate, index, propName) => () => {
+            const newCertificates = { ...certificates };
+            newCertificates.value[index] = {
+                ...newCertificates.value[index],
+                value: {
+                    ...newCertificates.value[index].value,
+                    [propName]: {
+                        ...newCertificates.value[index].value[propName],
+                        enabled: !newCertificates.value[index].value[propName].enabled,
+                    },
                 },
-            },
-        };
+            };
 
-        if (newCertificates.value[index].enabled) {
-            newCertificates.value[index].enabled =
-                Object.entries(newCertificates.value[index].value).some((entry) => entry[1].enabled);
-        }
-        setResumeCertificatesState(newCertificates);
-    }, [certificates, setResumeCertificatesState]);
+            if (newCertificates.value[index].enabled) {
+                newCertificates.value[index].enabled = Object.entries(newCertificates.value[index].value).some(
+                    (entry) => entry[1].enabled
+                );
+            }
+            setResumeCertificatesState(newCertificates);
+        },
+        [certificates, setResumeCertificatesState]
+    );
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -77,12 +87,7 @@ function Certificates({ certificates }) {
             {certificates?.enabled && (
                 <ul>
                     {certificates?.value.map((certificate, index) => {
-                        const {
-                            name,
-                            date,
-                            url,
-                            issuer,
-                        } = certificate?.value || {};
+                        const { name, date, url, issuer } = certificate?.value || {};
 
                         return (
                             <Fragment key={uuid()}>

@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, memo } from 'react';
+import { Fragment, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/styles';
 
@@ -26,9 +26,12 @@ function Volunteer({ volunteer: volunteerData }) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const setResumeVolunteerState = useCallback((volunteer) => {
-        dispatch(setResumeVolunteer(volunteer));
-    }, [dispatch]);
+    const setResumeVolunteerState = useCallback(
+        (volunteer) => {
+            dispatch(setResumeVolunteer(volunteer));
+        },
+        [dispatch]
+    );
 
     const toggleVolunteers = useCallback(() => {
         const currentState = volunteerData?.enabled;
@@ -38,48 +41,55 @@ function Volunteer({ volunteer: volunteerData }) {
         });
     }, [setResumeVolunteerState, volunteerData]);
 
-    const toggleVolunteer = useCallback((volunteer, index) => () => {
-        const newVolunteer = { ...volunteerData };
-        newVolunteer.value[index] = {
-            ...newVolunteer.value[index],
-            enabled: !newVolunteer.value[index].enabled,
-        };
-        setResumeVolunteerState(newVolunteer);
-    }, [setResumeVolunteerState, volunteerData]);
+    const toggleVolunteer = useCallback(
+        (volunteer, index) => () => {
+            const newVolunteer = { ...volunteerData };
+            newVolunteer.value[index] = {
+                ...newVolunteer.value[index],
+                enabled: !newVolunteer.value[index].enabled,
+            };
+            setResumeVolunteerState(newVolunteer);
+        },
+        [setResumeVolunteerState, volunteerData]
+    );
 
-    const toggleVolunteerDetail = useCallback((volunteer, index, propName) => () => {
-        const newVolunteer = { ...volunteerData };
-        newVolunteer.value[index] = {
-            ...newVolunteer.value[index],
-            value: {
-                ...newVolunteer.value[index].value,
-                [propName]: {
-                    ...newVolunteer.value[index].value[propName],
-                    enabled: !newVolunteer.value[index].value[propName].enabled,
+    const toggleVolunteerDetail = useCallback(
+        (volunteer, index, propName) => () => {
+            const newVolunteer = { ...volunteerData };
+            newVolunteer.value[index] = {
+                ...newVolunteer.value[index],
+                value: {
+                    ...newVolunteer.value[index].value,
+                    [propName]: {
+                        ...newVolunteer.value[index].value[propName],
+                        enabled: !newVolunteer.value[index].value[propName].enabled,
+                    },
                 },
-            },
-        };
+            };
 
-        if (newVolunteer.value[index].enabled) {
-            newVolunteer.value[index].enabled =
-                Object.entries(newVolunteer.value[index].value).some((entry) => entry[1].enabled);
-        }
-        setResumeVolunteerState(newVolunteer);
-    }, [setResumeVolunteerState, volunteerData]);
+            if (newVolunteer.value[index].enabled) {
+                newVolunteer.value[index].enabled = Object.entries(newVolunteer.value[index].value).some(
+                    (entry) => entry[1].enabled
+                );
+            }
+            setResumeVolunteerState(newVolunteer);
+        },
+        [setResumeVolunteerState, volunteerData]
+    );
 
-    const toggleVolunteerHighlights = useCallback((volunteer, volunteerIndex, highlight, highlightIndex) => () => {
-        const newVolunteer = { ...volunteerData };
-        newVolunteer.value[volunteerIndex].value.highlights.value[highlightIndex] = {
-            ...newVolunteer.value[volunteerIndex].value.highlights.value[highlightIndex],
-            enabled: !newVolunteer.value[volunteerIndex].value.highlights.value[highlightIndex].enabled,
-        };
-        setResumeVolunteerState(newVolunteer);
-    }, [setResumeVolunteerState, volunteerData]);
+    const toggleVolunteerHighlights = useCallback(
+        (volunteer, volunteerIndex, highlight, highlightIndex) => () => {
+            const newVolunteer = { ...volunteerData };
+            newVolunteer.value[volunteerIndex].value.highlights.value[highlightIndex] = {
+                ...newVolunteer.value[volunteerIndex].value.highlights.value[highlightIndex],
+                enabled: !newVolunteer.value[volunteerIndex].value.highlights.value[highlightIndex].enabled,
+            };
+            setResumeVolunteerState(newVolunteer);
+        },
+        [setResumeVolunteerState, volunteerData]
+    );
 
-    const {
-        enabled: volunteerEnabled,
-        value: volunteers,
-    } = volunteerData || {};
+    const { enabled: volunteerEnabled, value: volunteers } = volunteerData || {};
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -92,15 +102,8 @@ function Volunteer({ volunteer: volunteerData }) {
             {volunteerEnabled && (
                 <ul>
                     {volunteers.map((volunteer, index) => {
-                        const {
-                            organization,
-                            position,
-                            url,
-                            startDate,
-                            endDate,
-                            summary,
-                            highlights,
-                        } = volunteer?.value || {};
+                        const { organization, position, url, startDate, endDate, summary, highlights } =
+                            volunteer?.value || {};
 
                         return (
                             <Fragment key={uuid()}>

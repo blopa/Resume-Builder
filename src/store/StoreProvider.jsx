@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useReducer } from 'react';
 import reducer from './reducer';
 
 const initialState = {
@@ -6,9 +6,7 @@ const initialState = {
     resumeTemplate: 'Default',
 };
 
-export const StoreContext = createContext(
-    initialState
-);
+export const StoreContext = createContext(initialState);
 
 export const useSelector = (func) => {
     const { state } = useContext(StoreContext);
@@ -29,11 +27,7 @@ const StoreProvider = ({ children }) => {
         dispatch,
     };
 
-    return (
-        <StoreContext.Provider value={contextValue}>
-            {children}
-        </StoreContext.Provider>
-    );
+    return <StoreContext.Provider value={contextValue}>{children}</StoreContext.Provider>;
 };
 
 export default StoreProvider;

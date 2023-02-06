@@ -1,24 +1,15 @@
 import Mustache from 'mustache';
 
-export const isObject = (obj) =>
-    typeof obj === 'object' && obj?.constructor === Object;
+export const isObject = (obj) => typeof obj === 'object' && obj?.constructor === Object;
 
-export const isObjectEmpty = (obj) =>
-    isObject(obj) && Object.keys(obj).length === 0;
+export const isObjectEmpty = (obj) => isObject(obj) && Object.keys(obj).length === 0;
 
-export const isObjectNotEmpty = (obj) =>
-    isObject(obj) && Object.keys(obj).length > 0;
+export const isObjectNotEmpty = (obj) => isObject(obj) && Object.keys(obj).length > 0;
 
 // TODO make this return a copy of the obj
 export const convertToToggleableObject = (
     obj,
-    ignoredProperties = [
-        'enableSourceDataDownload',
-        'coverLetter',
-        'meta',
-        '$schema',
-        '__translation__',
-    ]
+    ignoredProperties = ['enableSourceDataDownload', 'coverLetter', 'meta', '$schema', '__translation__']
 ) => {
     // eslint-disable-next-line no-restricted-syntax
     for (const property in obj) {
@@ -30,8 +21,9 @@ export const convertToToggleableObject = (
             } else {
                 let enabled = Boolean(obj[property]);
                 if (typeof obj[property] === 'object') {
-                    enabled = Object.values(obj[property])
-                        .some((value) => isObjectNotEmpty(value) || value?.length > 0);
+                    enabled = Object.values(obj[property]).some(
+                        (value) => isObjectNotEmpty(value) || value?.length > 0
+                    );
                     convertToToggleableObject(obj[property]);
                 }
 
@@ -41,7 +33,6 @@ export const convertToToggleableObject = (
                     enabled,
                 };
             }
-
         }
     }
 
@@ -51,11 +42,7 @@ export const convertToToggleableObject = (
 // TODO make this return a copy of the obj
 export const convertToRegularObject = (
     obj,
-    ignoredProperties = [
-        'enableSourceDataDownload',
-        'coverLetter',
-        '__translation__',
-    ]
+    ignoredProperties = ['enableSourceDataDownload', 'coverLetter', '__translation__']
 ) => {
     // eslint-disable-next-line no-restricted-syntax
     for (const property in obj) {
@@ -136,10 +123,7 @@ export const generateCoverLetterObject = (text) => {
     const variables = Mustache.parse(text)
         .filter((v) => v[0] === 'name')
         .map((v) => v[1])
-        .reduce(
-            (acc, curr) => ({ ...acc, [curr]: curr }),
-            {}
-        );
+        .reduce((acc, curr) => ({ ...acc, [curr]: curr }), {});
 
     return {
         enabled: Boolean(isObjectNotEmpty(variables) || text),

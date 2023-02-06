@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
@@ -38,52 +38,47 @@ const Languages = ({ languages }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return languages?.length > 0 && (
-        <div className={classes.resumeLanguages}>
-            <h3
-                ref={sectionTitle}
-                className={classes.title}
-                style={titleStyle}
-            >
-                {intl.formatMessage({ id: 'languages' })}
-            </h3>
-            <div className={classes.contentWrapper}>
-                <ul className={classes.languages}>
-                    {languages.map((lang) => {
-                        if (lang) {
-                            const {
-                                language,
-                                fluency,
-                            } = lang || {};
+    return (
+        languages?.length > 0 && (
+            <div className={classes.resumeLanguages}>
+                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                    {intl.formatMessage({ id: 'languages' })}
+                </h3>
+                <div className={classes.contentWrapper}>
+                    <ul className={classes.languages}>
+                        {languages.map((lang) => {
+                            if (lang) {
+                                const { language, fluency } = lang || {};
 
-                            let refProps = {};
-                            if (!firstItem.current) {
-                                refProps = {
-                                    ref: firstItem,
-                                };
+                                let refProps = {};
+                                if (!firstItem.current) {
+                                    refProps = {
+                                        ref: firstItem,
+                                    };
+                                }
+
+                                return (
+                                    <li
+                                        className={classes.languageWrapper}
+                                        key={uuid()}
+                                        // eslint-disable-next-line react/jsx-props-no-spreading
+                                        {...refProps}
+                                    >
+                                        <p>
+                                            {language}
+                                            {language && fluency && ', '}
+                                            {fluency}
+                                        </p>
+                                    </li>
+                                );
                             }
 
-                            return (
-                                <li
-                                    className={classes.languageWrapper}
-                                    key={uuid()}
-                                    // eslint-disable-next-line react/jsx-props-no-spreading
-                                    {...refProps}
-                                >
-                                    <p>
-                                        {language}
-                                        {(language && fluency) && ', '}
-                                        {fluency}
-                                    </p>
-                                </li>
-                            );
-                        }
-
-                        return null;
-                    })}
-                </ul>
+                            return null;
+                        })}
+                    </ul>
+                </div>
             </div>
-        </div>
+        )
     );
 };
 

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
@@ -53,82 +53,66 @@ const Volunteer = ({ volunteer: volunteers }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return volunteers?.length > 0 && (
-        <div className={classes.resumeVolunteer}>
-            <h3
-                ref={sectionTitle}
-                className={classes.title}
-                style={titleStyle}
-            >
-                {intl.formatMessage({ id: 'volunteers' })}
-            </h3>
-            <div className={classes.contentWrapper}>
-                <ul className={classes.volunteers}>
-                    {volunteers.map((volunteer) => {
-                        if (volunteer) {
-                            const {
-                                organization,
-                                position,
-                                url,
-                                startDate,
-                                endDate,
-                                summary,
-                                highlights,
-                            } = volunteer || {};
+    return (
+        volunteers?.length > 0 && (
+            <div className={classes.resumeVolunteer}>
+                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                    {intl.formatMessage({ id: 'volunteers' })}
+                </h3>
+                <div className={classes.contentWrapper}>
+                    <ul className={classes.volunteers}>
+                        {volunteers.map((volunteer) => {
+                            if (volunteer) {
+                                const { organization, position, url, startDate, endDate, summary, highlights } =
+                                    volunteer || {};
 
-                            let refProps = {};
-                            if (!firstItem.current) {
-                                refProps = {
-                                    ref: firstItem,
-                                };
+                                let refProps = {};
+                                if (!firstItem.current) {
+                                    refProps = {
+                                        ref: firstItem,
+                                    };
+                                }
+
+                                return (
+                                    <li
+                                        className={classes.volunteerWrapper}
+                                        key={uuid()}
+                                        // eslint-disable-next-line react/jsx-props-no-spreading
+                                        {...refProps}
+                                    >
+                                        <p className={classes.position}>
+                                            {position}
+                                            {position && organization && ` ${intl.formatMessage({ id: 'at' })} `}
+                                            {organization}
+                                            {(startDate || endDate) && (
+                                                <span className={classes.positionDate}>
+                                                    {' ('}
+                                                    {startDate}
+                                                    {startDate && endDate && ' - '}
+                                                    {endDate}
+                                                    {')'}
+                                                </span>
+                                            )}
+                                        </p>
+                                        <p className={classes.url}>{url && <a href={url}>{url}</a>}</p>
+                                        <p className={classes.summary}>{summary}</p>
+                                        {highlights?.length > 0 && (
+                                            <ul className={classes.highlights}>
+                                                {highlights?.map(
+                                                    (highlight) => highlight && <li key={uuid()}>{highlight}</li>
+                                                )}
+                                            </ul>
+                                        )}
+                                    </li>
+                                );
                             }
 
-                            return (
-                                <li
-                                    className={classes.volunteerWrapper}
-                                    key={uuid()}
-                                    // eslint-disable-next-line react/jsx-props-no-spreading
-                                    {...refProps}
-                                >
-                                    <p className={classes.position}>
-                                        {position}
-                                        {(position && organization) && ` ${intl.formatMessage({ id: 'at' })} `}
-                                        {organization}
-                                        {(startDate || endDate) && (
-                                            <span className={classes.positionDate}>
-                                                {' ('}
-                                                {startDate}
-                                                {(startDate && endDate) && ' - '}
-                                                {endDate}
-                                                {')'}
-                                            </span>
-                                        )}
-                                    </p>
-                                    <p className={classes.url}>
-                                        {url && <a href={url}>{url}</a>}
-                                    </p>
-                                    <p className={classes.summary}>
-                                        {summary}
-                                    </p>
-                                    {highlights?.length > 0 && (
-                                        <ul className={classes.highlights}>
-                                            {highlights?.map((highlight) =>
-                                                highlight && (
-                                                    <li key={uuid()}>
-                                                        {highlight}
-                                                    </li>
-                                                ))}
-                                        </ul>
-                                    )}
-                                </li>
-                            );
-                        }
-
-                        return null;
-                    })}
-                </ul>
+                            return null;
+                        })}
+                    </ul>
+                </div>
             </div>
-        </div>
+        )
     );
 };
 

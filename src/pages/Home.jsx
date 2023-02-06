@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { useIntl } from 'gatsby-plugin-react-intl';
@@ -43,138 +42,78 @@ const HomePage = () => {
 
     return (
         <Layout>
-            <SEO
-                title={intl.formatMessage({ id: 'home' })}
-            />
-            <Typography
-                color="textPrimary"
-                variant="h4"
-            >
+            <SEO title={intl.formatMessage({ id: 'home' })} />
+            <Typography color="textPrimary" variant="h4">
                 {intl.formatMessage({ id: 'title' })}
             </Typography>
-            <div
-                className={classes.pageContent}
-            >
-                <Typography
-                    color="textPrimary"
-                    variant="h6"
-                >
+            <div className={classes.pageContent}>
+                <Typography color="textPrimary" variant="h6">
                     {intl.formatMessage({ id: 'what_is_resume_builder' })}
                 </Typography>
-                <Typography
-                    className={classes.paragraph}
-                    color="textPrimary"
-                    variant="body1"
-                >
-                    {intl.formatMessage({
-                        id: 'what_is_resume_builder_description',
-                    },
-                    {
-                        // eslint-disable-next-line react/display-name
-                        a: (msg) => (
-                            <a
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                href={`https://${msg}`}
-                            >
-                                {msg}
-                            </a>
-                        ),
-                    })}
+                <Typography className={classes.paragraph} color="textPrimary" variant="body1">
+                    {intl.formatMessage(
+                        {
+                            id: 'what_is_resume_builder_description',
+                        },
+                        {
+                            // eslint-disable-next-line react/display-name
+                            a: (msg) => (
+                                <a target="_blank" rel="noopener noreferrer" href={`https://${msg}`}>
+                                    {msg}
+                                </a>
+                            ),
+                        }
+                    )}
                 </Typography>
-                <Typography
-                    className={classes.subtitle}
-                    color="textPrimary"
-                    variant="h6"
-                >
+                <Typography className={classes.subtitle} color="textPrimary" variant="h6">
                     {intl.formatMessage({ id: 'how_question' })}
                 </Typography>
-                <Typography
-                    className={classes.paragraph}
-                    color="textPrimary"
-                    variant="body1"
-                >
-                    {intl.formatMessage({
-                        id: 'how_question_description',
-                    },
-                    {
-                        // eslint-disable-next-line react/display-name
-                        a: (msg) => (
-                            <a
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                href={`https://${msg}`}
-                            >
-                                {msg}
-                            </a>
-                        ),
-                        // eslint-disable-next-line react/display-name
-                        spreadsheet: (msg) => (
-                            <a
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                href="https://docs.google.com/spreadsheets/d/1jRMEvfI6OsWUwnaHgH5UwnoikZA0a3s8wPnCortNJ_A/copy"
-                            >
-                                {msg}
-                            </a>
-                        ),
-                        // eslint-disable-next-line react/display-name
-                        upload: (msg) => (
-                            <Link
-                                to="/upload"
-                            >
-                                {msg}
-                            </Link>
-                        ),
-                    })}
+                <Typography className={classes.paragraph} color="textPrimary" variant="body1">
+                    {intl.formatMessage(
+                        {
+                            id: 'how_question_description',
+                        },
+                        {
+                            // eslint-disable-next-line react/display-name
+                            a: (msg) => (
+                                <a target="_blank" rel="noopener noreferrer" href={`https://${msg}`}>
+                                    {msg}
+                                </a>
+                            ),
+                            // eslint-disable-next-line react/display-name
+                            spreadsheet: (msg) => (
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href="https://docs.google.com/spreadsheets/d/1jRMEvfI6OsWUwnaHgH5UwnoikZA0a3s8wPnCortNJ_A/copy"
+                                >
+                                    {msg}
+                                </a>
+                            ),
+                            // eslint-disable-next-line react/display-name
+                            upload: (msg) => <Link to="/upload">{msg}</Link>,
+                        }
+                    )}
                 </Typography>
-                <Typography
-                    className={classes.subtitle}
-                    color="textPrimary"
-                    variant="h6"
-                >
+                <Typography className={classes.subtitle} color="textPrimary" variant="h6">
                     {intl.formatMessage({ id: 'why_question' })}
                 </Typography>
-                <Typography
-                    className={classes.paragraph}
-                    color="textPrimary"
-                    variant="body1"
-                >
+                <Typography className={classes.paragraph} color="textPrimary" variant="body1">
                     {intl.formatMessage({ id: 'why_question_description_1' })}
                 </Typography>
-                <Typography
-                    className={classes.paragraph}
-                    color="textPrimary"
-                    variant="body1"
-                >
+                <Typography className={classes.paragraph} color="textPrimary" variant="body1">
                     {intl.formatMessage({ id: 'why_question_description_2' })}
                 </Typography>
-                <Typography
-                    className={classes.paragraph}
-                    color="textPrimary"
-                    variant="body1"
-                >
+                <Typography className={classes.paragraph} color="textPrimary" variant="body1">
                     {intl.formatMessage({ id: 'why_question_description_3' })}
                 </Typography>
-                <Typography
-                    className={classes.paragraph}
-                    color="textPrimary"
-                    variant="body1"
-                >
+                <Typography className={classes.paragraph} color="textPrimary" variant="body1">
                     {intl.formatMessage({ id: 'why_question_description_4' })}
                 </Typography>
-                <Typography
-                    className={classes.subtitle}
-                    color="textPrimary"
-                    variant="h6"
-                >
+                <Typography className={classes.subtitle} color="textPrimary" variant="h6">
                     {intl.formatMessage({ id: 'resume_builder_rescue' })}
                 </Typography>
-                <Typography
-                    className={classes.paragraph}
-                    color="textPrimary"
-                    variant="body1"
-                >
+                <Typography className={classes.paragraph} color="textPrimary" variant="body1">
                     {intl.formatMessage({ id: 'resume_builder_rescue_description' })}
                 </Typography>
                 <Typography
@@ -184,30 +123,14 @@ const HomePage = () => {
                 >
                     {intl.formatMessage({ id: 'disclaimer' })}
                 </Typography>
-                <Typography
-                    className={classes.paragraph}
-                    color="textPrimary"
-                    variant="body1"
-                >
+                <Typography className={classes.paragraph} color="textPrimary" variant="body1">
                     {intl.formatMessage({ id: 'disclaimer_description_1' })}
                 </Typography>
-                <Typography
-                    className={classes.paragraph}
-                    color="textPrimary"
-                    variant="body1"
-                >
+                <Typography className={classes.paragraph} color="textPrimary" variant="body1">
                     {intl.formatMessage({ id: 'disclaimer_description_2' })}
                 </Typography>
-                <Typography
-                    className={classes.paragraph}
-                    color="textPrimary"
-                    variant="body1"
-                >
-                    <a
-                        href="https://github.com/blopa/Resume-Builder"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
+                <Typography className={classes.paragraph} color="textPrimary" variant="body1">
+                    <a href="https://github.com/blopa/Resume-Builder" target="_blank" rel="noreferrer">
                         {intl.formatMessage({ id: 'source_code' })}
                     </a>
                 </Typography>

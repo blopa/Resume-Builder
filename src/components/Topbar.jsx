@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -33,25 +33,17 @@ const useStyles = makeStyles({
     },
 });
 
-function Topbar({
-    showLanguageSelector = true,
-    onLanguageChange,
-}) {
+function Topbar({ showLanguageSelector = true, onLanguageChange }) {
     const classes = useStyles();
     const intl = useIntl();
     const { isShowingDrawer, setIsShowingDrawer } = useContext(CustomMenuContext);
 
     return (
-        <AppBar
-            className={classes.appBarWrapper}
-            position="sticky"
-        >
+        <AppBar className={classes.appBarWrapper} position="sticky">
             <Toolbar>
                 <Hidden smUp>
                     <div className={classes.burguerMenuIcon}>
-                        <MenuIcon
-                            onClick={() => setIsShowingDrawer(!isShowingDrawer)}
-                        />
+                        <MenuIcon onClick={() => setIsShowingDrawer(!isShowingDrawer)} />
                     </div>
                 </Hidden>
                 <Link to="/">
@@ -62,10 +54,7 @@ function Topbar({
                 </Hidden>
                 <div className={classes.rightItems}>
                     {showLanguageSelector && (
-                        <LanguageSelector
-                            currentLocale={intl.locale}
-                            onLanguageChange={onLanguageChange}
-                        />
+                        <LanguageSelector currentLocale={intl.locale} onLanguageChange={onLanguageChange} />
                     )}
                     <ThemeToggler />
                 </div>

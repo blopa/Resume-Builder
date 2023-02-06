@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, useStaticQuery } from 'gatsby';
 import { Button, Container, Divider, Snackbar, Typography } from '@material-ui/core';
@@ -50,12 +50,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Layout = ({
-    children,
-    hideTopbar = false,
-    showLanguageSelector = true,
-    onLanguageChange,
-}) => {
+const Layout = ({ children, hideTopbar = false, showLanguageSelector = true, onLanguageChange }) => {
     const data = useStaticQuery(graphql`
         query SiteTitleQuery {
             site {
@@ -93,37 +88,17 @@ const Layout = ({
 
     return (
         <div>
-            {!hideTopbar && (
-                <Topbar
-                    showLanguageSelector={showLanguageSelector}
-                    onLanguageChange={onLanguageChange}
-                />
-            )}
+            {!hideTopbar && <Topbar showLanguageSelector={showLanguageSelector} onLanguageChange={onLanguageChange} />}
             <SiteDrawer />
             <Container className={classes.siteContainer}>
-                <Divider
-                    className={classes.topDivider}
-                />
-                <main
-                    className={classes.contentContainer}
-                >
-                    {children}
-                </main>
-                <Divider
-                    className={classes.bottomDivider}
-                />
+                <Divider className={classes.topDivider} />
+                <main className={classes.contentContainer}>{children}</main>
+                <Divider className={classes.bottomDivider} />
                 <footer className={classes.footerContainer}>
-                    <Typography
-                        color="textPrimary"
-                        variant="body1"
-                    >
+                    <Typography color="textPrimary" variant="body1">
                         {/* {new Date().getFullYear()} */}
                         {intl.formatMessage({ id: 'built_with' })}
-                        <a
-                            href="https://www.gatsbyjs.com/"
-                            rel="noreferrer"
-                            target="_blank"
-                        >
+                        <a href="https://www.gatsbyjs.com/" rel="noreferrer" target="_blank">
                             Gatsby
                         </a>
                         {' | '}
@@ -131,15 +106,8 @@ const Layout = ({
                     </Typography>
                 </footer>
             </Container>
-            <Snackbar
-                open={isShowingSnackbar}
-                autoHideDuration={6000}
-                onClose={handleCloseSnackbar}
-            >
-                <Alert
-                    onClose={handleCloseSnackbar}
-                    severity={severity}
-                >
+            <Snackbar open={isShowingSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+                <Alert onClose={handleCloseSnackbar} severity={severity}>
                     {isShowingSnackbar && intl.formatMessage({ id: message })}
                 </Alert>
             </Snackbar>
@@ -151,23 +119,17 @@ const Layout = ({
                 open={isShowingCookieConsent}
                 onClose={handleCloseCookieConsent}
                 // onEntered={setCookieConsentSeen}
-                message={(
+                message={
                     <Fragment>
                         {intl.formatMessage({ id: 'cookie_law.we_use_cookies' })}
-                        <Link to="/cookie-policy">
-                            {intl.formatMessage({ id: 'cookie_law.title' })}
-                        </Link>
+                        <Link to="/cookie-policy">{intl.formatMessage({ id: 'cookie_law.title' })}</Link>
                     </Fragment>
-                )}
-                action={(
-                    <Button
-                        color="secondary"
-                        size="small"
-                        onClick={handleCloseCookieConsent}
-                    >
+                }
+                action={
+                    <Button color="secondary" size="small" onClick={handleCloseCookieConsent}>
                         {intl.formatMessage({ id: 'got_it' })}
                     </Button>
-                )}
+                }
             />
         </div>
     );

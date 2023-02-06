@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading, no-shadow */
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Link } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,35 +12,19 @@ const useStyles = makeStyles((theme) => ({
     linkWrapper: {},
 }));
 
-const DownloadJsonLink = ({
-    className = null,
-    children,
-    json = {},
-    name = 'object.json',
-}) => {
+const DownloadJsonLink = ({ className = null, children, json = {}, name = 'object.json' }) => {
     const classes = useStyles();
-    const href = useMemo(
-        () => {
-            if (isClient()) {
-                const base64Data = btoa(unescape(encodeURIComponent(JSON.stringify(json))));
-                return `data:application/json;base64,${base64Data}`;
-            }
+    const href = useMemo(() => {
+        if (isClient()) {
+            const base64Data = btoa(unescape(encodeURIComponent(JSON.stringify(json))));
+            return `data:application/json;base64,${base64Data}`;
+        }
 
-            return '#';
-        },
-        [json]
-    );
+        return '#';
+    }, [json]);
 
     return (
-        <Link
-            className={classNames(
-                className,
-                classes.linkWrapper
-            )}
-            href={href}
-            download={name}
-            target="_blank"
-        >
+        <Link className={classNames(className, classes.linkWrapper)} href={href} download={name} target="_blank">
             {children}
         </Link>
     );

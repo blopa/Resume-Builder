@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, memo } from 'react';
+import { Fragment, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/styles';
 
@@ -26,9 +26,12 @@ function References({ references }) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const setResumeReferencesState = useCallback((newReferences) => {
-        dispatch(setResumeReferences(newReferences));
-    }, [dispatch]);
+    const setResumeReferencesState = useCallback(
+        (newReferences) => {
+            dispatch(setResumeReferences(newReferences));
+        },
+        [dispatch]
+    );
 
     const toggleReferences = useCallback(() => {
         const currentState = references?.enabled;
@@ -38,34 +41,41 @@ function References({ references }) {
         });
     }, [references, setResumeReferencesState]);
 
-    const toggleReference = useCallback((reference, index) => () => {
-        const newReferences = { ...references };
-        newReferences.value[index] = {
-            ...newReferences.value[index],
-            enabled: !newReferences.value[index].enabled,
-        };
-        setResumeReferencesState(newReferences);
-    }, [references, setResumeReferencesState]);
+    const toggleReference = useCallback(
+        (reference, index) => () => {
+            const newReferences = { ...references };
+            newReferences.value[index] = {
+                ...newReferences.value[index],
+                enabled: !newReferences.value[index].enabled,
+            };
+            setResumeReferencesState(newReferences);
+        },
+        [references, setResumeReferencesState]
+    );
 
-    const toggleReferencesDetail = useCallback((reference, index, propName) => () => {
-        const newReferences = { ...references };
-        newReferences.value[index] = {
-            ...newReferences.value[index],
-            value: {
-                ...newReferences.value[index].value,
-                [propName]: {
-                    ...newReferences.value[index].value[propName],
-                    enabled: !newReferences.value[index].value[propName].enabled,
+    const toggleReferencesDetail = useCallback(
+        (reference, index, propName) => () => {
+            const newReferences = { ...references };
+            newReferences.value[index] = {
+                ...newReferences.value[index],
+                value: {
+                    ...newReferences.value[index].value,
+                    [propName]: {
+                        ...newReferences.value[index].value[propName],
+                        enabled: !newReferences.value[index].value[propName].enabled,
+                    },
                 },
-            },
-        };
+            };
 
-        if (newReferences.value[index].enabled) {
-            newReferences.value[index].enabled =
-                Object.entries(newReferences.value[index].value).some((entry) => entry[1].enabled);
-        }
-        setResumeReferencesState(newReferences);
-    }, [references, setResumeReferencesState]);
+            if (newReferences.value[index].enabled) {
+                newReferences.value[index].enabled = Object.entries(newReferences.value[index].value).some(
+                    (entry) => entry[1].enabled
+                );
+            }
+            setResumeReferencesState(newReferences);
+        },
+        [references, setResumeReferencesState]
+    );
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -77,10 +87,7 @@ function References({ references }) {
             {references?.enabled && (
                 <ul>
                     {references?.value.map((ref, index) => {
-                        const {
-                            name,
-                            reference,
-                        } = ref?.value || {};
+                        const { name, reference } = ref?.value || {};
 
                         return (
                             <Fragment key={uuid()}>
@@ -97,11 +104,7 @@ function References({ references }) {
                                             <ItemsList
                                                 label={varNameToString({ name })}
                                                 checked={name?.enabled}
-                                                onClick={toggleReferencesDetail(
-                                                    ref,
-                                                    index,
-                                                    varNameToString({ name })
-                                                )}
+                                                onClick={toggleReferencesDetail(ref, index, varNameToString({ name }))}
                                             />
                                         )}
                                         {reference && (

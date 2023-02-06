@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -21,14 +21,8 @@ export default function TopLayout(props) {
     return (
         <Fragment>
             <Helmet>
-                <meta
-                    name="viewport"
-                    content="minimum-scale=1, initial-scale=1, width=device-width"
-                />
-                <link
-                    href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap"
-                    rel="stylesheet"
-                />
+                <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+                <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet" />
             </Helmet>
             <section className={classes.siteWrapper}>
                 <CustomMenuProvider>

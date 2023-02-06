@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
@@ -60,47 +60,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Basics = ({
-    basics: {
-        name,
-        label,
-        image,
-        email,
-        phone,
-        url,
-        summary,
-        profiles,
-        location,
-    },
-}) => {
+const Basics = ({ basics: { name, label, image, email, phone, url, summary, profiles, location } }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const {
-        address,
-        postalCode,
-        city,
-        countryCode,
-        region,
-    } = location || {};
+    const { address, postalCode, city, countryCode, region } = location || {};
 
-    const locationEnabled = Boolean(
-        address
-        || city
-        || region
-        || postalCode
-        || countryCode
-    );
+    const locationEnabled = Boolean(address || city || region || postalCode || countryCode);
 
     return (
         <Fragment>
             <div className={classes.resumeBasics}>
-                {image && (
-                    <img
-                        className={classes.image}
-                        src={image}
-                        alt="avatar"
-                    />
-                )}
+                {image && <img className={classes.image} src={image} alt="avatar" />}
                 {name && <h2>{name}</h2>}
                 {label && <h3>{label}</h3>}
                 <div className={classes.detailsWrapper}>
@@ -116,11 +86,7 @@ const Basics = ({
                     <ul className={classes['contact-info']}>
                         {url && (
                             <li key={uuid()}>
-                                <a
-                                    className={classes.url}
-                                    href={url}
-                                    target="_blank"
-                                >
+                                <a className={classes.url} href={url} target="_blank" rel="noreferrer">
                                     {url}
                                 </a>
                             </li>
@@ -132,28 +98,18 @@ const Basics = ({
                         <ul className={classes['social-media']}>
                             {profiles?.map((profile) => {
                                 if (profile) {
-                                    const {
-                                        url: profileUrl,
-                                        network,
-                                        username,
-                                    } = profile || {};
+                                    const { url: profileUrl, network, username } = profile || {};
 
-                                    const isProfileEnable = Boolean(
-                                        profileUrl
-                                        && network
-                                        && username
-                                    );
+                                    const isProfileEnable = Boolean(profileUrl && network && username);
 
-                                    return isProfileEnable && (
-                                        <li key={uuid()}>
-                                            <a
-                                                href={profileUrl}
-                                                title={username}
-                                                target="_blank"
-                                            >
-                                                {network}
-                                            </a>
-                                        </li>
+                                    return (
+                                        isProfileEnable && (
+                                            <li key={uuid()}>
+                                                <a href={profileUrl} title={username} target="_blank" rel="noreferrer">
+                                                    {network}
+                                                </a>
+                                            </li>
+                                        )
                                     );
                                 }
 
@@ -165,9 +121,7 @@ const Basics = ({
             </div>
             {summary && (
                 <div className={classes.resumeSummary}>
-                    <h3>
-                        {intl.formatMessage({ id: 'summary' })}
-                    </h3>
+                    <h3>{intl.formatMessage({ id: 'summary' })}</h3>
                     <div className={classes.summaryWrapper}>
                         <p>{summary}</p>
                     </div>

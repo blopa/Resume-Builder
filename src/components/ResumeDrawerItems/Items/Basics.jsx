@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, memo } from 'react';
+import { Fragment, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/styles';
 
@@ -26,9 +26,12 @@ function Basics({ basics }) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const setResumeBasicsState = useCallback((newBasics) => {
-        dispatch(setResumeBasics(newBasics));
-    }, [dispatch]);
+    const setResumeBasicsState = useCallback(
+        (newBasics) => {
+            dispatch(setResumeBasics(newBasics));
+        },
+        [dispatch]
+    );
 
     const toggleBasics = useCallback(() => {
         const currentState = basics?.enabled;
@@ -38,48 +41,57 @@ function Basics({ basics }) {
         });
     }, [basics, setResumeBasicsState]);
 
-    const toggleBasicsDetail = useCallback((propName) => () => {
-        const currentState = basics?.value[propName]?.enabled;
-        setResumeBasicsState({
-            ...basics,
-            value: {
-                ...basics?.value,
-                [propName]: {
-                    ...basics?.value[propName],
-                    enabled: !currentState,
+    const toggleBasicsDetail = useCallback(
+        (propName) => () => {
+            const currentState = basics?.value[propName]?.enabled;
+            setResumeBasicsState({
+                ...basics,
+                value: {
+                    ...basics?.value,
+                    [propName]: {
+                        ...basics?.value[propName],
+                        enabled: !currentState,
+                    },
                 },
-            },
-        });
-    }, [basics, setResumeBasicsState]);
+            });
+        },
+        [basics, setResumeBasicsState]
+    );
 
-    const toggleBasicsLocationDetail = useCallback((propName) => () => {
-        const currentState = basics?.value.location?.value[propName]?.enabled;
-        setResumeBasicsState({
-            ...basics,
-            value: {
-                ...basics?.value,
-                location: {
-                    ...basics?.value.location,
-                    value: {
-                        ...basics?.value.location?.value,
-                        [propName]: {
-                            ...basics?.value.location?.value[propName],
-                            enabled: !currentState,
+    const toggleBasicsLocationDetail = useCallback(
+        (propName) => () => {
+            const currentState = basics?.value.location?.value[propName]?.enabled;
+            setResumeBasicsState({
+                ...basics,
+                value: {
+                    ...basics?.value,
+                    location: {
+                        ...basics?.value.location,
+                        value: {
+                            ...basics?.value.location?.value,
+                            [propName]: {
+                                ...basics?.value.location?.value[propName],
+                                enabled: !currentState,
+                            },
                         },
                     },
                 },
-            },
-        });
-    }, [basics, setResumeBasicsState]);
+            });
+        },
+        [basics, setResumeBasicsState]
+    );
 
-    const toggleBasicsProfilesDetail = useCallback((profile, index) => () => {
-        const newBasics = { ...basics };
-        newBasics.value.profiles.value[index] = {
-            ...newBasics.value.profiles.value[index],
-            enabled: !newBasics.value.profiles.value[index].enabled,
-        };
-        setResumeBasicsState(newBasics);
-    }, [basics, setResumeBasicsState]);
+    const toggleBasicsProfilesDetail = useCallback(
+        (profile, index) => () => {
+            const newBasics = { ...basics };
+            newBasics.value.profiles.value[index] = {
+                ...newBasics.value.profiles.value[index],
+                enabled: !newBasics.value.profiles.value[index].enabled,
+            };
+            setResumeBasicsState(newBasics);
+        },
+        [basics, setResumeBasicsState]
+    );
 
     const {
         enabled: basicsEnabled,
@@ -93,13 +105,7 @@ function Basics({ basics }) {
             summary,
             location: {
                 enabled: locationEnabled,
-                value: {
-                    address,
-                    postalCode,
-                    city,
-                    countryCode,
-                    region,
-                },
+                value: { address, postalCode, city, countryCode, region },
             },
             profiles,
         },
@@ -107,47 +113,35 @@ function Basics({ basics }) {
 
     return (
         <div className={classes.resumeDrawerItem}>
-            <ItemInput
-                label={varNameToString({ basics })}
-                onChange={toggleBasics}
-                checked={basicsEnabled}
-            />
+            <ItemInput label={varNameToString({ basics })} onChange={toggleBasics} checked={basicsEnabled} />
             {basicsEnabled && (
                 <ul>
                     {image && (
                         <ItemsList
                             label={varNameToString({ image })}
                             checked={image?.enabled}
-                            onClick={toggleBasicsDetail(
-                                varNameToString({ image })
-                            )}
+                            onClick={toggleBasicsDetail(varNameToString({ image }))}
                         />
                     )}
                     {name && (
                         <ItemsList
                             label={varNameToString({ name })}
                             checked={name?.enabled}
-                            onClick={toggleBasicsDetail(
-                                varNameToString({ name })
-                            )}
+                            onClick={toggleBasicsDetail(varNameToString({ name }))}
                         />
                     )}
                     {label && (
                         <ItemsList
                             label={varNameToString({ label })}
                             checked={label?.enabled}
-                            onClick={toggleBasicsDetail(
-                                varNameToString({ label })
-                            )}
+                            onClick={toggleBasicsDetail(varNameToString({ label }))}
                         />
                     )}
                     <ItemsList
                         // TODO varNameToString({ location })
                         label="location"
                         checked={locationEnabled}
-                        onClick={toggleBasicsDetail(
-                            'location'
-                        )}
+                        onClick={toggleBasicsDetail('location')}
                     />
                     {locationEnabled && (
                         <ul>
@@ -155,45 +149,35 @@ function Basics({ basics }) {
                                 <ItemsList
                                     label={varNameToString({ address })}
                                     checked={address?.enabled}
-                                    onClick={toggleBasicsLocationDetail(
-                                        varNameToString({ address })
-                                    )}
+                                    onClick={toggleBasicsLocationDetail(varNameToString({ address }))}
                                 />
                             )}
                             {city && (
                                 <ItemsList
                                     label={varNameToString({ city })}
                                     checked={city?.enabled}
-                                    onClick={toggleBasicsLocationDetail(
-                                        varNameToString({ city })
-                                    )}
+                                    onClick={toggleBasicsLocationDetail(varNameToString({ city }))}
                                 />
                             )}
                             {region && (
                                 <ItemsList
                                     label={varNameToString({ region })}
                                     checked={region?.enabled}
-                                    onClick={toggleBasicsLocationDetail(
-                                        varNameToString({ region })
-                                    )}
+                                    onClick={toggleBasicsLocationDetail(varNameToString({ region }))}
                                 />
                             )}
                             {postalCode && (
                                 <ItemsList
                                     label={varNameToString({ postalCode })}
                                     checked={postalCode?.enabled}
-                                    onClick={toggleBasicsLocationDetail(
-                                        varNameToString({ postalCode })
-                                    )}
+                                    onClick={toggleBasicsLocationDetail(varNameToString({ postalCode }))}
                                 />
                             )}
                             {countryCode && (
                                 <ItemsList
                                     label={varNameToString({ countryCode })}
                                     checked={countryCode?.enabled}
-                                    onClick={toggleBasicsLocationDetail(
-                                        varNameToString({ countryCode })
-                                    )}
+                                    onClick={toggleBasicsLocationDetail(varNameToString({ countryCode }))}
                                 />
                             )}
                         </ul>
@@ -202,27 +186,21 @@ function Basics({ basics }) {
                         <ItemsList
                             label={varNameToString({ url })}
                             checked={url?.enabled}
-                            onClick={toggleBasicsDetail(
-                                varNameToString({ url })
-                            )}
+                            onClick={toggleBasicsDetail(varNameToString({ url }))}
                         />
                     )}
                     {phone && (
                         <ItemsList
                             label={varNameToString({ phone })}
                             checked={phone?.enabled}
-                            onClick={toggleBasicsDetail(
-                                varNameToString({ phone })
-                            )}
+                            onClick={toggleBasicsDetail(varNameToString({ phone }))}
                         />
                     )}
                     {email && (
                         <ItemsList
                             label={varNameToString({ email })}
                             checked={email?.enabled}
-                            onClick={toggleBasicsDetail(
-                                varNameToString({ email })
-                            )}
+                            onClick={toggleBasicsDetail(varNameToString({ email }))}
                         />
                     )}
                     {profiles && (
@@ -231,9 +209,7 @@ function Basics({ basics }) {
                                 <ItemsList
                                     label={varNameToString({ profiles })}
                                     checked={profiles?.enabled}
-                                    onClick={toggleBasicsDetail(
-                                        varNameToString({ profiles })
-                                    )}
+                                    onClick={toggleBasicsDetail(varNameToString({ profiles }))}
                                 />
                             )}
                             {profiles?.enabled && (
@@ -245,10 +221,7 @@ function Basics({ basics }) {
                                                 label={network?.value}
                                                 key={uuid()}
                                                 checked={profile?.enabled}
-                                                onClick={toggleBasicsProfilesDetail(
-                                                    profile,
-                                                    index
-                                                )}
+                                                onClick={toggleBasicsProfilesDetail(profile, index)}
                                             />
                                         );
                                     })}
@@ -260,9 +233,7 @@ function Basics({ basics }) {
                         <ItemsList
                             label={varNameToString({ summary })}
                             checked={summary?.enabled}
-                            onClick={toggleBasicsDetail(
-                                varNameToString({ summary })
-                            )}
+                            onClick={toggleBasicsDetail(varNameToString({ summary }))}
                         />
                     )}
                 </ul>

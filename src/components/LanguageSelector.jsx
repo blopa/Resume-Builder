@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { MenuItem, Select } from '@material-ui/core';
 import { IconFlagBR, IconFlagUS, IconFlagES } from 'material-ui-flags';
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,18 +27,16 @@ const LanguageSelector = ({ currentLocale, onLanguageChange }) => {
     const classes = useStyles();
 
     const handleOnLanguageChange = onLanguageChange || defaultOnLanguageChange;
-    const handleChange = useCallback((e) => {
-        setLanguage(e.target.value);
-        handleOnLanguageChange(e.target.value, language);
-    }, [handleOnLanguageChange, language]);
+    const handleChange = useCallback(
+        (e) => {
+            setLanguage(e.target.value);
+            handleOnLanguageChange(e.target.value, language);
+        },
+        [handleOnLanguageChange, language]
+    );
 
     return (
-        <Select
-            value={language}
-            onChange={handleChange}
-            className={classes.selectLanguage}
-            disableUnderline
-        >
+        <Select value={language} onChange={handleChange} className={classes.selectLanguage} disableUnderline>
             <MenuItem value="pt-br">
                 <IconFlagBR />
             </MenuItem>

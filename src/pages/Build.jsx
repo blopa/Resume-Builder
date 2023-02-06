@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useMemo, useState } from 'react';
+import { Fragment, useCallback, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Slide } from '@material-ui/core';
 import { navigate, useIntl } from 'gatsby-plugin-react-intl';
@@ -43,32 +43,30 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const convertFormikToJsonArray = (formikValues, stringStart, arrayKeys = []) => Object.entries(formikValues)
-    .filter(([k, v]) => k.startsWith(stringStart))
-    .reduce((acc, [k, v]) => {
-        let value = v;
-        const key = k.split('-')[4];
-        const idx = parseInt(k.split('-')[3], 10);
-        const newAcc = [...acc];
-        if (arrayKeys.includes(key)) {
-            // const arrayIndex = parseInt(k.split('-')[7], 10);
-            value = [
-                ...newAcc?.[idx]?.[key] || [],
-                value,
-            ];
-        }
+const convertFormikToJsonArray = (formikValues, stringStart, arrayKeys = []) =>
+    Object.entries(formikValues)
+        .filter(([k, v]) => k.startsWith(stringStart))
+        .reduce((acc, [k, v]) => {
+            let value = v;
+            const key = k.split('-')[4];
+            const idx = parseInt(k.split('-')[3], 10);
+            const newAcc = [...acc];
+            if (arrayKeys.includes(key)) {
+                // const arrayIndex = parseInt(k.split('-')[7], 10);
+                value = [...(newAcc?.[idx]?.[key] || []), value];
+            }
 
-        if (newAcc.length >= idx + 1) {
-            newAcc[idx] = {
-                ...newAcc[idx],
-                [key]: value,
-            };
-        } else {
-            newAcc.push({ [key]: value });
-        }
+            if (newAcc.length >= idx + 1) {
+                newAcc[idx] = {
+                    ...newAcc[idx],
+                    [key]: value,
+                };
+            } else {
+                newAcc.push({ [key]: value });
+            }
 
-        return newAcc;
-    }, []);
+            return newAcc;
+        }, []);
 
 const BuildPage = ({ params, uri, location }) => {
     const intl = useIntl();
@@ -78,29 +76,25 @@ const BuildPage = ({ params, uri, location }) => {
     const splittedSchema = useMemo(() => {
         const schemaArray = [];
         const propertiesToSkip = ['$schema', 'meta'];
-        Object.entries(schema.properties)
-            .forEach(([key, value]) => {
-                if (propertiesToSkip.includes(key)) {
-                    return;
-                }
+        Object.entries(schema.properties).forEach(([key, value]) => {
+            if (propertiesToSkip.includes(key)) {
+                return;
+            }
 
-                schemaArray.push({
-                    [key]: value,
-                });
+            schemaArray.push({
+                [key]: value,
             });
+        });
 
         return schemaArray;
     }, []);
 
-    const paramFormValues = useMemo(
-        () => Object.fromEntries(new URLSearchParams(location.search)),
-        [location.search]
-    );
+    const paramFormValues = useMemo(() => Object.fromEntries(new URLSearchParams(location.search)), [location.search]);
 
     const currentIndex = useMemo(() => {
         const key = params['*'] || '';
-        const foundIndex = splittedSchema.findIndex(
-            (value) => Object.keys(value)
+        const foundIndex = splittedSchema.findIndex((value) =>
+            Object.keys(value)
                 .map((k) => k.toLowerCase())
                 .includes(key.toLowerCase())
         );
@@ -125,21 +119,24 @@ const BuildPage = ({ params, uri, location }) => {
     const [slideIn, setSlideIn] = useState(true);
     const [slideDirection, setSlideDirection] = useState('down');
 
-    const onArrowClick = useCallback((direction) => {
-        const formsLength = splittedSchema.length;
-        const increment = direction === 'left' ? -1 : 1;
-        const newIndex = (index + increment + formsLength) % formsLength;
+    const onArrowClick = useCallback(
+        (direction) => {
+            const formsLength = splittedSchema.length;
+            const increment = direction === 'left' ? -1 : 1;
+            const newIndex = (index + increment + formsLength) % formsLength;
 
-        const oppDirection = direction === 'left' ? 'right' : 'left';
-        setSlideDirection(direction);
-        setSlideIn(false);
+            const oppDirection = direction === 'left' ? 'right' : 'left';
+            setSlideDirection(direction);
+            setSlideIn(false);
 
-        setTimeout(() => {
-            setIndex(newIndex);
-            setSlideDirection(oppDirection);
-            setSlideIn(true);
-        }, 500);
-    }, [splittedSchema.length, index]);
+            setTimeout(() => {
+                setIndex(newIndex);
+                setSlideDirection(oppDirection);
+                setSlideIn(true);
+            }, 500);
+        },
+        [splittedSchema.length, index]
+    );
 
     const getResumeJsonFromFormik = useCallback(() => {
         const arrayKeys = ['highlights', 'keywords', 'courses', 'roles'];
@@ -200,10 +197,13 @@ const BuildPage = ({ params, uri, location }) => {
         downloadJson(resume);
     }, [getResumeJsonFromFormik]);
 
-    const setResumesAndForward = useCallback((toggleableJsonResume) => {
-        dispatch(setToggleableJsonResume(toggleableJsonResume));
-        navigate('/resume');
-    }, [dispatch]);
+    const setResumesAndForward = useCallback(
+        (toggleableJsonResume) => {
+            dispatch(setToggleableJsonResume(toggleableJsonResume));
+            navigate('/resume');
+        },
+        [dispatch]
+    );
 
     const handleClickBuild = useCallback(() => {
         const resume = getResumeJsonFromFormik();
@@ -215,14 +215,8 @@ const BuildPage = ({ params, uri, location }) => {
 
     return (
         <Layout>
-            <SEO
-                title={intl.formatMessage({ id: 'build_resume' })}
-                robots="noindex, nofollow"
-            />
-            <Slide
-                in={slideIn}
-                direction={slideDirection}
-            >
+            <SEO title={intl.formatMessage({ id: 'build_resume' })} robots="noindex, nofollow" />
+            <Slide in={slideIn} direction={slideDirection}>
                 <div>
                     <DynamicForm
                         schema={splittedSchema[index]}
@@ -243,16 +237,12 @@ const BuildPage = ({ params, uri, location }) => {
                         {intl.formatMessage({ id: 'builder.previous' })}
                     </Button>
                 )}
-                {(index !== splittedSchema.length - 1) && (
-                    <Button
-                        onClick={() => onArrowClick('right')}
-                        color="primary"
-                        variant="contained"
-                    >
+                {index !== splittedSchema.length - 1 && (
+                    <Button onClick={() => onArrowClick('right')} color="primary" variant="contained">
                         {intl.formatMessage({ id: 'builder.next' })}
                     </Button>
                 )}
-                {(index === splittedSchema.length - 1) && (
+                {index === splittedSchema.length - 1 && (
                     <Fragment>
                         <Button
                             className={classes.downloadJson}
@@ -262,11 +252,7 @@ const BuildPage = ({ params, uri, location }) => {
                         >
                             {intl.formatMessage({ id: 'download_json' })}
                         </Button>
-                        <Button
-                            onClick={handleClickBuild}
-                            color="primary"
-                            variant="contained"
-                        >
+                        <Button onClick={handleClickBuild} color="primary" variant="contained">
                             {intl.formatMessage({ id: 'build_resume' })}
                         </Button>
                     </Fragment>

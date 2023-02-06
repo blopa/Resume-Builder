@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
@@ -50,57 +50,44 @@ const References = ({ references }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return references?.length > 0 && (
-        <div className={classes.resumeReferences}>
-            <h3
-                ref={sectionTitle}
-                className={classes.title}
-                style={titleStyle}
-            >
-                {intl.formatMessage({ id: 'references' })}
-            </h3>
-            <div className={classes.contentWrapper}>
-                <ul className={classes.references}>
-                    {references.map((ref) => {
-                        if (ref) {
-                            const {
-                                name,
-                                reference,
-                            } = ref || {};
+    return (
+        references?.length > 0 && (
+            <div className={classes.resumeReferences}>
+                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                    {intl.formatMessage({ id: 'references' })}
+                </h3>
+                <div className={classes.contentWrapper}>
+                    <ul className={classes.references}>
+                        {references.map((ref) => {
+                            if (ref) {
+                                const { name, reference } = ref || {};
 
-                            let refProps = {};
-                            if (!firstItem.current) {
-                                refProps = {
-                                    ref: firstItem,
-                                };
+                                let refProps = {};
+                                if (!firstItem.current) {
+                                    refProps = {
+                                        ref: firstItem,
+                                    };
+                                }
+
+                                return (
+                                    <li
+                                        className={classes.referenceWrapper}
+                                        key={uuid()}
+                                        // eslint-disable-next-line react/jsx-props-no-spreading
+                                        {...refProps}
+                                    >
+                                        {name && <p className={classes.name}>{name}</p>}
+                                        {reference && <p className={classes.reference}>{reference}</p>}
+                                    </li>
+                                );
                             }
 
-                            return (
-                                <li
-                                    className={classes.referenceWrapper}
-                                    key={uuid()}
-                                    // eslint-disable-next-line react/jsx-props-no-spreading
-                                    {...refProps}
-                                >
-                                    {name && (
-                                        <p className={classes.name}>
-                                            {name}
-                                        </p>
-                                    )}
-                                    {reference && (
-                                        <p className={classes.reference}>
-                                            {reference}
-                                        </p>
-                                    )}
-                                </li>
-                            );
-                        }
-
-                        return null;
-                    })}
-                </ul>
+                            return null;
+                        })}
+                    </ul>
+                </div>
             </div>
-        </div>
+        )
     );
 };
 

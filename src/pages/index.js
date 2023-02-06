@@ -4,6 +4,6 @@
 import React from 'react';
 import HomePage from './Home';
 
-const gatsbyEntryPoint = () => (React.createElement(HomePage));
+const gatsbyEntryPoint = () => React.createElement(HomePage);
 
 export default gatsbyEntryPoint;

@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 import Mustache from 'mustache';
@@ -40,31 +40,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CoverLetter = ({
-    coverLetterText = '',
-    coverLetterVariables = [],
-}) => {
+const CoverLetter = ({ coverLetterText = '', coverLetterVariables = [] }) => {
     const classes = useStyles();
     const intl = useIntl();
     const variables = useMemo(() => {
         const newVariables = {};
-        Object.entries(coverLetterVariables)
-            .forEach((entry) => {
-                const [key, value] = entry;
-                newVariables[key] = renderToString(
-                    <span className={classes.variable}>
-                        {value}
-                    </span>
-                );
-            });
+        Object.entries(coverLetterVariables).forEach((entry) => {
+            const [key, value] = entry;
+            newVariables[key] = renderToString(<span className={classes.variable}>{value}</span>);
+        });
 
         return newVariables;
     }, [classes.variable, coverLetterVariables]);
 
-    const text = useMemo(
-        () => coverLetterText.replaceAll('{{', '{{{').replaceAll('}}', '}}}'),
-        [coverLetterText]
-    );
+    const text = useMemo(() => coverLetterText.replaceAll('{{', '{{{').replaceAll('}}', '}}}'), [coverLetterText]);
 
     return (
         <Fragment>
@@ -74,9 +63,7 @@ const CoverLetter = ({
                     __html: Mustache.render(text, variables),
                 }}
             />
-            <div className={classes.pageBreakWarning}>
-                {intl.formatMessage({ id: 'this_is_a_page_break' })}
-            </div>
+            <div className={classes.pageBreakWarning}>{intl.formatMessage({ id: 'this_is_a_page_break' })}</div>
         </Fragment>
     );
 };

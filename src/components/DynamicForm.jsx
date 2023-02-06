@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, TextField } from '@material-ui/core';
 import classNames from 'classnames';
@@ -35,31 +35,25 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const DynamicForm = ({
-    schema,
-    formik,
-    definitions,
-    textAreaNames = [],
-    quantitiesObject = {},
-}) => {
+const DynamicForm = ({ schema, formik, definitions, textAreaNames = [], quantitiesObject = {} }) => {
     const classes = useStyles();
     const intl = useIntl();
     const [quantitiesHashMap, setQuantitiesHashMap] = useState(quantitiesObject);
 
-    const getForm = useCallback((jsonSchema, accKey = '', quantity = 1) =>
-        Object.entries(jsonSchema).map(([key, value], index) => {
-            let newAccKey = key;
-            if (accKey) {
-                newAccKey = `${accKey}-${key}`;
-            }
+    const getForm = useCallback(
+        (jsonSchema, accKey = '', quantity = 1) =>
+            Object.entries(jsonSchema).map(([key, value], index) => {
+                let newAccKey = key;
+                if (accKey) {
+                    newAccKey = `${accKey}-${key}`;
+                }
 
-            switch (value.type) {
-                case 'object': {
-                    return (
-                        <div key={key} className={classes.section}>
-                            <h1>{intl.formatMessage({ id: `builder.${key}` })}</h1>
-                            {(new Array(quantity).fill(null).map(
-                                (v, i) => (
+                switch (value.type) {
+                    case 'object': {
+                        return (
+                            <div key={key} className={classes.section}>
+                                <h1>{intl.formatMessage({ id: `builder.${key}` })}</h1>
+                                {new Array(quantity).fill(null).map((v, i) => (
                                     <div
                                         className={classes.arraySection}
                                         // eslint-disable-next-line react/no-array-index-key
@@ -67,87 +61,89 @@ const DynamicForm = ({
                                     >
                                         {getForm(value.properties, `${newAccKey}-${i}`)}
                                     </div>
-                                )
-                            ))}
-                        </div>
-                    );
-                }
+                                ))}
+                            </div>
+                        );
+                    }
 
-                case 'array': {
-                    const currQuantity = quantitiesHashMap[newAccKey] || 1;
-                    return (
-                        <div key={key} className={classes.section}>
-                            {(new Array(quantity).fill(null).map((v, i) => (
-                                <div
-                                    className={classes.arraySection}
-                                    // eslint-disable-next-line react/no-array-index-key
-                                    key={i}
-                                >
-                                    {getForm({
-                                        [key]: value.items,
-                                    }, `${newAccKey}-${i}`, currQuantity)}
-                                </div>
-                            )))}
-                            <div className={classes.buttonWrapper}>
-                                <Button
-                                    onClick={() => {
-                                        setQuantitiesHashMap({
-                                            ...quantitiesHashMap,
-                                            [newAccKey]: currQuantity + 1,
-                                        });
-                                    }}
-                                    color="primary"
-                                    variant="contained"
-                                >
-                                    {`+ ${intl.formatMessage({ id: `builder.${key}` })}`}
-                                </Button>
-                                {currQuantity > 1 && (
+                    case 'array': {
+                        const currQuantity = quantitiesHashMap[newAccKey] || 1;
+                        return (
+                            <div key={key} className={classes.section}>
+                                {new Array(quantity).fill(null).map((v, i) => (
+                                    <div
+                                        className={classes.arraySection}
+                                        // eslint-disable-next-line react/no-array-index-key
+                                        key={i}
+                                    >
+                                        {getForm(
+                                            {
+                                                [key]: value.items,
+                                            },
+                                            `${newAccKey}-${i}`,
+                                            currQuantity
+                                        )}
+                                    </div>
+                                ))}
+                                <div className={classes.buttonWrapper}>
                                     <Button
                                         onClick={() => {
                                             setQuantitiesHashMap({
                                                 ...quantitiesHashMap,
-                                                [newAccKey]: currQuantity - 1,
+                                                [newAccKey]: currQuantity + 1,
                                             });
                                         }}
-                                        color="secondary"
+                                        color="primary"
                                         variant="contained"
-                                        className={classes.removeButton}
                                     >
-                                        {`- ${intl.formatMessage({ id: `builder.${key}` })}`}
+                                        {`+ ${intl.formatMessage({ id: `builder.${key}` })}`}
                                     </Button>
-                                )}
+                                    {currQuantity > 1 && (
+                                        <Button
+                                            onClick={() => {
+                                                setQuantitiesHashMap({
+                                                    ...quantitiesHashMap,
+                                                    [newAccKey]: currQuantity - 1,
+                                                });
+                                            }}
+                                            color="secondary"
+                                            variant="contained"
+                                            className={classes.removeButton}
+                                        >
+                                            {`- ${intl.formatMessage({ id: `builder.${key}` })}`}
+                                        </Button>
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                    );
-                }
-
-                case 'string':
-                default: {
-                    if (!key) {
-                        return null;
+                        );
                     }
 
-                    let inputProps = {};
-                    // TODO this doesnt work
-                    if (!value.type && value.$ref) {
-                        let ref = definitions;
-                        value.$ref.split('/').forEach((k) => {
-                            if (ref[k]) {
-                                ref = ref[k];
-                            }
-                        });
-
-                        if (ref.pattern) {
-                            inputProps = {
-                                pattern: ref.pattern,
-                            };
+                    case 'string':
+                    default: {
+                        if (!key) {
+                            return null;
                         }
-                    }
 
-                    return (
-                        <div key={key} className={classes.groupedFieldWrapper}>
-                            {(new Array(quantity).fill(null).map(
-                                (v, i) => {
+                        let inputProps = {};
+                        // TODO this doesnt work
+                        if (!value.type && value.$ref) {
+                            let ref = definitions;
+                            value.$ref.split('/').forEach((k) => {
+                                if (ref[k]) {
+                                    ref = ref[k];
+                                }
+                            });
+
+                            if (ref.pattern) {
+                                inputProps = {
+                                    pattern: ref.pattern,
+                                };
+                            }
+                        }
+
+                        return (
+                            <div key={key} className={classes.groupedFieldWrapper}>
+                                {new Array(quantity).fill(null).map((v, i) => {
                                     const newKey = `${newAccKey}-${i}`;
                                     const isTextArea = textAreaNames.includes(key);
                                     let lines = 4;
@@ -175,33 +171,34 @@ const DynamicForm = ({
                                             inputProps={inputProps}
                                         />
                                     );
-                                }
-                            ))}
-                        </div>
-                    );
+                                })}
+                            </div>
+                        );
+                    }
                 }
-            }
-        }), [
-        classes.section,
-        classes.arraySection,
-        classes.buttonWrapper,
-        classes.removeButton,
-        classes.groupedFieldWrapper,
-        classes.field,
-        classes.textArea,
-        intl,
-        quantitiesHashMap,
-        definitions,
-        textAreaNames,
-        formik.values,
-        formik.handleChange,
-        formik.touched,
-        formik.errors,
-    ]);
+            }),
+        [
+            classes.section,
+            classes.arraySection,
+            classes.buttonWrapper,
+            classes.removeButton,
+            classes.groupedFieldWrapper,
+            classes.field,
+            classes.textArea,
+            intl,
+            quantitiesHashMap,
+            definitions,
+            textAreaNames,
+            formik.values,
+            formik.handleChange,
+            formik.touched,
+            formik.errors,
+        ]
+    );
 
     const form = useMemo(
-        () => Object.entries(schema)
-            .map(([key, value]) => {
+        () =>
+            Object.entries(schema).map(([key, value]) => {
                 if (!key) {
                     return null;
                 }
@@ -213,11 +210,7 @@ const DynamicForm = ({
         [getForm, schema]
     );
 
-    return (
-        <div className={classes.formWrapper}>
-            {form}
-        </div>
-    );
+    return <div className={classes.formWrapper}>{form}</div>;
 };
 
 export default DynamicForm;

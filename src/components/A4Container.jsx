@@ -1,4 +1,3 @@
-import React from 'react';
 import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -35,11 +34,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function A4Container({
-    children,
-    customHeight,
-    alignCenter = true,
-}) {
+function A4Container({ children, customHeight, alignCenter = true }) {
     const classes = useStyles();
     let style = {};
 
@@ -51,13 +46,10 @@ function A4Container({
 
     return (
         <div
-            className={classNames(
-                classes.a4Container,
-                {
-                    [classes.alignCenter]: alignCenter,
-                    [classes.alignLeft]: !alignCenter,
-                }
-            )}
+            className={classNames(classes.a4Container, {
+                [classes.alignCenter]: alignCenter,
+                [classes.alignLeft]: !alignCenter,
+            })}
             style={style}
         >
             {children}

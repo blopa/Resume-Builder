@@ -1,4 +1,3 @@
-import React from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,12 +12,7 @@ const useStyles = makeStyles((theme) => ({
 const FloatingButton = ({ onClick }) => {
     const classes = useStyles();
     return (
-        <Fab
-            color="primary"
-            aria-label="add"
-            onClick={onClick}
-            className={classes.floatingButton}
-        >
+        <Fab color="primary" aria-label="add" onClick={onClick} className={classes.floatingButton}>
             <MenuIcon />
         </Fab>
     );

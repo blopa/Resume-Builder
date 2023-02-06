@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography, TextField, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
@@ -11,10 +11,7 @@ import DropZone from '../components/DropZone';
 import TemplateSelector from '../components/TemplateSelector';
 
 // Utils
-import {
-    convertToToggleableObject,
-    generateCoverLetterObject,
-} from '../utils/utils';
+import { convertToToggleableObject, generateCoverLetterObject } from '../utils/utils';
 import spreadsheetToJsonResume from '../utils/spreadsheet-to-json-resume';
 import { readSpreadsheet, parseSpreadsheetUrl } from '../utils/spreadsheet-parser';
 import { readJsonFile } from '../utils/json-parser';
@@ -55,16 +52,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // permitted spreadsheet extensions
-const SHEET_EXTENSIONS = [
-    'xlsx',
-    'xlsm',
-    'csv',
-    'xls',
-    'xml',
-    'xlt',
-    'xlsb',
-    'ods',
-];
+const SHEET_EXTENSIONS = ['xlsx', 'xlsm', 'csv', 'xls', 'xml', 'xlt', 'xlsb', 'ods'];
 
 const UploadPage = ({ pageContext, location }) => {
     const classes = useStyles();
@@ -75,23 +63,27 @@ const UploadPage = ({ pageContext, location }) => {
     const [loading, setLoading] = useState(false);
     const [isShowingErrorSnackbar, setIsShowingErrorSnackbar] = useState(false);
 
-    const setResumesAndForward = useCallback((toggleableJsonResume) => {
-        dispatch(setToggleableJsonResume(
-            cloneDeep(toggleableJsonResume)
-        ));
+    const setResumesAndForward = useCallback(
+        (toggleableJsonResume) => {
+            dispatch(setToggleableJsonResume(cloneDeep(toggleableJsonResume)));
 
-        navigate('/resume');
-    }, [dispatch]);
+            navigate('/resume');
+        },
+        [dispatch]
+    );
 
-    const readSpreadsheetCallback = useCallback((spreadsheetArray) => {
-        if (spreadsheetArray && spreadsheetArray.length) {
-            const jsonResume = spreadsheetToJsonResume(spreadsheetArray);
-            setResumesAndForward(jsonResume);
-        } else {
-            setErrorMessageId('error.something_went_wrong_loading');
-            setIsShowingErrorSnackbar(true);
-        }
-    }, [setResumesAndForward]);
+    const readSpreadsheetCallback = useCallback(
+        (spreadsheetArray) => {
+            if (spreadsheetArray && spreadsheetArray.length) {
+                const jsonResume = spreadsheetToJsonResume(spreadsheetArray);
+                setResumesAndForward(jsonResume);
+            } else {
+                setErrorMessageId('error.something_went_wrong_loading');
+                setIsShowingErrorSnackbar(true);
+            }
+        },
+        [setResumesAndForward]
+    );
 
     const readSpreadsheetErrorCallback = useCallback((downloadUrl) => {
         if (downloadUrl) {
@@ -111,90 +103,77 @@ const UploadPage = ({ pageContext, location }) => {
         setIsShowingErrorSnackbar(false);
     }, []);
 
-    const handleFile = useCallback((file) => {
-        const fileExtension = file.path && file.path.split('.').pop();
+    const handleFile = useCallback(
+        (file) => {
+            const fileExtension = file.path && file.path.split('.').pop();
 
-        if (SHEET_EXTENSIONS.includes(fileExtension)) {
-            readSpreadsheet(file, readSpreadsheetCallback);
-        } else if (['json'].includes(fileExtension)) {
-            readJsonFile(file, (jsonString) => {
-                const jsonResume = JSON.parse(jsonString);
-                setResumesAndForward({
-                    ...convertToToggleableObject(cloneDeep(jsonResume)),
-                    enableSourceDataDownload: jsonResume.enableSourceDataDownload,
-                    coverLetter: generateCoverLetterObject(jsonResume.coverLetter),
-                    // eslint-disable-next-line no-underscore-dangle
-                    __translation__: jsonResume.__translation__,
+            if (SHEET_EXTENSIONS.includes(fileExtension)) {
+                readSpreadsheet(file, readSpreadsheetCallback);
+            } else if (['json'].includes(fileExtension)) {
+                readJsonFile(file, (jsonString) => {
+                    const jsonResume = JSON.parse(jsonString);
+                    setResumesAndForward({
+                        ...convertToToggleableObject(cloneDeep(jsonResume)),
+                        enableSourceDataDownload: jsonResume.enableSourceDataDownload,
+                        coverLetter: generateCoverLetterObject(jsonResume.coverLetter),
+                        // eslint-disable-next-line no-underscore-dangle
+                        __translation__: jsonResume.__translation__,
+                    });
                 });
-            });
-        } else {
-            setErrorMessageId('error.something_went_wrong_loading');
-            setIsShowingErrorSnackbar(true);
-        }
-    }, [readSpreadsheetCallback, setResumesAndForward]);
+            } else {
+                setErrorMessageId('error.something_went_wrong_loading');
+                setIsShowingErrorSnackbar(true);
+            }
+        },
+        [readSpreadsheetCallback, setResumesAndForward]
+    );
 
-    const setInputedTextToState = useCallback((e) => {
-        if (!textInputValue && !e.target.value) {
-            return;
-        }
+    const setInputedTextToState = useCallback(
+        (e) => {
+            if (!textInputValue && !e.target.value) {
+                return;
+            }
 
-        setTextInputValue(e.target.value);
-    }, [textInputValue]);
+            setTextInputValue(e.target.value);
+        },
+        [textInputValue]
+    );
 
     const handleButtonClick = useCallback(() => {
         setLoading(true);
 
-        parseSpreadsheetUrl(
-            textInputValue,
-            readSpreadsheetCallback,
-            readSpreadsheetErrorCallback
-        );
+        parseSpreadsheetUrl(textInputValue, readSpreadsheetCallback, readSpreadsheetErrorCallback);
     }, [readSpreadsheetCallback, readSpreadsheetErrorCallback, textInputValue]);
 
-    const handleTemplateSelected = useCallback((selectedTemplate) => {
-        dispatch(setResumeTemplate(selectedTemplate));
-    }, [dispatch]);
+    const handleTemplateSelected = useCallback(
+        (selectedTemplate) => {
+            dispatch(setResumeTemplate(selectedTemplate));
+        },
+        [dispatch]
+    );
 
     return (
         <Layout>
-            <SEO
-                title={intl.formatMessage({ id: 'upload_resume_file' })}
-            />
-            <Typography
-                color="textPrimary"
-                variant="h4"
-            >
+            <SEO title={intl.formatMessage({ id: 'upload_resume_file' })} />
+            <Typography color="textPrimary" variant="h4">
                 {intl.formatMessage({ id: 'upload_resume_file' })}
             </Typography>
-            <div
-                className={classes.pageContent}
-            >
-                <Typography
-                    color="textPrimary"
-                    variant="h6"
-                >
+            <div className={classes.pageContent}>
+                <Typography color="textPrimary" variant="h6">
                     1 - {intl.formatMessage({ id: 'select_your_template' })}
                 </Typography>
-                <TemplateSelector
-                    className={classes.templateSelector}
-                    onSelect={handleTemplateSelected}
-                />
-                <Typography
-                    color="textPrimary"
-                    variant="h6"
-                >
+                <TemplateSelector className={classes.templateSelector} onSelect={handleTemplateSelected} />
+                <Typography color="textPrimary" variant="h6">
                     2 - {intl.formatMessage({ id: 'upload_or_parse_url' })}
                 </Typography>
-                <DropZone
-                    maxLength={1}
-                    handleFile={handleFile}
-                    disabled={false}
-                />
+                <DropZone maxLength={1} handleFile={handleFile} disabled={false} />
                 <div className={classes.sheetsAndOkWrapper}>
                     <TextField
                         className={classes.googleSpreadsheetInput}
                         label={intl.formatMessage({ id: 'google_sheet_url' })}
-                        placeholder={intl.formatMessage({ id: 'google_sheet_url_description' })}
+                        placeholder={intl.formatMessage({
+                            id: 'google_sheet_url_description',
+                        })}
                         onChange={setInputedTextToState}
                     />
                     <Button
@@ -218,10 +197,7 @@ const UploadPage = ({ pageContext, location }) => {
                 open={isShowingErrorSnackbar}
                 onClose={handleCloseErrorSnackbar}
             >
-                <Alert
-                    severity="error"
-                    onClose={handleCloseErrorSnackbar}
-                >
+                <Alert severity="error" onClose={handleCloseErrorSnackbar}>
                     {isShowingErrorSnackbar && intl.formatMessage({ id: errorMessageId })}
                 </Alert>
             </Snackbar>

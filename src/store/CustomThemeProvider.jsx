@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 // Themes
@@ -12,14 +12,12 @@ export const light = 'light';
 
 export const dark = 'dark';
 
-const getTheme = (themeName) => themeName === dark ? darkTheme : lightTheme;
+const getTheme = (themeName) => (themeName === dark ? darkTheme : lightTheme);
 
-export const CustomThemeContext = createContext(
-    {
-        currentTheme: light,
-        setTheme: null,
-    }
-);
+export const CustomThemeContext = createContext({
+    currentTheme: light,
+    setTheme: null,
+});
 
 const CustomThemeProvider = (props) => {
     // eslint-disable-next-line react/prop-types
@@ -48,9 +46,7 @@ const CustomThemeProvider = (props) => {
 
     return (
         <CustomThemeContext.Provider value={contextValue}>
-            <ThemeProvider theme={theme}>
-                {children}
-            </ThemeProvider>
+            <ThemeProvider theme={theme}>{children}</ThemeProvider>
         </CustomThemeContext.Provider>
     );
 };

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading, no-shadow */
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { Link as MuiLink } from '@material-ui/core';
 import { Link as IntlLink } from 'gatsby-plugin-react-intl';
 import PropTypes from 'prop-types';
@@ -18,19 +18,10 @@ const useStyles = makeStyles((theme) => ({
 const Link = (props) => {
     const classes = useStyles();
     // eslint-disable-next-line react/display-name
-    const MyLink = forwardRef(
-        (props, ref) => <IntlLink innerRef={ref} {...props} />
-    );
+    const MyLink = forwardRef((props, ref) => <IntlLink innerRef={ref} {...props} />);
 
     return (
-        <MuiLink
-            {...props}
-            className={classNames(
-                props.className,
-                classes.linkWrapper
-            )}
-            component={MyLink}
-        >
+        <MuiLink {...props} className={classNames(props.className, classes.linkWrapper)} component={MyLink}>
             {props.children}
         </MuiLink>
     );

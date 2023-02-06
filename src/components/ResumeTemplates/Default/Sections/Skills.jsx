@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
@@ -54,64 +54,53 @@ const Skills = ({ skills }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return skills?.length > 0 && (
-        <div className={classes.resumeSkills}>
-            <h3
-                ref={sectionTitle}
-                className={classes.title}
-                style={titleStyle}
-            >
-                {intl.formatMessage({ id: 'skills' })}
-            </h3>
-            <div className={classes.contentWrapper}>
-                <ul className={classes.skills}>
-                    {skills.map((skill) => {
-                        if (skill) {
-                            const {
-                                name,
-                                level,
-                                keywords,
-                            } = skill || {};
+    return (
+        skills?.length > 0 && (
+            <div className={classes.resumeSkills}>
+                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                    {intl.formatMessage({ id: 'skills' })}
+                </h3>
+                <div className={classes.contentWrapper}>
+                    <ul className={classes.skills}>
+                        {skills.map((skill) => {
+                            if (skill) {
+                                const { name, level, keywords } = skill || {};
 
-                            let refProps = {};
-                            if (!firstItem.current) {
-                                refProps = {
-                                    ref: firstItem,
-                                };
+                                let refProps = {};
+                                if (!firstItem.current) {
+                                    refProps = {
+                                        ref: firstItem,
+                                    };
+                                }
+
+                                return (
+                                    <li
+                                        key={uuid()}
+                                        // eslint-disable-next-line react/jsx-props-no-spreading
+                                        {...refProps}
+                                    >
+                                        {(name || level) && (
+                                            <p className={classes.skillTitle}>
+                                                {name}
+                                                {name && level && ', '}
+                                                {level}
+                                            </p>
+                                        )}
+                                        {keywords?.length > 0 && (
+                                            <ul className={classes.keywords}>
+                                                {keywords?.map((keyword) => keyword && <li key={uuid()}>{keyword}</li>)}
+                                            </ul>
+                                        )}
+                                    </li>
+                                );
                             }
 
-                            return (
-                                <li
-                                    key={uuid()}
-                                    // eslint-disable-next-line react/jsx-props-no-spreading
-                                    {...refProps}
-                                >
-                                    {(name || level) && (
-                                        <p className={classes.skillTitle}>
-                                            {name}
-                                            {(name && level) && ', '}
-                                            {level}
-                                        </p>
-                                    )}
-                                    {keywords?.length > 0 && (
-                                        <ul className={classes.keywords}>
-                                            {keywords?.map((keyword) =>
-                                                keyword && (
-                                                    <li key={uuid()}>
-                                                        {keyword}
-                                                    </li>
-                                                ))}
-                                        </ul>
-                                    )}
-                                </li>
-                            );
-                        }
-
-                        return null;
-                    })}
-                </ul>
+                            return null;
+                        })}
+                    </ul>
+                </div>
             </div>
-        </div>
+        )
     );
 };
 

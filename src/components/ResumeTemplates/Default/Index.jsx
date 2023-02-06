@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { createIntl, createIntlCache, RawIntlProvider, useIntl } from 'gatsby-plugin-react-intl';
 
@@ -73,42 +73,42 @@ const Default = ({
     const intl = useIntl();
     const classes = useStyles();
     const templateIntl = useMemo(() => {
-        let newIntl = templateIntls.find(
-            (tempIntl) => tempIntl.locale === intl.locale
-        );
+        let newIntl = templateIntls.find((tempIntl) => tempIntl.locale === intl.locale);
 
         if (!newIntl) {
-            newIntl = templateIntls.find(
-                (tempIntl) => tempIntl.locale === intl.defaultLocale
-            );
+            newIntl = templateIntls.find((tempIntl) => tempIntl.locale === intl.defaultLocale);
         }
 
         if (isObjectNotEmpty(customTranslations)) {
-            return createIntl({
-                locale: newIntl.locale,
-                messages: {
-                    ...newIntl.messages,
-                    ...customTranslations,
+            return createIntl(
+                {
+                    locale: newIntl.locale,
+                    messages: {
+                        ...newIntl.messages,
+                        ...customTranslations,
+                    },
                 },
-            }, createIntlCache());
+                createIntlCache()
+            );
         }
 
         return newIntl;
     }, [customTranslations, intl.defaultLocale, intl.locale]);
 
     const showCoverLetterPageBreak = useMemo(
-        () => isObjectNotEmpty(basics)
-        && work?.length
-        && skills?.length
-        && education?.length
-        && awards?.length
-        && volunteer?.length
-        && publications?.length
-        && languages?.length
-        && interests?.length
-        && references?.length
-        && projects?.length
-        && certificates?.length,
+        () =>
+            isObjectNotEmpty(basics) &&
+            work?.length > 0 &&
+            skills?.length > 0 &&
+            education?.length > 0 &&
+            awards?.length > 0 &&
+            volunteer?.length > 0 &&
+            publications?.length > 0 &&
+            languages?.length > 0 &&
+            interests?.length > 0 &&
+            references?.length > 0 &&
+            projects?.length > 0 &&
+            certificates?.length > 0,
         [
             basics,
             work,
@@ -126,9 +126,7 @@ const Default = ({
     );
 
     return (
-        <RawIntlProvider
-            value={templateIntl}
-        >
+        <RawIntlProvider value={templateIntl}>
             <div className={classes.resumeDefaultTemplate}>
                 {coverLetter && (
                     <CoverLetter
@@ -137,69 +135,19 @@ const Default = ({
                         coverLetterVariables={coverLetterVariables}
                     />
                 )}
-                {enableSourceDataDownload && (
-                    <Download jsonResume={jsonResume} />
-                )}
-                {isObjectNotEmpty(basics) && (
-                    <Basics
-                        basics={basics}
-                    />
-                )}
-                {(skills?.length > 0) && (
-                    <Skills
-                        skills={skills}
-                    />
-                )}
-                {(work?.length > 0) && (
-                    <Work
-                        work={work}
-                    />
-                )}
-                {(education?.length > 0) && (
-                    <Education
-                        education={education}
-                    />
-                )}
-                {(awards?.length > 0) && (
-                    <Awards
-                        awards={awards}
-                    />
-                )}
-                {(certificates?.length > 0) && (
-                    <Certificates
-                        certificates={certificates}
-                    />
-                )}
-                {(volunteer?.length > 0) && (
-                    <Volunteer
-                        volunteer={volunteer}
-                    />
-                )}
-                {(publications?.length > 0) && (
-                    <Publications
-                        publications={publications}
-                    />
-                )}
-                {(projects?.length > 0) && (
-                    <Projects
-                        projects={projects}
-                    />
-                )}
-                {(languages?.length > 0) && (
-                    <Languages
-                        languages={languages}
-                    />
-                )}
-                {(interests?.length > 0) && (
-                    <Interests
-                        interests={interests}
-                    />
-                )}
-                {(references?.length > 0) && (
-                    <References
-                        references={references}
-                    />
-                )}
+                {enableSourceDataDownload && <Download jsonResume={jsonResume} />}
+                {isObjectNotEmpty(basics) && <Basics basics={basics} />}
+                {skills?.length > 0 && <Skills skills={skills} />}
+                {work?.length > 0 && <Work work={work} />}
+                {education?.length > 0 && <Education education={education} />}
+                {awards?.length > 0 && <Awards awards={awards} />}
+                {certificates?.length > 0 && <Certificates certificates={certificates} />}
+                {volunteer?.length > 0 && <Volunteer volunteer={volunteer} />}
+                {publications?.length > 0 && <Publications publications={publications} />}
+                {projects?.length > 0 && <Projects projects={projects} />}
+                {languages?.length > 0 && <Languages languages={languages} />}
+                {interests?.length > 0 && <Interests interests={interests} />}
+                {references?.length > 0 && <References references={references} />}
             </div>
         </RawIntlProvider>
     );

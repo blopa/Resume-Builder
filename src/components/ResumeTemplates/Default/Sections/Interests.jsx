@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
@@ -56,62 +56,48 @@ const Interests = ({ interests }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return interests?.length > 0 && (
-        <div className={classes.resumeInterests}>
-            <h3
-                ref={sectionTitle}
-                className={classes.title}
-                style={titleStyle}
-            >
-                {intl.formatMessage({ id: 'interests' })}
-            </h3>
-            <div className={classes.contentWrapper}>
-                <ul className={classes.interests}>
-                    {interests.map((interest) => {
-                        if (interest) {
-                            const {
-                                name,
-                                keywords,
-                            } = interest || {};
+    return (
+        interests?.length > 0 && (
+            <div className={classes.resumeInterests}>
+                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                    {intl.formatMessage({ id: 'interests' })}
+                </h3>
+                <div className={classes.contentWrapper}>
+                    <ul className={classes.interests}>
+                        {interests.map((interest) => {
+                            if (interest) {
+                                const { name, keywords } = interest || {};
 
-                            let refProps = {};
-                            if (!firstItem.current) {
-                                refProps = {
-                                    ref: firstItem,
-                                };
+                                let refProps = {};
+                                if (!firstItem.current) {
+                                    refProps = {
+                                        ref: firstItem,
+                                    };
+                                }
+
+                                return (
+                                    <li
+                                        className={classes.interestWrapper}
+                                        key={uuid()}
+                                        // eslint-disable-next-line react/jsx-props-no-spreading
+                                        {...refProps}
+                                    >
+                                        {name && <p className={classes.interest}>{name}</p>}
+                                        {keywords?.length > 0 && (
+                                            <ul className={classes.keywords}>
+                                                {keywords?.map((keyword) => keyword && <li key={uuid()}>{keyword}</li>)}
+                                            </ul>
+                                        )}
+                                    </li>
+                                );
                             }
 
-                            return (
-                                <li
-                                    className={classes.interestWrapper}
-                                    key={uuid()}
-                                    // eslint-disable-next-line react/jsx-props-no-spreading
-                                    {...refProps}
-                                >
-                                    {name && (
-                                        <p className={classes.interest}>
-                                            {name}
-                                        </p>
-                                    )}
-                                    {keywords?.length > 0 && (
-                                        <ul className={classes.keywords}>
-                                            {keywords?.map((keyword) =>
-                                                keyword && (
-                                                    <li key={uuid()}>
-                                                        {keyword}
-                                                    </li>
-                                                ))}
-                                        </ul>
-                                    )}
-                                </li>
-                            );
-                        }
-
-                        return null;
-                    })}
-                </ul>
+                            return null;
+                        })}
+                    </ul>
+                </div>
             </div>
-        </div>
+        )
     );
 };
 
