@@ -30,6 +30,7 @@
         "@material-ui/lab": "^4.0.0-alpha.61",
         "@material-ui/styles": "^4.11.5",
         "classnames": "^2.3.2",
+        "deepmerge": "^4.3.1",
         "formik": "^2.4.2",
         "gatsby": "^3.15.0",
         "gatsby-image": "^3.5.0",
