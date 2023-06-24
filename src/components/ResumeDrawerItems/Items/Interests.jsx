@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, memo } from 'react';
+import { Fragment, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/styles';
 
@@ -26,9 +26,12 @@ function Interest({ interests }) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const setResumeInterestsState = useCallback((interest) => {
-        dispatch(setResumeInterests(interest));
-    }, [dispatch]);
+    const setResumeInterestsState = useCallback(
+        (interest) => {
+            dispatch(setResumeInterests(interest));
+        },
+        [dispatch]
+    );
 
     const toggleInterests = useCallback(() => {
         const currentState = interests?.enabled;
@@ -38,43 +41,53 @@ function Interest({ interests }) {
         });
     }, [interests, setResumeInterestsState]);
 
-    const toggleInterest = useCallback((interest, index) => () => {
-        const newInterest = { ...interests };
-        newInterest.value[index] = {
-            ...newInterest.value[index],
-            enabled: !newInterest.value[index].enabled,
-        };
-        setResumeInterestsState(newInterest);
-    }, [interests, setResumeInterestsState]);
+    const toggleInterest = useCallback(
+        (interest, index) => () => {
+            const newInterest = { ...interests };
+            newInterest.value[index] = {
+                ...newInterest.value[index],
+                enabled: !newInterest.value[index].enabled,
+            };
+            setResumeInterestsState(newInterest);
+        },
+        [interests, setResumeInterestsState]
+    );
 
-    const toggleInterestDetail = useCallback((interest, index, propName) => () => {
-        const newInterest = { ...interests };
-        newInterest.value[index] = {
-            ...newInterest.value[index],
-            value: {
-                ...newInterest.value[index].value,
-                [propName]: {
-                    ...newInterest.value[index].value[propName],
-                    enabled: !newInterest.value[index].value[propName].enabled,
+    const toggleInterestDetail = useCallback(
+        (interest, index, propName) => () => {
+            const newInterest = { ...interests };
+            newInterest.value[index] = {
+                ...newInterest.value[index],
+                value: {
+                    ...newInterest.value[index].value,
+                    [propName]: {
+                        ...newInterest.value[index].value[propName],
+                        enabled: !newInterest.value[index].value[propName].enabled,
+                    },
                 },
-            },
-        };
+            };
 
-        if (newInterest.value[index].enabled) {
-            newInterest.value[index].enabled =
-                Object.entries(newInterest.value[index].value).some((entry) => entry[1].enabled);
-        }
-        setResumeInterestsState(newInterest);
-    }, [interests, setResumeInterestsState]);
+            if (newInterest.value[index].enabled) {
+                newInterest.value[index].enabled = Object.entries(newInterest.value[index].value).some(
+                    (entry) => entry[1].enabled
+                );
+            }
+            setResumeInterestsState(newInterest);
+        },
+        [interests, setResumeInterestsState]
+    );
 
-    const toggleInterestKeywords = useCallback((interest, interestIndex, keyword, keywordIndex) => () => {
-        const newInterest = { ...interests };
-        newInterest.value[interestIndex].value.keywords.value[keywordIndex] = {
-            ...newInterest.value[interestIndex].value.keywords.value[keywordIndex],
-            enabled: !newInterest.value[interestIndex].value.keywords.value[keywordIndex].enabled,
-        };
-        setResumeInterestsState(newInterest);
-    }, [interests, setResumeInterestsState]);
+    const toggleInterestKeywords = useCallback(
+        (interest, interestIndex, keyword, keywordIndex) => () => {
+            const newInterest = { ...interests };
+            newInterest.value[interestIndex].value.keywords.value[keywordIndex] = {
+                ...newInterest.value[interestIndex].value.keywords.value[keywordIndex],
+                enabled: !newInterest.value[interestIndex].value.keywords.value[keywordIndex].enabled,
+            };
+            setResumeInterestsState(newInterest);
+        },
+        [interests, setResumeInterestsState]
+    );
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -87,10 +100,7 @@ function Interest({ interests }) {
             {interests?.enabled && (
                 <ul>
                     {interests?.value.map((interest, index) => {
-                        const {
-                            name,
-                            keywords,
-                        } = interest?.value || {};
+                        const { name, keywords } = interest?.value || {};
 
                         return (
                             <Fragment key={uuid()}>
@@ -132,12 +142,7 @@ function Interest({ interests }) {
                                                         label={keyword?.value}
                                                         key={uuid()}
                                                         checked={keyword?.enabled}
-                                                        onClick={toggleInterestKeywords(
-                                                            interest,
-                                                            index,
-                                                            keyword,
-                                                            idx
-                                                        )}
+                                                        onClick={toggleInterestKeywords(interest, index, keyword, idx)}
                                                     />
                                                 ))}
                                             </ul>

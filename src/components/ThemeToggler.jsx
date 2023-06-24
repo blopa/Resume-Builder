@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import { useCallback, useContext } from 'react';
 import { Switch } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { CustomThemeContext, dark, light } from '../store/CustomThemeProvider';
@@ -33,19 +33,10 @@ const ThemeToggler = ({ showSwitcher = false }) => {
 
     return (
         <div className={classes.togglerWrapper}>
-            <button
-                type="button"
-                onClick={handleThemeChange}
-                className={classes.themeTogglerButton}
-            >
+            <button type="button" onClick={handleThemeChange} className={classes.themeTogglerButton}>
                 {currentTheme === dark ? '🌛' : '🌞'}
             </button>
-            {showSwitcher && (
-                <Switch
-                    checked={Boolean(currentTheme === dark)}
-                    onChange={handleThemeChange}
-                />
-            )}
+            {showSwitcher && <Switch checked={Boolean(currentTheme === dark)} onChange={handleThemeChange} />}
         </div>
     );
 };

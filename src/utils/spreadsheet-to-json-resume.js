@@ -233,11 +233,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
                 }
             }
 
-            if (
-                value[typeAttr] === 'highlights'
-                || value[typeAttr] === 'keywords'
-                || value[typeAttr] === 'roles'
-            ) {
+            if (value[typeAttr] === 'highlights' || value[typeAttr] === 'keywords' || value[typeAttr] === 'roles') {
                 project[value[typeAttr]] = {
                     enabled,
                     value: value[contentAttr].split(';').map((item) => ({
@@ -343,8 +339,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
 
     const profileEnabled = profilesArray.some((value) => value.enabled);
     jsonResume.basics = {
-        enabled: profileEnabled || Object.entries(jsonResume.basics.value)
-            .some((entry) => entry[1].enabled),
+        enabled: profileEnabled || Object.entries(jsonResume.basics.value).some((entry) => entry[1].enabled),
         value: {
             ...jsonResume.basics.value,
             profiles: {

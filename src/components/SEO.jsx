@@ -1,17 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { graphql, useStaticQuery } from 'gatsby';
 
-function SEO({
-    description,
-    lang,
-    meta,
-    title,
-    robots,
-    keywords = [],
-    ogImage,
-}) {
+function SEO({ description, lang, meta, title, robots, keywords = [], ogImage }) {
     const { site, baseSiteImage } = useStaticQuery(
         graphql`
             query {
@@ -25,9 +16,7 @@ function SEO({
                         }
                     }
                 }
-                baseSiteImage: file(
-                    absolutePath: { regex: "/base_site_image.jpg/" }
-                ) {
+                baseSiteImage: file(absolutePath: { regex: "/base_site_image.jpg/" }) {
                     childImageSharp {
                         fixed(width: 1200) {
                             ...GatsbyImageSharpFixed

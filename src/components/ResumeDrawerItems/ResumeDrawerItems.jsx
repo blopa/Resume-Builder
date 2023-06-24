@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import { Typography } from '@material-ui/core';
@@ -90,9 +90,7 @@ const ResumeDrawerItems = ({
     const handleDownloadJson = useCallback(() => {
         const jsonResume = {
             ...baseResume,
-            ...convertToRegularObject(
-                cloneDeep(toggleableJsonResume)
-            ),
+            ...convertToRegularObject(cloneDeep(toggleableJsonResume)),
             enableSourceDataDownload: toggleableJsonResume.enableSourceDataDownload,
             coverLetter: toggleableJsonResume.coverLetter?.value?.text || '',
             // eslint-disable-next-line no-underscore-dangle
@@ -102,25 +100,20 @@ const ResumeDrawerItems = ({
         downloadJson(jsonResume);
     }, [toggleableJsonResume]);
 
-    const handleTemplateSelected = useCallback((selectedTemplate) => {
-        dispatch(setResumeTemplate(selectedTemplate));
-    }, [dispatch]);
+    const handleTemplateSelected = useCallback(
+        (selectedTemplate) => {
+            dispatch(setResumeTemplate(selectedTemplate));
+        },
+        [dispatch]
+    );
 
     return (
         <div className={classes.resumeDrawerItemsWrapper}>
-            <button
-                type="button"
-                onClick={onClose}
-            >
+            <button type="button" onClick={onClose}>
                 <CloseIcon />
             </button>
             <div>
-                <Button
-                    className={classes.actionButtons}
-                    variant="contained"
-                    color="primary"
-                    disabled
-                >
+                <Button className={classes.actionButtons} variant="contained" color="primary" disabled>
                     {intl.formatMessage({ id: 'download_doc' })}
                 </Button>
                 <Button
@@ -141,86 +134,25 @@ const ResumeDrawerItems = ({
                 </Button>
             </div>
             <div className={classes.templateSelectorWrapper}>
-                <Typography
-                    color="textPrimary"
-                    variant="subtitle2"
-                    className={classes.templateSelectorTitle}
-                >
+                <Typography color="textPrimary" variant="subtitle2" className={classes.templateSelectorTitle}>
                     {intl.formatMessage({ id: 'template' })}
                 </Typography>
-                <TemplateSelector
-                    className={classes.templateSelector}
-                    onSelect={handleTemplateSelected}
-                />
+                <TemplateSelector className={classes.templateSelector} onSelect={handleTemplateSelected} />
             </div>
-            {isObjectNotEmpty(coverLetter) && (
-                <CoverLetter
-                    coverLetter={coverLetter}
-                />
-            )}
-            <Download
-                enableSourceDataDownload={enableSourceDataDownload}
-            />
-            {isObjectNotEmpty(basics) && (
-                <Basics
-                    basics={basics}
-                />
-            )}
-            {isObjectNotEmpty(work) && (
-                <Work
-                    work={work}
-                />
-            )}
-            {isObjectNotEmpty(skills) && (
-                <Skills
-                    skills={skills}
-                />
-            )}
-            {isObjectNotEmpty(education) && (
-                <Education
-                    education={education}
-                />
-            )}
-            {isObjectNotEmpty(awards) && (
-                <Awards
-                    awards={awards}
-                />
-            )}
-            {isObjectNotEmpty(volunteer) && (
-                <Volunteer
-                    volunteer={volunteer}
-                />
-            )}
-            {isObjectNotEmpty(publications) && (
-                <Publications
-                    publications={publications}
-                />
-            )}
-            {isObjectNotEmpty(certificates) && (
-                <Certificates
-                    certificates={certificates}
-                />
-            )}
-            {isObjectNotEmpty(projects) && (
-                <Projects
-                    projects={projects}
-                />
-            )}
-            {isObjectNotEmpty(languages) && (
-                <Languages
-                    languages={languages}
-                />
-            )}
-            {isObjectNotEmpty(interests) && (
-                <Interests
-                    interests={interests}
-                />
-            )}
-            {isObjectNotEmpty(references) && (
-                <References
-                    references={references}
-                />
-            )}
+            {isObjectNotEmpty(coverLetter) && <CoverLetter coverLetter={coverLetter} />}
+            <Download enableSourceDataDownload={enableSourceDataDownload} />
+            {isObjectNotEmpty(basics) && <Basics basics={basics} />}
+            {isObjectNotEmpty(work) && <Work work={work} />}
+            {isObjectNotEmpty(skills) && <Skills skills={skills} />}
+            {isObjectNotEmpty(education) && <Education education={education} />}
+            {isObjectNotEmpty(awards) && <Awards awards={awards} />}
+            {isObjectNotEmpty(volunteer) && <Volunteer volunteer={volunteer} />}
+            {isObjectNotEmpty(publications) && <Publications publications={publications} />}
+            {isObjectNotEmpty(certificates) && <Certificates certificates={certificates} />}
+            {isObjectNotEmpty(projects) && <Projects projects={projects} />}
+            {isObjectNotEmpty(languages) && <Languages languages={languages} />}
+            {isObjectNotEmpty(interests) && <Interests interests={interests} />}
+            {isObjectNotEmpty(references) && <References references={references} />}
         </div>
     );
 };

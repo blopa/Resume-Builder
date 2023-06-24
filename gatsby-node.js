@@ -5,17 +5,9 @@ const packageJson = require('./package.json');
 const TEMPLATES_PATH = path.resolve(__dirname, 'src/components/ResumeTemplates');
 const disabledTemplates = ['Compact', 'VanHack'];
 const ignoredPages = ['/Home/'];
-const {
-    convertToKebabCase,
-} = require('./src/utils/gatsby-node-helpers');
+const { convertToKebabCase } = require('./src/utils/gatsby-node-helpers');
 
-const myCreatePage = (
-    createPage,
-    page,
-    pagePath,
-    matchPath,
-    language
-) => {
+const myCreatePage = (createPage, page, pagePath, matchPath, language) => {
     createPage({
         ...page,
         path: pagePath,
@@ -48,43 +40,26 @@ exports.onCreatePage = async ({ page, actions }) => {
     }
 
     if (page.context.intl.originalPath === '/ResumeViewer/') {
-        if (
-            page.internalComponentName === 'ComponentResumeViewer'
-            && language !== 'en'
-        ) {
+        if (page.internalComponentName === 'ComponentResumeViewer' && language !== 'en') {
             return;
         }
 
         const templates = await fs.readdir(TEMPLATES_PATH);
-        templates.filter((template) => !disabledTemplates.includes(template))
+        templates
+            .filter((template) => !disabledTemplates.includes(template))
             .forEach((template) => {
                 pagePath = `/view/${template}`.toLocaleLowerCase();
                 matchPath = `${pagePath}/*`;
-                myCreatePage(
-                    createPage,
-                    page,
-                    pagePath,
-                    matchPath,
-                    language
-                );
+                myCreatePage(createPage, page, pagePath, matchPath, language);
             });
 
         return;
     }
 
-    myCreatePage(
-        createPage,
-        page,
-        pagePath,
-        matchPath,
-        language
-    );
+    myCreatePage(createPage, page, pagePath, matchPath, language);
 };
 
-exports.onCreateWebpackConfig = async ({
-    plugins,
-    actions,
-}) => {
+exports.onCreateWebpackConfig = async ({ plugins, actions }) => {
     const templates = await fs.readdir(TEMPLATES_PATH);
 
     // TODO this fixes the 'React Refresh Babel' error when NODE_ENV is 'local' for some reason
@@ -95,9 +70,7 @@ exports.onCreateWebpackConfig = async ({
     actions.setWebpackConfig({
         plugins: [
             plugins.define({
-                TEMPLATES_LIST: JSON.stringify(
-                    templates.filter((template) => !disabledTemplates.includes(template))
-                ),
+                TEMPLATES_LIST: JSON.stringify(templates.filter((template) => !disabledTemplates.includes(template))),
                 VERSION: JSON.stringify(packageJson.version),
             }),
         ],

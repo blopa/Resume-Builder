@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
@@ -60,90 +60,69 @@ const Education = ({ education: educations }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return educations?.length > 0 && (
-        <div className={classes.resumeEducation}>
-            <h3
-                ref={sectionTitle}
-                className={classes.title}
-                style={titleStyle}
-            >
-                {intl.formatMessage({ id: 'education' })}
-            </h3>
-            <div className={classes.contentWrapper}>
-                <ul className={classes.courses}>
-                    {educations.map((education) => {
-                        if (education) {
-                            const {
-                                institution,
-                                url,
-                                area,
-                                studyType,
-                                startDate,
-                                endDate,
-                                score,
-                                courses,
-                            } = education || {};
+    return (
+        educations?.length > 0 && (
+            <div className={classes.resumeEducation}>
+                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                    {intl.formatMessage({ id: 'education' })}
+                </h3>
+                <div className={classes.contentWrapper}>
+                    <ul className={classes.courses}>
+                        {educations.map((education) => {
+                            if (education) {
+                                const { institution, url, area, studyType, startDate, endDate, score, courses } =
+                                    education || {};
 
-                            let refProps = {};
-                            if (!firstItem.current) {
-                                refProps = {
-                                    ref: firstItem,
-                                };
+                                let refProps = {};
+                                if (!firstItem.current) {
+                                    refProps = {
+                                        ref: firstItem,
+                                    };
+                                }
+
+                                return (
+                                    <li
+                                        className={classes.educationWrapper}
+                                        key={uuid()}
+                                        // eslint-disable-next-line react/jsx-props-no-spreading
+                                        {...refProps}
+                                    >
+                                        <p className={classes.type}>
+                                            {area}
+                                            {area && studyType && ', '}
+                                            {studyType}
+                                            {(startDate || endDate) && (
+                                                <span className={classes.positionDate}>
+                                                    {' ('}
+                                                    {startDate}
+                                                    {startDate && endDate && ' - '}
+                                                    {endDate}
+                                                    {')'}
+                                                </span>
+                                            )}
+                                        </p>
+                                        <p className={classes.institution}>
+                                            {url && institution ? <a href={url}>{institution}</a> : institution}
+                                            {score && `, score: ${score}`}
+                                        </p>
+                                        {courses?.length > 0 && (
+                                            <div className={classes.coursesDetails}>
+                                                <p>Courses: </p>
+                                                <ul>
+                                                    {courses?.map((course) => course && <li key={uuid()}>{course}</li>)}
+                                                </ul>
+                                            </div>
+                                        )}
+                                    </li>
+                                );
                             }
 
-                            return (
-                                <li
-                                    className={classes.educationWrapper}
-                                    key={uuid()}
-                                    // eslint-disable-next-line react/jsx-props-no-spreading
-                                    {...refProps}
-                                >
-                                    <p className={classes.type}>
-                                        {area}
-                                        {(area && studyType) && ', '}
-                                        {studyType}
-                                        {(startDate || endDate) && (
-                                            <span className={classes.positionDate}>
-                                                {' ('}
-                                                {startDate}
-                                                {(startDate && endDate) && ' - '}
-                                                {endDate}
-                                                {')'}
-                                            </span>
-                                        )}
-                                    </p>
-                                    <p className={classes.institution}>
-                                        {
-                                            (url && institution) ?
-                                                (
-                                                    <a href={url}>
-                                                        {institution}
-                                                    </a>
-                                                )
-                                                : institution}
-                                        {score && `, score: ${score}`}
-                                    </p>
-                                    {courses?.length > 0 && (
-                                        <div className={classes.coursesDetails}>
-                                            <p>Courses: </p>
-                                            <ul>
-                                                {courses?.map((course) => course && (
-                                                    <li key={uuid()}>
-                                                        {course}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
-                                </li>
-                            );
-                        }
-
-                        return null;
-                    })}
-                </ul>
+                            return null;
+                        })}
+                    </ul>
+                </div>
             </div>
-        </div>
+        )
     );
 };
 

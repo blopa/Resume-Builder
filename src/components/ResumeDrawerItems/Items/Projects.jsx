@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, memo } from 'react';
+import { Fragment, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/styles';
 
@@ -26,9 +26,12 @@ function Projects({ projects }) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const setResumeProjectsState = useCallback((newProjects) => {
-        dispatch(setResumeProjects(newProjects));
-    }, [dispatch]);
+    const setResumeProjectsState = useCallback(
+        (newProjects) => {
+            dispatch(setResumeProjects(newProjects));
+        },
+        [dispatch]
+    );
 
     const toggleProjects = useCallback(() => {
         const currentState = projects?.enabled;
@@ -38,69 +41,81 @@ function Projects({ projects }) {
         });
     }, [projects, setResumeProjectsState]);
 
-    const toggleProject = useCallback((project, index) => () => {
-        const newProjects = { ...projects };
-        newProjects.value[index] = {
-            ...newProjects.value[index],
-            enabled: !newProjects.value[index].enabled,
-        };
-        setResumeProjectsState(newProjects);
-    }, [projects, setResumeProjectsState]);
+    const toggleProject = useCallback(
+        (project, index) => () => {
+            const newProjects = { ...projects };
+            newProjects.value[index] = {
+                ...newProjects.value[index],
+                enabled: !newProjects.value[index].enabled,
+            };
+            setResumeProjectsState(newProjects);
+        },
+        [projects, setResumeProjectsState]
+    );
 
-    const toggleProjectDetail = useCallback((project, index, propName) => () => {
-        const newProjects = { ...projects };
-        newProjects.value[index] = {
-            ...newProjects.value[index],
-            value: {
-                ...newProjects.value[index].value,
-                [propName]: {
-                    ...newProjects.value[index].value[propName],
-                    enabled: !newProjects.value[index].value[propName].enabled,
+    const toggleProjectDetail = useCallback(
+        (project, index, propName) => () => {
+            const newProjects = { ...projects };
+            newProjects.value[index] = {
+                ...newProjects.value[index],
+                value: {
+                    ...newProjects.value[index].value,
+                    [propName]: {
+                        ...newProjects.value[index].value[propName],
+                        enabled: !newProjects.value[index].value[propName].enabled,
+                    },
                 },
-            },
-        };
+            };
 
-        if (newProjects.value[index].enabled) {
-            newProjects.value[index].enabled =
-                Object.entries(newProjects.value[index].value).some((entry) => entry[1].enabled);
-        }
-        setResumeProjectsState(newProjects);
-    }, [projects, setResumeProjectsState]);
+            if (newProjects.value[index].enabled) {
+                newProjects.value[index].enabled = Object.entries(newProjects.value[index].value).some(
+                    (entry) => entry[1].enabled
+                );
+            }
+            setResumeProjectsState(newProjects);
+        },
+        [projects, setResumeProjectsState]
+    );
 
-    const toggleProjectKeywords = useCallback((project, projectIndex, keyword, keywordIndex) => () => {
-        const newProjects = { ...projects };
-        newProjects.value[projectIndex].value.keywords.value[keywordIndex] = {
-            ...newProjects.value[projectIndex].value.keywords.value[keywordIndex],
-            enabled: !newProjects.value[projectIndex].value.keywords.value[keywordIndex].enabled,
-        };
-        setResumeProjectsState(newProjects);
-    }, [projects, setResumeProjectsState]);
+    const toggleProjectKeywords = useCallback(
+        (project, projectIndex, keyword, keywordIndex) => () => {
+            const newProjects = { ...projects };
+            newProjects.value[projectIndex].value.keywords.value[keywordIndex] = {
+                ...newProjects.value[projectIndex].value.keywords.value[keywordIndex],
+                enabled: !newProjects.value[projectIndex].value.keywords.value[keywordIndex].enabled,
+            };
+            setResumeProjectsState(newProjects);
+        },
+        [projects, setResumeProjectsState]
+    );
 
-    const toggleProjectHighlights = useCallback((project, projectIndex, highlight, highlightIndex) => () => {
-        const newProjects = { ...projects };
-        newProjects.value[projectIndex].value.highlights.value[highlightIndex] = {
-            ...newProjects.value[projectIndex].value.highlights.value[highlightIndex],
-            enabled: !newProjects.value[projectIndex].value.highlights.value[highlightIndex].enabled,
-        };
-        setResumeProjectsState(newProjects);
-    }, [projects, setResumeProjectsState]);
+    const toggleProjectHighlights = useCallback(
+        (project, projectIndex, highlight, highlightIndex) => () => {
+            const newProjects = { ...projects };
+            newProjects.value[projectIndex].value.highlights.value[highlightIndex] = {
+                ...newProjects.value[projectIndex].value.highlights.value[highlightIndex],
+                enabled: !newProjects.value[projectIndex].value.highlights.value[highlightIndex].enabled,
+            };
+            setResumeProjectsState(newProjects);
+        },
+        [projects, setResumeProjectsState]
+    );
 
-    const toggleProjectRoles = useCallback((project, projectIndex, role, roleIndex) => () => {
-        const newProjects = { ...projects };
-        newProjects.value[projectIndex].value.roles.value[roleIndex] = {
-            ...newProjects.value[projectIndex].value.roles.value[roleIndex],
-            enabled: !newProjects.value[projectIndex].value.roles.value[roleIndex].enabled,
-        };
-        setResumeProjectsState(newProjects);
-    }, [projects, setResumeProjectsState]);
+    const toggleProjectRoles = useCallback(
+        (project, projectIndex, role, roleIndex) => () => {
+            const newProjects = { ...projects };
+            newProjects.value[projectIndex].value.roles.value[roleIndex] = {
+                ...newProjects.value[projectIndex].value.roles.value[roleIndex],
+                enabled: !newProjects.value[projectIndex].value.roles.value[roleIndex].enabled,
+            };
+            setResumeProjectsState(newProjects);
+        },
+        [projects, setResumeProjectsState]
+    );
 
     return (
         <div className={classes.resumeDrawerItem}>
-            <ItemInput
-                label={varNameToString({ projects })}
-                onChange={toggleProjects}
-                checked={projects?.enabled}
-            />
+            <ItemInput label={varNameToString({ projects })} onChange={toggleProjects} checked={projects?.enabled} />
             {projects?.enabled && (
                 <ul>
                     {projects?.value.map((project, index) => {
@@ -130,11 +145,7 @@ function Projects({ projects }) {
                                             <ItemsList
                                                 label={varNameToString({ name })}
                                                 checked={name?.enabled}
-                                                onClick={toggleProjectDetail(
-                                                    project,
-                                                    index,
-                                                    varNameToString({ name })
-                                                )}
+                                                onClick={toggleProjectDetail(project, index, varNameToString({ name }))}
                                             />
                                         )}
                                         {entity && (
@@ -174,11 +185,7 @@ function Projects({ projects }) {
                                             <ItemsList
                                                 label={varNameToString({ url })}
                                                 checked={url?.enabled}
-                                                onClick={toggleProjectDetail(
-                                                    project,
-                                                    index,
-                                                    varNameToString({ url })
-                                                )}
+                                                onClick={toggleProjectDetail(project, index, varNameToString({ url }))}
                                             />
                                         )}
                                         {description && (
@@ -196,11 +203,7 @@ function Projects({ projects }) {
                                             <ItemsList
                                                 label={varNameToString({ type })}
                                                 checked={type?.enabled}
-                                                onClick={toggleProjectDetail(
-                                                    project,
-                                                    index,
-                                                    varNameToString({ type })
-                                                )}
+                                                onClick={toggleProjectDetail(project, index, varNameToString({ type }))}
                                             />
                                         )}
                                         {highlights && (
@@ -249,12 +252,7 @@ function Projects({ projects }) {
                                                         label={keyword?.value}
                                                         key={uuid()}
                                                         checked={keyword?.enabled}
-                                                        onClick={toggleProjectKeywords(
-                                                            project,
-                                                            index,
-                                                            keyword,
-                                                            idx
-                                                        )}
+                                                        onClick={toggleProjectKeywords(project, index, keyword, idx)}
                                                     />
                                                 ))}
                                             </ul>
@@ -277,12 +275,7 @@ function Projects({ projects }) {
                                                         label={role?.value}
                                                         key={uuid()}
                                                         checked={role?.enabled}
-                                                        onClick={toggleProjectRoles(
-                                                            project,
-                                                            index,
-                                                            role,
-                                                            idx
-                                                        )}
+                                                        onClick={toggleProjectRoles(project, index, role, idx)}
                                                     />
                                                 ))}
                                             </ul>

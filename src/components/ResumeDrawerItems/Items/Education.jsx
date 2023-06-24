@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, memo } from 'react';
+import { Fragment, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/styles';
 
@@ -26,9 +26,12 @@ function Education({ education: educations }) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const setResumeEducationState = useCallback((education) => {
-        dispatch(setResumeEducation(education));
-    }, [dispatch]);
+    const setResumeEducationState = useCallback(
+        (education) => {
+            dispatch(setResumeEducation(education));
+        },
+        [dispatch]
+    );
 
     const toggleEducations = useCallback(() => {
         const currentState = educations?.enabled;
@@ -38,43 +41,53 @@ function Education({ education: educations }) {
         });
     }, [educations, setResumeEducationState]);
 
-    const toggleEducation = useCallback((education, index) => () => {
-        const newEducation = { ...educations };
-        newEducation.value[index] = {
-            ...newEducation.value[index],
-            enabled: !newEducation.value[index].enabled,
-        };
-        setResumeEducationState(newEducation);
-    }, [educations, setResumeEducationState]);
+    const toggleEducation = useCallback(
+        (education, index) => () => {
+            const newEducation = { ...educations };
+            newEducation.value[index] = {
+                ...newEducation.value[index],
+                enabled: !newEducation.value[index].enabled,
+            };
+            setResumeEducationState(newEducation);
+        },
+        [educations, setResumeEducationState]
+    );
 
-    const toggleEducationDetail = useCallback((education, index, propName) => () => {
-        const newEducation = { ...educations };
-        newEducation.value[index] = {
-            ...newEducation.value[index],
-            value: {
-                ...newEducation.value[index].value,
-                [propName]: {
-                    ...newEducation.value[index].value[propName],
-                    enabled: !newEducation.value[index].value[propName].enabled,
+    const toggleEducationDetail = useCallback(
+        (education, index, propName) => () => {
+            const newEducation = { ...educations };
+            newEducation.value[index] = {
+                ...newEducation.value[index],
+                value: {
+                    ...newEducation.value[index].value,
+                    [propName]: {
+                        ...newEducation.value[index].value[propName],
+                        enabled: !newEducation.value[index].value[propName].enabled,
+                    },
                 },
-            },
-        };
+            };
 
-        if (newEducation.value[index].enabled) {
-            newEducation.value[index].enabled =
-                Object.entries(newEducation.value[index].value).some((entry) => entry[1].enabled);
-        }
-        setResumeEducationState(newEducation);
-    }, [educations, setResumeEducationState]);
+            if (newEducation.value[index].enabled) {
+                newEducation.value[index].enabled = Object.entries(newEducation.value[index].value).some(
+                    (entry) => entry[1].enabled
+                );
+            }
+            setResumeEducationState(newEducation);
+        },
+        [educations, setResumeEducationState]
+    );
 
-    const toggleEducationCourses = useCallback((education, educationIndex, course, courseIndex) => () => {
-        const newEducation = { ...educations };
-        newEducation.value[educationIndex].value.courses.value[courseIndex] = {
-            ...newEducation.value[educationIndex].value.courses.value[courseIndex],
-            enabled: !newEducation.value[educationIndex].value.courses.value[courseIndex].enabled,
-        };
-        setResumeEducationState(newEducation);
-    }, [educations, setResumeEducationState]);
+    const toggleEducationCourses = useCallback(
+        (education, educationIndex, course, courseIndex) => () => {
+            const newEducation = { ...educations };
+            newEducation.value[educationIndex].value.courses.value[courseIndex] = {
+                ...newEducation.value[educationIndex].value.courses.value[courseIndex],
+                enabled: !newEducation.value[educationIndex].value.courses.value[courseIndex].enabled,
+            };
+            setResumeEducationState(newEducation);
+        },
+        [educations, setResumeEducationState]
+    );
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -87,16 +100,8 @@ function Education({ education: educations }) {
             {educations?.enabled && (
                 <ul>
                     {educations?.value.map((education, index) => {
-                        const {
-                            institution,
-                            url,
-                            area,
-                            studyType,
-                            startDate,
-                            endDate,
-                            score,
-                            courses,
-                        } = education?.value || {};
+                        const { institution, url, area, studyType, startDate, endDate, score, courses } =
+                            education?.value || {};
 
                         return (
                             <Fragment key={uuid()}>
@@ -104,13 +109,10 @@ function Education({ education: educations }) {
                                     <ItemsList
                                         label={institution?.value}
                                         checked={education?.enabled}
-                                        onClick={toggleEducation(
-                                            education,
-                                            index
-                                        )}
+                                        onClick={toggleEducation(education, index)}
                                     />
                                 )}
-                                {(education?.enabled && educations?.enabled) && (
+                                {education?.enabled && educations?.enabled && (
                                     <ul>
                                         {institution?.value && (
                                             <ItemsList
@@ -207,12 +209,7 @@ function Education({ education: educations }) {
                                                         label={course?.value}
                                                         key={uuid()}
                                                         checked={course?.enabled}
-                                                        onClick={toggleEducationCourses(
-                                                            education,
-                                                            index,
-                                                            course,
-                                                            idx
-                                                        )}
+                                                        onClick={toggleEducationCourses(education, index, course, idx)}
                                                     />
                                                 ))}
                                             </ul>

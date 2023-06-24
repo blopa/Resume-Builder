@@ -18,6 +18,7 @@ module.exports = {
         'plugin:react/jsx-runtime',
         'plugin:jsx-a11y/recommended',
         'plugin:sonarjs/recommended',
+        'plugin:gatsby/recommended',
         'prettier',
         'plugin:prettier/recommended',
     ],
@@ -30,7 +31,7 @@ module.exports = {
         PSPDFKit: true,
         snackbar: true,
     },
-    ignorePatterns: ['.eslintrc.js', 'resources/assets/bower/**', 'resources/assets/js/packages/**/lib/index.js'],
+    ignorePatterns: ['.eslintrc.js'],
     parserOptions: {
         ecmaFeatures: {
             jsx: true,
@@ -38,16 +39,9 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
     },
-    plugins: ['react', 'unused-imports'],
+    plugins: ['react', 'unused-imports', 'import'],
     rules: {
-        'import/extensions': [
-            'warn',
-            'ignorePackages',
-            {
-                js: 'never',
-                jsx: 'never',
-            },
-        ],
+        'gatsby/use-gatsby-link': 'warn',
         'import/no-unresolved': [
             2,
         ],
@@ -66,35 +60,30 @@ module.exports = {
         'react/prop-types': 'warn',
         'sonarjs/cognitive-complexity': 'warn',
         'sonarjs/max-switch-cases': 'warn',
+        'sonarjs/no-collapsible-if': 'warn',
         'sonarjs/no-duplicated-branches': 'warn',
         'sonarjs/no-duplicate-string': 'warn',
+        'sonarjs/no-gratuitous-expressions': 'warn',
         'sonarjs/no-identical-functions': 'warn',
         'sonarjs/no-nested-template-literals': 'off',
         'sonarjs/no-small-switch': 'warn',
         'no-unused-vars': 'off',
         'unused-imports/no-unused-imports': 'warn',
+        'react-hooks/exhaustive-deps': ['warn'],
         'unused-imports/no-unused-vars': [
             'warn',
             { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
         ],
     },
     settings: {
+        react: {
+            version: require('react/package.json').version,
+        },
         'import/resolver': {
             node: {
                 extensions: ['.js', '.jsx'],
             },
         },
-        'import/extensions': ['.js', '.jsx'],
-        react: {
-            version: require('react/package.json').version,
-        },
     },
-    overrides: [
-        {
-            files: [
-                'gulpfile.babel.js',
-                'gulp/**/*.js'
-            ],
-        },
-    ],
+    overrides: [],
 };

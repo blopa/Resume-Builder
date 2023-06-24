@@ -1,20 +1,11 @@
-import React from 'react';
 import { v4 as uuid } from 'uuid';
 
 // Components
 import ItemInput from './ItemInput';
 
-const ItemsList = ({
-    onClick,
-    label,
-    checked,
-}) => (
+const ItemsList = ({ onClick, label, checked }) => (
     <li key={uuid()}>
-        <ItemInput
-            onChange={onClick}
-            label={label}
-            checked={checked}
-        />
+        <ItemInput onChange={onClick} label={label} checked={checked} />
     </li>
 );
 

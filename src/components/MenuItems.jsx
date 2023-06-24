@@ -1,4 +1,3 @@
-import React from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -26,17 +25,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function MenuItems({
-    isDrawer = false,
-    onItemClick = () => {},
-}) {
+function MenuItems({ isDrawer = false, onItemClick = () => {} }) {
     const classes = useStyles();
     const intl = useIntl();
 
     return (
-        <List
-            component="nav"
-        >
+        <List component="nav">
             <ListItem
                 component="div"
                 className={classNames({
@@ -49,14 +43,8 @@ function MenuItems({
                     })}
                     inset
                 >
-                    <Link
-                        to="/build"
-                        onClick={onItemClick}
-                    >
-                        <Typography
-                            className={classes.menuLink}
-                            variant="subtitle1"
-                        >
+                    <Link to="/build" onClick={onItemClick}>
+                        <Typography className={classes.menuLink} variant="subtitle1">
                             {intl.formatMessage({ id: 'build_resume' })}
                         </Typography>
                     </Link>
@@ -67,14 +55,8 @@ function MenuItems({
                     })}
                     inset
                 >
-                    <Link
-                        to="/upload"
-                        onClick={onItemClick}
-                    >
-                        <Typography
-                            className={classes.menuLink}
-                            variant="subtitle1"
-                        >
+                    <Link to="/upload" onClick={onItemClick}>
+                        <Typography className={classes.menuLink} variant="subtitle1">
                             {intl.formatMessage({ id: 'upload_resume' })}
                         </Typography>
                     </Link>
@@ -91,10 +73,7 @@ function MenuItems({
                         rel="noopener noreferrer"
                         href="https://github.com/blopa/Resume-Builder"
                     >
-                        <Typography
-                            className={classes.menuLink}
-                            variant="subtitle1"
-                        >
+                        <Typography className={classes.menuLink} variant="subtitle1">
                             {intl.formatMessage({ id: 'source_code' })}
                         </Typography>
                     </a>

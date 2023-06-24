@@ -1,4 +1,3 @@
-import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/styles';
 
@@ -22,20 +21,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const VariableInput = ({
-    onChange,
-    value = '',
-    label = '',
-}) => {
+const VariableInput = ({ onChange, value = '', label = '' }) => {
     const id = uuid();
     const classes = useStyles();
 
     return (
         <div className={classes.inputWrapper}>
-            <label
-                className={classes.inputLabel}
-                htmlFor={id}
-            >
+            <label className={classes.inputLabel} htmlFor={id}>
                 {capitalize(label)}
             </label>
             <input

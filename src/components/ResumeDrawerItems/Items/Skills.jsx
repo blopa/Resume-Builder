@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, memo } from 'react';
+import { Fragment, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/styles';
 
@@ -20,9 +20,12 @@ function Skills({ skills }) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const setResumeSkillsState = useCallback((newSkills) => {
-        dispatch(setResumeSkills(newSkills));
-    }, [dispatch]);
+    const setResumeSkillsState = useCallback(
+        (newSkills) => {
+            dispatch(setResumeSkills(newSkills));
+        },
+        [dispatch]
+    );
 
     const toggleSkills = useCallback(() => {
         const currentState = skills?.enabled;
@@ -32,59 +35,61 @@ function Skills({ skills }) {
         });
     }, [setResumeSkillsState, skills]);
 
-    const toggleSkill = useCallback((skill, index) => () => {
-        const newSkills = { ...skills };
-        newSkills.value[index] = {
-            ...newSkills.value[index],
-            enabled: !newSkills.value[index].enabled,
-        };
-        setResumeSkillsState(newSkills);
-    }, [setResumeSkillsState, skills]);
+    const toggleSkill = useCallback(
+        (skill, index) => () => {
+            const newSkills = { ...skills };
+            newSkills.value[index] = {
+                ...newSkills.value[index],
+                enabled: !newSkills.value[index].enabled,
+            };
+            setResumeSkillsState(newSkills);
+        },
+        [setResumeSkillsState, skills]
+    );
 
-    const toggleSkillsDetail = useCallback((skill, index, propName) => () => {
-        const newSkills = { ...skills };
-        newSkills.value[index] = {
-            ...newSkills.value[index],
-            value: {
-                ...newSkills.value[index].value,
-                [propName]: {
-                    ...newSkills.value[index].value[propName],
-                    enabled: !newSkills.value[index].value[propName].enabled,
+    const toggleSkillsDetail = useCallback(
+        (skill, index, propName) => () => {
+            const newSkills = { ...skills };
+            newSkills.value[index] = {
+                ...newSkills.value[index],
+                value: {
+                    ...newSkills.value[index].value,
+                    [propName]: {
+                        ...newSkills.value[index].value[propName],
+                        enabled: !newSkills.value[index].value[propName].enabled,
+                    },
                 },
-            },
-        };
+            };
 
-        if (newSkills.value[index].enabled) {
-            newSkills.value[index].enabled =
-                Object.entries(newSkills.value[index].value).some((entry) => entry[1].enabled);
-        }
-        setResumeSkillsState(newSkills);
-    }, [setResumeSkillsState, skills]);
+            if (newSkills.value[index].enabled) {
+                newSkills.value[index].enabled = Object.entries(newSkills.value[index].value).some(
+                    (entry) => entry[1].enabled
+                );
+            }
+            setResumeSkillsState(newSkills);
+        },
+        [setResumeSkillsState, skills]
+    );
 
-    const toggleSkillKeywords = useCallback((skill, skillIndex, keyword, keywordIndex) => () => {
-        const newSkills = { ...skills };
-        newSkills.value[skillIndex].value.keywords.value[keywordIndex] = {
-            ...newSkills.value[skillIndex].value.keywords.value[keywordIndex],
-            enabled: !newSkills.value[skillIndex].value.keywords.value[keywordIndex].enabled,
-        };
-        setResumeSkillsState(newSkills);
-    }, [setResumeSkillsState, skills]);
+    const toggleSkillKeywords = useCallback(
+        (skill, skillIndex, keyword, keywordIndex) => () => {
+            const newSkills = { ...skills };
+            newSkills.value[skillIndex].value.keywords.value[keywordIndex] = {
+                ...newSkills.value[skillIndex].value.keywords.value[keywordIndex],
+                enabled: !newSkills.value[skillIndex].value.keywords.value[keywordIndex].enabled,
+            };
+            setResumeSkillsState(newSkills);
+        },
+        [setResumeSkillsState, skills]
+    );
 
     return (
         <div className={classes.resumeDrawerItem}>
-            <ItemInput
-                label={varNameToString({ skills })}
-                onChange={toggleSkills}
-                checked={skills?.enabled}
-            />
+            <ItemInput label={varNameToString({ skills })} onChange={toggleSkills} checked={skills?.enabled} />
             {skills?.enabled && (
                 <ul>
                     {skills?.value.map((skill, index) => {
-                        const {
-                            name,
-                            level,
-                            keywords,
-                        } = skill?.value || {};
+                        const { name, level, keywords } = skill?.value || {};
 
                         return (
                             <Fragment key={uuid()}>
@@ -101,22 +106,14 @@ function Skills({ skills }) {
                                             <ItemsList
                                                 label={varNameToString({ level })}
                                                 checked={level?.enabled}
-                                                onClick={toggleSkillsDetail(
-                                                    skill,
-                                                    index,
-                                                    varNameToString({ level })
-                                                )}
+                                                onClick={toggleSkillsDetail(skill, index, varNameToString({ level }))}
                                             />
                                         )}
                                         {name && (
                                             <ItemsList
                                                 label={varNameToString({ name })}
                                                 checked={name?.enabled}
-                                                onClick={toggleSkillsDetail(
-                                                    skill,
-                                                    index,
-                                                    varNameToString({ name })
-                                                )}
+                                                onClick={toggleSkillsDetail(skill, index, varNameToString({ name }))}
                                             />
                                         )}
                                         {keywords && (
@@ -137,12 +134,7 @@ function Skills({ skills }) {
                                                         label={keyword?.value}
                                                         key={uuid()}
                                                         checked={keyword?.enabled}
-                                                        onClick={toggleSkillKeywords(
-                                                            skill,
-                                                            index,
-                                                            keyword,
-                                                            idx
-                                                        )}
+                                                        onClick={toggleSkillKeywords(skill, index, keyword, idx)}
                                                     />
                                                 ))}
                                             </ul>

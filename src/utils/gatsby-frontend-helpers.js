@@ -6,10 +6,7 @@ import {
 
 // example: snackbar_message_key -> your_comment_submitted:success
 export const setSnackbarMessage = (message, severity) => {
-    localStorage.setItem(
-        LOCALSTORAGE_MESSAGE_KEY,
-        `${message}:${severity}`
-    );
+    localStorage.setItem(LOCALSTORAGE_MESSAGE_KEY, `${message}:${severity}`);
 };
 
 export const getSnackbarMessage = () => {
@@ -40,26 +37,24 @@ export const getCookieConsent = () => {
 };
 
 export const setCookieConsentSeen = () => {
-    localStorage.setItem(
-        LOCALSTORAGE_COOKIE_CONSENT_KEY,
-        LOCALSTORAGE_COOKIE_CONSENT_VALUE
-    );
+    localStorage.setItem(LOCALSTORAGE_COOKIE_CONSENT_KEY, LOCALSTORAGE_COOKIE_CONSENT_VALUE);
 };
 
 export const fetchGithubResumeJson = async (userName) => {
     const url = `https://raw.githubusercontent.com/${userName}/resume.json/main/resume.json`;
     const result = await fetch(url, {
         method: 'GET',
-    }).then(async (response) =>
-        // eslint-disable-next-line no-return-await
-        await response.text());
+    }).then(
+        async (response) =>
+            // eslint-disable-next-line no-return-await
+            await response.text()
+    );
 
     // eslint-disable-next-line no-return-await
     return result || '{}';
 };
 
 export const isValidJsonString = (jsonString) => {
-
     if (!(jsonString && typeof jsonString === 'string')) {
         return false;
     }
@@ -70,5 +65,4 @@ export const isValidJsonString = (jsonString) => {
     } catch (error) {
         return false;
     }
-
 };

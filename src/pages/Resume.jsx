@@ -1,5 +1,5 @@
 /* eslint template-curly-spacing: 0, indent: 0 */
-import React, { Suspense, lazy, useEffect, useState, useRef, useCallback } from 'react';
+import { Suspense, lazy, useEffect, useState, useRef, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer } from '@material-ui/core';
 import { navigate, useIntl } from 'gatsby-plugin-react-intl';
@@ -26,7 +26,7 @@ import { convertToRegularObject, isObjectNotEmpty } from '../utils/utils';
 import { selectResumeTemplate, selectToggleableJsonResume } from '../store/selectors';
 
 // Hooks
-import useDetectPrint from "../components/hooks/useDetectPrint";
+import useDetectPrint from '../components/hooks/useDetectPrint';
 
 const useStyles = makeStyles((theme) => ({
     resumeWrapper: {
@@ -39,9 +39,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const importTemplate = (template) => lazy(() =>
-    import(`../components/ResumeTemplates/${template}/Index`).catch(() =>
-        import('../components/ResumeTemplates/Default/Index')));
+const importTemplate = (template) =>
+    lazy(() =>
+        import(`../components/ResumeTemplates/${template}/Index`).catch(() =>
+            import('../components/ResumeTemplates/Default/Index')
+        )
+    );
 
 const ResumePage = () => {
     const intl = useIntl();
@@ -67,9 +70,7 @@ const ResumePage = () => {
             const Template = await importTemplate(resumeTemplateName);
             const jsonResume = {
                 ...baseResume,
-                ...convertToRegularObject(
-                    cloneDeep(toggleableJsonResume)
-                ),
+                ...convertToRegularObject(cloneDeep(toggleableJsonResume)),
                 enableSourceDataDownload: toggleableJsonResume.enableSourceDataDownload,
                 coverLetter:
                     toggleableJsonResume.coverLetter?.enabled && (toggleableJsonResume.coverLetter?.value?.text || ''),
@@ -103,9 +104,7 @@ const ResumePage = () => {
         const resumeHeight = refContainer?.current?.clientHeight;
         const ratio = resumeHeight / size;
         if (resumeHeight && ratio > 1) {
-            const vhs = Math.ceil(
-                parseFloat(ratio.toFixed(2))
-            );
+            const vhs = Math.ceil(parseFloat(ratio.toFixed(2)));
             setA4ContainerHeight(vhs * 100);
         } else {
             window.print();
@@ -128,15 +127,10 @@ const ResumePage = () => {
 
     return (
         <Layout>
-            <SEO
-                title={intl.formatMessage({ id: 'build_resume' })}
-                robots="noindex, nofollow"
-            />
+            <SEO title={intl.formatMessage({ id: 'build_resume' })} robots="noindex, nofollow" />
             {hasData && (
                 <div className={classes.resumeWrapper}>
-                    <FloatingButton
-                        onClick={() => setIsDrawerOpen(true)}
-                    />
+                    <FloatingButton onClick={() => setIsDrawerOpen(true)} />
                     <Drawer
                         className={classes.drawerWrapper}
                         anchor="right"
@@ -150,18 +144,9 @@ const ResumePage = () => {
                             onPrint={printDocument}
                         />
                     </Drawer>
-                    <div
-                        ref={refContainer}
-                    >
-                        <A4Container
-                            alignCenter={!isDrawerOpen}
-                            customHeight={a4ContainerHeight}
-                        >
-                            <Suspense
-                                fallback={intl.formatMessage({ id: 'loading' })}
-                            >
-                                {resumeTemplate}
-                            </Suspense>
+                    <div ref={refContainer}>
+                        <A4Container alignCenter={!isDrawerOpen} customHeight={a4ContainerHeight}>
+                            <Suspense fallback={intl.formatMessage({ id: 'loading' })}>{resumeTemplate}</Suspense>
                         </A4Container>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, memo } from 'react';
+import { Fragment, useCallback, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/styles';
 
@@ -26,14 +26,14 @@ function Work({ work: workData }) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const {
-        enabled: workEnabled,
-        value: works,
-    } = workData || {};
+    const { enabled: workEnabled, value: works } = workData || {};
 
-    const setResumeWorkState = useCallback((newWork) => {
-        dispatch(setResumeWork(newWork));
-    }, [dispatch]);
+    const setResumeWorkState = useCallback(
+        (newWork) => {
+            dispatch(setResumeWork(newWork));
+        },
+        [dispatch]
+    );
 
     const toggleWorks = useCallback(() => {
         const currentState = workData?.enabled;
@@ -43,52 +43,65 @@ function Work({ work: workData }) {
         });
     }, [setResumeWorkState, workData]);
 
-    const toggleWork = useCallback((oldWork, index) => () => {
-        const newWork = { ...workData };
-        newWork.value[index] = {
-            ...newWork.value[index],
-            enabled: !newWork.value[index].enabled,
-        };
-        setResumeWorkState(newWork);
-    }, [setResumeWorkState, workData]);
+    const toggleWork = useCallback(
+        (oldWork, index) => () => {
+            const newWork = { ...workData };
+            newWork.value[index] = {
+                ...newWork.value[index],
+                enabled: !newWork.value[index].enabled,
+            };
+            setResumeWorkState(newWork);
+        },
+        [setResumeWorkState, workData]
+    );
 
-    const toggleWorkDetail = useCallback((oldWork, index, propName) => () => {
-        const newWork = { ...workData };
-        newWork.value[index] = {
-            ...newWork.value[index],
-            value: {
-                ...newWork.value[index].value,
-                [propName]: {
-                    ...newWork.value[index].value[propName],
-                    enabled: !newWork.value[index].value[propName].enabled,
+    const toggleWorkDetail = useCallback(
+        (oldWork, index, propName) => () => {
+            const newWork = { ...workData };
+            newWork.value[index] = {
+                ...newWork.value[index],
+                value: {
+                    ...newWork.value[index].value,
+                    [propName]: {
+                        ...newWork.value[index].value[propName],
+                        enabled: !newWork.value[index].value[propName].enabled,
+                    },
                 },
-            },
-        };
+            };
 
-        if (newWork.value[index].enabled) {
-            newWork.value[index].enabled =
-                Object.entries(newWork.value[index].value).some((entry) => entry[1].enabled);
-        }
-        setResumeWorkState(newWork);
-    }, [setResumeWorkState, workData]);
+            if (newWork.value[index].enabled) {
+                newWork.value[index].enabled = Object.entries(newWork.value[index].value).some(
+                    (entry) => entry[1].enabled
+                );
+            }
+            setResumeWorkState(newWork);
+        },
+        [setResumeWorkState, workData]
+    );
 
-    const toggleWorkHighlights = useCallback((oldWork, oldWorkIndex, highlight, highlightIndex) => () => {
-        const newWork = { ...workData };
-        newWork.value[oldWorkIndex].value.highlights.value[highlightIndex] = {
-            ...newWork.value[oldWorkIndex].value.highlights.value[highlightIndex],
-            enabled: !newWork.value[oldWorkIndex].value.highlights.value[highlightIndex].enabled,
-        };
-        setResumeWorkState(newWork);
-    }, [setResumeWorkState, workData]);
+    const toggleWorkHighlights = useCallback(
+        (oldWork, oldWorkIndex, highlight, highlightIndex) => () => {
+            const newWork = { ...workData };
+            newWork.value[oldWorkIndex].value.highlights.value[highlightIndex] = {
+                ...newWork.value[oldWorkIndex].value.highlights.value[highlightIndex],
+                enabled: !newWork.value[oldWorkIndex].value.highlights.value[highlightIndex].enabled,
+            };
+            setResumeWorkState(newWork);
+        },
+        [setResumeWorkState, workData]
+    );
 
-    const toggleWorkKeywords = useCallback((oldWork, oldWorkIndex, keyword, keywordIndex) => () => {
-        const newWork = { ...workData };
-        newWork.value[oldWorkIndex].value.keywords.value[keywordIndex] = {
-            ...newWork.value[oldWorkIndex].value.keywords.value[keywordIndex],
-            enabled: !newWork.value[oldWorkIndex].value.keywords.value[keywordIndex].enabled,
-        };
-        setResumeWorkState(newWork);
-    }, [setResumeWorkState, workData]);
+    const toggleWorkKeywords = useCallback(
+        (oldWork, oldWorkIndex, keyword, keywordIndex) => () => {
+            const newWork = { ...workData };
+            newWork.value[oldWorkIndex].value.keywords.value[keywordIndex] = {
+                ...newWork.value[oldWorkIndex].value.keywords.value[keywordIndex],
+                enabled: !newWork.value[oldWorkIndex].value.keywords.value[keywordIndex].enabled,
+            };
+            setResumeWorkState(newWork);
+        },
+        [setResumeWorkState, workData]
+    );
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -129,77 +142,49 @@ function Work({ work: workData }) {
                                             <ItemsList
                                                 label={varNameToString({ name })}
                                                 checked={name?.enabled}
-                                                onClick={toggleWorkDetail(
-                                                    work,
-                                                    index,
-                                                    varNameToString({ name })
-                                                )}
+                                                onClick={toggleWorkDetail(work, index, varNameToString({ name }))}
                                             />
                                         )}
                                         {position && (
                                             <ItemsList
                                                 label={varNameToString({ position })}
                                                 checked={position?.enabled}
-                                                onClick={toggleWorkDetail(
-                                                    work,
-                                                    index,
-                                                    varNameToString({ position })
-                                                )}
+                                                onClick={toggleWorkDetail(work, index, varNameToString({ position }))}
                                             />
                                         )}
                                         {url && (
                                             <ItemsList
                                                 label={varNameToString({ url })}
                                                 checked={url?.enabled}
-                                                onClick={toggleWorkDetail(
-                                                    work,
-                                                    index,
-                                                    varNameToString({ url })
-                                                )}
+                                                onClick={toggleWorkDetail(work, index, varNameToString({ url }))}
                                             />
                                         )}
                                         {location && (
                                             <ItemsList
                                                 label={varNameToString({ location })}
                                                 checked={location?.enabled}
-                                                onClick={toggleWorkDetail(
-                                                    work,
-                                                    index,
-                                                    varNameToString({ location })
-                                                )}
+                                                onClick={toggleWorkDetail(work, index, varNameToString({ location }))}
                                             />
                                         )}
                                         {startDate && (
                                             <ItemsList
                                                 label={varNameToString({ startDate })}
                                                 checked={startDate?.enabled}
-                                                onClick={toggleWorkDetail(
-                                                    work,
-                                                    index,
-                                                    varNameToString({ startDate })
-                                                )}
+                                                onClick={toggleWorkDetail(work, index, varNameToString({ startDate }))}
                                             />
                                         )}
                                         {endDate && (
                                             <ItemsList
                                                 label={varNameToString({ endDate })}
                                                 checked={endDate?.enabled}
-                                                onClick={toggleWorkDetail(
-                                                    work,
-                                                    index,
-                                                    varNameToString({ endDate })
-                                                )}
+                                                onClick={toggleWorkDetail(work, index, varNameToString({ endDate }))}
                                             />
                                         )}
                                         {summary && (
                                             <ItemsList
                                                 label={varNameToString({ summary })}
                                                 checked={summary?.enabled}
-                                                onClick={toggleWorkDetail(
-                                                    work,
-                                                    index,
-                                                    varNameToString({ summary })
-                                                )}
+                                                onClick={toggleWorkDetail(work, index, varNameToString({ summary }))}
                                             />
                                         )}
                                         {description && (
@@ -217,11 +202,7 @@ function Work({ work: workData }) {
                                             <ItemsList
                                                 label={varNameToString({ highlights })}
                                                 checked={highlights?.enabled}
-                                                onClick={toggleWorkDetail(
-                                                    work,
-                                                    index,
-                                                    varNameToString({ highlights })
-                                                )}
+                                                onClick={toggleWorkDetail(work, index, varNameToString({ highlights }))}
                                             />
                                         )}
                                         {highlights?.enabled && (
@@ -231,12 +212,7 @@ function Work({ work: workData }) {
                                                         label={highlight?.value}
                                                         key={uuid()}
                                                         checked={highlight?.enabled}
-                                                        onClick={toggleWorkHighlights(
-                                                            work,
-                                                            index,
-                                                            highlight,
-                                                            idx
-                                                        )}
+                                                        onClick={toggleWorkHighlights(work, index, highlight, idx)}
                                                     />
                                                 ))}
                                             </ul>
@@ -245,11 +221,7 @@ function Work({ work: workData }) {
                                             <ItemsList
                                                 label={varNameToString({ keywords })}
                                                 checked={keywords?.enabled}
-                                                onClick={toggleWorkDetail(
-                                                    work,
-                                                    index,
-                                                    varNameToString({ keywords })
-                                                )}
+                                                onClick={toggleWorkDetail(work, index, varNameToString({ keywords }))}
                                             />
                                         )}
                                         {keywords?.enabled && (
@@ -259,12 +231,7 @@ function Work({ work: workData }) {
                                                         label={keyword?.value}
                                                         key={uuid()}
                                                         checked={keyword?.enabled}
-                                                        onClick={toggleWorkKeywords(
-                                                            work,
-                                                            index,
-                                                            keyword,
-                                                            idx
-                                                        )}
+                                                        onClick={toggleWorkKeywords(work, index, keyword, idx)}
                                                     />
                                                 ))}
                                             </ul>

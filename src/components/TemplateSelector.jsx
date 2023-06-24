@@ -1,5 +1,5 @@
 /* globals TEMPLATES_LIST */
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { MenuItem, Select } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { v4 as uuid } from 'uuid';
@@ -21,23 +21,18 @@ const TemplateSelector = ({ onSelect, className }) => {
     const [resumeTemplate, setResumeTemplate] = useState(stateTemplate);
     const classes = useStyles();
 
-    const handleChange = useCallback((e) => {
-        setResumeTemplate(e.target.value);
-        onSelect(e.target.value);
-    }, [onSelect]);
+    const handleChange = useCallback(
+        (e) => {
+            setResumeTemplate(e.target.value);
+            onSelect(e.target.value);
+        },
+        [onSelect]
+    );
 
     return (
-        <Select
-            className={className}
-            value={resumeTemplate}
-            onChange={handleChange}
-            displayEmpty
-        >
+        <Select className={className} value={resumeTemplate} onChange={handleChange} displayEmpty>
             {TEMPLATES_LIST.map((template) => (
-                <MenuItem
-                    key={uuid()}
-                    value={template}
-                >
+                <MenuItem key={uuid()} value={template}>
                     {template}
                 </MenuItem>
             ))}

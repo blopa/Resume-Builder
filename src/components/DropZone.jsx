@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { DropzoneArea } from 'material-ui-dropzone';
 import { useIntl } from 'gatsby-plugin-react-intl';
@@ -9,30 +9,27 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const DropZone = ({
-    handleFile,
-    disabled,
-    maxLength,
-}) => {
+const DropZone = ({ handleFile, disabled, maxLength }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const handleOnChange = useCallback((files) => {
-        if (files.length === 0) {
-            return;
-        }
+    const handleOnChange = useCallback(
+        (files) => {
+            if (files.length === 0) {
+                return;
+            }
 
-        if (files.length > maxLength) {
-            // TODO
-        } else {
-            // do what ever you want
-            handleFile(files[0]);
-        }
-    }, [handleFile, maxLength]);
+            if (files.length > maxLength) {
+                // TODO
+            } else {
+                // do what ever you want
+                handleFile(files[0]);
+            }
+        },
+        [handleFile, maxLength]
+    );
 
     return (
-        <div
-            className={classes.dropZone}
-        >
+        <div className={classes.dropZone}>
             <DropzoneArea
                 showAlerts={false}
                 showPreviewsInDropzone={false}

@@ -1,4 +1,4 @@
-import React, { useCallback, memo } from 'react';
+import { useCallback, memo } from 'react';
 import { makeStyles } from '@material-ui/styles';
 
 // Components
@@ -26,23 +26,30 @@ function CoverLetter({ coverLetter }) {
     const dispatch = useDispatch();
     const toggleCoverLetter = useCallback(() => {
         const currentState = coverLetter?.enabled;
-        dispatch(setResumeCoverLetter({
-            ...coverLetter,
-            enabled: !currentState,
-        }));
+        dispatch(
+            setResumeCoverLetter({
+                ...coverLetter,
+                enabled: !currentState,
+            })
+        );
     }, [coverLetter, dispatch]);
 
-    const handleOnInputChanged = useCallback((name) => (event) =>
-        dispatch(setResumeCoverLetter({
-            ...coverLetter,
-            value: {
-                ...coverLetter.value,
-                variables: {
-                    ...coverLetter.value.variables,
-                    [name]: event.target.value,
-                },
-            },
-        })), [coverLetter, dispatch]);
+    const handleOnInputChanged = useCallback(
+        (name) => (event) =>
+            dispatch(
+                setResumeCoverLetter({
+                    ...coverLetter,
+                    value: {
+                        ...coverLetter.value,
+                        variables: {
+                            ...coverLetter.value.variables,
+                            [name]: event.target.value,
+                        },
+                    },
+                })
+            ),
+        [coverLetter, dispatch]
+    );
 
     return (
         <div className={classes.resumeDrawerItem}>
@@ -53,14 +60,7 @@ function CoverLetter({ coverLetter }) {
             />
             {Object.entries(coverLetter.value.variables).map((entry) => {
                 const [name, value] = entry;
-                return (
-                    <VariableInput
-                        key={name}
-                        label={name}
-                        value={value}
-                        onChange={handleOnInputChanged(name)}
-                    />
-                );
+                return <VariableInput key={name} label={name} value={value} onChange={handleOnInputChanged(name)} />;
             })}
         </div>
     );

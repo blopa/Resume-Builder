@@ -310,6 +310,10 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/screenshot_3.png)
 
 ## Release Notes
+- **v4.0.12:**
+	- Bump NPM packages versions.
+	- Fix "0" showing up in the Cover Letter component.
+	- Update Babel and ESLint configuration.
 - **v4.0.11:**
 	- Bump NPM packages versions.
 - **v4.0.10:**

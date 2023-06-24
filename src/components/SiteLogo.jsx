@@ -1,5 +1,4 @@
 /* globals VERSION */
-import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -18,14 +17,9 @@ function SiteLogo() {
     const buildVersion = VERSION;
 
     return (
-        <Typography
-            className={classes.logoText}
-            variant="h5"
-        >
+        <Typography className={classes.logoText} variant="h5">
             Resume Builder
-            <span className={classes.versionText}>
-                {` v ${buildVersion}`}
-            </span>
+            <span className={classes.versionText}>{` v ${buildVersion}`}</span>
         </Typography>
     );
 }

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
@@ -45,59 +45,48 @@ const Awards = ({ awards }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
-    return awards?.length > 0 && (
-        <div className={classes.resumeAwards}>
-            <h3
-                ref={sectionTitle}
-                className={classes.title}
-                style={titleStyle}
-            >
-                {intl.formatMessage({ id: 'awards' })}
-            </h3>
-            <div className={classes.contentWrapper}>
-                <ul className={classes.awards}>
-                    {awards.map((award) => {
-                        if (award) {
-                            const {
-                                title,
-                                date,
-                                awarder,
-                                summary,
-                            } = award || {};
+    return (
+        awards?.length > 0 && (
+            <div className={classes.resumeAwards}>
+                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                    {intl.formatMessage({ id: 'awards' })}
+                </h3>
+                <div className={classes.contentWrapper}>
+                    <ul className={classes.awards}>
+                        {awards.map((award) => {
+                            if (award) {
+                                const { title, date, awarder, summary } = award || {};
 
-                            let refProps = {};
-                            if (!firstItem.current) {
-                                refProps = {
-                                    ref: firstItem,
-                                };
+                                let refProps = {};
+                                if (!firstItem.current) {
+                                    refProps = {
+                                        ref: firstItem,
+                                    };
+                                }
+
+                                return (
+                                    <li
+                                        className={classes.awardWrapper}
+                                        key={uuid()}
+                                        // eslint-disable-next-line react/jsx-props-no-spreading
+                                        {...refProps}
+                                    >
+                                        <p className={classes.award}>
+                                            {title}
+                                            {date && <span className={classes.positionDate}>{` (${date})`}</span>}
+                                        </p>
+                                        <p>{awarder}</p>
+                                        <p>{summary}</p>
+                                    </li>
+                                );
                             }
 
-                            return (
-                                <li
-                                    className={classes.awardWrapper}
-                                    key={uuid()}
-                                    // eslint-disable-next-line react/jsx-props-no-spreading
-                                    {...refProps}
-                                >
-                                    <p className={classes.award}>
-                                        {title}
-                                        {(date) && (
-                                            <span className={classes.positionDate}>
-                                                {` (${date})`}
-                                            </span>
-                                        )}
-                                    </p>
-                                    <p>{awarder}</p>
-                                    <p>{summary}</p>
-                                </li>
-                            );
-                        }
-
-                        return null;
-                    })}
-                </ul>
+                            return null;
+                        })}
+                    </ul>
+                </div>
             </div>
-        </div>
+        )
     );
 };
 

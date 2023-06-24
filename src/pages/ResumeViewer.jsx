@@ -1,6 +1,6 @@
 /* eslint template-curly-spacing: 0, indent: 0 */
 /* globals TEMPLATES_LIST */
-import React, { lazy, Suspense, useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { navigate, useIntl, RawIntlProvider } from 'gatsby-plugin-react-intl';
 import { v4 as uuid } from 'uuid';
 import { cloneDeep } from 'lodash';
@@ -15,7 +15,7 @@ import { isObjectNotEmpty, convertToToggleableObject, convertToRegularObject } f
 
 // Hooks
 import { useDispatch, useSelector } from '../store/StoreProvider';
-import useDetectPrint from "../components/hooks/useDetectPrint";
+import useDetectPrint from '../components/hooks/useDetectPrint';
 
 // Actions
 import setToggleableJsonResume from '../store/actions/setToggleableJsonResume';
@@ -29,9 +29,12 @@ import baseResume from '../store/resume.json';
 // Selectors
 import { selectToggleableJsonResume } from '../store/selectors';
 
-const importTemplate = (template) => lazy(() =>
-    import(`../components/ResumeTemplates/${template}/Index`).catch(() =>
-        import('../components/ResumeTemplates/Default/Index')));
+const importTemplate = (template) =>
+    lazy(() =>
+        import(`../components/ResumeTemplates/${template}/Index`).catch(() =>
+            import('../components/ResumeTemplates/Default/Index')
+        )
+    );
 
 const ResumeViewer = ({ params, uri }) => {
     const intl = useIntl();
@@ -40,14 +43,10 @@ const ResumeViewer = ({ params, uri }) => {
     const isPrinting = useDetectPrint();
 
     const pageIntl = useMemo(() => {
-        const newIntl = templateIntls.find(
-            (tempIntl) => tempIntl.locale === lang
-        );
+        const newIntl = templateIntls.find((tempIntl) => tempIntl.locale === lang);
 
         if (!newIntl) {
-            return templateIntls.find(
-                (tempIntl) => tempIntl.locale === intl.defaultLocale
-            );
+            return templateIntls.find((tempIntl) => tempIntl.locale === intl.defaultLocale);
         }
 
         return newIntl;
@@ -57,9 +56,7 @@ const ResumeViewer = ({ params, uri }) => {
     const toggleableJsonResume = useSelector(selectToggleableJsonResume);
     const dispatch = useDispatch();
 
-    const validTemplate = TEMPLATES_LIST.find(
-        (templateName) => templateName.toLowerCase() === template.toLowerCase()
-    );
+    const validTemplate = TEMPLATES_LIST.find((templateName) => templateName.toLowerCase() === template.toLowerCase());
     // TODO
     const hasData = isObjectNotEmpty(toggleableJsonResume);
 
@@ -100,9 +97,7 @@ const ResumeViewer = ({ params, uri }) => {
                     // TODO maybe just send the JSON directly
                     jsonResume={{
                         ...baseResume,
-                        ...convertToRegularObject(
-                            cloneDeep(toggleableObject)
-                        ),
+                        ...convertToRegularObject(cloneDeep(toggleableObject)),
                     }}
                     coverLetterVariables={toggleableObject.coverLetter?.value?.variables || []}
                 />,
@@ -117,23 +112,10 @@ const ResumeViewer = ({ params, uri }) => {
     }, [dispatch, intl.defaultLocale, isPrinting, lang, username, validTemplate]);
 
     return (
-        <RawIntlProvider
-            value={pageIntl}
-        >
-            <SEO
-                title={pageIntl.formatMessage({ id: 'resume_viewer' })}
-                robots="noindex, nofollow"
-            />
-            <A4Container
-                alignCenter
-            >
-                {hasData && (
-                    <Suspense
-                        fallback={intl.formatMessage({ id: 'loading' })}
-                    >
-                        {resumeTemplate}
-                    </Suspense>
-                )}
+        <RawIntlProvider value={pageIntl}>
+            <SEO title={pageIntl.formatMessage({ id: 'resume_viewer' })} robots="noindex, nofollow" />
+            <A4Container alignCenter>
+                {hasData && <Suspense fallback={intl.formatMessage({ id: 'loading' })}>{resumeTemplate}</Suspense>}
                 {!hasData && intl.formatMessage({ id: 'loading' })}
             </A4Container>
         </RawIntlProvider>

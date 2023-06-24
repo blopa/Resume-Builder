@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useContext } from 'react';
+import { Fragment, useCallback, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer } from '@material-ui/core';
 
@@ -42,24 +42,13 @@ function SiteDrawer() {
                     onClose={closeDrawer}
                     classes={{ paper: classes.drawer }}
                 >
-                    <div
-                        className={classes.homeMenuLink}
-                    >
-                        <Link
-                            to="/"
-                            onClick={closeDrawer}
-                        >
+                    <div className={classes.homeMenuLink}>
+                        <Link to="/" onClick={closeDrawer}>
                             <SiteLogo />
                         </Link>
                     </div>
-                    <div
-                        className={classes.menuItemsList}
-                        role="presentation"
-                    >
-                        <MenuItems
-                            isDrawer
-                            onItemClick={closeDrawer}
-                        />
+                    <div className={classes.menuItemsList} role="presentation">
+                        <MenuItems isDrawer onItemClick={closeDrawer} />
                     </div>
                 </Drawer>
             </Fragment>
