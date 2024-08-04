@@ -86,6 +86,14 @@
             "summary": "There is no spoon."
         }
     ],
+    "certificates": [
+        {
+            "name": "Certified Pied Piper Compressionist",
+            "date": "2014-10-01",
+            "url": "http://piedpiper.example.com/certificates/compressionist",
+            "issuer": "Pied Piper Certification Authority"
+        }
+    ],
     "publications": [
         {
             "name": "Video compression for 3d media",
