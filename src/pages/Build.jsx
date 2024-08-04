@@ -140,6 +140,7 @@ const BuildPage = ({ params, uri, location }) => {
 
     const getResumeJsonFromFormik = useCallback(() => {
         const arrayKeys = ['highlights', 'keywords', 'courses', 'roles'];
+
         return {
             basics: {
                 ...Object.entries(formik.values)
@@ -188,6 +189,7 @@ const BuildPage = ({ params, uri, location }) => {
             interests: convertFormikToJsonArray(formik.values, 'interests-', arrayKeys),
             references: convertFormikToJsonArray(formik.values, 'references-', arrayKeys),
             projects: convertFormikToJsonArray(formik.values, 'projects-', arrayKeys),
+            certificates: convertFormikToJsonArray(formik.values, 'certificates-', arrayKeys),
             coverLetter: formik.values['coverLetter-0'] || '',
         };
     }, [formik.values]);
