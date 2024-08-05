@@ -44,6 +44,12 @@ const useStyles = makeStyles((theme) => ({
             padding: 0,
         },
     },
+    llmPromptText: {
+        userSelect: 'none',
+        opacity: 0.1,
+        float: 'left',
+        color: theme.palette.type === 'dark' ? '#424242' : '#ffffff',
+    },
 }));
 
 const Default = ({
@@ -67,6 +73,7 @@ const Default = ({
         certificates,
         // custom attributes
         coverLetter,
+        llmPrompt,
         enableSourceDataDownload = false,
     },
 }) => {
@@ -148,6 +155,7 @@ const Default = ({
                 {languages?.length > 0 && <Languages languages={languages} />}
                 {interests?.length > 0 && <Interests interests={interests} />}
                 {references?.length > 0 && <References references={references} />}
+                {llmPrompt && <p className={classes.llmPromptText}>{llmPrompt}</p>}
             </div>
         </RawIntlProvider>
     );

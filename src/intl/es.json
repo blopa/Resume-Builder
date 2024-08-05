@@ -55,6 +55,7 @@
         "references": "Referencias",
         "projects": "Proyectos",
         "coverLetter": "Carta de presentación",
+        "llmPrompt": "Indicación para el LLM",
         "profiles": "Perfiles",
         "name": "Nombre",
         "label": "Etiqueta",

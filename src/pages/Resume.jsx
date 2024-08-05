@@ -5,6 +5,7 @@ import { navigate, useIntl } from 'gatsby-plugin-react-intl';
 import { v4 as uuid } from 'uuid';
 import { cloneDeep } from 'lodash';
 import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 
 // Base resume
 import baseResume from '../store/resume.json';
@@ -58,7 +59,8 @@ const parseMarkdown = (obj) => {
     return Object.keys(obj).reduce((acc, key) => {
         const value = obj[key];
         if (typeof value === 'string' && ['description', 'summary', 'reference', 'coverLetter'].includes(key)) {
-            acc[key] = marked(value);
+            const sanitizedMarkdown = DOMPurify.sanitize(value);
+            acc[key] = marked(sanitizedMarkdown);
         } else if (typeof value === 'object') {
             acc[key] = parseMarkdown(value);
         } else {

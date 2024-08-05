@@ -191,6 +191,7 @@ const BuildPage = ({ params, uri, location }) => {
             projects: convertFormikToJsonArray(formik.values, 'projects-', arrayKeys),
             certificates: convertFormikToJsonArray(formik.values, 'certificates-', arrayKeys),
             coverLetter: formik.values['coverLetter-0'] || '',
+            llmPrompt: formik.values['llmPrompt-0'] || '',
         };
     }, [formik.values]);
 
