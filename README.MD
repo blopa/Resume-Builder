@@ -324,6 +324,8 @@ __Tip__: Notice that you can use Markdown in the cover letter, summaries and des
 	- Bump NPM package versions.
 	- Fix issue [#74](https://github.com/blopa/Resume-Builder/issues/74).
 	- Add option to use markdown in the cover letter, summaries, and descriptions.
+	- Add option to add LLM easter-egg to the resume.
+	- Add description to fields in the builder form.
 - **v4.0.12:**
 	- Bump NPM package versions.
 	- Fix "0" showing up in the Cover Letter component.

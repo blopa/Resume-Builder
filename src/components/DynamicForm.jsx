@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, FormHelperText } from '@material-ui/core';
 import classNames from 'classnames';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -32,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
     },
     removeButton: {
         marginLeft: '10px',
+    },
+    description: {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
     },
 }));
 
@@ -125,7 +129,7 @@ const DynamicForm = ({ schema, formik, definitions, textAreaNames = [], quantiti
                         }
 
                         let inputProps = {};
-                        // TODO this doesnt work
+                        // Handle $ref patterns and other inputProps if necessary
                         if (!value.type && value.$ref) {
                             let ref = definitions;
                             value.$ref.split('/').forEach((k) => {
@@ -152,24 +156,30 @@ const DynamicForm = ({ schema, formik, definitions, textAreaNames = [], quantiti
                                     }
 
                                     return (
-                                        <TextField
-                                            key={newKey}
-                                            className={classNames(classes.field, {
-                                                [classes.textArea]: isTextArea,
-                                            })}
-                                            multiline={isTextArea}
-                                            rows={isTextArea ? lines : 1}
-                                            rowsMax={10}
-                                            fullWidth
-                                            id={newKey}
-                                            name={newKey}
-                                            label={intl.formatMessage({ id: `builder.${key}` })}
-                                            value={formik.values[newKey]}
-                                            onChange={formik.handleChange}
-                                            error={formik.touched[newKey] && Boolean(formik.errors[newKey])}
-                                            helperText={formik.touched[newKey] && formik.errors[newKey]}
-                                            inputProps={inputProps}
-                                        />
+                                        <div key={newKey}>
+                                            <TextField
+                                                className={classNames(classes.field, {
+                                                    [classes.textArea]: isTextArea,
+                                                })}
+                                                multiline={isTextArea}
+                                                rows={isTextArea ? lines : 1}
+                                                rowsMax={10}
+                                                fullWidth
+                                                id={newKey}
+                                                name={newKey}
+                                                label={intl.formatMessage({ id: `builder.${key}` })}
+                                                value={formik.values[newKey]}
+                                                onChange={formik.handleChange}
+                                                error={formik.touched[newKey] && Boolean(formik.errors[newKey])}
+                                                helperText={formik.touched[newKey] && formik.errors[newKey]}
+                                                inputProps={inputProps}
+                                            />
+                                            {value.description && (
+                                                <FormHelperText className={classes.description}>
+                                                    {intl.formatMessage({ id: `description.${key}` })}
+                                                </FormHelperText>
+                                            )}
+                                        </div>
                                     );
                                 })}
                             </div>
@@ -185,6 +195,7 @@ const DynamicForm = ({ schema, formik, definitions, textAreaNames = [], quantiti
             classes.groupedFieldWrapper,
             classes.field,
             classes.textArea,
+            classes.description,
             intl,
             quantitiesHashMap,
             definitions,
