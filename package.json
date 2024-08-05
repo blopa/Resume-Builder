@@ -78,7 +78,7 @@
         "eslint-plugin-sonarjs": "^0.19.0",
         "eslint-plugin-unused-imports": "^2.0.0",
         "gatsby-plugin-eslint": "^4.0.4",
-        "npm-check-updates": "^16.10.13",
+        "npm-check-updates": "^17.0.3",
         "prettier": "^2.8.8"
     },
     "repository": {
