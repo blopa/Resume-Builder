@@ -1,65 +1,54 @@
 # Resume Builder
 ### [resume-builder.js.org](https://resume-builder.js.org/)
 
-**Gotta find a job!** Alright, let's make a new resume with this awesome template I found on Google, the problem is, this template might not be as awesome next month, or you might need to constantly add your new experience to the document. Gosh. Wouldn't be better to focus on adding new experiences in a raw format and let a automation process handle the layout? I agreed, and that's why Resume Builder is here.
+**Gotta find a job!** Creating a resume can be a hassle, especially when constantly updating or modifying templates. **Resume Builder** simplifies this process by allowing you to focus on adding new experiences in a raw format while the automation process handles the layout.
 
-#### You take care of the data, and we take care of the template.
+#### You take care of the data; we take care of the template.
 
-> "Imagine you're an employer, and you have two resumes in front of you. One is filled wall-to-wall with text and uses four different fonts. It's also peppered with dozens of bolded, italicized, and underlined words and phrases.
-   The second resume also offers a lot of information, but you can quickly scan the document because it makes good use of white space, features clear and consistent section headings, and uses bullets to make important items stand out.
-   Which resume would you look at first?"
-- [http://monster.com](https://www.monster.com/career-advice/article/resume-look-important-as-content)
+> "Imagine you're an employer, and you have two resumes in front of you. One is filled wall-to-wall with text, using four different fonts and various bolded, italicized, and underlined words. The second resume offers the same information but is easily scannable due to good use of white space, clear section headings, and bullet points. Which resume would you prefer?"
+- [Monster.com](https://www.monster.com/career-advice/article/resume-look-important-as-content)
 
 <img src="/screenshots/v4/resume_builder.gif?raw=true" width="890px" />
 
 ## About
-[Resume Builder](https://resume-builder.js.org) is a free open-source project that allows anyone to easily maintain and build any kind of resume using Google Spreadsheets. This was develop as a personal project to help a friend who was struggling spending up to an hour to make a custom resumes. **[TRY IT NOW](https://resume-builder.js.org).**
+[Resume Builder](https://resume-builder.js.org) is a free, open-source project enabling users to easily maintain and create resumes using Google Spreadsheets. Originally developed to assist a friend with creating custom resumes, it now offers a streamlined solution for everyone. **[TRY IT NOW](https://resume-builder.js.org)**.
 
-Older versions: [V1](https://github.com/blopa/Resume-Builder/blob/main/README_V1.MD), [V2](https://github.com/blopa/Resume-Builder/blob/main/README_V2.MD) and [V3](https://github.com/blopa/Resume-Builder/blob/main/README_V3.MD).
+Older versions: [V1](https://github.com/blopa/Resume-Builder/blob/main/README_V1.MD), [V2](https://github.com/blopa/Resume-Builder/blob/main/README_V2.MD), [V3](https://github.com/blopa/Resume-Builder/blob/main/README_V3.MD).
 
 ## Features
-- Multiple Resume templates (soon)
-- Parse data from Google Spreadsheet URL, .xls file or .json file.
-- Support Json format from [github.com/jsonresume/resume-schema](https://github.com/jsonresume/resume-schema/tree/v1.0.0).
-- Convert Google Spreadsheet data into [github.com/jsonresume/resume-schema](https://github.com/jsonresume/resume-schema/tree/v1.0.0) format.
-- Theme created with [material-ui-theme-editor](https://in-your-saas.github.io/material-ui-theme-editor/), so it's easy for you to customize.
-- Cover Letter Editor
+- **Multiple Resume Templates** (coming soon)
+- **Data Parsing**: Supports Google Spreadsheet URL, .xls files, or .json files.
+- **JSON Resume Schema**: Compatible with [jsonresume/resume-schema](https://github.com/jsonresume/resume-schema/tree/v1.0.0).
+- **Google Spreadsheet Conversion**: Converts data into the [jsonresume/resume-schema](https://github.com/jsonresume/resume-schema/tree/v1.0.0) format.
+- **Customizable Themes**: Created with [material-ui-theme-editor](https://in-your-saas.github.io/material-ui-theme-editor/).
+- **Cover Letter Editor**: Customize and create cover letters.
 
 ## JSON Resume Schema
-This project uses the [jsonresume/resume-schema](https://github.com/jsonresume/resume-schema) v1.0.0, but due to a need to extend some of it's features, we also added 4 new fields:
-- `__translation__` to translate template keys.
-- `coverLetter` to add your own Cover Letter template.
-- `work[].keywords` to add keywords to your work experience.
-- `enableSourceDataDownload` to allow the JSON data to be downloaded from the resume itself.
+This project extends the [jsonresume/resume-schema](https://github.com/jsonresume/resume-schema) v1.0.0 with additional fields:
+- `__translation__`: For translating template keys.
+- `coverLetter`: Add custom cover letter templates.
+- `work[].keywords`: Include keywords in your work experience.
+- `enableSourceDataDownload`: Allow downloading JSON data from the resume.
 
-## Build your resume from scratch
-Don't have a JSON or don't fill like filling up a spreadsheet? No problem! You can make your resume from scratch by filling up some fields, and then you can download it as a JSON to use it later with this app [or others](https://github.com/search?q=json-resume).
+## Build Your Resume from Scratch
+Don't have a JSON file or a spreadsheet? You can create a resume from scratch by filling out fields, then download it as JSON for later use.
 
 <img src="/screenshots/v4/resume_builder_form.gif?raw=true" width="890px" />
 
-## Online viewer
-Create a GitHub repo [like this one](https://github.com/blopa/resume.json) with the name `resume.json` and a file called `resume.json` in a branch called `main` and following the JSON schema from [github.com/jsonresume/resume-schema](https://github.com/jsonresume/resume-schema/tree/v1.0.0) v1.0.0.
-
-Then you can access your resume via https://resume-builder.js.org/view/TEMPLATE/GITHUB_USER, for example this URL: [https://resume-builder.js.org/view/default/blopa](https://resume-builder.js.org/view/default/blopa). You can also append `/lang` to the end of the URL to add a proper translation to your resume, for example [https://resume-builder.js.org/view/default/blopa/es](https://resume-builder.js.org/view/default/blopa/es).
+## Online Viewer
+Create a GitHub repository named `resume.json` with a file called `resume.json` in the `main` branch, adhering to the JSON schema. Your resume will be accessible via `https://resume-builder.js.org/view/TEMPLATE/GITHUB_USER`. For example: [https://resume-builder.js.org/view/default/blopa](https://resume-builder.js.org/view/default/blopa). You can also add `/lang` to the URL for translations, e.g., [https://resume-builder.js.org/view/default/blopa/es](https://resume-builder.js.org/view/default/blopa/es).
 
 ## Cover Letter Editor
-Now you can edit your own Cover Letter by using [mustache.js](https://github.com/janl/mustache.js/) bracket variables, for example:
-
-With the text `This is a cover letter for {{company}}`, you will be able to edit the word `company` dynamically by typing another word in the variable input in the sidebar:
+Edit your cover letter using [mustache.js](https://github.com/janl/mustache.js/) bracket variables. For example, `This is a cover letter for {{company}}` allows you to dynamically replace "company" with another word.
 
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/edit_variable.png)
-
-Check the gif below for more details
 
 <img src="/screenshots/v4/cover_letter_editor.gif?raw=true" width="890px" />
 
 ## Available Translations
-We currently have translations for **English**, **Spanish** and **Brazilian Portuguese**, those are going to be used to translate sections of your resume, like the title "Publications", etc.
+We currently offer translations for **English**, **Spanish**, and **Brazilian Portuguese**. Customize translations by adding a `__translations__` object to your `resume.json` file.
 
-Don't like the way a translation key is translated? For example, you might prefer using "Projects" instead of "Publications".
-
-Simply add a custom `__translations__` object to your `resume.json` file with the keys you would like to translate and their new translation, for example:
-
+Example:
 ```json
 {
   "__translation__": {
@@ -68,53 +57,57 @@ Simply add a custom `__translations__` object to your `resume.json` file with th
   }
 }
 ```
-
-You can also add it to your spreadsheet by creating columns with the value `__translation__`, like:
+Or, add them directly to your spreadsheet as columns labeled `__translation__`.
 
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/translations.png)
 
-Would you like to have your language added to Resume Builder? [Create a Pull Request](https://github.com/blopa/Resume-Builder/issues/18).
+Want to add a new language? [Create a Pull Request](https://github.com/blopa/Resume-Builder/issues/18).
 
 ## Usage
-First of all you need to create a Google Spreadsheet following the same rules as [this one](https://docs.google.com/spreadsheets/d/1jRMEvfI6OsWUwnaHgH5UwnoikZA0a3s8wPnCortNJ_A/copy) (you can make a copy if you like) and populate with your resume information.
-- **name:** Your full name
-- **label:** Your resume Job Title
-- **picture:** A URL for your picture
-- **summary:** Summary of yourself
-- **url:** Your website URL
-- **email:** Your email
-- **phone:** Your phone number
-- **address:** Your address
-- **postalCode:** Your postal code
-- **city:** City where you're located
-- **region:** Region where you're located
-- **countryCode:** Country code where you're located
-- **network:** Social media name
-- **username:** Social media username
-- **coverLetter:** Your cover letter template
-- **__translation__:** Add your custom translations
+1. Create a Google Spreadsheet following the format of [this example](https://docs.google.com/spreadsheets/d/1jRMEvfI6OsWUwnaHgH5UwnoikZA0a3s8wPnCortNJ_A/copy). You can make a copy and populate it with your resume information.
+2. **Important**: [Publish your Spreadsheet to the web](https://support.google.com/a/users/answer/9308870) to enable functionality.
 
-### **Please make sure to [publish your Spreadsheet to the web](https://support.google.com/a/users/answer/9308870)**, otherwise it won't work.
+### Required Fields
+- **name**: Full name
+- **label**: Job title
+- **picture**: URL for your picture
+- **summary**: A brief summary about yourself
+- **url**: Website URL
+- **email**: Email address
+- **phone**: Phone number
+- **address**: Address
+- **postalCode**: Postal code
+- **city**: City
+- **region**: Region
+- **countryCode**: Country code
+- **network**: Social media platform
+- **username**: Social media username
+- **coverLetter**: Cover letter template
+- **__translation__**: Custom translations
 
 ## Libraries
-- I'm using [gatsby.js](https://github.com/gatsbyjs/gatsby), [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx), [Material UI](https://material-ui.com/), [mustache.js](https://github.com/janl/mustache.js/) and [formik](https://github.com/formium/formik).
-- Gatsby template from [gatsby-material-ui-blog-starter](https://github.com/blopa/gatsby-material-ui-blog-starter)
-- Honorable mentions: [babel](https://github.com/babel/babel), [webpack](https://github.com/webpack/webpack), [IntelliJ IDEA](https://github.com/JetBrains/intellij-community), [and many others](https://github.com/blopa/Resume-Builder/blob/main/package.json#L22).
+- **Frontend**: [Gatsby.js](https://github.com/gatsbyjs/gatsby), [React.js](https://github.com/facebook/react), [Material UI](https://material-ui.com/), [Formik](https://github.com/formium/formik)
+- **Data Processing**: [js-xlsx](https://github.com/sheetjs/js-xlsx)
+- **Template Customization**: [mustache.js](https://github.com/janl/mustache.js/)
+- **Template**: [gatsby-material-ui-blog-starter](https://github.com/blopa/gatsby-material-ui-blog-starter)
 
-So a big thanks to all the developers that worked really hard on these libs and make our day easier :D.
+Special thanks to all the developers who contributed to these libraries.
 
 ## Development
-Run `npm run start` and access the website on `http://localhost:8000`
+Run `npm run start` and access the site at `http://localhost:8000`.
 
 ## Deployment
-Run `npm run build` then copy the `public/` folder into your website root directory. Done.
+Run `npm run build` and copy the contents of the `public/` folder to your website's root directory.
 
 ## Example
-The following `JSON` is a result of [this Google Spreadsheet](https://docs.google.com/spreadsheets/d/1jRMEvfI6OsWUwnaHgH5UwnoikZA0a3s8wPnCortNJ_A/edit). For a better view of the `JSON` [click here](resume.json).
+The following JSON was generated from [this Google Spreadsheet](https://docs.google.com/spreadsheets/d/1jRMEvfI6OsWUwnaHgH5UwnoikZA0a3s8wPnCortNJ_A/edit). [View JSON](resume.json).
+
+__Tip__: Notice that you can use Markdown in the cover letter, summaries and description fields.
+
 ```json
 {
   "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
-  "coverLetter": "Some text with {{some}} custom {{variable}}, cool {{cool}} and now a {{superDuperBigVariable}}",
+  "coverLetter": "Dear Hiring Manager,\n\nI am excited to apply for the **Software Engineer** position at {{company}}. I believe my experience in _web development_ and {{variable}} makes me a strong candidate. Please visit my [GitHub profile](https://github.com/richard-hendriks) for more details.\n\nSincerely,\n\n**Richard Hendriks**",
   "basics": {
     "name": "Richard Hendriks",
     "label": "Programmer",
@@ -122,7 +115,7 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
     "email": "richard.hendriks@mail.com",
     "phone": "(912) 555-4321",
     "url": "http://richardhendricks.example.com",
-    "summary": "Richard hails from Tulsa. He has earned degrees from the University of Oklahoma and Stanford. (Go Sooners and Cardinal!) Before starting Pied Piper, he worked for Hooli as a part time software developer. While his work focuses on applied information theory, mostly optimizing lossless compression schema of both the length-limited and adaptive variants, his non-work interests range widely, everything from quantum computing to chaos theory. He could tell you about it, but THAT would NOT be a “length-limited” conversation!",
+    "summary": "Richard hails from Tulsa. He has earned degrees from the **University of Oklahoma** and **Stanford**. _(Go Sooners and Cardinal!)_ Before starting Pied Piper, he worked for **Hooli** as a part-time software developer. His work focuses on applied information theory, mostly optimizing lossless compression schema of both the length-limited and adaptive variants. His non-work interests range widely, from quantum computing to chaos theory. He could tell you about it, but _that_ would _not_ be a **“length-limited”** conversation!",
     "location": {
       "address": "2712 Broadway St",
       "postalCode": "CA 94115",
@@ -134,7 +127,7 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
       {
         "network": "Twitter",
         "username": "neutralthoughts",
-        "url": ""
+        "url": "https://twitter.com/neutralthoughts"
       },
       {
         "network": "SoundCloud",
@@ -147,12 +140,12 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
     {
       "name": "Pied Piper",
       "location": "Palo Alto, CA",
-      "description": "Awesome compression company",
+      "description": "**Awesome** compression company focusing on innovative solutions.",
       "position": "CEO/President",
       "url": "http://piedpiper.example.com",
       "startDate": "2013-12-01",
       "endDate": "2014-12-01",
-      "summary": "Pied Piper is a multi-platform technology based on a proprietary universal compression algorithm that has consistently fielded high Weisman Scores™ that are not merely competitive, but approach the theoretical limit of lossless compression.",
+      "summary": "**Pied Piper** is a multi-platform technology based on a proprietary universal compression algorithm that has consistently fielded high Weisman Scores™. The technology is _not merely competitive_, but approaches the **theoretical limit** of lossless compression.",
       "highlights": [
         "Build an algorithm for artist to detect if their music was violating copy right infringement laws",
         "Successfully won Techcrunch Disrupt",
@@ -171,7 +164,7 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
       "url": "http://coderdojo.example.com/",
       "startDate": "2012-01-01",
       "endDate": "2013-01-01",
-      "summary": "Global movement of free coding clubs for young people.",
+      "summary": "Global movement of free coding clubs for young people, teaching them programming and tech skills.",
       "highlights": [
         "Awarded 'Teacher of the Month'"
       ]
@@ -197,7 +190,15 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
       "title": "Digital Compression Pioneer Award",
       "date": "2014-11-01",
       "awarder": "Techcrunch",
-      "summary": "There is no spoon."
+      "summary": "Recognized for pioneering advancements in digital compression technology. _There is no spoon._"
+    }
+  ],
+  "certificates": [
+    {
+      "name": "Certified Pied Piper Compressionist",
+      "date": "2014-10-01",
+      "url": "http://piedpiper.example.com/certificates/compressionist",
+      "issuer": "Pied Piper Certification Authority"
     }
   ],
   "publications": [
@@ -206,14 +207,14 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
       "publisher": "Hooli",
       "releaseDate": "2014-10-01",
       "url": "http://en.wikipedia.org/wiki/Silicon_Valley_(TV_series)",
-      "summary": "Innovative middle-out compression algorithm that changes the way we store data."
+      "summary": "Innovative middle-out compression algorithm that changes the way we store data. Learn more [here](http://en.wikipedia.org/wiki/Silicon_Valley_(TV_series))."
     },
     {
       "name": "Video compression for 3d media part 2",
       "publisher": "Hooli",
       "releaseDate": "2015-10-01",
       "url": "http://hooli.com",
-      "summary": "Innovative middle-out compression algorithm that changes the way we store data. Again!"
+      "summary": "Innovative middle-out compression algorithm that changes the way we store data. _Again!_"
     }
   ],
   "skills": [
@@ -254,13 +255,13 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
   "references": [
     {
       "name": "Erlich Bachman",
-      "reference": "It is my pleasure to recommend Richard, his performance working as a consultant for Main St. Company proved that he will be a valuable addition to any company."
+      "reference": "It is my pleasure to recommend **Richard**. His performance as a consultant for _Main St. Company_ proved that he will be a valuable addition to any company."
     }
   ],
   "projects": [
     {
       "name": "Miss Direction",
-      "description": "A mapping engine that misguides you",
+      "description": "A mapping engine that misguides you intentionally. [Visit the project](http://missdirection.example.com).",
       "highlights": [
         "Won award at AIHacks 2016",
         "Built by all women team of newbie programmers",
@@ -273,7 +274,7 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
       ],
       "startDate": "2016-08-24",
       "endDate": "2016-08-24",
-      "url": "missdirection.example.com",
+      "url": "http://missdirection.example.com",
       "roles": [
         "Team lead",
         "Designer"
@@ -282,6 +283,11 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
       "type": "application"
     }
   ],
+  "meta": {
+    "canonical": "https://raw.githubusercontent.com/jsonresume/resume-schema/81d9e75a3d7b599e202e7c3e31c55e634c7f1e39/sample.resume.json",
+    "version": "v1.0.0",
+    "lastModified": "2017-12-24T15:53:00"
+  },
   "__translation__": {
     "awards": "Prizes",
     "volunteers": "Volunteers",
@@ -290,72 +296,76 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
     "publications": "Publications",
     "languages": "Languages",
     "interests": "Interests",
-    "education": "Study",
+    "education": "Education",
     "summary": "Summary",
     "experience": "Experience",
     "at": "at"
   },
   "enableSourceDataDownload": true
 }
+
 ```
 
-## Screenshot
+## Screenshots
 **[Google Spreadsheet example](https://docs.google.com/spreadsheets/d/1jRMEvfI6OsWUwnaHgH5UwnoikZA0a3s8wPnCortNJ_A/copy)**
+
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/screenshot_1.png)
 
 **Built Resume**
+
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/screenshot_2.png)
 
 **Printing Resume**
+
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/screenshot_3.png)
 
 ## Release Notes
 - **v4.1.0:**
-	- Bump NPM packages versions.
+	- Bump NPM package versions.
 	- Fix issue [#74](https://github.com/blopa/Resume-Builder/issues/74).
-	- Add option to user markdown in the cover letter, summaries and descriptions.
+	- Add option to use markdown in the cover letter, summaries, and descriptions.
 - **v4.0.12:**
-	- Bump NPM packages versions.
+	- Bump NPM package versions.
 	- Fix "0" showing up in the Cover Letter component.
 	- Update Babel and ESLint configuration.
 - **v4.0.11:**
-	- Bump NPM packages versions.
+	- Bump NPM package versions.
 - **v4.0.10:**
-	- Replace `gatsby-plugin-intl` for `gatsby-plugin-react-intl`.
+	- Replace `gatsby-plugin-intl` with `gatsby-plugin-react-intl`.
 - **v4.0.9:**
-	- Bump NPM packages versions.
+	- Bump NPM package versions.
 - **v4.0.8:**
 	- Add cover letter field to the resume builder forms.
-	- Add param to the build page to go directly to a specific form.
+	- Add parameter to the build page for direct form access.
 - **v4.0.7:**
 	- Fix builder page translations.
 	- Add more Spanish translations (Thanks Leandro).
 - **v4.0.6:**
-	- Create form to create a JSON resume from scratch
-	- Add theme switcher in the sidebar
+	- Create form to generate a JSON resume from scratch.
+	- Add theme switcher in the sidebar.
 - **v4.0.5:**
-	- Fix `profiles` not being parsed correctly from the Spreadsheet
-	- Fix parsing Google Spreadsheet (but you need to publish it to the web to work)
+	- Fix `profiles` parsing from the Spreadsheet.
+	- Fix parsing Google Spreadsheet (ensure it's published to the web).
 - **v4.0.4:**
 	- *Error 404: Release not found*
-	- Sorry I had to make this joke...
+	- Sorry, I had to make this joke...
 - **v4.0.3:**
-	- Add toggler for `keywords` and `highlights` on the sidebar.
+	- Add toggler for `keywords` and `highlights` in the sidebar.
 	- Bump Gatsby and plugins to 3.5.
-	- Big refactor on the global state.
+	- Major refactor on the global state.
 	- Data disabled from the spreadsheet can now be enabled via the sidebar.
-	- Downloaded `JSON` resume will only contain enabled data.
+	- Downloaded `JSON` resume will contain only enabled data.
 - **v4.0.2:**
-	- Filter out resume templates that are not ready yet.
-	- Add download link to download the JSON data.
+	- Filter out incomplete resume templates.
+	- Add download link for JSON data.
 	- Fix resume viewer.
-	- Add missing fields on `work` and `projects`.
-	- Small layout fixes in the "Default" template.
-	- Arrays from the spreadsheet are now parsed using `';'` instead of `','`.
+	- Add missing fields in `work` and `projects`.
+	- Minor layout fixes in the "Default" template.
+	- Parse arrays from the spreadsheet using `';'` instead of `','`.
 - **v4.0.1:**
-	- Add visual cue to the cover letter variables.
+	- Add visual cue for cover letter variables.
 - **v4.0.0:**
-	- Fix page break between title and items using a dirty hack (but hey it works).
+	- Fix page break between title and items using a dirty hack (but hey, it works).
 	- Add cover letter editor.
 	- Update JSON Schema to v1.0.0.
 	- Update Gatsby to v3.
@@ -363,37 +373,37 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 [Complete Release Notes here](https://github.com/blopa/Resume-Builder/blob/main/release-notes.md)
 
 ## Thanks to
- - SEO resume photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/resume?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText).
+- SEO resume photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/resume?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText).
 
 ## F.A.Q.
 **Q: Can you implement <???> function?**
 
-A: I can try. Open an issue, and I'll see what I can do.
+A: We can try. Open an issue, and we'll see what we can do.
 
 **Q: Your project is awesome. How can I help?**
 
-A: Thank you! You can help by codding more features, creating pull requests, or donating via [https://bunq.me/BuyMeASoda](https://bunq.me/BuyMeASoda)
+A: Thank you! You can contribute by coding new features, creating pull requests, or donating via [https://bunq.me/BuyMeASoda](https://bunq.me/BuyMeASoda).
 
 ## TODO
-- Fix all TODOs in the code
-- Add proptypes to the components
-- Add documentation on how to create new templates
-- Add form to manually add resume data
-- Add support for Redux Tools extension
-- Use https://github.com/MrRio/jsPDF
-- Load a JSON resume from any URL
-- Actually create a second template
-- Add unit tests
-- Add list of recent used documents
-- Add option to save a built resume
-- Add check for valid spreadsheet URL on text input
-- Add various missing error handlers
-- Add job offers based on uploaded CV? (check for online APIs)
+- Fix all TODOs in the code.
+- Add PropTypes to the components (or even better, migrate to Typescript).
+- Document how to create new templates.
+- Add a form to manually input resume data.
+- Support Redux Tools extension.
+- Use [jsPDF](https://github.com/MrRio/jsPDF).
+- Load a JSON resume from any URL.
+- Create a second template.
+- Add unit tests and E2E tests.
+- List recently used documents.
+- Enable saving a built resume.
+- Validate spreadsheet URL input.
+- Add missing error handlers.
+- Integrate job offers based on uploaded CV (explore online APIs).
 
 ## License
 MIT License
 
-Copyright (c) 2021 blopa
+Copyright (c) 2024 blopa
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
