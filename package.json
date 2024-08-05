@@ -46,6 +46,7 @@
         "gatsby-source-filesystem": "^3.15.0",
         "gatsby-transformer-sharp": "^3.15.0",
         "lodash": "^4.17.21",
+        "marked": "^13.0.3",
         "material-ui-dropzone": "^3.5.0",
         "material-ui-flags": "^1.2.4",
         "mustache": "^4.2.0",

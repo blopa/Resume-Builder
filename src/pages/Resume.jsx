@@ -1,10 +1,10 @@
-/* eslint template-curly-spacing: 0, indent: 0 */
 import { Suspense, lazy, useEffect, useState, useRef, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer } from '@material-ui/core';
 import { navigate, useIntl } from 'gatsby-plugin-react-intl';
 import { v4 as uuid } from 'uuid';
 import { cloneDeep } from 'lodash';
+import { marked } from 'marked';
 
 // Base resume
 import baseResume from '../store/resume.json';
@@ -46,6 +46,29 @@ const importTemplate = (template) =>
         )
     );
 
+const parseMarkdown = (obj) => {
+    if (typeof obj !== 'object' || obj === null) {
+        return obj;
+    }
+
+    if (Array.isArray(obj)) {
+        return obj.map((item) => parseMarkdown(item));
+    }
+
+    return Object.keys(obj).reduce((acc, key) => {
+        const value = obj[key];
+        if (typeof value === 'string' && ['coverLetter'].includes(key)) {
+            acc[key] = marked(value);
+        } else if (typeof value === 'object') {
+            acc[key] = parseMarkdown(value);
+        } else {
+            acc[key] = value;
+        }
+
+        return acc;
+    }, {});
+};
+
 const ResumePage = () => {
     const intl = useIntl();
     const classes = useStyles();
@@ -78,13 +101,16 @@ const ResumePage = () => {
                 __translation__: cloneDeep(toggleableJsonResume.__translation__),
             };
 
+            // Create a new object with parsed markdown content
+            const parsedJsonResume = parseMarkdown(jsonResume);
+
             setResumeTemplate([
                 <Template
                     key={uuid()}
                     // eslint-disable-next-line no-underscore-dangle
                     customTranslations={toggleableJsonResume.__translation__}
                     isPrinting={isPrinting}
-                    jsonResume={jsonResume}
+                    jsonResume={parsedJsonResume}
                     coverLetterVariables={toggleableJsonResume.coverLetter?.value?.variables || []}
                 />,
             ]);

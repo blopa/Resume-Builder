@@ -1,6 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
-    "coverLetter": "Some text with {{some}} custom {{variable}}, cool {{cool}} and now a {{superDuperBigVariable}}",
+    "coverLetter": "Dear Hiring Manager,\n\nI am excited to apply for the **Software Engineer** position at {{company}}. I believe my experience in _web development_ and {{variable}} makes me a strong candidate. Please visit my [GitHub profile](https://github.com/richard-hendriks) for more details.\n\nSincerely,\n\n**Richard Hendriks**",
     "basics": {
         "name": "Richard Hendriks",
         "label": "Programmer",
@@ -8,7 +8,7 @@
         "email": "richard.hendriks@mail.com",
         "phone": "(912) 555-4321",
         "url": "http://richardhendricks.example.com",
-        "summary": "Richard hails from Tulsa. He has earned degrees from the University of Oklahoma and Stanford. (Go Sooners and Cardinal!) Before starting Pied Piper, he worked for Hooli as a part time software developer. While his work focuses on applied information theory, mostly optimizing lossless compression schema of both the length-limited and adaptive variants, his non-work interests range widely, everything from quantum computing to chaos theory. He could tell you about it, but THAT would NOT be a “length-limited” conversation!",
+        "summary": "Richard hails from Tulsa. He has earned degrees from the **University of Oklahoma** and **Stanford**. _(Go Sooners and Cardinal!)_ Before starting Pied Piper, he worked for **Hooli** as a part-time software developer. His work focuses on applied information theory, mostly optimizing lossless compression schema of both the length-limited and adaptive variants. His non-work interests range widely, from quantum computing to chaos theory. He could tell you about it, but _that_ would _not_ be a **“length-limited”** conversation!",
         "location": {
             "address": "2712 Broadway St",
             "postalCode": "CA 94115",
@@ -33,16 +33,16 @@
         {
             "name": "Pied Piper",
             "location": "Palo Alto, CA",
-            "description": "Awesome compression company",
+            "description": "**Awesome** compression company focusing on innovative solutions.",
             "position": "CEO/President",
             "url": "http://piedpiper.example.com",
             "startDate": "2013-12-01",
             "endDate": "2014-12-01",
-            "summary": "Pied Piper is a multi-platform technology based on a proprietary universal compression algorithm that has consistently fielded high Weisman Scores™ that are not merely competitive, but approach the theoretical limit of lossless compression.",
+            "summary": "**Pied Piper** is a multi-platform technology based on a proprietary universal compression algorithm that has consistently fielded high Weisman Scores™. The technology is _not merely competitive_, but approaches the **theoretical limit** of lossless compression.",
             "highlights": [
-                "Build an algorithm for artist to detect if their music was violating copy right infringement laws",
-                "Successfully won Techcrunch Disrupt",
-                "Optimized an algorithm that holds the current world record for Weisman Scores"
+                "**Built** an algorithm for artists to detect if their music was violating copyright infringement laws",
+                "**Successfully won** [Techcrunch Disrupt](https://techcrunch.com/disrupt/)",
+                "**Optimized** an algorithm that holds the current world record for Weisman Scores"
             ],
             "keywords": [
                 "Javascript",
@@ -57,9 +57,9 @@
             "url": "http://coderdojo.example.com/",
             "startDate": "2012-01-01",
             "endDate": "2013-01-01",
-            "summary": "Global movement of free coding clubs for young people.",
+            "summary": "Global movement of free coding clubs for young people, teaching them programming and tech skills.",
             "highlights": [
-                "Awarded 'Teacher of the Month'"
+                "**Awarded** 'Teacher of the Month'"
             ]
         }
     ],
@@ -83,7 +83,7 @@
             "title": "Digital Compression Pioneer Award",
             "date": "2014-11-01",
             "awarder": "Techcrunch",
-            "summary": "There is no spoon."
+            "summary": "Recognized for pioneering advancements in digital compression technology. _There is no spoon._"
         }
     ],
     "certificates": [
@@ -100,14 +100,14 @@
             "publisher": "Hooli",
             "releaseDate": "2014-10-01",
             "url": "http://en.wikipedia.org/wiki/Silicon_Valley_(TV_series)",
-            "summary": "Innovative middle-out compression algorithm that changes the way we store data."
+            "summary": "Innovative middle-out compression algorithm that changes the way we store data. Learn more [here](http://en.wikipedia.org/wiki/Silicon_Valley_(TV_series))."
         },
         {
             "name": "Video compression for 3d media part 2",
             "publisher": "Hooli",
             "releaseDate": "2015-10-01",
             "url": "http://hooli.com",
-            "summary": "Innovative middle-out compression algorithm that changes the way we store data. Again!"
+            "summary": "Innovative middle-out compression algorithm that changes the way we store data. _Again!_"
         }
     ],
     "skills": [
@@ -148,17 +148,17 @@
     "references": [
         {
             "name": "Erlich Bachman",
-            "reference": "It is my pleasure to recommend Richard, his performance working as a consultant for Main St. Company proved that he will be a valuable addition to any company."
+            "reference": "It is my pleasure to recommend **Richard**. His performance as a consultant for _Main St. Company_ proved that he will be a valuable addition to any company."
         }
     ],
     "projects": [
         {
             "name": "Miss Direction",
-            "description": "A mapping engine that misguides you",
+            "description": "A mapping engine that misguides you intentionally. [Visit the project](http://missdirection.example.com).",
             "highlights": [
-                "Won award at AIHacks 2016",
-                "Built by all women team of newbie programmers",
-                "Using modern technologies such as GoogleMaps, Chrome Extension and Javascript"
+                "**Won award** at AIHacks 2016",
+                "**Built** by an all-women team of newbie programmers",
+                "**Using** modern technologies such as GoogleMaps, Chrome Extension, and Javascript"
             ],
             "keywords": [
                 "GoogleMaps",
@@ -167,7 +167,7 @@
             ],
             "startDate": "2016-08-24",
             "endDate": "2016-08-24",
-            "url": "missdirection.example.com",
+            "url": "http://missdirection.example.com",
             "roles": [
                 "Team lead",
                 "Designer"
