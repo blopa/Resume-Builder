@@ -82,7 +82,7 @@ const Publications = ({ publications }) => {
                                             )}
                                         </p>
                                         {url && <a href={url}>{url}</a>}
-                                        {summary && <p>{summary}</p>}
+                                        {summary && <span dangerouslySetInnerHTML={{ __html: summary }} />}
                                     </li>
                                 );
                             }

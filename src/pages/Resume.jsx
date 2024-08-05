@@ -57,7 +57,7 @@ const parseMarkdown = (obj) => {
 
     return Object.keys(obj).reduce((acc, key) => {
         const value = obj[key];
-        if (typeof value === 'string' && ['coverLetter'].includes(key)) {
+        if (typeof value === 'string' && ['description', 'summary', 'reference', 'coverLetter'].includes(key)) {
             acc[key] = marked(value);
         } else if (typeof value === 'object') {
             acc[key] = parseMarkdown(value);

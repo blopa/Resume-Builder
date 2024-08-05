@@ -312,7 +312,8 @@ The following `JSON` is a result of [this Google Spreadsheet](https://docs.googl
 ## Release Notes
 - **v4.1.0:**
 	- Bump NPM packages versions.
-    - Fix issue [#74](https://github.com/blopa/Resume-Builder/issues/74).
+	- Fix issue [#74](https://github.com/blopa/Resume-Builder/issues/74).
+	- Add option to user markdown in the cover letter, summaries and descriptions.
 - **v4.0.12:**
 	- Bump NPM packages versions.
 	- Fix "0" showing up in the Cover Letter component.

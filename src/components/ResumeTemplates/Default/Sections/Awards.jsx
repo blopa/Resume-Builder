@@ -76,7 +76,7 @@ const Awards = ({ awards }) => {
                                             {date && <span className={classes.positionDate}>{` (${date})`}</span>}
                                         </p>
                                         <p>{awarder}</p>
-                                        <p>{summary}</p>
+                                        {summary && <span dangerouslySetInnerHTML={{ __html: summary }} />}
                                     </li>
                                 );
                             }

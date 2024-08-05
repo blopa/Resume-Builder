@@ -138,8 +138,18 @@ const Work = ({ work: works }) => {
                                                 {url && <a href={url}>{url}</a>}
                                             </p>
                                         </div>
-                                        <p className={classes.summary}>{summary}</p>
-                                        <p className={classes.description}>{description}</p>
+                                        {summary && (
+                                            <span
+                                                className={classes.summary}
+                                                dangerouslySetInnerHTML={{ __html: summary }}
+                                            />
+                                        )}
+                                        {description && (
+                                            <span
+                                                className={classes.description}
+                                                dangerouslySetInnerHTML={{ __html: description }}
+                                            />
+                                        )}
                                         {highlights?.length > 0 && (
                                             <ul className={classes.highlights}>
                                                 {highlights?.map(

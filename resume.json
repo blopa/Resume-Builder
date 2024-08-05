@@ -40,9 +40,9 @@
             "endDate": "2014-12-01",
             "summary": "**Pied Piper** is a multi-platform technology based on a proprietary universal compression algorithm that has consistently fielded high Weisman Scores™. The technology is _not merely competitive_, but approaches the **theoretical limit** of lossless compression.",
             "highlights": [
-                "**Built** an algorithm for artists to detect if their music was violating copyright infringement laws",
-                "**Successfully won** [Techcrunch Disrupt](https://techcrunch.com/disrupt/)",
-                "**Optimized** an algorithm that holds the current world record for Weisman Scores"
+                "Build an algorithm for artist to detect if their music was violating copy right infringement laws",
+                "Successfully won Techcrunch Disrupt",
+                "Optimized an algorithm that holds the current world record for Weisman Scores"
             ],
             "keywords": [
                 "Javascript",
@@ -59,7 +59,7 @@
             "endDate": "2013-01-01",
             "summary": "Global movement of free coding clubs for young people, teaching them programming and tech skills.",
             "highlights": [
-                "**Awarded** 'Teacher of the Month'"
+                "Awarded 'Teacher of the Month'"
             ]
         }
     ],
@@ -156,9 +156,9 @@
             "name": "Miss Direction",
             "description": "A mapping engine that misguides you intentionally. [Visit the project](http://missdirection.example.com).",
             "highlights": [
-                "**Won award** at AIHacks 2016",
-                "**Built** by an all-women team of newbie programmers",
-                "**Using** modern technologies such as GoogleMaps, Chrome Extension, and Javascript"
+                "Won award at AIHacks 2016",
+                "Built by all women team of newbie programmers",
+                "Using modern technologies such as GoogleMaps, Chrome Extension and Javascript"
             ],
             "keywords": [
                 "GoogleMaps",

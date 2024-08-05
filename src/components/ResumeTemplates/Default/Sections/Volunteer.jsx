@@ -95,7 +95,12 @@ const Volunteer = ({ volunteer: volunteers }) => {
                                             )}
                                         </p>
                                         <p className={classes.url}>{url && <a href={url}>{url}</a>}</p>
-                                        <p className={classes.summary}>{summary}</p>
+                                        {summary && (
+                                            <span
+                                                className={classes.summary}
+                                                dangerouslySetInnerHTML={{ __html: summary }}
+                                            />
+                                        )}
                                         {highlights?.length > 0 && (
                                             <ul className={classes.highlights}>
                                                 {highlights?.map(

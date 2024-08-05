@@ -122,9 +122,7 @@ const Basics = ({ basics: { name, label, image, email, phone, url, summary, prof
             {summary && (
                 <div className={classes.resumeSummary}>
                     <h3>{intl.formatMessage({ id: 'summary' })}</h3>
-                    <div className={classes.summaryWrapper}>
-                        <p>{summary}</p>
-                    </div>
+                    <div className={classes.summaryWrapper} dangerouslySetInnerHTML={{ __html: summary }} />
                 </div>
             )}
         </Fragment>
