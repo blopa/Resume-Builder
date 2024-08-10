@@ -489,6 +489,10 @@
             "type": "string",
             "description": "Some text with {{some}} custom {{variables}}"
         },
+        "llmPrompt": {
+            "type": "string",
+            "description": "A prompt for the LLM that might parse your resume"
+        },
         "meta": {
             "type": "object",
             "description": "The schema version and any other tooling configuration lives here",

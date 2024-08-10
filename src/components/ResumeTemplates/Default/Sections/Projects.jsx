@@ -118,7 +118,7 @@ const Projects = ({ projects }) => {
                                         {type && <p>{type}</p>}
                                         {entity && <p>{entity}</p>}
                                         {url && <a href={url}>{url}</a>}
-                                        {description && <p>{description}</p>}
+                                        {description && <span dangerouslySetInnerHTML={{ __html: description }} />}
                                         {highlights?.length > 0 && (
                                             <ul className={classes.highlights}>
                                                 {highlights?.map(

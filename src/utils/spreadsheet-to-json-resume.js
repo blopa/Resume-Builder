@@ -1,4 +1,4 @@
-import { generateCoverLetterObject, isObjectNotEmpty } from './utils';
+import { generateCoverLetterObject, generateLlmPromptObject, isObjectNotEmpty } from './utils';
 import toggleableResume from '../store/toggleable-resume.json';
 
 export default function spreadsheetToJsonResume(jsonSpreadsheet) {
@@ -25,6 +25,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const referencesCategory = 'references';
     const translationsCategory = '__translation__';
     const coverLetterCategory = 'cover_letter';
+    const llmPromptCategory = 'llm_prompt';
     const enableSourceDataDownloadCategory = 'enable_download';
 
     // base toggleable jsonResume
@@ -56,6 +57,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const referencesArray = [];
     const translations = {};
     let coverLetter = '';
+    let llmPrompt = '';
     let enableSourceDataDownload = false;
 
     jsonSpreadsheet.forEach((value) => {
@@ -66,6 +68,8 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             enableSourceDataDownload = value[contentAttr].toLowerCase() === 'true';
         } else if (category === coverLetterCategory) {
             coverLetter = generateCoverLetterObject(value[contentAttr] || '');
+        } else if (category === llmPromptCategory) {
+            llmPrompt = generateLlmPromptObject(value[contentAttr] || '');
         } else if (category === translationsCategory) {
             translations[value[typeAttr]] = value[contentAttr];
         } else if (category === basicsCategory) {
@@ -474,6 +478,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         ...jsonResume,
         __translation__: translations,
         coverLetter,
+        llmPrompt,
         enableSourceDataDownload,
     };
 }

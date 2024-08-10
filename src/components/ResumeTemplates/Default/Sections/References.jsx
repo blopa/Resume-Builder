@@ -77,7 +77,12 @@ const References = ({ references }) => {
                                         {...refProps}
                                     >
                                         {name && <p className={classes.name}>{name}</p>}
-                                        {reference && <p className={classes.reference}>{reference}</p>}
+                                        {reference && (
+                                            <span
+                                                className={classes.reference}
+                                                dangerouslySetInnerHTML={{ __html: reference }}
+                                            />
+                                        )}
                                     </li>
                                 );
                             }

@@ -133,3 +133,12 @@ export const generateCoverLetterObject = (text) => {
         },
     };
 };
+
+export const generateLlmPromptObject = (text) => {
+    return {
+        enabled: Boolean(text),
+        value: {
+            text,
+        },
+    };
+};

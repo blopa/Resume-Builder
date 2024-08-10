@@ -1,10 +1,11 @@
-/* eslint template-curly-spacing: 0, indent: 0 */
 import { Suspense, lazy, useEffect, useState, useRef, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer } from '@material-ui/core';
 import { navigate, useIntl } from 'gatsby-plugin-react-intl';
 import { v4 as uuid } from 'uuid';
 import { cloneDeep } from 'lodash';
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 
 // Base resume
 import baseResume from '../store/resume.json';
@@ -39,12 +40,41 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const importTemplate = (template) =>
-    lazy(() =>
-        import(`../components/ResumeTemplates/${template}/Index`).catch(() =>
-            import('../components/ResumeTemplates/Default/Index')
-        )
-    );
+const importTemplate = (template) => {
+    const templates = {
+        Default: import('../components/ResumeTemplates/Default/Index'),
+        // Compact: import('../components/ResumeTemplates/Compact/Index'),
+        // VanHack: import('../components/ResumeTemplates/VanHack/Index'),
+    };
+
+    return lazy(() => {
+        return templates[template];
+    });
+};
+
+const parseMarkdown = (obj) => {
+    if (typeof obj !== 'object' || obj === null) {
+        return obj;
+    }
+
+    if (Array.isArray(obj)) {
+        return obj.map((item) => parseMarkdown(item));
+    }
+
+    return Object.keys(obj).reduce((acc, key) => {
+        const value = obj[key];
+        if (typeof value === 'string' && ['description', 'summary', 'reference', 'coverLetter'].includes(key)) {
+            const sanitizedMarkdown = DOMPurify.sanitize(value);
+            acc[key] = marked(sanitizedMarkdown);
+        } else if (typeof value === 'object') {
+            acc[key] = parseMarkdown(value);
+        } else {
+            acc[key] = value;
+        }
+
+        return acc;
+    }, {});
+};
 
 const ResumePage = () => {
     const intl = useIntl();
@@ -68,6 +98,7 @@ const ResumePage = () => {
     useEffect(() => {
         async function loadTemplate() {
             const Template = await importTemplate(resumeTemplateName);
+            console.log('the template', resumeTemplateName, Template);
             const jsonResume = {
                 ...baseResume,
                 ...convertToRegularObject(cloneDeep(toggleableJsonResume)),
@@ -78,13 +109,16 @@ const ResumePage = () => {
                 __translation__: cloneDeep(toggleableJsonResume.__translation__),
             };
 
+            // Create a new object with parsed markdown content
+            const parsedJsonResume = parseMarkdown(jsonResume);
+
             setResumeTemplate([
                 <Template
                     key={uuid()}
                     // eslint-disable-next-line no-underscore-dangle
                     customTranslations={toggleableJsonResume.__translation__}
                     isPrinting={isPrinting}
-                    jsonResume={jsonResume}
+                    jsonResume={parsedJsonResume}
                     coverLetterVariables={toggleableJsonResume.coverLetter?.value?.variables || []}
                 />,
             ]);
