@@ -40,12 +40,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const importTemplate = (template) =>
-    lazy(() =>
-        import(`../components/ResumeTemplates/${template}/Index`).catch(() =>
-            import('../components/ResumeTemplates/Default/Index')
-        )
-    );
+const importTemplate = (template) => {
+    const templates = {
+        Default: import('../components/ResumeTemplates/Default/Index'),
+        // Compact: import('../components/ResumeTemplates/Compact/Index'),
+        // VanHack: import('../components/ResumeTemplates/VanHack/Index'),
+    };
+
+    return lazy(() => {
+        return templates[template];
+    });
+};
 
 const parseMarkdown = (obj) => {
     if (typeof obj !== 'object' || obj === null) {
@@ -93,6 +98,7 @@ const ResumePage = () => {
     useEffect(() => {
         async function loadTemplate() {
             const Template = await importTemplate(resumeTemplateName);
+            console.log('the template', resumeTemplateName, Template);
             const jsonResume = {
                 ...baseResume,
                 ...convertToRegularObject(cloneDeep(toggleableJsonResume)),
