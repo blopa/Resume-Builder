@@ -39,7 +39,7 @@ module.exports = [
         resolve: 'gatsby-plugin-react-intl',
         options: {
             path: `${__dirname}/src/intl`,
-            languages: ['en', 'pt-br', 'es'],
+            languages: ['en', 'pt-br', 'es', 'ja', 'de', 'ru', 'fr'],
             defaultLanguage,
             redirect: true,
             redirectComponent: require.resolve('./src/utils/redirect.js'),

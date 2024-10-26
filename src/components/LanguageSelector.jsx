@@ -1,8 +1,9 @@
 import { useCallback, useState } from 'react';
 import { MenuItem, Select } from '@material-ui/core';
-import { IconFlagBR, IconFlagUS, IconFlagES } from 'material-ui-flags';
+import { IconFlagBR, IconFlagUS, IconFlagES, IconFlagFR, IconFlagRU, IconFlagDE } from 'material-ui-flags';
 import { makeStyles } from '@material-ui/core/styles';
 import { changeLocale } from 'gatsby-plugin-react-intl';
+import IconFlagJP from './IconFlagJA';
 
 const useStyles = makeStyles((theme) => ({
     selectLanguage: {
@@ -45,6 +46,18 @@ const LanguageSelector = ({ currentLocale, onLanguageChange }) => {
             </MenuItem>
             <MenuItem value="es">
                 <IconFlagES />
+            </MenuItem>
+            <MenuItem value="fr">
+                <IconFlagFR />
+            </MenuItem>
+            <MenuItem value="ru">
+                <IconFlagRU />
+            </MenuItem>
+            <MenuItem value="de">
+                <IconFlagDE />
+            </MenuItem>
+            <MenuItem value="jp">
+                <IconFlagJP />
             </MenuItem>
         </Select>
     );

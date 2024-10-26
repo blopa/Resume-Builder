@@ -1,0 +1,16 @@
+{
+    "awards": "受賞歴",
+    "volunteers": "ボランティア",
+    "skills": "スキル",
+    "references": "推薦",
+    "publications": "出版物",
+    "certificates": "証明書",
+    "projects": "プロジェクト",
+    "languages": "言語",
+    "interests": "興味",
+    "education": "学歴",
+    "summary": "概要",
+    "experience": "経験",
+    "at": "@",
+    "download_data": "この履歴書のJSONデータを<a>ここ</a>をクリックしてダウンロードしてください"
+}

@@ -98,13 +98,14 @@ const ResumePage = () => {
     useEffect(() => {
         async function loadTemplate() {
             const Template = await importTemplate(resumeTemplateName);
-            console.log('the template', resumeTemplateName, Template);
             const jsonResume = {
                 ...baseResume,
                 ...convertToRegularObject(cloneDeep(toggleableJsonResume)),
                 enableSourceDataDownload: toggleableJsonResume.enableSourceDataDownload,
                 coverLetter:
                     toggleableJsonResume.coverLetter?.enabled && (toggleableJsonResume.coverLetter?.value?.text || ''),
+                llmPrompt:
+                    toggleableJsonResume.llmPrompt?.enabled && (toggleableJsonResume.llmPrompt?.value?.text || ''),
                 // eslint-disable-next-line no-underscore-dangle
                 __translation__: cloneDeep(toggleableJsonResume.__translation__),
             };
