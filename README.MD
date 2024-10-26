@@ -320,6 +320,10 @@ __Tip__: Notice that you can use Markdown in the cover letter, summaries and des
 ![ScreenShot](https://raw.githubusercontent.com/blopa/Resume-Builder/main/screenshots/v4/screenshot_3.png)
 
 ## Release Notes
+- **v4.2.0:**
+	- Bump NPM package versions.
+	- Fix issue when parsing LLM prompt.
+	- Add French, German, Japanese, and Russian translations ([thanks](https://github.com/blopa/Resume-Builder/pull/50) and [thanks](https://github.com/blopa/Resume-Builder/pull/86)).
 - **v4.1.0:**
 	- Bump NPM package versions.
 	- Fix issue [#74](https://github.com/blopa/Resume-Builder/issues/74).
