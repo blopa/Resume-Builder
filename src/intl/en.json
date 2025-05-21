@@ -157,7 +157,12 @@
     },
     "error": {
         "something_went_wrong_parsing": "Whoops, something went wrong when parsing your spreadsheet URL. Try downloading the spreadsheet and uploading it here.",
-        "something_went_wrong_loading": "Whoops, something went wrong, please try again."
+        "something_went_wrong_loading": "Whoops, something went wrong, please try again.",
+        "invalid_google_sheet_url": "Please enter a valid Google Spreadsheet URL.",
+        "resume_fetch_failed": "Could not fetch the resume data. Please check the username and repository.",
+        "resume_invalid_json": "The fetched resume data is not valid JSON.",
+        "resume_empty_json": "The fetched resume data is empty or invalid.",
+        "resume_processing_failed": "Failed to process the resume data."
     },
     "notfound": {
         "title": "404: Not found",
@@ -186,5 +191,6 @@
         "third_party_cookies_item_2": "From time to time we test new features and make subtle changes to the way that the site is delivered. When we are still testing new features these cookies may be used to ensure that you receive a consistent experience whilst on the site whilst ensuring we understand which optimisations our users appreciate the most.",
         "more_information": "More information",
         "more_information_text": "Hopefully that has clarified things for you and as was previously mentioned if there is something that you aren't sure whether you need or not it's usually safer to leave cookies enabled in case it does interact with one of the features you use on our site."
-    }
+    },
+    "file_limit_exceeded": "You have exceeded the maximum number of files allowed."
 }

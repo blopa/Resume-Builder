@@ -19,13 +19,13 @@ const DropZone = ({ handleFile, disabled, maxLength }) => {
             }
 
             if (files.length > maxLength) {
-                // TODO
+                alert(intl.formatMessage({ id: 'file_limit_exceeded' }));
             } else {
                 // do what ever you want
                 handleFile(files[0]);
             }
         },
-        [handleFile, maxLength]
+        [handleFile, intl, maxLength] // Added intl to dependency array
     );
 
     return (

@@ -157,7 +157,12 @@
   },
   "error": {
     "something_went_wrong_parsing": "Упс, при разборе URL вашей таблицы произошла ошибка. Попробуйте загрузить таблицу и загрузить её сюда.",
-    "something_went_wrong_loading": "Упс, что-то пошло не так, попробуйте еще раз."
+    "something_went_wrong_loading": "Упс, что-то пошло не так, попробуйте еще раз.",
+    "invalid_google_sheet_url": "Please enter a valid Google Spreadsheet URL.",
+    "resume_fetch_failed": "Could not fetch the resume data. Please check the username and repository.",
+    "resume_invalid_json": "The fetched resume data is not valid JSON.",
+    "resume_empty_json": "The fetched resume data is empty or invalid.",
+    "resume_processing_failed": "Failed to process the resume data."
   },
   "notfound": {
     "title": "404: Не найдено",
@@ -186,5 +191,6 @@
     "third_party_cookies_item_2": "Время от времени мы тестируем новые функции и вносим тонкие изменения в способ предоставления сайта. Когда мы всё ещё тестируем новые функции, эти файлы cookie могут использоваться для обеспечения того, чтобы вы получали постоянный опыт на сайте, и чтобы мы могли понять, какие оптимизации больше всего нравятся нашим пользователям.",
     "more_information": "Дополнительная информация",
     "more_information_text": "Надеемся, это помогло вам лучше понять ситуацию. Как уже упоминалось, если вы не уверены, нужны ли они вам или нет, обычно безопаснее оставить файлы cookie включенными на случай, если они взаимодействуют с одной из функций, которые вы используете на нашем сайте."
-  }
+  },
+  "file_limit_exceeded": "You have exceeded the maximum number of files allowed."
 }

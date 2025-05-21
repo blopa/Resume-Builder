@@ -92,8 +92,7 @@ function Interest({ interests }) {
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
-                // TODO varNameToString({ interest })
-                label="interest"
+                label={varNameToString({ interests })}
                 onChange={toggleInterests}
                 checked={interests?.enabled}
             />
