@@ -3,6 +3,7 @@ import { MenuItem, Select } from '@material-ui/core';
 import { IconFlagBR, IconFlagUS, IconFlagES, IconFlagFR, IconFlagRU, IconFlagDE } from 'material-ui-flags';
 import { makeStyles } from '@material-ui/core/styles';
 import { changeLocale } from 'gatsby-plugin-react-intl';
+import PropTypes from 'prop-types';
 import IconFlagJP from './IconFlagJA';
 
 const useStyles = makeStyles((theme) => ({
@@ -64,7 +65,8 @@ const LanguageSelector = ({ currentLocale, onLanguageChange }) => {
 };
 
 LanguageSelector.propTypes = {
-    // TODO
+    currentLocale: PropTypes.string.isRequired,
+    onLanguageChange: PropTypes.func,
 };
 
 export default LanguageSelector;

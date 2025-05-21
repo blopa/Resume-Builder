@@ -157,7 +157,12 @@
   },
   "error": {
     "something_went_wrong_parsing": "Hoppla, beim Parsen Ihrer Tabellen-URL ist etwas schiefgelaufen. Versuchen Sie, die Tabelle herunterzuladen und hier hochzuladen.",
-    "something_went_wrong_loading": "Hoppla, etwas ist schiefgelaufen, bitte versuchen Sie es erneut."
+    "something_went_wrong_loading": "Hoppla, etwas ist schiefgelaufen, bitte versuchen Sie es erneut.",
+    "invalid_google_sheet_url": "Please enter a valid Google Spreadsheet URL.",
+    "resume_fetch_failed": "Could not fetch the resume data. Please check the username and repository.",
+    "resume_invalid_json": "The fetched resume data is not valid JSON.",
+    "resume_empty_json": "The fetched resume data is empty or invalid.",
+    "resume_processing_failed": "Failed to process the resume data."
   },
   "notfound": {
     "title": "404: Nicht gefunden",
@@ -186,5 +191,6 @@
     "third_party_cookies_item_2": "Von Zeit zu Zeit testen wir neue Funktionen und nehmen subtile Änderungen an der Art und Weise vor, wie die Website bereitgestellt wird. Wenn wir noch neue Funktionen testen, können diese Cookies verwendet werden, um sicherzustellen, dass Sie während der Nutzung der Seite eine konsistente Erfahrung erhalten und um sicherzustellen, dass wir verstehen, welche Optimierungen unsere Benutzer am meisten schätzen.",
     "more_information": "Weitere Informationen",
     "more_information_text": "Hoffentlich hat dies die Dinge für Sie geklärt. Wie bereits erwähnt, ist es in der Regel sicherer, Cookies aktiviert zu lassen, falls sie mit einer der Funktionen interagieren, die Sie auf unserer Seite verwenden."
-  }
+  },
+  "file_limit_exceeded": "You have exceeded the maximum number of files allowed."
 }

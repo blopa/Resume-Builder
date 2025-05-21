@@ -43,8 +43,8 @@ First of all you need to create a Google Spreadsheet following the same rules as
 - **countryCode:** Country code where you're located
 - **network:** Social media name
 - **username:** Social media name
-
-TODO: list all
+- **coverLetter**: Cover letter template
+- **__translation__**: Custom translations
 
 ## Libraries
 - I'm using [react.js](https://github.com/facebook/react), [js-xlsx](https://github.com/sheetjs/js-xlsx) and [Material UI](https://material-ui.com/).
@@ -186,13 +186,6 @@ A: I can try. Open a issue and I'll see what I can do.
 **Q: Your project is awesome. How can I help?**
 
 A: Thank you! You can help by codding more features, creating pull requests, or donating via [https://bunq.me/BuyMeASoda](https://bunq.me/BuyMeASoda)
-
-## TODO
-- Add list of recent used documents
-- Add option to save a built resume
-- Add check for valid spreadsheet URL on text input
-- Add various missing error handlers
-- Add job offers based on uploaded CV? (check for online APIs)
 
 ## License
 MIT License

@@ -4,6 +4,7 @@ import { MenuItem, Select } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { v4 as uuid } from 'uuid';
 import { useIntl } from 'gatsby-plugin-react-intl';
+import PropTypes from 'prop-types';
 
 // Hooks
 import { useSelector } from '../store/StoreProvider';
@@ -11,9 +12,7 @@ import { useSelector } from '../store/StoreProvider';
 // Actions
 import { selectResumeTemplate } from '../store/selectors';
 
-const useStyles = makeStyles((theme) => ({
-    // TODO
-}));
+const useStyles = makeStyles((theme) => ({}));
 
 const TemplateSelector = ({ onSelect, className }) => {
     const intl = useIntl();
@@ -41,7 +40,8 @@ const TemplateSelector = ({ onSelect, className }) => {
 };
 
 TemplateSelector.propTypes = {
-    // TODO
+    onSelect: PropTypes.func.isRequired,
+    className: PropTypes.string,
 };
 
 export default TemplateSelector;

@@ -81,6 +81,7 @@ const UploadPage = ({ pageContext, location }) => {
                 setErrorMessageId('error.something_went_wrong_loading');
                 setIsShowingErrorSnackbar(true);
             }
+            setLoading(false); // Ensure loading is set to false after processing
         },
         [setResumesAndForward]
     );
@@ -140,8 +141,15 @@ const UploadPage = ({ pageContext, location }) => {
     );
 
     const handleButtonClick = useCallback(() => {
-        setLoading(true);
+        const googleSheetUrlPattern = /^https?:\/\/docs\.google\.com\/spreadsheets\/d\/([a-zA-Z0-9-_]+)(\/edit#gid=([0-9]+)|\/edit.*)?$/;
+        if (!googleSheetUrlPattern.test(textInputValue)) {
+            setErrorMessageId('error.invalid_google_sheet_url');
+            setIsShowingErrorSnackbar(true);
+            setLoading(false); // Ensure loading is also set to false
+            return;
+        }
 
+        setLoading(true);
         parseSpreadsheetUrl(textInputValue, readSpreadsheetCallback, readSpreadsheetErrorCallback);
     }, [readSpreadsheetCallback, readSpreadsheetErrorCallback, textInputValue]);
 
@@ -198,7 +206,7 @@ const UploadPage = ({ pageContext, location }) => {
                 onClose={handleCloseErrorSnackbar}
             >
                 <Alert severity="error" onClose={handleCloseErrorSnackbar}>
-                    {isShowingErrorSnackbar && intl.formatMessage({ id: errorMessageId })}
+                    {isShowingErrorSnackbar && errorMessageId && intl.formatMessage({ id: errorMessageId })}
                 </Alert>
             </Snackbar>
         </Layout>

@@ -381,6 +381,102 @@ __Tip__: Notice that you can use Markdown in the cover letter, summaries and des
 ## Thanks to
 - SEO resume photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/resume?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText).
 
+### Creating New Templates
+
+Creating a new resume template allows for further customization and variety in how your resume data is presented. Here's how to add a new template to the Resume Builder:
+
+**1. File Structure:**
+
+Templates are located within the `src/components/ResumeTemplates/` directory. Each new template must reside in its own subdirectory. For example, if your new template is named "Elegant", its files would be in `src/components/ResumeTemplates/Elegant/`.
+
+**2. Main Template File:**
+
+Each template directory must contain an `Index.jsx` file (e.g., `src/components/ResumeTemplates/Elegant/Index.jsx`). This file is the entry point for your template and should export the main React component that renders the resume.
+
+**3. Component Props:**
+
+Your template component (e.g., `Elegant`) will receive several props:
+
+*   `jsonResume`: This object contains the parsed resume data, structured according to the JSON Resume schema (with any custom extensions used by this project). You'll use this data to populate your template.
+*   `isPrinting`: A boolean flag that indicates if the resume is currently being rendered for a print view. This can be used to apply print-specific styles.
+*   `customTranslations`: An object containing user-defined translations for various fields, allowing for internationalization of template labels.
+*   `coverLetterVariables`: An object containing variables extracted from the cover letter, which can be used for dynamic content if your template supports cover letters.
+
+**4. Styling and Sub-components:**
+
+You can style your template using Material-UI's `makeStyles` hook or any other CSS-in-JS solution you prefer. For more complex templates, you can break down the structure into smaller, reusable sub-components within your template's directory.
+
+**5. Registering the Template in `gatsby-node.js`:**
+
+For the build system and the frontend to recognize your new template, it needs to be "registered":
+
+*   Open the `gatsby-node.js` file located in the root of the project.
+*   Locate the `TEMPLATES_PATH` constant. This constant points to the directory where template folders are stored (i.e., `src/components/ResumeTemplates`).
+*   Find the `disabledTemplates` array. If you want your template to be active immediately, ensure its directory name is *not* included in this array.
+*   The build process reads the subdirectories within `TEMPLATES_PATH` and, after filtering out any `disabledTemplates`, creates a global variable called `TEMPLATES_LIST`. This list is then available to the frontend, allowing users to select your new template.
+
+**6. Basic Example Structure (Conceptual):**
+
+```jsx
+// src/components/ResumeTemplates/MyNewTemplate/Index.jsx
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    // Your styles here
+    container: {
+        padding: theme.spacing(2),
+        fontFamily: 'Arial, sans-serif', // Example style
+    },
+    header: {
+        textAlign: 'center',
+        marginBottom: theme.spacing(2),
+    },
+    sectionTitle: {
+        fontWeight: 'bold',
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(1),
+        borderBottom: '1px solid #ccc',
+        paddingBottom: theme.spacing(0.5),
+    }
+}));
+
+const MyNewTemplate = ({ jsonResume, isPrinting, customTranslations, coverLetterVariables }) => {
+    const classes = useStyles();
+    // Safely access data, providing fallbacks if jsonResume is null or parts are missing
+    const basics = jsonResume?.basics || {};
+    const work = jsonResume?.work || [];
+    // Example of using customTranslations or defaulting
+    const workTitle = customTranslations?.work || 'Work Experience';
+
+    return (
+        <div className={classes.container}>
+            <header className={classes.header}>
+                <h1>{basics.name || 'Your Name'}</h1>
+                <p>{basics.label || 'Your Title'}</p>
+                <p>{basics.email || 'your.email@example.com'}</p>
+            </header>
+
+            <section>
+                <h2 className={classes.sectionTitle}>{workTitle}</h2>
+                {work.map((job, index) => (
+                    <div key={index}>
+                        <h3>{job.name} - {job.position}</h3>
+                        <p>{job.startDate} - {job.endDate}</p>
+                        <p>{job.summary}</p>
+                    </div>
+                ))}
+            </section>
+
+            {/* Add more sections for education, skills, etc. */}
+        </div>
+    );
+};
+
+export default MyNewTemplate;
+```
+This provides a basic framework. You would then flesh out the JSX to render all relevant parts of the `jsonResume` data according to your new template's design.
+
 ## F.A.Q.
 **Q: Can you implement <???> function?**
 
@@ -393,7 +489,6 @@ A: Thank you! You can contribute by coding new features, creating pull requests,
 ## TODO
 - Fix all TODOs in the code.
 - Add PropTypes to the components (or even better, migrate to Typescript).
-- Document how to create new templates.
 - Add a form to manually input resume data.
 - Support Redux Tools extension.
 - Use [jsPDF](https://github.com/MrRio/jsPDF).

@@ -94,8 +94,7 @@ function Volunteer({ volunteer: volunteerData }) {
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
-                // TODO varNameToString({ volunteer })
-                label="volunteer"
+                label={varNameToString({ volunteer: volunteerData })}
                 onChange={toggleVolunteers}
                 checked={volunteerEnabled}
             />

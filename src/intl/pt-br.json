@@ -157,7 +157,12 @@
     },
     "error": {
         "something_went_wrong_parsing": "Ops, algo deu errado ao baixar a sua planilha da URL fornecida. Tente fazer o download da planilha manualmente e carregue-a aqui.",
-        "something_went_wrong_loading": "Ops, algo deu errado, por favor tente novamente."
+        "something_went_wrong_loading": "Ops, algo deu errado, por favor tente novamente.",
+        "invalid_google_sheet_url": "Please enter a valid Google Spreadsheet URL.",
+        "resume_fetch_failed": "Could not fetch the resume data. Please check the username and repository.",
+        "resume_invalid_json": "The fetched resume data is not valid JSON.",
+        "resume_empty_json": "The fetched resume data is empty or invalid.",
+        "resume_processing_failed": "Failed to process the resume data."
     },
     "notfound": {
         "title": "404: Não encontrado",
@@ -171,7 +176,7 @@
         "we_use_cookies": "Usamos cookies para garantir que você obtenha a melhor experiência em nosso site. Ao usar nosso site, você concorda com nossa ",
         "title": "Política de cookies",
         "what_are_cookies": "O que são cookies?",
-        "what_are_cookies_text": "Como é prática comum em quase todos os sites profissionais, este site usa cookies, que são pequenos arquivos baixados para o seu computador, para melhorar a sua experiência. Esta página descreve quais informações eles coletam, como as usamos e por que às vezes precisamos armazenar esses cookies. Também compartilharemos como você pode evitar que esses cookies sejam armazenados, no entanto, isso pode diminuir ou 'quebrar' certos elementos da funcionalidade do site. Para obter mais informações gerais sobre cookies, leia ",
+        "what_are_cookies_text": "Como é prática comum em quase todos os sites profissionais, este site usa cookies, que são pequenos arquivos baixados para o seu computador, para mejorar a sua experiência. Esta página descreve quais informações eles coletam, como as usamos e por que às vezes precisamos armazenar esses cookies. Também compartilharemos como você pode evitar que esses cookies sejam armazenados, no entanto, isso pode diminuir ou 'quebrar' certos elementos da funcionalidade do site. Para obter mais informações gerais sobre cookies, leia ",
         "what_are_cookies_more_info_url": "https://pt.wikipedia.org/wiki/Cookie_(informática)",
         "how_we_use_cookies": "Como usamos cookies",
         "how_we_use_cookies_text": "Usamos cookies por vários motivos detalhados abaixo. Infelizmente, na maioria dos casos, não há opções padrão da indústria para desabilitar cookies sem desabilitar completamente a funcionalidade e os recursos que eles adicionam a este site. Recomenda-se que você deixe todos os cookies se não tiver certeza se precisa deles ou não, caso sejam usados para fornecer um serviço que você usa.",
@@ -182,9 +187,10 @@
         "site_preferences_cookie_text": "Para lhe proporcionar uma excelente experiência neste site, fornecemos a funcionalidade para definir as suas preferências de funcionamento deste site quando o utiliza. Para lembrar suas preferências, precisamos definir cookies para que essas informações possam ser chamadas sempre que você interagir com uma página afetada por suas preferências.",
         "third_party_cookies": "Cookies de terceiros",
         "third_party_cookies_text": "Em alguns casos especiais, também usamos cookies fornecidos por terceiros confiáveis. A seção a seguir detalha quais cookies de terceiros você pode encontrar neste site.",
-        "third_party_cookies_item_1": "Este site usa o Google Analytics, que é uma das soluções de análise mais difundidas e confiáveis na web para nos ajudar a entender como você usa o site e como podemos melhorar sua experiência. Esses cookies podem rastrear coisas como quanto tempo você passa no site e as páginas que você visita para que possamos continuar a produzir conteúdo envolvente. Para obter mais informações sobre os cookies do Google Analytics, consulte a página oficial do Google Analytics.",
+        "third_party_cookies_item_1": "Este site usa o Google Analytics, que é uma das soluções de análise mais difundidas e confiáveis na web para nos ajudar a entender como você usa o site e como podemos mejorar sua experiência. Esses cookies podem rastrear coisas como quanto tempo você passa no site e as páginas que você visita para que possamos continuar a produzir conteúdo envolvente. Para obter mais informações sobre os cookies do Google Analytics, consulte a página oficial do Google Analytics.",
         "third_party_cookies_item_2": "De vez em quando, testamos novos recursos e fazemos mudanças sutis na maneira como o site é fornecido. Quando ainda estamos testando novos recursos, esses cookies podem ser usados para garantir que você receba uma experiência consistente enquanto estiver no site, garantindo que entendemos quais otimizações nossos usuários mais apreciam.",
         "more_information": "Mais informações",
         "more_information_text": "Esperamos que isso tenha esclarecido as coisas para você e, conforme mencionado anteriormente, se há algo que você não tem certeza se precisa ou não, geralmente é mais seguro deixar os cookies ativados, caso eles interajam com um dos recursos que você usa em nosso site."
-    }
+    },
+    "file_limit_exceeded": "You have exceeded the maximum number of files allowed."
 }
