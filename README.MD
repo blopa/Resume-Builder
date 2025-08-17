@@ -96,6 +96,43 @@ Special thanks to all the developers who contributed to these libraries.
 ## Development
 Run `npm run start` and access the site at `http://localhost:8000`.
 
+## Contributing
+
+If you want to help, thank you — contributions are welcome. Below are short, actionable suggestions and a quick start guide to make contributing easier.
+
+Suggested contribution areas (good first issues)
+- Add PropTypes to components or migrate a small module to TypeScript.
+- Add unit tests (Jest + React Testing Library) for components such as Projects, Work, and Resume templates.
+- Add end-to-end tests (Cypress) to cover end-to-end resume build + view flow.
+- Improve accessibility (aria labels, keyboard navigation) in templates and sidebar.
+- Add CI workflow (GitHub Actions) to run linting, tests and build on PRs.
+- Improve documentation: "How to add a new template", "How translations work", and developer setup.
+- Add more translations or improve existing ones.
+- Create additional resume templates and share example resume.json files.
+- Fix parsing edge cases of spreadsheet → JSON conversion (and add tests).
+- Add ESLint/Prettier config and enforce formatting in CI.
+
+How to get started (quick)
+1. Fork the repo and create a feature branch: git checkout -b feat/your-change.
+2. Install and run locally:
+   - npm install
+   - npm run start
+3. Run tests (if applicable): npm test
+4. Make small, focused commits. Use descriptive commit messages.
+5. Open a Pull Request targeting the main branch. Describe the change and include steps to verify.
+
+PR checklist (recommended)
+- Code builds locally and CI passes (if present).
+- New functionality has tests or a short manual test procedure in the PR description.
+- Follow existing code style and add PropTypes or TypeScript types where appropriate.
+- Update README or docs when adding features or changing behavior.
+
+Want to help but not sure how?
+- Look for issues labeled "good first issue" or comment on an issue to ask for guidance.
+- Open an issue if you find a bug or want to propose a feature — include steps to reproduce.
+
+Thanks for helping improve Resume Builder!
+
 ## Deployment
 Run `npm run build` and copy the contents of the `public/` folder to your website's root directory.
 
