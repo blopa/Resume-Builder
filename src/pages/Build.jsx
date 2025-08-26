@@ -109,10 +109,22 @@ const BuildPage = ({ params, uri, location }) => {
             ...paramFormValues,
         },
         onSubmit: (values) => {
-            // TODO
+            console.log('Form submitted with values:', values);
+            // In a real scenario, you would process these values, e.g., pass them to getResumeJsonFromFormik
+            // For now, logging is sufficient.
         },
-        validate: (values, props) => {
-            // TODO
+        validate: (values) => {
+            const errors = {};
+            if (!values['basics-0-name']) {
+                errors['basics-0-name'] = 'Required';
+            }
+            // Add more checks for other fields as needed, for example:
+            // if (!values['basics-0-email']) {
+            //     errors['basics-0-email'] = 'Required';
+            // } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values['basics-0-email'])) {
+            //     errors['basics-0-email'] = 'Invalid email address';
+            // }
+            return errors;
         },
     });
 

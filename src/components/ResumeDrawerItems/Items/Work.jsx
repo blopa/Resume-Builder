@@ -106,8 +106,7 @@ function Work({ work: workData }) {
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
-                // TODO varNameToString({ work })
-                label="work"
+                label={varNameToString({ work: workData })}
                 onChange={toggleWorks}
                 checked={workEnabled}
             />

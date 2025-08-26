@@ -138,8 +138,7 @@ function Basics({ basics }) {
                         />
                     )}
                     <ItemsList
-                        // TODO varNameToString({ location })
-                        label="location"
+                        label={varNameToString({ location })}
                         checked={locationEnabled}
                         onClick={toggleBasicsDetail('location')}
                     />

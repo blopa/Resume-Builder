@@ -157,7 +157,12 @@
     },
     "error": {
         "something_went_wrong_parsing": "¡Vaya! Se produjo un error al descargar la hoja de cálculo desde la URL proporcionada. Intente descargar la hoja de cálculo manualmente y cárguela aquí.",
-        "something_went_wrong_loading": "Vaya, algo salió mal. Vuelve a intentarlo."
+        "something_went_wrong_loading": "Vaya, algo salió mal. Vuelve a intentarlo.",
+        "invalid_google_sheet_url": "Please enter a valid Google Spreadsheet URL.",
+        "resume_fetch_failed": "Could not fetch the resume data. Please check the username and repository.",
+        "resume_invalid_json": "The fetched resume data is not valid JSON.",
+        "resume_empty_json": "The fetched resume data is empty or invalid.",
+        "resume_processing_failed": "Failed to process the resume data."
     },
     "notfound": {
         "title": "404: No Encontrado",
@@ -182,9 +187,10 @@
         "site_preferences_cookie_text": "Con el fin de proveerte una gran experiencia en este sitio te proveemos la capacidad de configurar cómo se correra este sitio cuando tu lo uses. Con el fin de recordar tus configuraciones necesitamos almacenar cookies para que esta información pueda ser invocada cada vez que interactuas con una página que es afectada por tus configuraciones.",
         "third_party_cookies": "Cookies de terceros",
         "third_party_cookies_text": "En algunos casos especiales también utilizamos cookies proveidas por terceros de confianza. La sección a continuación indica con detalles qué cookies de terceros podrás encontrar en este sitio.",
-        "third_party_cookies_item_1": "Este sitio usa las herramientas de analítica de Google que es una de las soluciones de analítica más reconocida y de confianza en la web para ayudarnos a entender cómo usas el sitio y cómo podemos mejorar tu experiencia. Estas cookies puden rastrear cosas como cuánto tiempo permaneces en el sitio y las páginas que visitas para que podamos seguir produciendo contenido atractivo. Para más información sobre cookies de las herramientas de analítica de Google, visite la página oficial.",
-        "third_party_cookies_item_2": "De vez en cuando probamos nuevas funcionalidades y realizamos cambios sutiles en la forma en como mostramos el sitio. Cuando seguimos probando nuevas funcionalidades estas cookies pueden ser usadas para asegurar que recibas una experiencia consistente mientras que nos aseguramos de entender que optimizaciones son más apreciadas por los usuarios.",
+        "third_party_cookies_item_1": "Este sitio usa las herramientas de analítica de Google che è una delle soluzioni di analítica más reconocida y de confianza en la web para ayudarnos a entender cómo usas el sitio y cómo podemos mejorar tu experiencia. Estas cookies puden rastrear cosas como cuánto tiempo permaneces en el sitio y las páginas que visitas para que podamos seguir produciendo contenido atractivo. Para más información sobre cookies de las herramientas de analítica de Google, visite la página oficial.",
+        "third_party_cookies_item_2": "De vez en quando probamos nuevas funcionalidades y realizamos cambios sutiles en la forma en como mostramos el sitio. Cuando seguimos probando nuevas funcionalidades estas cookies pueden ser usadas para asegurar que recibas una experiencia consistente mientras que nos aseguramos de entender que optimizaciones son más apreciadas por los usuarios.",
         "more_information": "Más información",
         "more_information_text": "Ojalá esto halla aclarado las cosas para ti y como mencionamos anteriormente si hay algo de lo que no estás seguro si es necesaria o no, usualmente es más seguro dejar las cookies habilitadas en caso que estas interactuen con alguna de las características que usas en nuestro sitio."
-    }
+    },
+    "file_limit_exceeded": "You have exceeded the maximum number of files allowed."
 }

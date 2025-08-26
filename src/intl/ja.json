@@ -157,7 +157,12 @@
   },
   "error": {
     "something_went_wrong_parsing": "おっと、スプレッドシートURLの解析中に問題が発生しました。スプレッドシートをダウンロードしてこちらにアップロードしてみてください。",
-    "something_went_wrong_loading": "おっと、問題が発生しました。もう一度お試しください。"
+    "something_went_wrong_loading": "おっと、問題が発生しました。もう一度お試しください。",
+    "invalid_google_sheet_url": "Please enter a valid Google Spreadsheet URL.",
+    "resume_fetch_failed": "Could not fetch the resume data. Please check the username and repository.",
+    "resume_invalid_json": "The fetched resume data is not valid JSON.",
+    "resume_empty_json": "The fetched resume data is empty or invalid.",
+    "resume_processing_failed": "Failed to process the resume data."
   },
   "notfound": {
     "title": "404: 見つかりません",
@@ -186,5 +191,6 @@
     "third_party_cookies_item_2": "当サイトでは、新しい機能をテストしたり、提供方法を微調整することがあります。新しい機能をまだテストしている場合、これらのクッキーが使用されることがあり、ユーザーに一貫した体験を提供し、どの最適化がユーザーに好まれているかを理解するために役立ちます。",
     "more_information": "さらに詳しい情報",
     "more_information_text": "これで疑問点が解決されていれば幸いです。前述のように、特定の機能に影響を与える可能性がある場合、安全のためにクッキーを有効にしておくことをお勧めします。"
-  }
+  },
+  "file_limit_exceeded": "You have exceeded the maximum number of files allowed."
 }

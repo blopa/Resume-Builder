@@ -92,8 +92,7 @@ function Education({ education: educations }) {
     return (
         <div className={classes.resumeDrawerItem}>
             <ItemInput
-                // TODO varNameToString({ education })
-                label="education"
+                label={varNameToString({ education: educations })}
                 checked={educations?.enabled}
                 onChange={toggleEducations}
             />

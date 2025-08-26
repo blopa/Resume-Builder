@@ -241,15 +241,6 @@ A: I can try. Open an issue, and I'll see what I can do.
 
 A: Thank you! You can help by codding more features, creating pull requests, or donating via [https://bunq.me/BuyMeASoda](https://bunq.me/BuyMeASoda)
 
-## TODO
-- Actually create a second template
-- Add unit tests
-- Add list of recent used documents
-- Add option to save a built resume
-- Add check for valid spreadsheet URL on text input
-- Add various missing error handlers
-- Add job offers based on uploaded CV? (check for online APIs)
-
 ## License
 MIT License
 

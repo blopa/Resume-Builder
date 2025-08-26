@@ -6,84 +6,127 @@ export const isObjectEmpty = (obj) => isObject(obj) && Object.keys(obj).length =
 
 export const isObjectNotEmpty = (obj) => isObject(obj) && Object.keys(obj).length > 0;
 
-// TODO make this return a copy of the obj
 export const convertToToggleableObject = (
     obj,
     ignoredProperties = ['enableSourceDataDownload', 'coverLetter', 'meta', '$schema', '__translation__']
 ) => {
+    if (!isObject(obj)) {
+        return obj;
+    }
+
+    const clonedObj = JSON.parse(JSON.stringify(obj));
+
     // eslint-disable-next-line no-restricted-syntax
-    for (const property in obj) {
+    for (const property in clonedObj) {
         // eslint-disable-next-line no-prototype-builtins
-        if (obj.hasOwnProperty(property)) {
-            if (obj[property]?.length === 0 || ignoredProperties.includes(property)) {
+        if (clonedObj.hasOwnProperty(property)) {
+            if (clonedObj[property]?.length === 0 || ignoredProperties.includes(property)) {
                 // eslint-disable-next-line no-param-reassign
-                delete obj[property];
+                delete clonedObj[property];
             } else {
-                let enabled = Boolean(obj[property]);
-                if (typeof obj[property] === 'object') {
-                    enabled = Object.values(obj[property]).some(
-                        (value) => isObjectNotEmpty(value) || value?.length > 0
+                let enabled = Boolean(clonedObj[property]);
+                if (isObject(clonedObj[property])) { // Use isObject to check before diving deeper
+                    enabled = Object.values(clonedObj[property]).some(
+                        (value) => isObjectNotEmpty(value) || (Array.isArray(value) ? value.length > 0 : Boolean(value))
                     );
-                    convertToToggleableObject(obj[property]);
+                    // Recursively call with the cloned object's property and ignoredProperties
+                    convertToToggleableObject(clonedObj[property], ignoredProperties);
+                } else if (Array.isArray(clonedObj[property])) {
+                     enabled = clonedObj[property].length > 0;
+                     // If it's an array, iterate and call convertToToggleableObject on its elements if they are objects
+                     clonedObj[property].forEach((item, index) => {
+                        if (isObject(item)) {
+                            clonedObj[property][index] = convertToToggleableObject(item, ignoredProperties);
+                        }
+                     });
                 }
 
+
                 // eslint-disable-next-line no-param-reassign
-                obj[property] = {
-                    value: obj[property],
+                clonedObj[property] = {
+                    value: clonedObj[property],
                     enabled,
                 };
             }
         }
     }
 
-    return obj;
+    return clonedObj;
 };
 
-// TODO make this return a copy of the obj
 export const convertToRegularObject = (
     obj,
     ignoredProperties = ['enableSourceDataDownload', 'coverLetter', '__translation__']
 ) => {
+    if (!isObject(obj)) {
+        return obj;
+    }
+
+    const clonedObj = JSON.parse(JSON.stringify(obj));
+
     // eslint-disable-next-line no-restricted-syntax
-    for (const property in obj) {
+    for (const property in clonedObj) {
         if (ignoredProperties.includes(property)) {
             // eslint-disable-next-line no-continue
             continue;
         }
 
         // eslint-disable-next-line no-prototype-builtins
-        if (obj.hasOwnProperty(property)) {
-            if (!obj[property].enabled) {
+        if (clonedObj.hasOwnProperty(property)) {
+            // Check if property exists and has 'enabled'
+            if (clonedObj[property] === null || typeof clonedObj[property] !== 'object' || !clonedObj[property].hasOwnProperty('enabled')) {
+                 if (isObject(clonedObj[property])) {
+                    convertToRegularObject(clonedObj[property], ignoredProperties);
+                } else if (Array.isArray(clonedObj[property])) {
+                    clonedObj[property] = clonedObj[property].map(item => {
+                        if (isObject(item)) {
+                            return convertToRegularObject(item, ignoredProperties);
+                        }
+                        return item;
+                    });
+                }
+                continue;
+            }
+            
+            if (!clonedObj[property].enabled) {
                 // eslint-disable-next-line no-param-reassign
-                obj[property] = getDefaultValueForVariableType(obj[property].value);
+                clonedObj[property] = getDefaultValueForVariableType(clonedObj[property].value);
                 // eslint-disable-next-line no-continue
                 continue;
             }
 
             // eslint-disable-next-line no-prototype-builtins
-            if (isObject(obj[property]) && obj[property].hasOwnProperty('value')) {
+            if (isObject(clonedObj[property]) && clonedObj[property].hasOwnProperty('value')) {
                 // eslint-disable-next-line no-param-reassign
-                obj[property] = obj[property].value;
+                clonedObj[property] = clonedObj[property].value;
             }
 
-            if (isObject(obj[property])) {
-                convertToRegularObject(obj[property]);
-            } else if (Array.isArray(obj[property])) {
+            if (isObject(clonedObj[property])) {
+                convertToRegularObject(clonedObj[property], ignoredProperties);
+            } else if (Array.isArray(clonedObj[property])) {
                 // eslint-disable-next-line no-param-reassign
-                obj[property] = obj[property]
-                    .filter((value) => value.enabled)
-                    .map((value) => {
-                        if (isObject(value.value)) {
-                            convertToRegularObject(value.value);
+                clonedObj[property] = clonedObj[property]
+                    .map((value) => { // No filter needed here as we handle enabled above or it's already a regular object
+                        if (isObject(value) && value.hasOwnProperty('enabled') && !value.enabled) {
+                            return getDefaultValueForVariableType(value.value);
                         }
-
-                        return value.value;
+                        if (isObject(value) && value.hasOwnProperty('value')) {
+                           const val = value.value;
+                           if(isObject(val)){
+                             return convertToRegularObject(val, ignoredProperties);
+                           }
+                           return val;
+                        }
+                         if (isObject(value)) {
+                            return convertToRegularObject(value, ignoredProperties);
+                        }
+                        return value;
                     });
             }
         }
     }
 
-    return obj;
+    return clonedObj;
 };
 
 export const getDefaultValueForVariableType = (variable) => {

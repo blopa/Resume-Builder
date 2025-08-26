@@ -293,12 +293,6 @@ A: I can try. Open a issue and I'll see what I can do.
 
 A: Thank you! You can help by codding more features, creating pull requests, or donating via [https://bunq.me/BuyMeASoda](https://bunq.me/BuyMeASoda)
 
-## TODO
-- Add list of recent used documents
-- Add option to save a built resume
-- Remove bootstrap include from template.html
-- Make build.js smaller / add lazyloader
-
 ## License
 MIT License
 
