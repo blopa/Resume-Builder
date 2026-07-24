@@ -27,8 +27,9 @@ const useStyles = makeStyles((theme) => ({
     pageBreakWarning: {
         height: '35px',
         padding: 0,
-        marginLeft: '-42px',
-        width: '112%',
+        // bleed back over the horizontal padding of the template container
+        marginLeft: '-40px',
+        width: 'calc(100% + 80px)',
         textAlign: 'center',
         fontStyle: 'italic',
         color: theme.palette.type === 'dark' ? '#6b6b6b' : '#b1afaf',
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CoverLetter = ({ coverLetterText = '', coverLetterVariables = [] }) => {
+const CoverLetter = ({ coverLetterText = '', coverLetterVariables = {}, showPageBreak = true }) => {
     const classes = useStyles();
     const intl = useIntl();
     const variables = useMemo(() => {
@@ -63,7 +64,9 @@ const CoverLetter = ({ coverLetterText = '', coverLetterVariables = [] }) => {
                     __html: Mustache.render(text, variables),
                 }}
             />
-            <div className={classes.pageBreakWarning}>{intl.formatMessage({ id: 'this_is_a_page_break' })}</div>
+            {showPageBreak && (
+                <div className={classes.pageBreakWarning}>{intl.formatMessage({ id: 'this_is_a_page_break' })}</div>
+            )}
         </Fragment>
     );
 };

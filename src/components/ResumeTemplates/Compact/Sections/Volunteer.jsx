@@ -1,117 +1,61 @@
-import { useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
-// Hooks
-import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
+// Components
+import Section from './Section';
+import Entry from './Entry';
+import BulletList from './BulletList';
+
+// Utils
+import { mutedColor } from '../styles';
+import { toDisplayUrl } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
-    resumeVolunteer: {
-        padding: '10px 0',
-        borderBottom: '1px solid #ddd',
+    meta: {
+        color: mutedColor(theme),
     },
-    volunteers: {
-        margin: '0',
-        padding: '0',
-        listStyle: 'none',
-        '& li': {
-            margin: '0 0 10px 0',
-            '&:last-child': {
-                margin: '3px 0 0',
-            },
+    body: {
+        whiteSpace: 'break-spaces',
+        '& p': {
+            margin: '0',
         },
-    },
-    position: { fontWeight: 'bold' },
-    positionDate: {
-        fontStyle: 'italic',
-        fontSize: '0.8rem',
-    },
-    url: {},
-    summary: {},
-    highlights: {
-        '& li': {
-            marginBottom: '1px',
-            fontStyle: 'italic',
-        },
-    },
-    contentWrapper: {
-        marginLeft: '4px',
-    },
-    volunteerWrapper: {
-        pageBreakInside: 'avoid',
-    },
-    title: {
-        pageBreakInside: 'avoid',
     },
 }));
 
 const Volunteer = ({ volunteer: volunteers }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const firstItem = useRef(null);
-    const sectionTitle = useRef(null);
-    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
     return (
         volunteers?.length > 0 && (
-            <div className={classes.resumeVolunteer}>
-                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
-                    {intl.formatMessage({ id: 'volunteers' })}
-                </h3>
-                <div className={classes.contentWrapper}>
-                    <ul className={classes.volunteers}>
-                        {volunteers.map((volunteer) => {
-                            if (volunteer) {
-                                const { organization, position, url, startDate, endDate, summary, highlights } =
-                                    volunteer || {};
+            <Section title={intl.formatMessage({ id: 'volunteers' })}>
+                {volunteers.map((volunteer) => {
+                    if (volunteer) {
+                        const { organization, position, url, startDate, endDate, summary, highlights } =
+                            volunteer || {};
 
-                                let refProps = {};
-                                if (!firstItem.current) {
-                                    refProps = {
-                                        ref: firstItem,
-                                    };
-                                }
+                        const title = [position, organization].filter(Boolean).join(' · ');
+                        const dates = [startDate, endDate].filter(Boolean).join(' – ');
 
-                                return (
-                                    <li
-                                        className={classes.volunteerWrapper}
-                                        key={uuid()}
-                                        // eslint-disable-next-line react/jsx-props-no-spreading
-                                        {...refProps}
-                                    >
-                                        <p className={classes.position}>
-                                            {position}
-                                            {position && organization && ` ${intl.formatMessage({ id: 'at' })} `}
-                                            {organization}
-                                            {(startDate || endDate) && (
-                                                <span className={classes.positionDate}>
-                                                    {' ('}
-                                                    {startDate}
-                                                    {startDate && endDate && ' - '}
-                                                    {endDate}
-                                                    {')'}
-                                                </span>
-                                            )}
-                                        </p>
-                                        <p className={classes.url}>{url && <a href={url}>{url}</a>}</p>
-                                        <p className={classes.summary}>{summary}</p>
-                                        {highlights?.length > 0 && (
-                                            <ul className={classes.highlights}>
-                                                {highlights?.map(
-                                                    (highlight) => highlight && <li key={uuid()}>{highlight}</li>
-                                                )}
-                                            </ul>
-                                        )}
-                                    </li>
-                                );
-                            }
+                        return (
+                            <Entry key={uuid()} title={title} dates={dates}>
+                                {url && (
+                                    <p className={classes.meta}>
+                                        <a href={url}>{toDisplayUrl(url)}</a>
+                                    </p>
+                                )}
+                                {summary && (
+                                    <div className={classes.body} dangerouslySetInnerHTML={{ __html: summary }} />
+                                )}
+                                <BulletList items={highlights} />
+                            </Entry>
+                        );
+                    }
 
-                            return null;
-                        })}
-                    </ul>
-                </div>
-            </div>
+                    return null;
+                })}
+            </Section>
         )
     );
 };
