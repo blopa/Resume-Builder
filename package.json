@@ -8,6 +8,9 @@
         "react"
     ],
     "license": "MIT",
+    "engines": {
+        "node": "20.x"
+    },
     "scripts": {
         "inspect": "node --inspect-brk --no-lazy node_modules/gatsby/dist/bin/gatsby develop",
         "clean": "gatsby clean",
