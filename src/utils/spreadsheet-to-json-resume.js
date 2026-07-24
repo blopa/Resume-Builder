@@ -28,6 +28,18 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const llmPromptCategory = 'llm_prompt';
     const enableSourceDataDownloadCategory = 'enable_download';
 
+    /*
+     * Spreadsheet field names that differ from the JSON Resume schema.
+     * The example spreadsheet uses 'picture' and 'website', but the schema
+     * and the templates expect 'image' and 'url'. Without this mapping the
+     * values land on keys no template reads, and silently never render.
+     * Keys are compared lowercased.
+     */
+    const basicsFieldAliases = {
+        picture: 'image',
+        website: 'url',
+    };
+
     // base toggleable jsonResume
     const jsonResume = { ...toggleableResume };
 
@@ -73,7 +85,9 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         } else if (category === translationsCategory) {
             translations[value[typeAttr]] = value[contentAttr];
         } else if (category === basicsCategory) {
-            jsonResume.basics.value[value[typeAttr]] = {
+            const type = value[typeAttr];
+            const basicsField = basicsFieldAliases[type?.toLowerCase()] || type;
+            jsonResume.basics.value[basicsField] = {
                 enabled,
                 value: value[contentAttr],
             };
