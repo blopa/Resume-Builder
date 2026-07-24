@@ -11,7 +11,7 @@ import DropZone from '../components/DropZone';
 import TemplateSelector from '../components/TemplateSelector';
 
 // Utils
-import { convertToToggleableObject, generateCoverLetterObject } from '../utils/utils';
+import { convertToToggleableObject, generateCoverLetterObject, generateLlmPromptObject } from '../utils/utils';
 import spreadsheetToJsonResume from '../utils/spreadsheet-to-json-resume';
 import { readSpreadsheet, parseSpreadsheetUrl } from '../utils/spreadsheet-parser';
 import { readJsonFile } from '../utils/json-parser';
@@ -116,6 +116,7 @@ const UploadPage = ({ pageContext, location }) => {
                         ...convertToToggleableObject(cloneDeep(jsonResume)),
                         enableSourceDataDownload: jsonResume.enableSourceDataDownload,
                         coverLetter: generateCoverLetterObject(jsonResume.coverLetter),
+                        llmPrompt: generateLlmPromptObject(jsonResume.llmPrompt),
                         // eslint-disable-next-line no-underscore-dangle
                         __translation__: jsonResume.__translation__,
                     });

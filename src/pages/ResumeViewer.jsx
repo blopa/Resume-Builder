@@ -11,7 +11,13 @@ import A4Container from '../components/A4Container';
 
 // Utils
 import { fetchGithubResumeJson, isValidJsonString } from '../utils/gatsby-frontend-helpers';
-import { isObjectNotEmpty, convertToToggleableObject, convertToRegularObject } from '../utils/utils';
+import {
+    isObjectNotEmpty,
+    convertToToggleableObject,
+    convertToRegularObject,
+    generateLlmPromptObject,
+    resolveToggleableText,
+} from '../utils/utils';
 
 // Hooks
 import { useDispatch, useSelector } from '../store/StoreProvider';
@@ -72,16 +78,16 @@ const ResumeViewer = ({ params, uri }) => {
                 navigate('/');
             }
 
-            const toggleableObject = convertToToggleableObject(
-                cloneDeep({
-                    ...jsonResume,
-                    // eslint-disable-next-line no-underscore-dangle
-                    __translation__: jsonResume.__translation__,
-                    enableSourceDataDownload: jsonResume.enableSourceDataDownload,
-                    // Cover Letter not supported for the viewer
-                    coverLetter: {},
-                })
-            );
+            // The toggleable conversion strips the ignored properties, so they have to be
+            // re-attached afterwards — passing them in gets them dropped instead.
+            // Cover Letter is not supported for the viewer, so it is left out entirely.
+            const toggleableObject = {
+                ...convertToToggleableObject(cloneDeep(jsonResume)),
+                // eslint-disable-next-line no-underscore-dangle
+                __translation__: jsonResume.__translation__,
+                enableSourceDataDownload: jsonResume.enableSourceDataDownload,
+                llmPrompt: generateLlmPromptObject(jsonResume.llmPrompt),
+            };
             if (!isObjectNotEmpty(toggleableObject)) {
                 navigate('/');
             }
@@ -98,6 +104,8 @@ const ResumeViewer = ({ params, uri }) => {
                     jsonResume={{
                         ...baseResume,
                         ...convertToRegularObject(cloneDeep(toggleableObject)),
+                        coverLetter: '',
+                        llmPrompt: resolveToggleableText(toggleableObject.llmPrompt),
                     }}
                     coverLetterVariables={toggleableObject.coverLetter?.value?.variables || []}
                 />,

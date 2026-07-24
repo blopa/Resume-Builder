@@ -55,6 +55,7 @@
         "references": "Réferences",
         "projects": "Projets",
         "coverLetter": "Cover letter",
+        "llmPrompt": "Invite LLM",
         "profiles": "Profiles",
         "name": "Nom",
         "label": "Label",

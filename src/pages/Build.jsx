@@ -18,7 +18,7 @@ import { useDispatch } from '../store/StoreProvider';
 
 // Utils
 import { downloadJson } from '../utils/json-parser';
-import { convertToToggleableObject, generateCoverLetterObject } from '../utils/utils';
+import { convertToToggleableObject, generateCoverLetterObject, generateLlmPromptObject } from '../utils/utils';
 
 // Actions
 import setToggleableJsonResume from '../store/actions/setToggleableJsonResume';
@@ -213,6 +213,7 @@ const BuildPage = ({ params, uri, location }) => {
         setResumesAndForward({
             ...convertToToggleableObject(cloneDeep(resume)),
             coverLetter: generateCoverLetterObject(resume.coverLetter),
+            llmPrompt: generateLlmPromptObject(resume.llmPrompt),
         });
     }, [getResumeJsonFromFormik, setResumesAndForward]);
 
@@ -225,7 +226,7 @@ const BuildPage = ({ params, uri, location }) => {
                         schema={splittedSchema[index]}
                         formik={formik}
                         definitions={schema.definitions}
-                        textAreaNames={['summary', 'description', 'coverLetter']}
+                        textAreaNames={['summary', 'description', 'coverLetter', 'llmPrompt']}
                     />
                 </div>
             </Slide>

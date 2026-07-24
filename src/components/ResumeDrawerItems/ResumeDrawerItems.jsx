@@ -22,12 +22,13 @@ import Skills from './Items/Skills';
 import Volunteer from './Items/Volunteer';
 import Work from './Items/Work';
 import CoverLetter from './Items/CoverLetter';
+import LlmPrompt from './Items/LlmPrompt';
 import Certificates from './Items/Certificates';
 import Download from './Items/Download';
 import TemplateSelector from '../TemplateSelector';
 
 // Utils
-import { convertToRegularObject, isObjectNotEmpty } from '../../utils/utils';
+import { convertToRegularObject, hasToggleableText, isObjectNotEmpty, resolveToggleableText } from '../../utils/utils';
 import { downloadJson } from '../../utils/json-parser';
 
 // Base resume
@@ -74,6 +75,7 @@ const ResumeDrawerItems = ({
         certificates,
         // custom attributes
         coverLetter,
+        llmPrompt,
         enableSourceDataDownload = false,
     },
     onClose,
@@ -92,7 +94,8 @@ const ResumeDrawerItems = ({
             ...baseResume,
             ...convertToRegularObject(cloneDeep(toggleableJsonResume)),
             enableSourceDataDownload: toggleableJsonResume.enableSourceDataDownload,
-            coverLetter: toggleableJsonResume.coverLetter?.value?.text || '',
+            coverLetter: resolveToggleableText(toggleableJsonResume.coverLetter),
+            llmPrompt: resolveToggleableText(toggleableJsonResume.llmPrompt),
             // eslint-disable-next-line no-underscore-dangle
             __translation__: cloneDeep(toggleableJsonResume.__translation__),
         };
@@ -139,7 +142,8 @@ const ResumeDrawerItems = ({
                 </Typography>
                 <TemplateSelector className={classes.templateSelector} onSelect={handleTemplateSelected} />
             </div>
-            {isObjectNotEmpty(coverLetter) && <CoverLetter coverLetter={coverLetter} />}
+            {hasToggleableText(coverLetter) && <CoverLetter coverLetter={coverLetter} />}
+            {hasToggleableText(llmPrompt) && <LlmPrompt llmPrompt={llmPrompt} />}
             <Download enableSourceDataDownload={enableSourceDataDownload} />
             {isObjectNotEmpty(basics) && <Basics basics={basics} />}
             {isObjectNotEmpty(work) && <Work work={work} />}

@@ -25,6 +25,16 @@ export default (state, action) => {
                     },
                 },
             };
+        case 'SET_RESUME_LLM_PROMPT':
+            return {
+                ...state,
+                toggleableJsonResume: {
+                    ...state.toggleableJsonResume,
+                    llmPrompt: {
+                        ...action.llmPrompt,
+                    },
+                },
+            };
         case 'SET_RESUME_BASICS':
             return {
                 ...state,

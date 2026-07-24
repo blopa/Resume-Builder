@@ -21,7 +21,7 @@ import FloatingButton from '../components/FloatingButton';
 import { useSelector } from '../store/StoreProvider';
 
 // Utils
-import { convertToRegularObject, isObjectNotEmpty } from '../utils/utils';
+import { convertToRegularObject, isObjectNotEmpty, resolveToggleableText } from '../utils/utils';
 
 // Selectors
 import { selectResumeTemplate, selectToggleableJsonResume } from '../store/selectors';
@@ -102,10 +102,8 @@ const ResumePage = () => {
                 ...baseResume,
                 ...convertToRegularObject(cloneDeep(toggleableJsonResume)),
                 enableSourceDataDownload: toggleableJsonResume.enableSourceDataDownload,
-                coverLetter:
-                    toggleableJsonResume.coverLetter?.enabled && (toggleableJsonResume.coverLetter?.value?.text || ''),
-                llmPrompt:
-                    toggleableJsonResume.llmPrompt?.enabled && (toggleableJsonResume.llmPrompt?.value?.text || ''),
+                coverLetter: resolveToggleableText(toggleableJsonResume.coverLetter),
+                llmPrompt: resolveToggleableText(toggleableJsonResume.llmPrompt),
                 // eslint-disable-next-line no-underscore-dangle
                 __translation__: cloneDeep(toggleableJsonResume.__translation__),
             };

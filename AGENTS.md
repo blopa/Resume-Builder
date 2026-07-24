@@ -79,7 +79,9 @@ Conversion happens in `src/utils/utils.js`:
 -   `convertToToggleableObject(obj, ignoredProperties)` — on import.
 -   `convertToRegularObject(obj, ignoredProperties)` — on render/download; disabled fields collapse to an empty default.
 
-Both take an `ignoredProperties` list of keys that stay unwrapped (`coverLetter`, `__translation__`, `enableSourceDataDownload`, `meta`, `$schema`). The two functions have **different defaults** — check which you need.
+Both take an `ignoredProperties` list of keys that stay unwrapped (`coverLetter`, `llmPrompt`, `__translation__`, `enableSourceDataDownload`, `meta`, `$schema`). The two functions have **different defaults** — check which you need.
+
+Note that `convertToToggleableObject` **deletes** the ignored keys rather than passing them through, so every caller has to re-attach them _after_ the conversion — passing them in and expecting them to survive is a bug that has been written more than once. `coverLetter` and `llmPrompt` are built by `generateCoverLetterObject` / `generateLlmPromptObject` (shape `{ enabled, value: { text } }`) and, because they skip the conversion, nothing applies their `enabled` flag automatically — read them through `resolveToggleableText()` on every render and download path, or a disabled entry will still show up.
 
 ⚠️ Both functions **mutate their argument in place** (there are `TODO`s about this). Callers pass `cloneDeep(...)`. Preserve that, or you will corrupt the store.
 

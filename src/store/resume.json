@@ -1,5 +1,6 @@
 {
     "coverLetter": "",
+    "llmPrompt": "",
     "basics": {
         "location": {},
         "profiles": []
