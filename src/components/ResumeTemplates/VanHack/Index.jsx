@@ -25,24 +25,38 @@ import Download from './Sections/Download';
 import { isObjectNotEmpty } from '../../../utils/utils';
 
 const useStyles = makeStyles((theme) => ({
-    resumeDefaultTemplate: {
+    resumeVanHackTemplate: {
         padding: '40px',
-        '& h3': { margin: '0' },
+        fontSize: '0.95rem',
+        lineHeight: '1.45',
         color: theme.palette.text.primary,
-        '& a': {
-            color: '#8da4f7',
-        },
-        '& a:visited': {
-            color: '#48578a',
-        },
+        '& h3': { margin: '0' },
         '& p': {
             margin: 0,
             marginBlockStart: 0,
             marginBlockEnd: 0,
         },
+        // the template is print-first, so links carry no colour of their own
+        '& a': {
+            color: 'inherit',
+            textDecoration: 'none',
+            '&:hover': {
+                textDecoration: 'underline',
+            },
+        },
         '@media print': {
             padding: 0,
         },
+    },
+    topRule: {
+        borderTop: `1px solid ${theme.palette.type === 'dark' ? '#5a5a5a' : '#bdbdbd'}`,
+        marginBottom: '26px',
+    },
+    llmPromptText: {
+        userSelect: 'none',
+        opacity: 0.1,
+        float: 'left',
+        color: theme.palette.type === 'dark' ? '#424242' : '#ffffff',
     },
 }));
 
@@ -67,6 +81,7 @@ const VanHack = ({
         certificates,
         // custom attributes
         coverLetter,
+        llmPrompt,
         enableSourceDataDownload = false,
     },
 }) => {
@@ -95,25 +110,61 @@ const VanHack = ({
         return newIntl;
     }, [customTranslations, intl.defaultLocale, intl.locale]);
 
+    const showCoverLetterPageBreak = useMemo(
+        () =>
+            isObjectNotEmpty(basics) &&
+            work?.length > 0 &&
+            skills?.length > 0 &&
+            education?.length > 0 &&
+            awards?.length > 0 &&
+            volunteer?.length > 0 &&
+            publications?.length > 0 &&
+            languages?.length > 0 &&
+            interests?.length > 0 &&
+            references?.length > 0 &&
+            projects?.length > 0 &&
+            certificates?.length > 0,
+        [
+            basics,
+            work,
+            skills,
+            education,
+            awards,
+            volunteer,
+            publications,
+            languages,
+            interests,
+            references,
+            projects,
+            certificates,
+        ]
+    );
+
     return (
         <RawIntlProvider value={templateIntl}>
-            <div className={classes.resumeDefaultTemplate}>
+            <div className={classes.resumeVanHackTemplate}>
                 {coverLetter && (
-                    <CoverLetter coverLetterText={coverLetter} coverLetterVariables={coverLetterVariables} />
+                    <CoverLetter
+                        showPageBreak={showCoverLetterPageBreak}
+                        coverLetterText={coverLetter}
+                        coverLetterVariables={coverLetterVariables}
+                    />
                 )}
                 {enableSourceDataDownload && <Download jsonResume={jsonResume} />}
+                <div className={classes.topRule} />
                 {isObjectNotEmpty(basics) && <Basics basics={basics} />}
-                {skills?.length > 0 && <Skills skills={skills} />}
                 {work?.length > 0 && <Work work={work} />}
+                {projects?.length > 0 && <Projects projects={projects} />}
                 {education?.length > 0 && <Education education={education} />}
                 {awards?.length > 0 && <Awards awards={awards} />}
                 {certificates?.length > 0 && <Certificates certificates={certificates} />}
                 {volunteer?.length > 0 && <Volunteer volunteer={volunteer} />}
                 {publications?.length > 0 && <Publications publications={publications} />}
-                {projects?.length > 0 && <Projects projects={projects} />}
+                {skills?.length > 0 && <Skills skills={skills} />}
                 {languages?.length > 0 && <Languages languages={languages} />}
                 {interests?.length > 0 && <Interests interests={interests} />}
                 {references?.length > 0 && <References references={references} />}
+                {llmPrompt && <p className={classes.llmPromptText}>{llmPrompt}</p>}
             </div>
         </RawIntlProvider>
     );

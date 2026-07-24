@@ -43,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
 const importTemplate = (template) => {
     const templates = {
         Default: import('../components/ResumeTemplates/Default/Index'),
+        VanHack: import('../components/ResumeTemplates/VanHack/Index'),
         // Compact: import('../components/ResumeTemplates/Compact/Index'),
-        // VanHack: import('../components/ResumeTemplates/VanHack/Index'),
     };
 
     return lazy(() => {

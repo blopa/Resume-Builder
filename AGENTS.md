@@ -104,7 +104,7 @@ ResumeViewer.jsx ──> fetchGithubResumeJson() ──────────�
 
 Each template is a folder in `src/components/ResumeTemplates/` containing `Index.jsx`, `Sections/`, and `intl/`. Templates receive a **plain** (already converted, already markdown-parsed) `jsonResume` prop.
 
-`gatsby-node.js` reads that directory at build time and generates a `/view/<template>` route per template, minus the `disabledTemplates` array at [gatsby-node.js:6](gatsby-node.js#L6) — currently `['Compact', 'VanHack']`. That same array is injected into the client as the `TEMPLATES_LIST` webpack global. **A new template folder is picked up automatically; an incomplete one must be added to `disabledTemplates`.**
+`gatsby-node.js` reads that directory at build time and generates a `/view/<template>` route per template, minus the `disabledTemplates` array at [gatsby-node.js:6](gatsby-node.js#L6) — currently `['Compact']`. That same array is injected into the client as the `TEMPLATES_LIST` webpack global. **A new template folder is picked up automatically; an incomplete one must be added to `disabledTemplates`.**
 
 ### Markdown & sanitization
 

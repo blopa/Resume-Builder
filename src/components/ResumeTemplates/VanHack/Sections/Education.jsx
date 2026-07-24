@@ -3,52 +3,39 @@ import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
+// Components
+import SectionTitle from './SectionTitle';
+import BulletList from './BulletList';
+
 // Hooks
 import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
     resumeEducation: {
-        padding: '10px 0',
-        borderBottom: '1px solid #ddd',
-    },
-    type: { fontWeight: 'bold' },
-    institution: {},
-    positionDate: {
-        fontStyle: 'italic',
-        fontSize: '0.8rem',
+        padding: '15px 0',
     },
     courses: {
         margin: '0',
         padding: '0',
         listStyle: 'none',
         '& li': {
-            margin: '0 0 10px 0',
+            margin: '0 0 12px 0',
             '&:last-child': {
-                margin: '3px 0 0',
+                margin: '0',
             },
         },
     },
-    coursesDetails: {
-        display: 'flex',
-        '& ul': {
-            margin: '0 0 0 5px',
-            padding: '0',
-            display: 'flex',
-            listStyle: 'none',
-            '& li': {
-                margin: '0 5px 0 0',
-                '&:after': { content: '","' },
-                '&:last-child': { '&:after': { content: '""' } },
-            },
-        },
+    degree: {
+        fontWeight: 'bold',
+    },
+    meta: {
+        color: theme.palette.type === 'dark' ? '#b0b0b0' : '#7d7d7d',
     },
     contentWrapper: {
-        marginLeft: '4px',
+        marginTop: '8px',
+        marginLeft: '10px',
     },
     educationWrapper: {
-        pageBreakInside: 'avoid',
-    },
-    title: {
         pageBreakInside: 'avoid',
     },
 }));
@@ -63,9 +50,9 @@ const Education = ({ education: educations }) => {
     return (
         educations?.length > 0 && (
             <div className={classes.resumeEducation}>
-                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                <SectionTitle ref={sectionTitle} style={titleStyle}>
                     {intl.formatMessage({ id: 'education' })}
-                </h3>
+                </SectionTitle>
                 <div className={classes.contentWrapper}>
                     <ul className={classes.courses}>
                         {educations.map((education) => {
@@ -80,6 +67,13 @@ const Education = ({ education: educations }) => {
                                     };
                                 }
 
+                                const dates = [startDate, endDate].filter(Boolean).join(' - ');
+                                // "B.Sc. in Computer Science" — the connector is locale specific
+                                const degree =
+                                    studyType && area
+                                        ? intl.formatMessage({ id: 'degree_in' }, { studyType, area })
+                                        : studyType || area;
+
                                 return (
                                     <li
                                         className={classes.educationWrapper}
@@ -87,32 +81,17 @@ const Education = ({ education: educations }) => {
                                         // eslint-disable-next-line react/jsx-props-no-spreading
                                         {...refProps}
                                     >
-                                        <p className={classes.type}>
-                                            {area}
-                                            {area && studyType && ', '}
-                                            {studyType}
-                                            {(startDate || endDate) && (
-                                                <span className={classes.positionDate}>
-                                                    {' ('}
-                                                    {startDate}
-                                                    {startDate && endDate && ' - '}
-                                                    {endDate}
-                                                    {')'}
-                                                </span>
-                                            )}
-                                        </p>
-                                        <p className={classes.institution}>
+                                        <p className={classes.degree}>
+                                            {[dates, degree].filter(Boolean).join(' ')}
+                                            {degree && institution && ', '}
                                             {url && institution ? <a href={url}>{institution}</a> : institution}
-                                            {score && `, score: ${score}`}
                                         </p>
-                                        {courses?.length > 0 && (
-                                            <div className={classes.coursesDetails}>
-                                                <p>Courses: </p>
-                                                <ul>
-                                                    {courses?.map((course) => course && <li key={uuid()}>{course}</li>)}
-                                                </ul>
-                                            </div>
+                                        {score && (
+                                            <p className={classes.meta}>
+                                                {`${intl.formatMessage({ id: 'score' })}: ${score}`}
+                                            </p>
                                         )}
+                                        <BulletList items={courses} />
                                     </li>
                                 );
                             }

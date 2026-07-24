@@ -3,47 +3,36 @@ import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
+// Components
+import SectionTitle from './SectionTitle';
+
 // Hooks
 import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
     resumeSkills: {
         pageBreakInside: 'avoid',
-        padding: '10px 0',
-        borderBottom: '1px solid #ddd',
+        padding: '15px 0',
     },
     skills: {
         margin: '0',
         padding: '0',
         listStyle: 'none',
         '& li': {
-            margin: '0 0 10px 0',
+            margin: '0 0 4px 0',
             '&:last-child': {
-                margin: '3px 0 0',
+                margin: '0',
             },
         },
     },
     skillTitle: {
         fontWeight: 'bold',
     },
-    keywords: {
-        flexWrap: 'wrap',
-        listStyle: 'none',
-        paddingLeft: 0,
-        display: 'inline-flex',
-        '& li': {
-            fontStyle: 'italic',
-            margin: '3px 3px 0 0',
-            backgroundColor: theme.palette.type === 'dark' ? '#28407b' : '#dae4f4',
-            borderRadius: '3px',
-            padding: '1px 3px',
-        },
+    level: {
+        color: theme.palette.type === 'dark' ? '#b0b0b0' : '#7d7d7d',
     },
     contentWrapper: {
-        marginLeft: '4px',
-    },
-    title: {
-        pageBreakInside: 'avoid',
+        marginTop: '8px',
     },
 }));
 
@@ -57,9 +46,9 @@ const Skills = ({ skills }) => {
     return (
         skills?.length > 0 && (
             <div className={classes.resumeSkills}>
-                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                <SectionTitle ref={sectionTitle} style={titleStyle}>
                     {intl.formatMessage({ id: 'skills' })}
-                </h3>
+                </SectionTitle>
                 <div className={classes.contentWrapper}>
                     <ul className={classes.skills}>
                         {skills.map((skill) => {
@@ -73,24 +62,21 @@ const Skills = ({ skills }) => {
                                     };
                                 }
 
+                                // an unnamed group renders as the plain comma separated list the design shows
+                                const keywordsText = keywords?.filter(Boolean).join(', ');
+
                                 return (
                                     <li
                                         key={uuid()}
                                         // eslint-disable-next-line react/jsx-props-no-spreading
                                         {...refProps}
                                     >
-                                        {(name || level) && (
-                                            <p className={classes.skillTitle}>
-                                                {name}
-                                                {name && level && ', '}
-                                                {level}
-                                            </p>
-                                        )}
-                                        {keywords?.length > 0 && (
-                                            <ul className={classes.keywords}>
-                                                {keywords?.map((keyword) => keyword && <li key={uuid()}>{keyword}</li>)}
-                                            </ul>
-                                        )}
+                                        <p>
+                                            {name && <span className={classes.skillTitle}>{name}</span>}
+                                            {name && level && <span className={classes.level}>{` (${level})`}</span>}
+                                            {name && keywordsText && ': '}
+                                            {keywordsText}
+                                        </p>
                                     </li>
                                 );
                             }

@@ -3,39 +3,38 @@ import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
+// Components
+import SectionTitle from './SectionTitle';
+
 // Hooks
 import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
     resumePublications: {
-        padding: '10px 0',
-        borderBottom: '1px solid #ddd',
+        padding: '15px 0',
     },
     publications: {
         margin: '0',
         padding: '0',
         listStyle: 'none',
         '& li': {
-            margin: '0 0 10px 0',
+            margin: '0 0 12px 0',
             '&:last-child': {
-                margin: '3px 0 0',
+                margin: '0',
             },
         },
     },
     publication: {
         fontWeight: 'bold',
     },
+    meta: {
+        color: theme.palette.type === 'dark' ? '#b0b0b0' : '#7d7d7d',
+    },
     contentWrapper: {
-        marginLeft: '4px',
+        marginTop: '8px',
+        marginLeft: '10px',
     },
     publicationWrapper: {
-        pageBreakInside: 'avoid',
-    },
-    positionDate: {
-        fontStyle: 'italic',
-        fontSize: '0.8rem',
-    },
-    title: {
         pageBreakInside: 'avoid',
     },
 }));
@@ -50,9 +49,9 @@ const Publications = ({ publications }) => {
     return (
         publications?.length > 0 && (
             <div className={classes.resumePublications}>
-                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                <SectionTitle ref={sectionTitle} style={titleStyle}>
                     {intl.formatMessage({ id: 'publications' })}
-                </h3>
+                </SectionTitle>
                 <div className={classes.contentWrapper}>
                     <ul className={classes.publications}>
                         {publications.map((publication) => {
@@ -66,6 +65,8 @@ const Publications = ({ publications }) => {
                                     };
                                 }
 
+                                const title = [name, publisher].filter(Boolean).join(', ');
+
                                 return (
                                     <li
                                         className={classes.publicationWrapper}
@@ -73,16 +74,23 @@ const Publications = ({ publications }) => {
                                         // eslint-disable-next-line react/jsx-props-no-spreading
                                         {...refProps}
                                     >
-                                        <p className={classes.publication}>
-                                            {name}
-                                            {publisher && name && ` ${intl.formatMessage({ id: 'at' })} `}
-                                            {publisher}
+                                        <p>
+                                            {title &&
+                                                (url ? (
+                                                    <a className={classes.publication} href={url}>
+                                                        {title}
+                                                    </a>
+                                                ) : (
+                                                    <span className={classes.publication}>{title}</span>
+                                                ))}
                                             {releaseDate && (
-                                                <span className={classes.positionDate}>{` (${releaseDate})`}</span>
+                                                <span className={classes.meta}>
+                                                    {title && ' - '}
+                                                    {releaseDate}
+                                                </span>
                                             )}
                                         </p>
-                                        {url && <a href={url}>{url}</a>}
-                                        {summary && <p>{summary}</p>}
+                                        {summary && <div dangerouslySetInnerHTML={{ __html: summary }} />}
                                     </li>
                                 );
                             }

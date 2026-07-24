@@ -1,0 +1,17 @@
+{
+    "awards": "Награды",
+    "volunteers": "Волонтеры",
+    "skills": "Технические навыки",
+    "references": "Рекомендации",
+    "publications": "Публикации",
+    "certificates": "Сертификаты",
+    "projects": "Личные проекты",
+    "languages": "Языки",
+    "interests": "Интересы",
+    "education": "Образование",
+    "summary": "Резюме",
+    "experience": "Опыт работы",
+    "degree_in": "{studyType} по специальности {area}",
+    "score": "Оценка",
+    "download_data": "Скачать данные JSON для этого резюме, нажав <a>здесь</a>"
+}

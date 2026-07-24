@@ -1,33 +1,24 @@
-import { useRef } from 'react';
+import { Fragment, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
+
+// Components
+import SectionTitle from './SectionTitle';
 
 // Hooks
 import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
     resumeLanguages: {
-        padding: '10px 0',
-        borderBottom: '1px solid #ddd',
+        pageBreakInside: 'avoid',
+        padding: '15px 0',
     },
-    languages: {
-        margin: '0',
-        '& li': {
-            margin: '0 0 10px 0',
-            '&:last-child': {
-                margin: '3px 0 0',
-            },
-        },
+    fluency: {
+        color: theme.palette.type === 'dark' ? '#b0b0b0' : '#7d7d7d',
     },
     contentWrapper: {
-        marginLeft: '4px',
-    },
-    languageWrapper: {
-        pageBreakInside: 'avoid',
-    },
-    title: {
-        pageBreakInside: 'avoid',
+        marginTop: '8px',
     },
 }));
 
@@ -38,44 +29,25 @@ const Languages = ({ languages }) => {
     const sectionTitle = useRef(null);
     const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
+    const spokenLanguages = languages?.filter((lang) => lang?.language || lang?.fluency) || [];
+
     return (
-        languages?.length > 0 && (
+        spokenLanguages.length > 0 && (
             <div className={classes.resumeLanguages}>
-                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                <SectionTitle ref={sectionTitle} style={titleStyle}>
                     {intl.formatMessage({ id: 'languages' })}
-                </h3>
+                </SectionTitle>
                 <div className={classes.contentWrapper}>
-                    <ul className={classes.languages}>
-                        {languages.map((lang) => {
-                            if (lang) {
-                                const { language, fluency } = lang || {};
-
-                                let refProps = {};
-                                if (!firstItem.current) {
-                                    refProps = {
-                                        ref: firstItem,
-                                    };
-                                }
-
-                                return (
-                                    <li
-                                        className={classes.languageWrapper}
-                                        key={uuid()}
-                                        // eslint-disable-next-line react/jsx-props-no-spreading
-                                        {...refProps}
-                                    >
-                                        <p>
-                                            {language}
-                                            {language && fluency && ', '}
-                                            {fluency}
-                                        </p>
-                                    </li>
-                                );
-                            }
-
-                            return null;
-                        })}
-                    </ul>
+                    {/* the design keeps every language on a single comma separated line */}
+                    <p ref={firstItem}>
+                        {spokenLanguages.map(({ language, fluency }, index) => (
+                            <Fragment key={uuid()}>
+                                {index > 0 && ', '}
+                                {language}
+                                {fluency && <span className={classes.fluency}>{` (${fluency})`}</span>}
+                            </Fragment>
+                        ))}
+                    </p>
                 </div>
             </div>
         )

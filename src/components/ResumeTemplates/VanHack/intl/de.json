@@ -1,0 +1,17 @@
+{
+    "awards": "Auszeichnungen",
+    "volunteers": "Freiwillige",
+    "skills": "Technische Fähigkeiten",
+    "references": "Referenzen",
+    "publications": "Veröffentlichungen",
+    "certificates": "Zertifikate",
+    "projects": "Nebenprojekte",
+    "languages": "Sprachen",
+    "interests": "Interessen",
+    "education": "Bildung",
+    "summary": "Zusammenfassung",
+    "experience": "Berufserfahrung",
+    "degree_in": "{studyType} in {area}",
+    "score": "Note",
+    "download_data": "Laden Sie die JSON-Daten für diesen Lebenslauf herunter, indem Sie <a>hier</a> klicken"
+}

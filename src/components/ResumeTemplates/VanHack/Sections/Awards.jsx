@@ -3,37 +3,38 @@ import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
+// Components
+import SectionTitle from './SectionTitle';
+
 // Hooks
 import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
     resumeAwards: {
-        padding: '10px 0',
-        borderBottom: '1px solid #ddd',
+        padding: '15px 0',
     },
-    award: { fontWeight: 'bold' },
     awards: {
         margin: '0',
         padding: '0',
         listStyle: 'none',
         '& li': {
-            margin: '0 0 10px 0',
+            margin: '0 0 12px 0',
             '&:last-child': {
-                margin: '3px 0 0',
+                margin: '0',
             },
         },
     },
+    award: {
+        fontWeight: 'bold',
+    },
+    meta: {
+        color: theme.palette.type === 'dark' ? '#b0b0b0' : '#7d7d7d',
+    },
     contentWrapper: {
-        marginLeft: '4px',
+        marginTop: '8px',
+        marginLeft: '10px',
     },
     awardWrapper: {
-        pageBreakInside: 'avoid',
-    },
-    positionDate: {
-        fontStyle: 'italic',
-        fontSize: '0.8rem',
-    },
-    title: {
         pageBreakInside: 'avoid',
     },
 }));
@@ -48,9 +49,9 @@ const Awards = ({ awards }) => {
     return (
         awards?.length > 0 && (
             <div className={classes.resumeAwards}>
-                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                <SectionTitle ref={sectionTitle} style={titleStyle}>
                     {intl.formatMessage({ id: 'awards' })}
-                </h3>
+                </SectionTitle>
                 <div className={classes.contentWrapper}>
                     <ul className={classes.awards}>
                         {awards.map((award) => {
@@ -64,6 +65,8 @@ const Awards = ({ awards }) => {
                                     };
                                 }
 
+                                const meta = [date, awarder].filter(Boolean).join(' - ');
+
                                 return (
                                     <li
                                         className={classes.awardWrapper}
@@ -71,12 +74,16 @@ const Awards = ({ awards }) => {
                                         // eslint-disable-next-line react/jsx-props-no-spreading
                                         {...refProps}
                                     >
-                                        <p className={classes.award}>
-                                            {title}
-                                            {date && <span className={classes.positionDate}>{` (${date})`}</span>}
+                                        <p>
+                                            {title && <span className={classes.award}>{title}</span>}
+                                            {meta && (
+                                                <span className={classes.meta}>
+                                                    {title && ' - '}
+                                                    {meta}
+                                                </span>
+                                            )}
                                         </p>
-                                        <p>{awarder}</p>
-                                        <p>{summary}</p>
+                                        {summary && <div dangerouslySetInnerHTML={{ __html: summary }} />}
                                     </li>
                                 );
                             }

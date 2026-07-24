@@ -3,37 +3,38 @@ import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
+// Components
+import SectionTitle from './SectionTitle';
+
 // Hooks
 import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
     resumeCertificates: {
-        padding: '10px 0',
-        borderBottom: '1px solid #ddd',
+        padding: '15px 0',
     },
-    award: { fontWeight: 'bold' },
     certificates: {
         margin: '0',
         padding: '0',
         listStyle: 'none',
         '& li': {
-            margin: '0 0 10px 0',
+            margin: '0 0 12px 0',
             '&:last-child': {
-                margin: '3px 0 0',
+                margin: '0',
             },
         },
     },
+    certificate: {
+        fontWeight: 'bold',
+    },
+    meta: {
+        color: theme.palette.type === 'dark' ? '#b0b0b0' : '#7d7d7d',
+    },
     contentWrapper: {
-        marginLeft: '4px',
+        marginTop: '8px',
+        marginLeft: '10px',
     },
-    awardWrapper: {
-        pageBreakInside: 'avoid',
-    },
-    positionDate: {
-        fontStyle: 'italic',
-        fontSize: '0.8rem',
-    },
-    title: {
+    certificateWrapper: {
         pageBreakInside: 'avoid',
     },
 }));
@@ -48,14 +49,14 @@ const Certificates = ({ certificates }) => {
     return (
         certificates?.length > 0 && (
             <div className={classes.resumeCertificates}>
-                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                <SectionTitle ref={sectionTitle} style={titleStyle}>
                     {intl.formatMessage({ id: 'certificates' })}
-                </h3>
+                </SectionTitle>
                 <div className={classes.contentWrapper}>
                     <ul className={classes.certificates}>
-                        {certificates.map((award) => {
-                            if (award) {
-                                const { name, date, url, issuer } = award || {};
+                        {certificates.map((certificate) => {
+                            if (certificate) {
+                                const { name, date, url, issuer } = certificate || {};
 
                                 let refProps = {};
                                 if (!firstItem.current) {
@@ -64,19 +65,31 @@ const Certificates = ({ certificates }) => {
                                     };
                                 }
 
+                                const meta = [date, issuer].filter(Boolean).join(' - ');
+
                                 return (
                                     <li
-                                        className={classes.awardWrapper}
+                                        className={classes.certificateWrapper}
                                         key={uuid()}
                                         // eslint-disable-next-line react/jsx-props-no-spreading
                                         {...refProps}
                                     >
-                                        <p className={classes.award}>
-                                            {name}
-                                            {date && <span className={classes.positionDate}>{` (${date})`}</span>}
+                                        <p>
+                                            {name &&
+                                                (url ? (
+                                                    <a className={classes.certificate} href={url}>
+                                                        {name}
+                                                    </a>
+                                                ) : (
+                                                    <span className={classes.certificate}>{name}</span>
+                                                ))}
+                                            {meta && (
+                                                <span className={classes.meta}>
+                                                    {name && ' - '}
+                                                    {meta}
+                                                </span>
+                                            )}
                                         </p>
-                                        {url && <a href={url}>{url}</a>}
-                                        <p>{issuer}</p>
                                     </li>
                                 );
                             }

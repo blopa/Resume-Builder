@@ -3,7 +3,7 @@ const { promises: fs } = require('fs');
 const packageJson = require('./package.json');
 
 const TEMPLATES_PATH = path.resolve(__dirname, 'src/components/ResumeTemplates');
-const disabledTemplates = ['Compact', 'VanHack'];
+const disabledTemplates = ['Compact'];
 const ignoredPages = ['/Home/'];
 const { convertToKebabCase } = require('./src/utils/gatsby-node-helpers');
 

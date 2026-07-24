@@ -3,49 +3,33 @@ import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
+// Components
+import SectionTitle from './SectionTitle';
+
 // Hooks
 import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
 
 const useStyles = makeStyles((theme) => ({
     resumeInterests: {
-        padding: '10px 0',
-        borderBottom: '1px solid #ddd',
+        pageBreakInside: 'avoid',
+        padding: '15px 0',
     },
     interests: {
         margin: '0',
         padding: '0',
         listStyle: 'none',
         '& li': {
-            margin: '0 0 10px 0',
+            margin: '0 0 4px 0',
             '&:last-child': {
-                margin: '3px 0 0',
+                margin: '0',
             },
         },
     },
     interest: {
         fontWeight: 'bold',
     },
-    keywords: {
-        flexWrap: 'wrap',
-        listStyle: 'none',
-        paddingLeft: 0,
-        display: 'inline-flex',
-        '& li': {
-            fontStyle: 'italic',
-            margin: '3px 3px 0 0',
-            backgroundColor: theme.palette.type === 'dark' ? '#28407b' : '#dae4f4',
-            borderRadius: '3px',
-            padding: '1px 3px',
-        },
-    },
     contentWrapper: {
-        marginLeft: '4px',
-    },
-    interestWrapper: {
-        pageBreakInside: 'avoid',
-    },
-    title: {
-        pageBreakInside: 'avoid',
+        marginTop: '8px',
     },
 }));
 
@@ -59,9 +43,9 @@ const Interests = ({ interests }) => {
     return (
         interests?.length > 0 && (
             <div className={classes.resumeInterests}>
-                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                <SectionTitle ref={sectionTitle} style={titleStyle}>
                     {intl.formatMessage({ id: 'interests' })}
-                </h3>
+                </SectionTitle>
                 <div className={classes.contentWrapper}>
                     <ul className={classes.interests}>
                         {interests.map((interest) => {
@@ -75,19 +59,19 @@ const Interests = ({ interests }) => {
                                     };
                                 }
 
+                                const keywordsText = keywords?.filter(Boolean).join(', ');
+
                                 return (
                                     <li
-                                        className={classes.interestWrapper}
                                         key={uuid()}
                                         // eslint-disable-next-line react/jsx-props-no-spreading
                                         {...refProps}
                                     >
-                                        {name && <p className={classes.interest}>{name}</p>}
-                                        {keywords?.length > 0 && (
-                                            <ul className={classes.keywords}>
-                                                {keywords?.map((keyword) => keyword && <li key={uuid()}>{keyword}</li>)}
-                                            </ul>
-                                        )}
+                                        <p>
+                                            {name && <span className={classes.interest}>{name}</span>}
+                                            {name && keywordsText && ': '}
+                                            {keywordsText}
+                                        </p>
                                     </li>
                                 );
                             }
