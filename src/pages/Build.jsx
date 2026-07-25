@@ -192,6 +192,7 @@ const BuildPage = ({ params, uri, location }) => {
             certificates: convertFormikToJsonArray(formik.values, 'certificates-', arrayKeys),
             coverLetter: formik.values['coverLetter-0'] || '',
             llmPrompt: formik.values['llmPrompt-0'] || '',
+            careerStory: formik.values['careerStory-0'] || '',
         };
     }, [formik.values]);
 
@@ -226,7 +227,7 @@ const BuildPage = ({ params, uri, location }) => {
                         schema={splittedSchema[index]}
                         formik={formik}
                         definitions={schema.definitions}
-                        textAreaNames={['summary', 'description', 'coverLetter', 'llmPrompt']}
+                        textAreaNames={['summary', 'description', 'coverLetter', 'llmPrompt', 'careerStory']}
                     />
                 </div>
             </Slide>

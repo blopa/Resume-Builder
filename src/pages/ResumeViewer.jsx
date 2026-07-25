@@ -16,6 +16,7 @@ import {
     convertToToggleableObject,
     convertToRegularObject,
     generateLlmPromptObject,
+    omitInternalResumeFields,
     resolveToggleableText,
 } from '../utils/utils';
 
@@ -101,12 +102,12 @@ const ResumeViewer = ({ params, uri }) => {
                     customTranslations={toggleableObject.__translation__}
                     isPrinting={isPrinting}
                     // TODO maybe just send the JSON directly
-                    jsonResume={{
+                    jsonResume={omitInternalResumeFields({
                         ...baseResume,
                         ...convertToRegularObject(cloneDeep(toggleableObject)),
                         coverLetter: '',
                         llmPrompt: resolveToggleableText(toggleableObject.llmPrompt),
-                    }}
+                    })}
                     coverLetterVariables={toggleableObject.coverLetter?.value?.variables || []}
                 />,
             ]);

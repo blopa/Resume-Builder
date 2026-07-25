@@ -26,6 +26,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const translationsCategory = '__translation__';
     const coverLetterCategory = 'cover_letter';
     const llmPromptCategory = 'llm_prompt';
+    const careerStoryCategory = 'career_story';
     const enableSourceDataDownloadCategory = 'enable_download';
 
     /*
@@ -70,6 +71,10 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
     const translations = {};
     let coverLetter = '';
     let llmPrompt = '';
+    let careerStory = {
+        enabled: false,
+        value: '',
+    };
     let enableSourceDataDownload = false;
 
     jsonSpreadsheet.forEach((value) => {
@@ -82,6 +87,11 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
             coverLetter = generateCoverLetterObject(value[contentAttr] || '');
         } else if (category === llmPromptCategory) {
             llmPrompt = generateLlmPromptObject(value[contentAttr] || '');
+        } else if (category === careerStoryCategory) {
+            careerStory = {
+                enabled,
+                value: value[contentAttr] || '',
+            };
         } else if (category === translationsCategory) {
             translations[value[typeAttr]] = value[contentAttr];
         } else if (category === basicsCategory) {
@@ -493,6 +503,7 @@ export default function spreadsheetToJsonResume(jsonSpreadsheet) {
         __translation__: translations,
         coverLetter,
         llmPrompt,
+        careerStory,
         enableSourceDataDownload,
     };
 }

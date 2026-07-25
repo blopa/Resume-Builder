@@ -6,6 +6,10 @@
             "variables": []
         }
     },
+    "careerStory": {
+        "enabled": false,
+        "value": ""
+    },
     "basics": {
         "enabled": false,
         "value": {

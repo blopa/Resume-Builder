@@ -154,3 +154,10 @@ export const resolveToggleableText = (toggleable) => (toggleable?.enabled && tog
 
 // Only show a drawer toggle for custom attributes that actually carry text.
 export const hasToggleableText = (toggleable) => isObjectNotEmpty(toggleable) && Boolean(toggleable?.value?.text);
+
+// Internal fields remain available for editing and JSON downloads, but must never reach a resume template.
+export const omitInternalResumeFields = (resume) => {
+    const renderableResume = { ...resume };
+    delete renderableResume.careerStory;
+    return renderableResume;
+};

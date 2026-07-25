@@ -151,7 +151,7 @@ const DynamicForm = ({ schema, formik, definitions, textAreaNames = [], quantiti
                                     const newKey = `${newAccKey}-${i}`;
                                     const isTextArea = textAreaNames.includes(key);
                                     let lines = 4;
-                                    if (key === 'coverLetter') {
+                                    if (['coverLetter', 'careerStory'].includes(key)) {
                                         lines = 15;
                                     }
 

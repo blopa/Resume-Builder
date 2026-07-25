@@ -21,7 +21,12 @@ import FloatingButton from '../components/FloatingButton';
 import { useSelector } from '../store/StoreProvider';
 
 // Utils
-import { convertToRegularObject, isObjectNotEmpty, resolveToggleableText } from '../utils/utils';
+import {
+    convertToRegularObject,
+    isObjectNotEmpty,
+    omitInternalResumeFields,
+    resolveToggleableText,
+} from '../utils/utils';
 
 // Selectors
 import { selectResumeTemplate, selectToggleableJsonResume } from '../store/selectors';
@@ -98,7 +103,7 @@ const ResumePage = () => {
     useEffect(() => {
         async function loadTemplate() {
             const Template = await importTemplate(resumeTemplateName);
-            const jsonResume = {
+            const jsonResume = omitInternalResumeFields({
                 ...baseResume,
                 ...convertToRegularObject(cloneDeep(toggleableJsonResume)),
                 enableSourceDataDownload: toggleableJsonResume.enableSourceDataDownload,
@@ -106,7 +111,7 @@ const ResumePage = () => {
                 llmPrompt: resolveToggleableText(toggleableJsonResume.llmPrompt),
                 // eslint-disable-next-line no-underscore-dangle
                 __translation__: cloneDeep(toggleableJsonResume.__translation__),
-            };
+            });
 
             // Create a new object with parsed markdown content
             const parsedJsonResume = parseMarkdown(jsonResume);

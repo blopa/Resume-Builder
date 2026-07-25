@@ -92,7 +92,9 @@ Every row has four columns:
 | `CONTENT` | The value. Use `;` to separate list items (e.g. multiple highlights or keywords). |
 | `DISABLED` | Set to hide the row from the generated resume. Disabled data can still be re-enabled from the app sidebar. |
 
-Supported categories: `basics`, `basics_location`, `basics_profiles`, `work`, `volunteer`, `education`, `awards`, `publications`, `skills`, `languages`, `interests`, `references`, `__translation__`.
+Supported categories: `basics`, `basics_location`, `basics_profiles`, `work`, `volunteer`, `education`, `awards`, `publications`, `skills`, `languages`, `interests`, `references`, `career_story`, `__translation__`.
+
+Use a `career_story` row for a private, full-length career narrative. Put the story in `CONTENT`; `TYPE` is ignored. The field is retained in JSON downloads but is never rendered on the resume.
 
 ### Common fields
 
@@ -115,6 +117,7 @@ This project follows [jsonresume/resume-schema](https://github.com/jsonresume/re
 | `work[].keywords` | Keywords/tech stack for a work entry, rendered as chips. |
 | `enableSourceDataDownload` | Shows a link to download the resume's source JSON. |
 | `llmPrompt` | An easter-egg line of text aimed at any LLM that might parse your resume. |
+| `careerStory` | A private, full-length career narrative retained in the data source but never rendered on the resume. |
 
 ## Build Your Resume from Scratch
 
@@ -187,6 +190,7 @@ This JSON was generated from [this Google Spreadsheet](https://docs.google.com/s
 {
   "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
   "coverLetter": "Dear Hiring Manager,\n\nI am excited to apply for the **Software Engineer** position at {{company}}. I believe my experience in _web development_ and {{variable}} makes me a strong candidate. Please visit my [GitHub profile](https://github.com/richard-hendriks) for more details.\n\nSincerely,\n\n**Richard Hendriks**",
+  "careerStory": "",
   "basics": {
     "name": "Richard Hendriks",
     "label": "Programmer",

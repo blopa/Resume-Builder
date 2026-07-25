@@ -493,6 +493,10 @@
             "type": "string",
             "description": "A prompt for the LLM that might parse your resume"
         },
+        "careerStory": {
+            "type": "string",
+            "description": "A private, full-length narrative of your career for internal use only"
+        },
         "meta": {
             "type": "object",
             "description": "The schema version and any other tooling configuration lives here",
