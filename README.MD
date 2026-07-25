@@ -519,11 +519,12 @@ A: Thank you! You can [contribute code](#contributing), open pull requests, or d
 
 ## Release Notes
 
+- **v4.2.1**
+  - Fix the LLM prompt having no sidebar toggle, so it always ended up in the printed resume.
+  - Fix the cover letter and LLM prompt still being included in the downloaded JSON after being toggled off.
 - **v4.2.0**
   - Bump NPM package versions.
   - Fix issue when parsing LLM prompt.
-  - Fix the LLM prompt having no sidebar toggle, so it always ended up in the printed resume.
-  - Fix the cover letter and LLM prompt still being included in the downloaded JSON after being toggled off.
   - Add French, German, Japanese, and Russian translations ([thanks](https://github.com/blopa/Resume-Builder/pull/50) and [thanks](https://github.com/blopa/Resume-Builder/pull/86)).
 - **v4.1.0**
   - Bump NPM package versions.
