@@ -1,60 +1,48 @@
-import { useRef } from 'react';
-import { v4 as uuid } from 'uuid';
+import { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
+// Components
+import SectionTitle from './SectionTitle';
+import BulletList from './BulletList';
+
 // Hooks
-import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
+import useAntiPageBreakSection from '../../../hooks/useAntiPageBreakSection';
 
 const useStyles = makeStyles((theme) => ({
     resumeProjects: {
-        padding: '10px 0',
-        borderBottom: '1px solid #ddd',
+        padding: '15px 0',
     },
     projects: {
         margin: '0',
         padding: '0',
         listStyle: 'none',
         '& li': {
-            margin: '0 0 10px 0',
+            margin: '0 0 12px 0',
             '&:last-child': {
-                margin: '3px 0 0',
+                margin: '0',
             },
+        },
+    },
+    // the project name and its description share a single line: "Speakasso: web-based generative art"
+    projectHeader: {
+        '& p': {
+            display: 'inline',
+            margin: '0',
         },
     },
     project: {
         fontWeight: 'bold',
+        textDecoration: 'underline',
     },
-    highlights: {
-        '& li': {
-            marginBottom: '1px',
-            fontStyle: 'italic',
-        },
-    },
-    keywords: {
-        flexWrap: 'wrap',
-        listStyle: 'none',
-        paddingLeft: 0,
-        display: 'inline-flex',
-        '& li': {
-            fontStyle: 'italic',
-            margin: '3px 3px 0 0',
-            backgroundColor: theme.palette.type === 'dark' ? '#28407b' : '#dae4f4',
-            borderRadius: '3px',
-            padding: '1px 3px',
-        },
+    meta: {
+        color: theme.palette.type === 'dark' ? '#b0b0b0' : '#7d7d7d',
     },
     contentWrapper: {
-        marginLeft: '4px',
+        marginTop: '8px',
+        marginLeft: '10px',
     },
     projectWrapper: {
-        pageBreakInside: 'avoid',
-    },
-    positionDate: {
-        fontStyle: 'italic',
-        fontSize: '0.8rem',
-    },
-    title: {
         pageBreakInside: 'avoid',
     },
 }));
@@ -62,19 +50,17 @@ const useStyles = makeStyles((theme) => ({
 const Projects = ({ projects }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const firstItem = useRef(null);
-    const sectionTitle = useRef(null);
-    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
+    const { titleRef, titleStyle, firstItemProps } = useAntiPageBreakSection();
 
     return (
         projects?.length > 0 && (
             <div className={classes.resumeProjects}>
-                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                <SectionTitle ref={titleRef} style={titleStyle}>
                     {intl.formatMessage({ id: 'projects' })}
-                </h3>
+                </SectionTitle>
                 <div className={classes.contentWrapper}>
                     <ul className={classes.projects}>
-                        {projects.map((project) => {
+                        {projects.map((project, index) => {
                             if (project) {
                                 const {
                                     name,
@@ -89,47 +75,44 @@ const Projects = ({ projects }) => {
                                     type,
                                 } = project || {};
 
-                                let refProps = {};
-                                if (!firstItem.current) {
-                                    refProps = {
-                                        ref: firstItem,
-                                    };
-                                }
+                                const dates = [startDate, endDate].filter(Boolean).join(' - ');
+                                const meta = [type, entity, roles?.filter(Boolean).join(', ')]
+                                    .filter(Boolean)
+                                    .join(' - ');
 
                                 return (
                                     <li
                                         className={classes.projectWrapper}
-                                        key={uuid()}
+                                        key={index}
                                         // eslint-disable-next-line react/jsx-props-no-spreading
-                                        {...refProps}
+                                        {...firstItemProps()}
                                     >
-                                        <p className={classes.project}>
-                                            {name}
-                                            {(startDate || endDate) && (
-                                                <span className={classes.positionDate}>
-                                                    {' ('}
-                                                    {startDate}
-                                                    {startDate && endDate && ' - '}
-                                                    {endDate}
-                                                    {')'}
+                                        <div className={classes.projectHeader}>
+                                            {name &&
+                                                (url ? (
+                                                    <a className={classes.project} href={url}>
+                                                        {name}
+                                                    </a>
+                                                ) : (
+                                                    <span className={classes.project}>{name}</span>
+                                                ))}
+                                            {dates && (
+                                                <span className={classes.meta}>
+                                                    {name && ' - '}
+                                                    {dates}
                                                 </span>
                                             )}
-                                        </p>
-                                        {type && <p>{type}</p>}
-                                        {entity && <p>{entity}</p>}
-                                        {url && <a href={url}>{url}</a>}
-                                        {description && <p>{description}</p>}
-                                        {highlights?.length > 0 && (
-                                            <ul className={classes.highlights}>
-                                                {highlights?.map(
-                                                    (highlight) => highlight && <li key={uuid()}>{highlight}</li>
-                                                )}
-                                            </ul>
-                                        )}
+                                            {description && (
+                                                <Fragment>
+                                                    {name && ': '}
+                                                    <span dangerouslySetInnerHTML={{ __html: description }} />
+                                                </Fragment>
+                                            )}
+                                        </div>
+                                        {meta && <p className={classes.meta}>{meta}</p>}
+                                        <BulletList items={highlights} />
                                         {keywords?.length > 0 && (
-                                            <ul className={classes.keywords}>
-                                                {keywords?.map((keyword) => keyword && <li key={uuid()}>{keyword}</li>)}
-                                            </ul>
+                                            <p className={classes.meta}>{keywords.filter(Boolean).join(', ')}</p>
                                         )}
                                     </li>
                                 );

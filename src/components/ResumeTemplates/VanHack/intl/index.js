@@ -1,37 +1,11 @@
-import { createIntl, createIntlCache } from 'gatsby-plugin-react-intl';
+import buildTemplateIntls from '../../../ResumeTemplateShell/buildTemplateIntls';
 
-// local translations
-import localEn from './en.json';
-import localPtBr from './pt-br.json';
-import localEs from './es.json';
+import en from './en.json';
+import ptBr from './pt-br.json';
+import es from './es.json';
+import ja from './ja.json';
+import de from './de.json';
+import ru from './ru.json';
+import fr from './fr.json';
 
-// global translations
-import globalEn from '../../../../intl/en.json';
-import globalPtBr from '../../../../intl/pt-br.json';
-import globalEs from '../../../../intl/es.json';
-
-const translations = [
-    {
-        locale: 'en',
-        messages: {
-            ...globalEn,
-            ...localEn,
-        },
-    },
-    {
-        locale: 'pt-br',
-        messages: {
-            ...globalPtBr,
-            ...localPtBr,
-        },
-    },
-    {
-        locale: 'es',
-        messages: {
-            ...globalEs,
-            ...localEs,
-        },
-    },
-];
-
-export default translations.map((translation) => createIntl(translation, createIntlCache()));
+export default buildTemplateIntls({ en, 'pt-br': ptBr, es, ja, de, ru, fr });

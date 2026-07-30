@@ -18,7 +18,12 @@ import { useDispatch } from '../store/StoreProvider';
 
 // Utils
 import { downloadJson } from '../utils/json-parser';
-import { convertToToggleableObject, generateCoverLetterObject } from '../utils/utils';
+import { convertToToggleableObject, generateCoverLetterObject, generateLlmPromptObject } from '../utils/utils';
+import {
+    RESUME_BUILDER_EXTENSION_KEY,
+    getResumeBuilderExtensions,
+    withResumeBuilderExtensions,
+} from '../utils/resume-builder-extensions';
 
 // Actions
 import setToggleableJsonResume from '../store/actions/setToggleableJsonResume';
@@ -75,7 +80,7 @@ const BuildPage = ({ params, uri, location }) => {
 
     const splittedSchema = useMemo(() => {
         const schemaArray = [];
-        const propertiesToSkip = ['$schema', 'meta'];
+        const propertiesToSkip = ['$schema', 'meta', RESUME_BUILDER_EXTENSION_KEY];
         Object.entries(schema.properties).forEach(([key, value]) => {
             if (propertiesToSkip.includes(key)) {
                 return;
@@ -83,6 +88,13 @@ const BuildPage = ({ params, uri, location }) => {
 
             schemaArray.push({
                 [key]: value,
+            });
+        });
+
+        const extensionProperties = schema.properties[RESUME_BUILDER_EXTENSION_KEY].properties;
+        ['coverLetter', 'llmPrompt', 'careerStory'].forEach((key) => {
+            schemaArray.push({
+                [key]: extensionProperties[key],
             });
         });
 
@@ -192,12 +204,13 @@ const BuildPage = ({ params, uri, location }) => {
             certificates: convertFormikToJsonArray(formik.values, 'certificates-', arrayKeys),
             coverLetter: formik.values['coverLetter-0'] || '',
             llmPrompt: formik.values['llmPrompt-0'] || '',
+            careerStory: formik.values['careerStory-0'] || '',
         };
     }, [formik.values]);
 
     const handleClickDownload = useCallback(() => {
         const resume = getResumeJsonFromFormik();
-        downloadJson(resume);
+        downloadJson(withResumeBuilderExtensions(resume, getResumeBuilderExtensions(resume)));
     }, [getResumeJsonFromFormik]);
 
     const setResumesAndForward = useCallback(
@@ -213,6 +226,7 @@ const BuildPage = ({ params, uri, location }) => {
         setResumesAndForward({
             ...convertToToggleableObject(cloneDeep(resume)),
             coverLetter: generateCoverLetterObject(resume.coverLetter),
+            llmPrompt: generateLlmPromptObject(resume.llmPrompt),
         });
     }, [getResumeJsonFromFormik, setResumesAndForward]);
 
@@ -225,7 +239,7 @@ const BuildPage = ({ params, uri, location }) => {
                         schema={splittedSchema[index]}
                         formik={formik}
                         definitions={schema.definitions}
-                        textAreaNames={['summary', 'description', 'coverLetter']}
+                        textAreaNames={['summary', 'description', 'coverLetter', 'llmPrompt', 'careerStory']}
                     />
                 </div>
             </Slide>

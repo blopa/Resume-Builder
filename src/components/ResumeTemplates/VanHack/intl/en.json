@@ -1,16 +1,17 @@
 {
     "awards": "Awards",
     "volunteers": "Volunteers",
-    "skills": "Skills",
+    "skills": "Technical Skills",
     "references": "References",
     "publications": "Publications",
     "certificates": "Certificates",
-    "projects": "Projects",
+    "projects": "Side Projects",
     "languages": "Languages",
     "interests": "Interests",
     "education": "Education",
     "summary": "Summary",
-    "experience": "Experience",
-    "at": "@",
+    "experience": "Work Experience",
+    "degree_in": "{studyType} in {area}",
+    "score": "Score",
     "download_data": "Download the JSON data source for this resume <a>here</a>."
 }

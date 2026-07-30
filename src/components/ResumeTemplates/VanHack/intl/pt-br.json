@@ -1,16 +1,17 @@
 {
     "awards": "Prêmios",
     "volunteers": "Voluntários",
-    "skills": "Habilidades",
+    "skills": "Habilidades Técnicas",
     "references": "Referências",
     "publications": "Publicações",
     "certificates": "Certificados",
-    "projects": "Projetos",
+    "projects": "Projetos Paralelos",
     "languages": "Línguas",
     "interests": "Interesses",
     "education": "Educação",
     "summary": "Sumário",
-    "experience": "Experiência",
-    "at": "@",
+    "experience": "Experiência Profissional",
+    "degree_in": "{studyType} em {area}",
+    "score": "Nota",
     "download_data": "Baixe os dados JSON desse currículo clicando <a>aqui</a>."
 }

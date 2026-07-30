@@ -42,9 +42,7 @@ module.exports = {
     plugins: ['react', 'unused-imports', 'import'],
     rules: {
         'gatsby/use-gatsby-link': 'warn',
-        'import/no-unresolved': [
-            2,
-        ],
+        'import/no-unresolved': [2],
         'jsx-a11y/click-events-have-key-events': 'off',
         'jsx-a11y/label-has-associated-control': ['error', a11yLabelRequiredOptions],
         'jsx-a11y/label-has-for': ['error', a11yLabelRequiredOptions],

@@ -1,44 +1,39 @@
-import { useRef } from 'react';
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
+// Components
+import SectionTitle from './SectionTitle';
+
 // Hooks
-import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
+import useAntiPageBreakSection from '../../../hooks/useAntiPageBreakSection';
 
 const useStyles = makeStyles((theme) => ({
     resumeReferences: {
-        padding: '10px 0',
+        padding: '15px 0',
     },
-    name: { fontWeight: 'bold' },
     references: {
         margin: '0',
         padding: '0',
         listStyle: 'none',
         '& li': {
-            margin: '0 0 10px 0',
+            margin: '0 0 12px 0',
             '&:last-child': {
-                margin: '3px 0 0',
+                margin: '0',
             },
         },
     },
+    name: {
+        fontWeight: 'bold',
+    },
     reference: {
         fontStyle: 'italic',
-        textIndent: '15px',
-        '&:before': {
-            content: '"❝"',
-            fontSize: '25px',
-            margin: '-8px 0 0 -35px',
-            position: 'absolute',
-        },
+        color: theme.palette.type === 'dark' ? '#b0b0b0' : '#7d7d7d',
     },
     contentWrapper: {
-        marginLeft: '4px',
+        marginTop: '8px',
+        marginLeft: '10px',
     },
     referenceWrapper: {
-        pageBreakInside: 'avoid',
-    },
-    title: {
         pageBreakInside: 'avoid',
     },
 }));
@@ -46,38 +41,34 @@ const useStyles = makeStyles((theme) => ({
 const References = ({ references }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const firstItem = useRef(null);
-    const sectionTitle = useRef(null);
-    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
+    const { titleRef, titleStyle, firstItemProps } = useAntiPageBreakSection();
 
     return (
         references?.length > 0 && (
             <div className={classes.resumeReferences}>
-                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
+                <SectionTitle ref={titleRef} style={titleStyle}>
                     {intl.formatMessage({ id: 'references' })}
-                </h3>
+                </SectionTitle>
                 <div className={classes.contentWrapper}>
                     <ul className={classes.references}>
-                        {references.map((ref) => {
+                        {references.map((ref, index) => {
                             if (ref) {
                                 const { name, reference } = ref || {};
-
-                                let refProps = {};
-                                if (!firstItem.current) {
-                                    refProps = {
-                                        ref: firstItem,
-                                    };
-                                }
 
                                 return (
                                     <li
                                         className={classes.referenceWrapper}
-                                        key={uuid()}
+                                        key={index}
                                         // eslint-disable-next-line react/jsx-props-no-spreading
-                                        {...refProps}
+                                        {...firstItemProps()}
                                     >
                                         {name && <p className={classes.name}>{name}</p>}
-                                        {reference && <p className={classes.reference}>{reference}</p>}
+                                        {reference && (
+                                            <div
+                                                className={classes.reference}
+                                                dangerouslySetInnerHTML={{ __html: reference }}
+                                            />
+                                        )}
                                     </li>
                                 );
                             }

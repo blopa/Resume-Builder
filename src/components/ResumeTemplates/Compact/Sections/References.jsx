@@ -1,92 +1,56 @@
-import { useRef } from 'react';
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
-// Hooks
-import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
+// Components
+import Section from './Section';
+
+// Utils
+import { mutedColor } from '../styles';
 
 const useStyles = makeStyles((theme) => ({
-    resumeReferences: {
-        padding: '10px 0',
-    },
-    name: { fontWeight: 'bold' },
-    references: {
-        margin: '0',
-        padding: '0',
-        listStyle: 'none',
-        '& li': {
-            margin: '0 0 10px 0',
-            '&:last-child': {
-                margin: '3px 0 0',
-            },
-        },
-    },
     reference: {
-        fontStyle: 'italic',
-        textIndent: '15px',
-        '&:before': {
-            content: '"❝"',
-            fontSize: '25px',
-            margin: '-8px 0 0 -35px',
-            position: 'absolute',
+        pageBreakInside: 'avoid',
+        margin: '0 0 6px 0',
+        '&:last-child': {
+            margin: '0',
         },
     },
-    contentWrapper: {
-        marginLeft: '4px',
+    name: {
+        fontWeight: 'bold',
     },
-    referenceWrapper: {
-        pageBreakInside: 'avoid',
-    },
-    title: {
-        pageBreakInside: 'avoid',
+    quote: {
+        fontStyle: 'italic',
+        color: mutedColor(theme),
+        '& p': {
+            margin: '0',
+        },
     },
 }));
 
 const References = ({ references }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const firstItem = useRef(null);
-    const sectionTitle = useRef(null);
-    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
 
     return (
         references?.length > 0 && (
-            <div className={classes.resumeReferences}>
-                <h3 ref={sectionTitle} className={classes.title} style={titleStyle}>
-                    {intl.formatMessage({ id: 'references' })}
-                </h3>
-                <div className={classes.contentWrapper}>
-                    <ul className={classes.references}>
-                        {references.map((ref) => {
-                            if (ref) {
-                                const { name, reference } = ref || {};
+            <Section title={intl.formatMessage({ id: 'references' })}>
+                {references.map((ref, index) => {
+                    if (ref) {
+                        const { name, reference } = ref || {};
 
-                                let refProps = {};
-                                if (!firstItem.current) {
-                                    refProps = {
-                                        ref: firstItem,
-                                    };
-                                }
+                        return (
+                            <div className={classes.reference} key={index}>
+                                {name && <p className={classes.name}>{name}</p>}
+                                {reference && (
+                                    <div className={classes.quote} dangerouslySetInnerHTML={{ __html: reference }} />
+                                )}
+                            </div>
+                        );
+                    }
 
-                                return (
-                                    <li
-                                        className={classes.referenceWrapper}
-                                        key={uuid()}
-                                        // eslint-disable-next-line react/jsx-props-no-spreading
-                                        {...refProps}
-                                    >
-                                        {name && <p className={classes.name}>{name}</p>}
-                                        {reference && <p className={classes.reference}>{reference}</p>}
-                                    </li>
-                                );
-                            }
-
-                            return null;
-                        })}
-                    </ul>
-                </div>
-            </div>
+                    return null;
+                })}
+            </Section>
         )
     );
 };

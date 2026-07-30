@@ -34,10 +34,7 @@
             "startDate": "2013-01-01",
             "endDate": "2014-01-01",
             "summary": "Description...",
-            "highlights": [
-                "team work",
-                "dream work"
-            ]
+            "highlights": ["team work", "dream work"]
         },
         {
             "company": "Company Y",
@@ -46,10 +43,7 @@
             "startDate": "2010-01-01",
             "endDate": "2013-01-01",
             "summary": "Description...",
-            "highlights": [
-                "team work",
-                "dream work"
-            ]
+            "highlights": ["team work", "dream work"]
         }
     ],
     "volunteer": [
@@ -60,10 +54,7 @@
             "startDate": "2012-01-01",
             "endDate": "2013-01-01",
             "summary": "Description...",
-            "highlights": [
-                "community work",
-                "society"
-            ]
+            "highlights": ["community work", "society"]
         }
     ],
     "education": [
@@ -74,10 +65,7 @@
             "startDate": "2011-01-01",
             "endDate": "2013-01-01",
             "gpa": "4",
-            "courses": [
-                "math",
-                "science"
-            ]
+            "courses": ["math", "science"]
         }
     ],
     "awards": [
@@ -101,10 +89,7 @@
         {
             "name": "Web Development",
             "level": "Master",
-            "keywords": [
-                "css",
-                "html"
-            ]
+            "keywords": ["css", "html"]
         }
     ],
     "languages": [
@@ -116,10 +101,7 @@
     "interests": [
         {
             "name": "Wildlife",
-            "keywords": [
-                "nature",
-                "trees"
-            ]
+            "keywords": ["nature", "trees"]
         }
     ],
     "references": [

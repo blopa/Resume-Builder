@@ -1,16 +1,17 @@
 {
     "awards": "Premios",
     "volunteers": "Voluntarios",
-    "skills": "Habilidades",
+    "skills": "Habilidades Técnicas",
     "references": "Referencias",
     "publications": "Publicaciones",
     "certificates": "Certificados",
-    "projects": "Proyectos",
+    "projects": "Proyectos Personales",
     "languages": "Idiomas",
     "interests": "Intereses",
     "education": "Educación",
     "summary": "Resumen",
-    "experience": "Experiencia",
-    "at": "@",
+    "experience": "Experiencia Laboral",
+    "degree_in": "{studyType} en {area}",
+    "score": "Nota",
     "download_data": "Descargue los datos JSON para esta hoja de vida haciendo clic <a>aquí</a>"
 }

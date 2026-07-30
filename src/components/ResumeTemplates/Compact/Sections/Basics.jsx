@@ -1,62 +1,51 @@
 import { Fragment } from 'react';
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
+// Components
+import Section from './Section';
+
+// Utils
+import { mutedColor } from '../styles';
+import { toDisplayUrl } from '../../../ResumeTemplateShell/utils';
+
 const useStyles = makeStyles((theme) => ({
-    resumeSummary: {
-        padding: '10px 0',
-        borderBottom: '1px solid #ddd',
-    },
     resumeBasics: {
         pageBreakInside: 'avoid',
-        padding: '10px 0',
-        borderBottom: '1px solid #ddd',
-        '& h2': { textTransform: 'uppercase', margin: '0' },
-    },
-    address: {
-        margin: '0',
-        padding: '0',
         display: 'flex',
-        listStyle: 'none',
-        '& li': {
-            margin: '0 5px 0 0',
-            '&:after': { content: '","' },
-            '&:last-child': { '&:after': { content: '""' } },
-        },
+        alignItems: 'flex-start',
+        paddingBottom: '10px',
     },
-    'contact-info': {
+    identity: {
+        flex: '1',
+        minWidth: '0',
+    },
+    name: {
         margin: '0',
-        padding: '0',
-        display: 'flex',
-        listStyle: 'none',
-        '& li': {
-            margin: '0 5px 0 0',
-            '&:after': { content: '" |"' },
-            '&:last-child': { '&:after': { content: '""' } },
+        fontSize: '1.6rem',
+        lineHeight: '1.1',
+        letterSpacing: '-0.3px',
+    },
+    label: {
+        color: mutedColor(theme),
+    },
+    contact: {
+        flex: 'none',
+        paddingLeft: '20px',
+        textAlign: 'right',
+        color: mutedColor(theme),
+        '& > *': {
+            overflowWrap: 'break-word',
         },
-    },
-    'social-media': {
-        margin: '0',
-        padding: '0',
-        display: 'flex',
-        listStyle: 'none',
-        '& li': {
-            margin: '0 5px 0 0',
-            '&:after': { content: '" |"' },
-            '&:last-child': { '&:after': { content: '""' } },
-        },
-    },
-    url: {},
-    detailsWrapper: {
-        marginLeft: '4px',
-    },
-    summaryWrapper: {
-        marginLeft: '4px',
     },
     image: {
-        width: '100px',
-        float: 'right',
+        width: '70px',
+        marginLeft: '16px',
+    },
+    summary: {
+        '& p': {
+            margin: '0',
+        },
     },
 }));
 
@@ -65,67 +54,58 @@ const Basics = ({ basics: { name, label, image, email, phone, url, summary, prof
     const intl = useIntl();
     const { address, postalCode, city, countryCode, region } = location || {};
 
-    const locationEnabled = Boolean(address || city || region || postalCode || countryCode);
+    const locationText = [address, city, region, postalCode, countryCode].filter(Boolean).join(', ');
+    const links = [
+        ...(url ? [{ href: url, text: toDisplayUrl(url) }] : []),
+        ...(profiles || [])
+            .map((profile) => {
+                const { url: profileUrl, network, username } = profile || {};
+                const text = toDisplayUrl(profileUrl) || [network, username].filter(Boolean).join('/');
+
+                return text ? { href: profileUrl, text } : null;
+            })
+            .filter(Boolean),
+    ];
 
     return (
         <Fragment>
             <div className={classes.resumeBasics}>
-                {image && <img className={classes.image} src={image} alt="avatar" />}
-                {name && <h2>{name}</h2>}
-                {label && <h3>{label}</h3>}
-                <div className={classes.detailsWrapper}>
-                    {locationEnabled && (
-                        <ul className={classes.address}>
-                            {address && <li key={uuid()}>{address}</li>}
-                            {city && <li key={uuid()}>{city}</li>}
-                            {region && <li key={uuid()}>{region}</li>}
-                            {postalCode && <li key={uuid()}>{postalCode}</li>}
-                            {countryCode && <li key={uuid()}>{countryCode}</li>}
-                        </ul>
+                <div className={classes.identity}>
+                    {name && <h2 className={classes.name}>{name}</h2>}
+                    {label && <p className={classes.label}>{label}</p>}
+                </div>
+                <div className={classes.contact}>
+                    {locationText && <p>{locationText}</p>}
+                    {(email || phone) && (
+                        <p>
+                            {email && <a href={`mailto:${email}`}>{email}</a>}
+                            {email && phone && ' · '}
+                            {phone}
+                        </p>
                     )}
-                    <ul className={classes['contact-info']}>
-                        {url && (
-                            <li key={uuid()}>
-                                <a className={classes.url} href={url} target="_blank" rel="noreferrer">
-                                    {url}
-                                </a>
-                            </li>
-                        )}
-                        {phone && <li key={uuid()}>{phone}</li>}
-                        {email && <li key={uuid()}>{email}</li>}
-                    </ul>
-                    {profiles?.length > 0 && (
-                        <ul className={classes['social-media']}>
-                            {profiles?.map((profile) => {
-                                if (profile) {
-                                    const { url: profileUrl, network, username } = profile || {};
-
-                                    const isProfileEnable = Boolean(profileUrl && network && username);
-
-                                    return (
-                                        isProfileEnable && (
-                                            <li key={uuid()}>
-                                                <a href={profileUrl} title={username} target="_blank" rel="noreferrer">
-                                                    {network}
-                                                </a>
-                                            </li>
-                                        )
-                                    );
-                                }
-
-                                return null;
-                            })}
-                        </ul>
+                    {links.length > 0 && (
+                        <p>
+                            {links.map(({ href, text }, index) => (
+                                <Fragment key={index}>
+                                    {index > 0 && ' · '}
+                                    {href ? (
+                                        <a href={href} target="_blank" rel="noreferrer">
+                                            {text}
+                                        </a>
+                                    ) : (
+                                        text
+                                    )}
+                                </Fragment>
+                            ))}
+                        </p>
                     )}
                 </div>
+                {image && <img className={classes.image} src={image} alt="avatar" />}
             </div>
             {summary && (
-                <div className={classes.resumeSummary}>
-                    <h3>{intl.formatMessage({ id: 'summary' })}</h3>
-                    <div className={classes.summaryWrapper}>
-                        <p>{summary}</p>
-                    </div>
-                </div>
+                <Section title={intl.formatMessage({ id: 'summary' })}>
+                    <div className={classes.summary} dangerouslySetInnerHTML={{ __html: summary }} />
+                </Section>
             )}
         </Fragment>
     );

@@ -9,7 +9,7 @@ export const isObjectNotEmpty = (obj) => isObject(obj) && Object.keys(obj).lengt
 // TODO make this return a copy of the obj
 export const convertToToggleableObject = (
     obj,
-    ignoredProperties = ['enableSourceDataDownload', 'coverLetter', 'meta', '$schema', '__translation__']
+    ignoredProperties = ['enableSourceDataDownload', 'coverLetter', 'llmPrompt', 'meta', '$schema', '__translation__']
 ) => {
     // eslint-disable-next-line no-restricted-syntax
     for (const property in obj) {
@@ -42,7 +42,7 @@ export const convertToToggleableObject = (
 // TODO make this return a copy of the obj
 export const convertToRegularObject = (
     obj,
-    ignoredProperties = ['enableSourceDataDownload', 'coverLetter', '__translation__']
+    ignoredProperties = ['enableSourceDataDownload', 'coverLetter', 'llmPrompt', 'meta', '$schema', '__translation__']
 ) => {
     // eslint-disable-next-line no-restricted-syntax
     for (const property in obj) {
@@ -119,7 +119,7 @@ export const varNameToString = (varObj) => Object.keys(varObj)[0];
 
 export const isClient = () => typeof window !== 'undefined';
 
-export const generateCoverLetterObject = (text) => {
+export const generateCoverLetterObject = (text = '') => {
     const variables = Mustache.parse(text)
         .filter((v) => v[0] === 'name')
         .map((v) => v[1])
@@ -134,7 +134,7 @@ export const generateCoverLetterObject = (text) => {
     };
 };
 
-export const generateLlmPromptObject = (text) => {
+export const generateLlmPromptObject = (text = '') => {
     return {
         enabled: Boolean(text),
         value: {
@@ -142,3 +142,22 @@ export const generateLlmPromptObject = (text) => {
         },
     };
 };
+
+/*
+ * `coverLetter` and `llmPrompt` are custom attributes that stay out of the
+ * toggleable conversion, so nothing applies their `enabled` flag for them.
+ * Anything that renders them must go through here, otherwise a disabled entry
+ * still shows up on the resume.
+ * Returns '' when the attribute is missing, empty or toggled off.
+ */
+export const resolveToggleableText = (toggleable) => (toggleable?.enabled && toggleable?.value?.text) || '';
+
+/*
+ * The same two attributes read for export rather than for display. The sidebar toggle
+ * decides what gets printed, not what the user gets back when they download their own
+ * source data — so this one ignores `enabled` on purpose.
+ */
+export const readToggleableText = (toggleable) => toggleable?.value?.text || '';
+
+// Only show a drawer toggle for custom attributes that actually carry text.
+export const hasToggleableText = (toggleable) => isObjectNotEmpty(toggleable) && Boolean(toggleable?.value?.text);

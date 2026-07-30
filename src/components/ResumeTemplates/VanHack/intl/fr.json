@@ -1,0 +1,17 @@
+{
+    "awards": "Récompenses",
+    "volunteers": "Bénévoles",
+    "skills": "Compétences Techniques",
+    "references": "Références",
+    "publications": "Publications",
+    "certificates": "Certificats",
+    "projects": "Projets Personnels",
+    "languages": "Langues",
+    "interests": "Centres d'intérêt",
+    "education": "Éducation",
+    "summary": "Résumé",
+    "experience": "Expérience Professionnelle",
+    "degree_in": "{studyType} en {area}",
+    "score": "Note",
+    "download_data": "Téléchargez les données JSON de ce CV en cliquant <a>ici</a>"
+}

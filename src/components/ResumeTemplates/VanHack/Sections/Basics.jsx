@@ -1,130 +1,133 @@
 import { Fragment } from 'react';
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
+// Components
+import SectionTitle from './SectionTitle';
+
+// Hooks
+import useAntiPageBreakSection from '../../../hooks/useAntiPageBreakSection';
+
+// Utils
+import { toDisplayUrl } from '../../../ResumeTemplateShell/utils';
+
 const useStyles = makeStyles((theme) => ({
-    resumeSummary: {
-        padding: '10px 0',
-        borderBottom: '1px solid #ddd',
-    },
     resumeBasics: {
         pageBreakInside: 'avoid',
-        padding: '10px 0',
-        borderBottom: '1px solid #ddd',
-        '& h2': { textTransform: 'uppercase', margin: '0' },
+        paddingBottom: '15px',
     },
-    address: {
-        margin: '0',
-        padding: '0',
+    header: {
         display: 'flex',
-        listStyle: 'none',
-        '& li': {
-            margin: '0 5px 0 0',
-            '&:after': { content: '","' },
-            '&:last-child': { '&:after': { content: '""' } },
+        alignItems: 'flex-start',
+    },
+    headerContent: {
+        flex: '1',
+        minWidth: '0',
+    },
+    name: {
+        margin: '0 0 6px 0',
+        fontSize: '2rem',
+        lineHeight: '1.1',
+        color: '#8b84d4',
+    },
+    contactInfo: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        color: theme.palette.type === 'dark' ? '#b0b0b0' : '#7d7d7d',
+    },
+    contactColumn: {
+        display: 'flex',
+        flexDirection: 'column',
+        minWidth: '0',
+        '& > *': {
+            overflowWrap: 'break-word',
         },
     },
-    'contact-info': {
-        margin: '0',
-        padding: '0',
-        display: 'flex',
-        listStyle: 'none',
-        '& li': {
-            margin: '0 5px 0 0',
-            '&:after': { content: '" |"' },
-            '&:last-child': { '&:after': { content: '""' } },
-        },
+    contactColumnRight: {
+        textAlign: 'right',
+        paddingLeft: '20px',
     },
-    'social-media': {
-        margin: '0',
-        padding: '0',
-        display: 'flex',
-        listStyle: 'none',
-        '& li': {
-            margin: '0 5px 0 0',
-            '&:after': { content: '" |"' },
-            '&:last-child': { '&:after': { content: '""' } },
-        },
-    },
-    url: {},
-    detailsWrapper: {
-        marginLeft: '4px',
-    },
-    summaryWrapper: {
-        marginLeft: '4px',
+    label: {
+        color: theme.palette.text.primary,
     },
     image: {
-        width: '100px',
-        float: 'right',
+        width: '90px',
+        marginLeft: '20px',
+    },
+    resumeSummary: {
+        padding: '15px 0',
+    },
+    contentWrapper: {
+        marginTop: '8px',
     },
 }));
 
 const Basics = ({ basics: { name, label, image, email, phone, url, summary, profiles, location } }) => {
     const classes = useStyles();
     const intl = useIntl();
+    const { titleRef, titleStyle, firstItemRef } = useAntiPageBreakSection();
     const { address, postalCode, city, countryCode, region } = location || {};
 
-    const locationEnabled = Boolean(address || city || region || postalCode || countryCode);
+    const locationText = [address, city, region, postalCode, countryCode].filter(Boolean).join(', ');
 
     return (
         <Fragment>
             <div className={classes.resumeBasics}>
-                {image && <img className={classes.image} src={image} alt="avatar" />}
-                {name && <h2>{name}</h2>}
-                {label && <h3>{label}</h3>}
-                <div className={classes.detailsWrapper}>
-                    {locationEnabled && (
-                        <ul className={classes.address}>
-                            {address && <li key={uuid()}>{address}</li>}
-                            {city && <li key={uuid()}>{city}</li>}
-                            {region && <li key={uuid()}>{region}</li>}
-                            {postalCode && <li key={uuid()}>{postalCode}</li>}
-                            {countryCode && <li key={uuid()}>{countryCode}</li>}
-                        </ul>
-                    )}
-                    <ul className={classes['contact-info']}>
-                        {url && (
-                            <li key={uuid()}>
-                                <a className={classes.url} href={url} target="_blank" rel="noreferrer">
-                                    {url}
-                                </a>
-                            </li>
-                        )}
-                        {phone && <li key={uuid()}>{phone}</li>}
-                        {email && <li key={uuid()}>{email}</li>}
-                    </ul>
-                    {profiles?.length > 0 && (
-                        <ul className={classes['social-media']}>
-                            {profiles?.map((profile) => {
-                                if (profile) {
+                <div className={classes.header}>
+                    <div className={classes.headerContent}>
+                        {name && <h2 className={classes.name}>{name}</h2>}
+                        <div className={classes.contactInfo}>
+                            <div className={classes.contactColumn}>
+                                {label && <p className={classes.label}>{label}</p>}
+                                {url && (
+                                    <a href={url} target="_blank" rel="noreferrer">
+                                        {toDisplayUrl(url)}
+                                    </a>
+                                )}
+                                {profiles?.map((profile, index) => {
                                     const { url: profileUrl, network, username } = profile || {};
+                                    const profileText =
+                                        toDisplayUrl(profileUrl) || [network, username].filter(Boolean).join('/');
 
-                                    const isProfileEnable = Boolean(profileUrl && network && username);
+                                    if (!profileText) {
+                                        return null;
+                                    }
 
-                                    return (
-                                        isProfileEnable && (
-                                            <li key={uuid()}>
-                                                <a href={profileUrl} title={username} target="_blank" rel="noreferrer">
-                                                    {network}
-                                                </a>
-                                            </li>
-                                        )
+                                    return profileUrl ? (
+                                        <a
+                                            key={index}
+                                            href={profileUrl}
+                                            title={username}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
+                                            {profileText}
+                                        </a>
+                                    ) : (
+                                        <p key={index}>{profileText}</p>
                                     );
-                                }
-
-                                return null;
-                            })}
-                        </ul>
-                    )}
+                                })}
+                            </div>
+                            <div className={`${classes.contactColumn} ${classes.contactColumnRight}`}>
+                                {locationText && <p>{locationText}</p>}
+                                {email && <a href={`mailto:${email}`}>{email}</a>}
+                                {phone && <p>{phone}</p>}
+                            </div>
+                        </div>
+                    </div>
+                    {image && <img className={classes.image} src={image} alt="avatar" />}
                 </div>
             </div>
             {summary && (
                 <div className={classes.resumeSummary}>
-                    <h3>{intl.formatMessage({ id: 'summary' })}</h3>
-                    <div className={classes.summaryWrapper}>
-                        <p>{summary}</p>
-                    </div>
+                    <SectionTitle ref={titleRef} style={titleStyle}>
+                        {intl.formatMessage({ id: 'summary' })}
+                    </SectionTitle>
+                    <div
+                        ref={firstItemRef}
+                        className={classes.contentWrapper}
+                        dangerouslySetInnerHTML={{ __html: summary }}
+                    />
                 </div>
             )}
         </Fragment>

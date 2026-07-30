@@ -4,7 +4,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
-import { cloneDeep } from 'lodash';
 
 // Styles
 import style from './resumeDrawerStyles';
@@ -22,16 +21,16 @@ import Skills from './Items/Skills';
 import Volunteer from './Items/Volunteer';
 import Work from './Items/Work';
 import CoverLetter from './Items/CoverLetter';
+import LlmPrompt from './Items/LlmPrompt';
 import Certificates from './Items/Certificates';
 import Download from './Items/Download';
 import TemplateSelector from '../TemplateSelector';
 
 // Utils
-import { convertToRegularObject, isObjectNotEmpty } from '../../utils/utils';
+import { hasToggleableText, isObjectNotEmpty } from '../../utils/utils';
 import { downloadJson } from '../../utils/json-parser';
-
-// Base resume
-import baseResume from '../../store/resume.json';
+import { toExportableResume } from '../../utils/resume-payload';
+import { withResumeBuilderExtensions } from '../../utils/resume-builder-extensions';
 
 // Actions
 import setResumeTemplate from '../../store/actions/setResumeTemplate';
@@ -74,6 +73,7 @@ const ResumeDrawerItems = ({
         certificates,
         // custom attributes
         coverLetter,
+        llmPrompt,
         enableSourceDataDownload = false,
     },
     onClose,
@@ -88,16 +88,7 @@ const ResumeDrawerItems = ({
     }, []);
 
     const handleDownloadJson = useCallback(() => {
-        const jsonResume = {
-            ...baseResume,
-            ...convertToRegularObject(cloneDeep(toggleableJsonResume)),
-            enableSourceDataDownload: toggleableJsonResume.enableSourceDataDownload,
-            coverLetter: toggleableJsonResume.coverLetter?.value?.text || '',
-            // eslint-disable-next-line no-underscore-dangle
-            __translation__: cloneDeep(toggleableJsonResume.__translation__),
-        };
-
-        downloadJson(jsonResume);
+        downloadJson(withResumeBuilderExtensions(toExportableResume(toggleableJsonResume)));
     }, [toggleableJsonResume]);
 
     const handleTemplateSelected = useCallback(
@@ -139,7 +130,8 @@ const ResumeDrawerItems = ({
                 </Typography>
                 <TemplateSelector className={classes.templateSelector} onSelect={handleTemplateSelected} />
             </div>
-            {isObjectNotEmpty(coverLetter) && <CoverLetter coverLetter={coverLetter} />}
+            {hasToggleableText(coverLetter) && <CoverLetter coverLetter={coverLetter} />}
+            {hasToggleableText(llmPrompt) && <LlmPrompt llmPrompt={llmPrompt} />}
             <Download enableSourceDataDownload={enableSourceDataDownload} />
             {isObjectNotEmpty(basics) && <Basics basics={basics} />}
             {isObjectNotEmpty(work) && <Work work={work} />}
