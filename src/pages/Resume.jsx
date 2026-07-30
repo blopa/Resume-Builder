@@ -57,6 +57,17 @@ const importTemplate = (template) => {
     });
 };
 
+const blockMarkdownKeys = ['description', 'summary', 'reference', 'coverLetter'];
+// these are string arrays rendered as bullet lists, one item per <li>, so they are
+// parsed inline to keep marked from wrapping every bullet in its own <p>
+const inlineMarkdownKeys = ['highlights', 'courses'];
+
+const parseMarkdownText = (text, inline = false) => {
+    const sanitizedMarkdown = DOMPurify.sanitize(text);
+
+    return inline ? marked.parseInline(sanitizedMarkdown) : marked(sanitizedMarkdown);
+};
+
 const parseMarkdown = (obj) => {
     if (typeof obj !== 'object' || obj === null) {
         return obj;
@@ -68,9 +79,10 @@ const parseMarkdown = (obj) => {
 
     return Object.keys(obj).reduce((acc, key) => {
         const value = obj[key];
-        if (typeof value === 'string' && ['description', 'summary', 'reference', 'coverLetter'].includes(key)) {
-            const sanitizedMarkdown = DOMPurify.sanitize(value);
-            acc[key] = marked(sanitizedMarkdown);
+        if (typeof value === 'string' && blockMarkdownKeys.includes(key)) {
+            acc[key] = parseMarkdownText(value);
+        } else if (Array.isArray(value) && inlineMarkdownKeys.includes(key)) {
+            acc[key] = value.map((item) => (typeof item === 'string' ? parseMarkdownText(item, true) : item));
         } else if (typeof value === 'object') {
             acc[key] = parseMarkdown(value);
         } else {

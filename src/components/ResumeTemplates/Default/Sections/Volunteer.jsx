@@ -104,7 +104,13 @@ const Volunteer = ({ volunteer: volunteers }) => {
                                         {highlights?.length > 0 && (
                                             <ul className={classes.highlights}>
                                                 {highlights?.map(
-                                                    (highlight) => highlight && <li key={uuid()}>{highlight}</li>
+                                                    (highlight) =>
+                                                        highlight && (
+                                                            <li
+                                                                key={uuid()}
+                                                                dangerouslySetInnerHTML={{ __html: highlight }}
+                                                            />
+                                                        )
                                                 )}
                                             </ul>
                                         )}

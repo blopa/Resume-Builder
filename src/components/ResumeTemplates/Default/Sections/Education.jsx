@@ -109,7 +109,15 @@ const Education = ({ education: educations }) => {
                                             <div className={classes.coursesDetails}>
                                                 <p>Courses: </p>
                                                 <ul>
-                                                    {courses?.map((course) => course && <li key={uuid()}>{course}</li>)}
+                                                    {courses?.map(
+                                                        (course) =>
+                                                            course && (
+                                                                <li
+                                                                    key={uuid()}
+                                                                    dangerouslySetInnerHTML={{ __html: course }}
+                                                                />
+                                                            )
+                                                    )}
                                                 </ul>
                                             </div>
                                         )}

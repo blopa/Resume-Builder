@@ -30,7 +30,9 @@ const BulletList = ({ items }) => {
 
     return (
         items?.length > 0 && (
-            <ul className={classes.bullets}>{items.map((item) => item && <li key={uuid()}>{item}</li>)}</ul>
+            <ul className={classes.bullets}>
+                {items.map((item) => item && <li key={uuid()} dangerouslySetInnerHTML={{ __html: item }} />)}
+            </ul>
         )
     );
 };
