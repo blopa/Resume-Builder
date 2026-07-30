@@ -20,6 +20,7 @@ import {
     resolveToggleableText,
 } from '../utils/utils';
 import { parseMarkdown } from '../utils/parse-markdown';
+import { getResumeBuilderExtensions, omitResumeBuilderExtensions } from '../utils/resume-builder-extensions';
 
 // Hooks
 import { useDispatch, useSelector } from '../store/StoreProvider';
@@ -80,15 +81,24 @@ const ResumeViewer = ({ params, uri }) => {
                 navigate('/');
             }
 
+            const extensions = getResumeBuilderExtensions(jsonResume);
+            const standardResume = omitResumeBuilderExtensions(jsonResume);
+
             // The toggleable conversion strips the ignored properties, so they have to be
             // re-attached afterwards — passing them in gets them dropped instead.
             // Cover Letter is not supported for the viewer, so it is left out entirely.
             const toggleableObject = {
-                ...convertToToggleableObject(cloneDeep(jsonResume)),
+                ...convertToToggleableObject(cloneDeep(standardResume)),
+                $schema: standardResume.$schema,
+                meta: cloneDeep(standardResume.meta),
                 // eslint-disable-next-line no-underscore-dangle
-                __translation__: jsonResume.__translation__,
-                enableSourceDataDownload: jsonResume.enableSourceDataDownload,
-                llmPrompt: generateLlmPromptObject(jsonResume.llmPrompt),
+                __translation__: cloneDeep(extensions.translations),
+                enableSourceDataDownload: extensions.enableSourceDataDownload,
+                llmPrompt: generateLlmPromptObject(extensions.llmPrompt),
+                careerStory: {
+                    enabled: Boolean(extensions.careerStory),
+                    value: extensions.careerStory,
+                },
             };
             if (!isObjectNotEmpty(toggleableObject)) {
                 navigate('/');

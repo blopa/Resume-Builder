@@ -42,7 +42,7 @@ export const convertToToggleableObject = (
 // TODO make this return a copy of the obj
 export const convertToRegularObject = (
     obj,
-    ignoredProperties = ['enableSourceDataDownload', 'coverLetter', 'llmPrompt', '__translation__']
+    ignoredProperties = ['enableSourceDataDownload', 'coverLetter', 'llmPrompt', 'meta', '$schema', '__translation__']
 ) => {
     // eslint-disable-next-line no-restricted-syntax
     for (const property in obj) {

@@ -15,6 +15,7 @@ import { convertToToggleableObject, generateCoverLetterObject, generateLlmPrompt
 import spreadsheetToJsonResume from '../utils/spreadsheet-to-json-resume';
 import { readSpreadsheet, parseSpreadsheetUrl } from '../utils/spreadsheet-parser';
 import { readJsonFile } from '../utils/json-parser';
+import { getResumeBuilderExtensions, omitResumeBuilderExtensions } from '../utils/resume-builder-extensions';
 
 // Hooks
 import { useDispatch } from '../store/StoreProvider';
@@ -112,13 +113,21 @@ const UploadPage = ({ pageContext, location }) => {
             } else if (['json'].includes(fileExtension)) {
                 readJsonFile(file, (jsonString) => {
                     const jsonResume = JSON.parse(jsonString);
+                    const extensions = getResumeBuilderExtensions(jsonResume);
+                    const standardResume = omitResumeBuilderExtensions(jsonResume);
                     setResumesAndForward({
-                        ...convertToToggleableObject(cloneDeep(jsonResume)),
-                        enableSourceDataDownload: jsonResume.enableSourceDataDownload,
-                        coverLetter: generateCoverLetterObject(jsonResume.coverLetter),
-                        llmPrompt: generateLlmPromptObject(jsonResume.llmPrompt),
+                        ...convertToToggleableObject(cloneDeep(standardResume)),
+                        $schema: standardResume.$schema,
+                        meta: cloneDeep(standardResume.meta),
+                        enableSourceDataDownload: extensions.enableSourceDataDownload,
+                        coverLetter: generateCoverLetterObject(extensions.coverLetter),
+                        llmPrompt: generateLlmPromptObject(extensions.llmPrompt),
+                        careerStory: {
+                            enabled: Boolean(extensions.careerStory),
+                            value: extensions.careerStory,
+                        },
                         // eslint-disable-next-line no-underscore-dangle
-                        __translation__: jsonResume.__translation__,
+                        __translation__: cloneDeep(extensions.translations),
                     });
                 });
             } else {

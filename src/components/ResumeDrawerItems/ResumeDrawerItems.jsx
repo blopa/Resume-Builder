@@ -30,6 +30,7 @@ import TemplateSelector from '../TemplateSelector';
 // Utils
 import { convertToRegularObject, hasToggleableText, isObjectNotEmpty, resolveToggleableText } from '../../utils/utils';
 import { downloadJson } from '../../utils/json-parser';
+import { withResumeBuilderExtensions } from '../../utils/resume-builder-extensions';
 
 // Base resume
 import baseResume from '../../store/resume.json';
@@ -100,7 +101,7 @@ const ResumeDrawerItems = ({
             __translation__: cloneDeep(toggleableJsonResume.__translation__),
         };
 
-        downloadJson(jsonResume);
+        downloadJson(withResumeBuilderExtensions(jsonResume));
     }, [toggleableJsonResume]);
 
     const handleTemplateSelected = useCallback(

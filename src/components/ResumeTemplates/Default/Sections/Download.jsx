@@ -3,6 +3,7 @@ import { useIntl } from 'gatsby-plugin-react-intl';
 
 // Components
 import DownloadJsonLink from '../../../DownloadJsonLink';
+import { withResumeBuilderExtensions } from '../../../../utils/resume-builder-extensions';
 
 const useStyles = makeStyles((theme) => ({
     resumeDownload: {},
@@ -21,7 +22,10 @@ const Download = ({ jsonResume }) => {
                 {
                     // eslint-disable-next-line react/display-name
                     a: (msg) => (
-                        <DownloadJsonLink json={jsonResume} name={`jsonResume-${Date.now()}.json`}>
+                        <DownloadJsonLink
+                            json={withResumeBuilderExtensions(jsonResume)}
+                            name={`jsonResume-${Date.now()}.json`}
+                        >
                             {msg}
                         </DownloadJsonLink>
                     ),

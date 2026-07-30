@@ -19,6 +19,11 @@ import { useDispatch } from '../store/StoreProvider';
 // Utils
 import { downloadJson } from '../utils/json-parser';
 import { convertToToggleableObject, generateCoverLetterObject, generateLlmPromptObject } from '../utils/utils';
+import {
+    RESUME_BUILDER_EXTENSION_KEY,
+    getResumeBuilderExtensions,
+    withResumeBuilderExtensions,
+} from '../utils/resume-builder-extensions';
 
 // Actions
 import setToggleableJsonResume from '../store/actions/setToggleableJsonResume';
@@ -75,7 +80,7 @@ const BuildPage = ({ params, uri, location }) => {
 
     const splittedSchema = useMemo(() => {
         const schemaArray = [];
-        const propertiesToSkip = ['$schema', 'meta'];
+        const propertiesToSkip = ['$schema', 'meta', RESUME_BUILDER_EXTENSION_KEY];
         Object.entries(schema.properties).forEach(([key, value]) => {
             if (propertiesToSkip.includes(key)) {
                 return;
@@ -83,6 +88,13 @@ const BuildPage = ({ params, uri, location }) => {
 
             schemaArray.push({
                 [key]: value,
+            });
+        });
+
+        const extensionProperties = schema.properties[RESUME_BUILDER_EXTENSION_KEY].properties;
+        ['coverLetter', 'llmPrompt', 'careerStory'].forEach((key) => {
+            schemaArray.push({
+                [key]: extensionProperties[key],
             });
         });
 
@@ -198,7 +210,7 @@ const BuildPage = ({ params, uri, location }) => {
 
     const handleClickDownload = useCallback(() => {
         const resume = getResumeJsonFromFormik();
-        downloadJson(resume);
+        downloadJson(withResumeBuilderExtensions(resume, getResumeBuilderExtensions(resume)));
     }, [getResumeJsonFromFormik]);
 
     const setResumesAndForward = useCallback(

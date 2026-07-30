@@ -1,4 +1,5 @@
 {
+    "$schema": "https://raw.githubusercontent.com/jsonresume/jsonresume.org/refs/heads/master/packages/schema/schema.json",
     "coverLetter": "",
     "llmPrompt": "",
     "careerStory": "",
