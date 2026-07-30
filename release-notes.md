@@ -1,5 +1,30 @@
 ## Release Notes
 
+-   **v4.2.1:**
+    -   Ship the `Compact` and `VanHack` templates — both were previously unfinished and unreachable. All three templates are now selectable from the sidebar and available in the online viewer.
+    -   Move Resume Builder's own fields under a namespaced `x-resume-builder` property and stamp `$schema` on downloads, so a downloaded resume validates as standard JSON Resume. Legacy resumes with those fields at the document root are still accepted.
+    -   Add `careerStory`: a private, full-length career narrative kept in your data source and never rendered on the resume (`career_story` in a spreadsheet).
+    -   Render Markdown in `highlights` and `courses` bullet lists, and render Markdown in the online viewer too — it previously only worked on the builder pages.
+    -   Accept `picture` and `website` as spreadsheet aliases for the schema's `image` and `url`, so values entered with the example sheet's labels stop silently disappearing.
+    -   Fix the LLM prompt having no sidebar toggle, so it always ended up in the printed resume.
+    -   Fix the cover letter and LLM prompt still being rendered after being toggled off.
+    -   Fix downloaded `JSON` being lossy: it now keeps your Markdown as Markdown, and keeps text you toggled off for printing.
+    -   Fix the cover letter's "this is a page break" marker, which only appeared when _every_ resume section had content — it now appears whenever a resume follows the cover letter.
+    -   Require Node 20.x (see `.nvmrc`).
+-   **v4.2.0:**
+    -   Bump NPM packages versions.
+    -   Fix issue when parsing LLM prompt.
+    -   Add French, German, Japanese, and Russian translations ([thanks](https://github.com/blopa/Resume-Builder/pull/50) and [thanks](https://github.com/blopa/Resume-Builder/pull/86)).
+-   **v4.1.0:**
+    -   Bump NPM packages versions.
+    -   Fix issue [#74](https://github.com/blopa/Resume-Builder/issues/74).
+    -   Add Markdown support in the cover letter, summaries, and descriptions.
+    -   Add the LLM easter-egg option.
+    -   Add field descriptions to the builder form.
+-   **v4.0.12:**
+    -   Bump NPM packages versions.
+    -   Fix "0" showing up in the Cover Letter component.
+    -   Update Babel and ESLint configuration.
 -   **v4.0.11:**
     -   Bump NPM packages versions.
 -   **v4.0.10:**
