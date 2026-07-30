@@ -1,5 +1,3 @@
-import { useRef } from 'react';
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -7,7 +5,7 @@ import { useIntl } from 'gatsby-plugin-react-intl';
 import SectionTitle from './SectionTitle';
 
 // Hooks
-import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
+import useAntiPageBreakSection from '../../../hooks/useAntiPageBreakSection';
 
 const useStyles = makeStyles((theme) => ({
     resumeSkills: {
@@ -39,37 +37,28 @@ const useStyles = makeStyles((theme) => ({
 const Skills = ({ skills }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const firstItem = useRef(null);
-    const sectionTitle = useRef(null);
-    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
+    const { titleRef, titleStyle, firstItemProps } = useAntiPageBreakSection();
 
     return (
         skills?.length > 0 && (
             <div className={classes.resumeSkills}>
-                <SectionTitle ref={sectionTitle} style={titleStyle}>
+                <SectionTitle ref={titleRef} style={titleStyle}>
                     {intl.formatMessage({ id: 'skills' })}
                 </SectionTitle>
                 <div className={classes.contentWrapper}>
                     <ul className={classes.skills}>
-                        {skills.map((skill) => {
+                        {skills.map((skill, index) => {
                             if (skill) {
                                 const { name, level, keywords } = skill || {};
-
-                                let refProps = {};
-                                if (!firstItem.current) {
-                                    refProps = {
-                                        ref: firstItem,
-                                    };
-                                }
 
                                 // an unnamed group renders as the plain comma separated list the design shows
                                 const keywordsText = keywords?.filter(Boolean).join(', ');
 
                                 return (
                                     <li
-                                        key={uuid()}
+                                        key={index}
                                         // eslint-disable-next-line react/jsx-props-no-spreading
-                                        {...refProps}
+                                        {...firstItemProps()}
                                     >
                                         <p>
                                             {name && <span className={classes.skillTitle}>{name}</span>}

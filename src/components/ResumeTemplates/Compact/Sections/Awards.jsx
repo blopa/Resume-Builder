@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -27,12 +26,12 @@ const Awards = ({ awards }) => {
     return (
         awards?.length > 0 && (
             <Section title={intl.formatMessage({ id: 'awards' })}>
-                {awards.map((award) => {
+                {awards.map((award, index) => {
                     if (award) {
                         const { title, date, awarder, summary } = award || {};
 
                         return (
-                            <Entry key={uuid()} title={title} dates={date}>
+                            <Entry key={index} title={title} dates={date}>
                                 {awarder && <p className={classes.meta}>{awarder}</p>}
                                 {summary && (
                                     <div className={classes.body} dangerouslySetInnerHTML={{ __html: summary }} />

@@ -4,7 +4,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
-import { cloneDeep } from 'lodash';
 
 // Styles
 import style from './resumeDrawerStyles';
@@ -28,12 +27,10 @@ import Download from './Items/Download';
 import TemplateSelector from '../TemplateSelector';
 
 // Utils
-import { convertToRegularObject, hasToggleableText, isObjectNotEmpty, resolveToggleableText } from '../../utils/utils';
+import { hasToggleableText, isObjectNotEmpty } from '../../utils/utils';
 import { downloadJson } from '../../utils/json-parser';
+import { toExportableResume } from '../../utils/resume-payload';
 import { withResumeBuilderExtensions } from '../../utils/resume-builder-extensions';
-
-// Base resume
-import baseResume from '../../store/resume.json';
 
 // Actions
 import setResumeTemplate from '../../store/actions/setResumeTemplate';
@@ -91,17 +88,7 @@ const ResumeDrawerItems = ({
     }, []);
 
     const handleDownloadJson = useCallback(() => {
-        const jsonResume = {
-            ...baseResume,
-            ...convertToRegularObject(cloneDeep(toggleableJsonResume)),
-            enableSourceDataDownload: toggleableJsonResume.enableSourceDataDownload,
-            coverLetter: resolveToggleableText(toggleableJsonResume.coverLetter),
-            llmPrompt: resolveToggleableText(toggleableJsonResume.llmPrompt),
-            // eslint-disable-next-line no-underscore-dangle
-            __translation__: cloneDeep(toggleableJsonResume.__translation__),
-        };
-
-        downloadJson(withResumeBuilderExtensions(jsonResume));
+        downloadJson(withResumeBuilderExtensions(toExportableResume(toggleableJsonResume)));
     }, [toggleableJsonResume]);
 
     const handleTemplateSelected = useCallback(

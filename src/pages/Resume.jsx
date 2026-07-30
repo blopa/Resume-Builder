@@ -3,10 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Drawer } from '@material-ui/core';
 import { navigate, useIntl } from 'gatsby-plugin-react-intl';
 import { v4 as uuid } from 'uuid';
-import { cloneDeep } from 'lodash';
-
-// Base resume
-import baseResume from '../store/resume.json';
 
 // Components
 import SEO from '../components/SEO';
@@ -19,13 +15,8 @@ import FloatingButton from '../components/FloatingButton';
 import { useSelector } from '../store/StoreProvider';
 
 // Utils
-import {
-    convertToRegularObject,
-    isObjectNotEmpty,
-    omitInternalResumeFields,
-    resolveToggleableText,
-} from '../utils/utils';
-import { parseMarkdown } from '../utils/parse-markdown';
+import { isObjectNotEmpty } from '../utils/utils';
+import { toExportableResume, toRenderableResume } from '../utils/resume-payload';
 
 // Selectors
 import { selectResumeTemplate, selectToggleableJsonResume } from '../store/selectors';
@@ -78,32 +69,23 @@ const ResumePage = () => {
     useEffect(() => {
         async function loadTemplate() {
             const Template = await importTemplate(resumeTemplateName);
-            const jsonResume = omitInternalResumeFields({
-                ...baseResume,
-                ...convertToRegularObject(cloneDeep(toggleableJsonResume)),
-                enableSourceDataDownload: toggleableJsonResume.enableSourceDataDownload,
-                coverLetter: resolveToggleableText(toggleableJsonResume.coverLetter),
-                llmPrompt: resolveToggleableText(toggleableJsonResume.llmPrompt),
-                // eslint-disable-next-line no-underscore-dangle
-                __translation__: cloneDeep(toggleableJsonResume.__translation__),
-            });
-
-            // Create a new object with parsed markdown content
-            const parsedJsonResume = parseMarkdown(jsonResume);
 
             setResumeTemplate([
                 <Template
                     key={uuid()}
                     // eslint-disable-next-line no-underscore-dangle
                     customTranslations={toggleableJsonResume.__translation__}
-                    isPrinting={isPrinting}
-                    jsonResume={parsedJsonResume}
-                    coverLetterVariables={toggleableJsonResume.coverLetter?.value?.variables || []}
+                    jsonResume={toRenderableResume(toggleableJsonResume)}
+                    downloadableResume={toExportableResume(toggleableJsonResume)}
+                    coverLetterVariables={toggleableJsonResume.coverLetter?.value?.variables || {}}
                 />,
             ]);
         }
 
         loadTemplate();
+        // `isPrinting` is a dependency on purpose even though no template reads it:
+        // entering print mode rebuilds the template so the anti-page-break sections
+        // re-measure against the print layout.
     }, [
         isPrinting,
         // eslint-disable-next-line no-underscore-dangle

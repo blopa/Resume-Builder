@@ -1,20 +1,21 @@
-import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
 // Components
-import DownloadJsonLink from '../../../DownloadJsonLink';
-import { withResumeBuilderExtensions } from '../../../../utils/resume-builder-extensions';
+import DownloadJsonLink from '../DownloadJsonLink';
 
-const useStyles = makeStyles((theme) => ({
-    resumeDownload: {},
-}));
+// Utils
+import { withResumeBuilderExtensions } from '../../utils/resume-builder-extensions';
 
+/*
+ * `jsonResume` here is the *exportable* resume, not the one the template renders —
+ * the rendered one has already had its markdown turned into HTML and its disabled
+ * entries collapsed, so serialising it would hand the user back a lossy file.
+ */
 const Download = ({ jsonResume }) => {
-    const classes = useStyles();
     const intl = useIntl();
 
     return (
-        <div className={classes.resumeDownload}>
+        <div>
             {intl.formatMessage(
                 {
                     id: 'download_data',

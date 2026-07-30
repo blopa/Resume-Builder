@@ -57,7 +57,7 @@ Older versions: [V1](https://github.com/blopa/Resume-Builder/blob/main/README_V1
 -   **JSON Resume Schema** — Compatible with the current [`@jsonresume/schema`](https://github.com/jsonresume/jsonresume.org/tree/master/packages/schema) v1.3.1 structure.
 -   **Spreadsheet conversion** — Converts your sheet into valid JSON Resume output.
 -   **Cover letter editor** — Reusable templates with [mustache.js](https://github.com/janl/mustache.js/) variables.
--   **Markdown support** — Use Markdown in cover letters, summaries, and descriptions.
+-   **Markdown support** — Use Markdown in cover letters, summaries, descriptions, references, and in `highlights`/`courses` bullet lists. Rendered everywhere, including the online viewer.
 -   **7 languages** — Interface and templates translated into English, Spanish, Brazilian Portuguese, French, German, Japanese, and Russian.
 -   **Toggle any section** — Enable/disable individual entries from the sidebar before exporting or printing.
 -   **Online viewer** — Serve your resume straight from a GitHub repository.
@@ -174,13 +174,17 @@ Want to add a new language? Copy `src/intl/en.json` (plus the matching file in e
 
 Templates live in [`src/components/ResumeTemplates/`](src/components/ResumeTemplates), one folder each:
 
-| Template  | Status                                           |
-| --------- | ------------------------------------------------ |
-| `Default` | Shipped — used by the app and the online viewer. |
-| `Compact` | TBD.                                             |
-| `VanHack` | TBD.                                             |
+| Template  | Status                                                                              |
+| --------- | ----------------------------------------------------------------------------------- |
+| `Default` | Shipped — the standard layout, and the fallback for the online viewer.              |
+| `Compact` | Shipped — small type and a label-beside-content layout, for fitting more on a page. |
+| `VanHack` | Shipped — print-first single-column layout with uppercase section headings.         |
 
-Incomplete templates are filtered out via the `disabledTemplates` list in [gatsby-node.js](gatsby-node.js#L6). To work on one, remove it from that array and run the dev server. Contributions of new templates are very welcome — see [Contributing](#contributing).
+All three are selectable from the sidebar and available at `/view/<template>/<github-user>` in the online viewer.
+
+Everything the templates have in common — locale resolution, the cover letter page, the source-data download link and the LLM prompt — lives in [`src/components/ResumeTemplateShell/`](src/components/ResumeTemplateShell). A template supplies its own styles and section order and renders them as children of `TemplateShell`; it should not re-implement that scaffolding.
+
+> **Note:** [gatsby-node.js](gatsby-node.js#L47) treats **every entry** in `src/components/ResumeTemplates/` as a template and generates a `/view/<name>` route for it, which is why shared code lives outside that folder. Incomplete templates are filtered out via the `disabledTemplates` list in [gatsby-node.js](gatsby-node.js#L6). To work on one, remove it from that array and run the dev server. Contributions of new templates are very welcome — see [Contributing](#contributing).
 
 ## Example `resume.json`
 
@@ -507,8 +511,16 @@ A: Thank you! You can [contribute code](#contributing), open pull requests, or d
 ## Release Notes
 
 -   **v4.2.1**
+    -   Ship the `Compact` and `VanHack` templates — both were previously unfinished and unreachable. All three templates are now selectable from the sidebar and available in the online viewer.
+    -   Move Resume Builder's own fields under a namespaced `x-resume-builder` property and stamp `$schema` on downloads, so a downloaded resume validates as standard JSON Resume. Legacy resumes with those fields at the document root are still accepted.
+    -   Add `careerStory`: a private, full-length career narrative kept in your data source and never rendered on the resume (`career_story` in a spreadsheet).
+    -   Render Markdown in `highlights` and `courses` bullet lists, and render Markdown in the online viewer too — it previously only worked on the builder pages.
+    -   Accept `picture` and `website` as spreadsheet aliases for the schema's `image` and `url`, so values entered with the example sheet's labels stop silently disappearing.
     -   Fix the LLM prompt having no sidebar toggle, so it always ended up in the printed resume.
-    -   Fix the cover letter and LLM prompt still being included in the downloaded JSON after being toggled off.
+    -   Fix the cover letter and LLM prompt still being rendered after being toggled off.
+    -   Fix downloaded JSON being lossy: it now keeps your Markdown as Markdown, and keeps text you toggled off for printing.
+    -   Fix the cover letter's "this is a page break" marker, which only appeared when _every_ resume section had content — it now appears whenever a resume follows the cover letter.
+    -   Require Node 20.x (see `.nvmrc`).
 -   **v4.2.0**
     -   Bump NPM package versions.
     -   Fix issue when parsing LLM prompt.

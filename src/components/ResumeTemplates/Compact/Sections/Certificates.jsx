@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -22,12 +21,12 @@ const Certificates = ({ certificates }) => {
     return (
         certificates?.length > 0 && (
             <Section title={intl.formatMessage({ id: 'certificates' })}>
-                {certificates.map((certificate) => {
+                {certificates.map((certificate, index) => {
                     if (certificate) {
                         const { name, date, url, issuer } = certificate || {};
 
                         return (
-                            <Entry key={uuid()} title={url && name ? <a href={url}>{name}</a> : name} dates={date}>
+                            <Entry key={index} title={url && name ? <a href={url}>{name}</a> : name} dates={date}>
                                 {issuer && <p className={classes.meta}>{issuer}</p>}
                             </Entry>
                         );

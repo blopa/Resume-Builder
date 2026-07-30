@@ -27,8 +27,9 @@ const useStyles = makeStyles((theme) => ({
     pageBreakWarning: {
         height: '35px',
         padding: 0,
-        marginLeft: '-42px',
-        width: '112%',
+        // bleed back over the horizontal padding every template applies to its container
+        marginLeft: '-40px',
+        width: 'calc(100% + 80px)',
         textAlign: 'center',
         fontStyle: 'italic',
         color: theme.palette.type === 'dark' ? '#6b6b6b' : '#b1afaf',

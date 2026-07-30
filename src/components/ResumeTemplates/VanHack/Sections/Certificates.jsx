@@ -1,5 +1,3 @@
-import { useRef } from 'react';
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -7,7 +5,7 @@ import { useIntl } from 'gatsby-plugin-react-intl';
 import SectionTitle from './SectionTitle';
 
 // Hooks
-import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
+import useAntiPageBreakSection from '../../../hooks/useAntiPageBreakSection';
 
 const useStyles = makeStyles((theme) => ({
     resumeCertificates: {
@@ -42,37 +40,28 @@ const useStyles = makeStyles((theme) => ({
 const Certificates = ({ certificates }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const firstItem = useRef(null);
-    const sectionTitle = useRef(null);
-    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
+    const { titleRef, titleStyle, firstItemProps } = useAntiPageBreakSection();
 
     return (
         certificates?.length > 0 && (
             <div className={classes.resumeCertificates}>
-                <SectionTitle ref={sectionTitle} style={titleStyle}>
+                <SectionTitle ref={titleRef} style={titleStyle}>
                     {intl.formatMessage({ id: 'certificates' })}
                 </SectionTitle>
                 <div className={classes.contentWrapper}>
                     <ul className={classes.certificates}>
-                        {certificates.map((certificate) => {
+                        {certificates.map((certificate, index) => {
                             if (certificate) {
                                 const { name, date, url, issuer } = certificate || {};
-
-                                let refProps = {};
-                                if (!firstItem.current) {
-                                    refProps = {
-                                        ref: firstItem,
-                                    };
-                                }
 
                                 const meta = [date, issuer].filter(Boolean).join(' - ');
 
                                 return (
                                     <li
                                         className={classes.certificateWrapper}
-                                        key={uuid()}
+                                        key={index}
                                         // eslint-disable-next-line react/jsx-props-no-spreading
-                                        {...refProps}
+                                        {...firstItemProps()}
                                     >
                                         <p>
                                             {name &&

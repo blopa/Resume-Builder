@@ -1,5 +1,4 @@
 import { Fragment } from 'react';
-import { v4 as uuid } from 'uuid';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
 // Components
@@ -21,7 +20,7 @@ const Interests = ({ interests }) => {
             <Section title={intl.formatMessage({ id: 'interests' })}>
                 <p>
                     {named.map((text, index) => (
-                        <Fragment key={uuid()}>
+                        <Fragment key={index}>
                             {index > 0 && ' · '}
                             {text}
                         </Fragment>

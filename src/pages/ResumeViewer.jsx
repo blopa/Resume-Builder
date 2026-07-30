@@ -11,15 +11,8 @@ import A4Container from '../components/A4Container';
 
 // Utils
 import { fetchGithubResumeJson, isValidJsonString } from '../utils/gatsby-frontend-helpers';
-import {
-    isObjectNotEmpty,
-    convertToToggleableObject,
-    convertToRegularObject,
-    generateLlmPromptObject,
-    omitInternalResumeFields,
-    resolveToggleableText,
-} from '../utils/utils';
-import { parseMarkdown } from '../utils/parse-markdown';
+import { isObjectNotEmpty, convertToToggleableObject, generateLlmPromptObject } from '../utils/utils';
+import { toExportableResume, toRenderableResume } from '../utils/resume-payload';
 import { getResumeBuilderExtensions, omitResumeBuilderExtensions } from '../utils/resume-builder-extensions';
 
 // Hooks
@@ -31,9 +24,6 @@ import setToggleableJsonResume from '../store/actions/setToggleableJsonResume';
 
 // Translations
 import templateIntls from '../intl';
-
-// Base resume
-import baseResume from '../store/resume.json';
 
 // Selectors
 import { selectToggleableJsonResume } from '../store/selectors';
@@ -111,17 +101,8 @@ const ResumeViewer = ({ params, uri }) => {
                     key={uuid()}
                     // eslint-disable-next-line no-underscore-dangle
                     customTranslations={toggleableObject.__translation__}
-                    isPrinting={isPrinting}
-                    // TODO maybe just send the JSON directly
-                    jsonResume={parseMarkdown(
-                        omitInternalResumeFields({
-                            ...baseResume,
-                            ...convertToRegularObject(cloneDeep(toggleableObject)),
-                            coverLetter: '',
-                            llmPrompt: resolveToggleableText(toggleableObject.llmPrompt),
-                        })
-                    )}
-                    coverLetterVariables={toggleableObject.coverLetter?.value?.variables || []}
+                    jsonResume={toRenderableResume(toggleableObject, { includeCoverLetter: false })}
+                    downloadableResume={toExportableResume(toggleableObject)}
                 />,
             ]);
         };
@@ -131,6 +112,9 @@ const ResumeViewer = ({ params, uri }) => {
         }
 
         fetchResumeJsonAndLoadTemplate();
+        // `isPrinting` is a dependency on purpose even though no template reads it:
+        // entering print mode rebuilds the template so the anti-page-break sections
+        // re-measure against the print layout.
     }, [dispatch, intl.defaultLocale, isPrinting, lang, username, validTemplate]);
 
     return (

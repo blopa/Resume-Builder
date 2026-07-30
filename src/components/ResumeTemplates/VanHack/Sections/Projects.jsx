@@ -1,5 +1,4 @@
-import { Fragment, useRef } from 'react';
-import { v4 as uuid } from 'uuid';
+import { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -8,7 +7,7 @@ import SectionTitle from './SectionTitle';
 import BulletList from './BulletList';
 
 // Hooks
-import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
+import useAntiPageBreakSection from '../../../hooks/useAntiPageBreakSection';
 
 const useStyles = makeStyles((theme) => ({
     resumeProjects: {
@@ -51,19 +50,17 @@ const useStyles = makeStyles((theme) => ({
 const Projects = ({ projects }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const firstItem = useRef(null);
-    const sectionTitle = useRef(null);
-    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
+    const { titleRef, titleStyle, firstItemProps } = useAntiPageBreakSection();
 
     return (
         projects?.length > 0 && (
             <div className={classes.resumeProjects}>
-                <SectionTitle ref={sectionTitle} style={titleStyle}>
+                <SectionTitle ref={titleRef} style={titleStyle}>
                     {intl.formatMessage({ id: 'projects' })}
                 </SectionTitle>
                 <div className={classes.contentWrapper}>
                     <ul className={classes.projects}>
-                        {projects.map((project) => {
+                        {projects.map((project, index) => {
                             if (project) {
                                 const {
                                     name,
@@ -78,13 +75,6 @@ const Projects = ({ projects }) => {
                                     type,
                                 } = project || {};
 
-                                let refProps = {};
-                                if (!firstItem.current) {
-                                    refProps = {
-                                        ref: firstItem,
-                                    };
-                                }
-
                                 const dates = [startDate, endDate].filter(Boolean).join(' - ');
                                 const meta = [type, entity, roles?.filter(Boolean).join(', ')]
                                     .filter(Boolean)
@@ -93,9 +83,9 @@ const Projects = ({ projects }) => {
                                 return (
                                     <li
                                         className={classes.projectWrapper}
-                                        key={uuid()}
+                                        key={index}
                                         // eslint-disable-next-line react/jsx-props-no-spreading
-                                        {...refProps}
+                                        {...firstItemProps()}
                                     >
                                         <div className={classes.projectHeader}>
                                             {name &&

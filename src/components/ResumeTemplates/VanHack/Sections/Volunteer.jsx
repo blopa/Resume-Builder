@@ -1,5 +1,3 @@
-import { useRef } from 'react';
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -8,7 +6,7 @@ import SectionTitle from './SectionTitle';
 import BulletList from './BulletList';
 
 // Hooks
-import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
+import useAntiPageBreakSection from '../../../hooks/useAntiPageBreakSection';
 
 const useStyles = makeStyles((theme) => ({
     resumeVolunteer: {
@@ -46,29 +44,20 @@ const useStyles = makeStyles((theme) => ({
 const Volunteer = ({ volunteer: volunteers }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const firstItem = useRef(null);
-    const sectionTitle = useRef(null);
-    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
+    const { titleRef, titleStyle, firstItemProps } = useAntiPageBreakSection();
 
     return (
         volunteers?.length > 0 && (
             <div className={classes.resumeVolunteer}>
-                <SectionTitle ref={sectionTitle} style={titleStyle}>
+                <SectionTitle ref={titleRef} style={titleStyle}>
                     {intl.formatMessage({ id: 'volunteers' })}
                 </SectionTitle>
                 <div className={classes.contentWrapper}>
                     <ul className={classes.volunteers}>
-                        {volunteers.map((volunteer) => {
+                        {volunteers.map((volunteer, index) => {
                             if (volunteer) {
                                 const { organization, position, url, startDate, endDate, summary, highlights } =
                                     volunteer || {};
-
-                                let refProps = {};
-                                if (!firstItem.current) {
-                                    refProps = {
-                                        ref: firstItem,
-                                    };
-                                }
 
                                 const title = [position, organization].filter(Boolean).join(', ');
                                 const meta = [startDate, endDate].filter(Boolean).join(' - ');
@@ -76,9 +65,9 @@ const Volunteer = ({ volunteer: volunteers }) => {
                                 return (
                                     <li
                                         className={classes.volunteerWrapper}
-                                        key={uuid()}
+                                        key={index}
                                         // eslint-disable-next-line react/jsx-props-no-spreading
-                                        {...refProps}
+                                        {...firstItemProps()}
                                     >
                                         <p>
                                             {title && <span className={classes.position}>{title}</span>}

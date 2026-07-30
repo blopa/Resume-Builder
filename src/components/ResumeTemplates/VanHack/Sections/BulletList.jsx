@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +27,7 @@ const BulletList = ({ items }) => {
     return (
         items?.length > 0 && (
             <ul className={classes.bullets}>
-                {items.map((item) => item && <li key={uuid()} dangerouslySetInnerHTML={{ __html: item }} />)}
+                {items.map((item, index) => item && <li key={index} dangerouslySetInnerHTML={{ __html: item }} />)}
             </ul>
         )
     );

@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -35,12 +34,12 @@ const References = ({ references }) => {
     return (
         references?.length > 0 && (
             <Section title={intl.formatMessage({ id: 'references' })}>
-                {references.map((ref) => {
+                {references.map((ref, index) => {
                     if (ref) {
                         const { name, reference } = ref || {};
 
                         return (
-                            <div className={classes.reference} key={uuid()}>
+                            <div className={classes.reference} key={index}>
                                 {name && <p className={classes.name}>{name}</p>}
                                 {reference && (
                                     <div className={classes.quote} dangerouslySetInnerHTML={{ __html: reference }} />

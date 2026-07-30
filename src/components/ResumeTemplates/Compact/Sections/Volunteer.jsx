@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -9,7 +8,7 @@ import BulletList from './BulletList';
 
 // Utils
 import { mutedColor } from '../styles';
-import { toDisplayUrl } from '../utils';
+import { toDisplayUrl } from '../../../ResumeTemplateShell/utils';
 
 const useStyles = makeStyles((theme) => ({
     meta: {
@@ -30,7 +29,7 @@ const Volunteer = ({ volunteer: volunteers }) => {
     return (
         volunteers?.length > 0 && (
             <Section title={intl.formatMessage({ id: 'volunteers' })}>
-                {volunteers.map((volunteer) => {
+                {volunteers.map((volunteer, index) => {
                     if (volunteer) {
                         const { organization, position, url, startDate, endDate, summary, highlights } =
                             volunteer || {};
@@ -39,7 +38,7 @@ const Volunteer = ({ volunteer: volunteers }) => {
                         const dates = [startDate, endDate].filter(Boolean).join(' – ');
 
                         return (
-                            <Entry key={uuid()} title={title} dates={dates}>
+                            <Entry key={index} title={title} dates={dates}>
                                 {url && (
                                     <p className={classes.meta}>
                                         <a href={url}>{toDisplayUrl(url)}</a>

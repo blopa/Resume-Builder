@@ -1,5 +1,4 @@
 import { Fragment } from 'react';
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -27,7 +26,7 @@ const Languages = ({ languages }) => {
                 {/* every language shares one line — this template spends no vertical space on lists */}
                 <p>
                     {spokenLanguages.map(({ language, fluency }, index) => (
-                        <Fragment key={uuid()}>
+                        <Fragment key={index}>
                             {index > 0 && ' · '}
                             {language}
                             {fluency && <span className={classes.fluency}>{` (${fluency})`}</span>}

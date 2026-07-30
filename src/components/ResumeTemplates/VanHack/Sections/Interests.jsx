@@ -1,5 +1,3 @@
-import { useRef } from 'react';
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -7,7 +5,7 @@ import { useIntl } from 'gatsby-plugin-react-intl';
 import SectionTitle from './SectionTitle';
 
 // Hooks
-import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
+import useAntiPageBreakSection from '../../../hooks/useAntiPageBreakSection';
 
 const useStyles = makeStyles((theme) => ({
     resumeInterests: {
@@ -36,36 +34,27 @@ const useStyles = makeStyles((theme) => ({
 const Interests = ({ interests }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const firstItem = useRef(null);
-    const sectionTitle = useRef(null);
-    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
+    const { titleRef, titleStyle, firstItemProps } = useAntiPageBreakSection();
 
     return (
         interests?.length > 0 && (
             <div className={classes.resumeInterests}>
-                <SectionTitle ref={sectionTitle} style={titleStyle}>
+                <SectionTitle ref={titleRef} style={titleStyle}>
                     {intl.formatMessage({ id: 'interests' })}
                 </SectionTitle>
                 <div className={classes.contentWrapper}>
                     <ul className={classes.interests}>
-                        {interests.map((interest) => {
+                        {interests.map((interest, index) => {
                             if (interest) {
                                 const { name, keywords } = interest || {};
-
-                                let refProps = {};
-                                if (!firstItem.current) {
-                                    refProps = {
-                                        ref: firstItem,
-                                    };
-                                }
 
                                 const keywordsText = keywords?.filter(Boolean).join(', ');
 
                                 return (
                                     <li
-                                        key={uuid()}
+                                        key={index}
                                         // eslint-disable-next-line react/jsx-props-no-spreading
-                                        {...refProps}
+                                        {...firstItemProps()}
                                     >
                                         <p>
                                             {name && <span className={classes.interest}>{name}</span>}

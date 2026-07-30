@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -23,7 +22,7 @@ const Education = ({ education: educations }) => {
     return (
         educations?.length > 0 && (
             <Section title={intl.formatMessage({ id: 'education' })}>
-                {educations.map((education) => {
+                {educations.map((education, index) => {
                     if (education) {
                         const { institution, url, area, studyType, startDate, endDate, score, courses } =
                             education || {};
@@ -34,7 +33,7 @@ const Education = ({ education: educations }) => {
                         const meta = [institution, scoreText].filter(Boolean);
 
                         return (
-                            <Entry key={uuid()} title={title} dates={dates}>
+                            <Entry key={index} title={title} dates={dates}>
                                 {meta.length > 0 && (
                                     <p className={classes.meta}>
                                         {url && institution ? <a href={url}>{institution}</a> : institution}

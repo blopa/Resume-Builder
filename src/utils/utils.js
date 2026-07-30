@@ -146,18 +146,18 @@ export const generateLlmPromptObject = (text = '') => {
 /*
  * `coverLetter` and `llmPrompt` are custom attributes that stay out of the
  * toggleable conversion, so nothing applies their `enabled` flag for them.
- * Every consumer must resolve them through here, otherwise a disabled entry
- * still renders (or gets embedded in the downloaded .json).
+ * Anything that renders them must go through here, otherwise a disabled entry
+ * still shows up on the resume.
  * Returns '' when the attribute is missing, empty or toggled off.
  */
 export const resolveToggleableText = (toggleable) => (toggleable?.enabled && toggleable?.value?.text) || '';
 
+/*
+ * The same two attributes read for export rather than for display. The sidebar toggle
+ * decides what gets printed, not what the user gets back when they download their own
+ * source data — so this one ignores `enabled` on purpose.
+ */
+export const readToggleableText = (toggleable) => toggleable?.value?.text || '';
+
 // Only show a drawer toggle for custom attributes that actually carry text.
 export const hasToggleableText = (toggleable) => isObjectNotEmpty(toggleable) && Boolean(toggleable?.value?.text);
-
-// Internal fields remain available for editing and JSON downloads, but must never reach a resume template.
-export const omitInternalResumeFields = (resume) => {
-    const renderableResume = { ...resume };
-    delete renderableResume.careerStory;
-    return renderableResume;
-};

@@ -1,5 +1,3 @@
-import { useRef } from 'react';
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -7,7 +5,7 @@ import { useIntl } from 'gatsby-plugin-react-intl';
 import SectionTitle from './SectionTitle';
 
 // Hooks
-import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
+import useAntiPageBreakSection from '../../../hooks/useAntiPageBreakSection';
 
 const useStyles = makeStyles((theme) => ({
     resumePublications: {
@@ -42,37 +40,28 @@ const useStyles = makeStyles((theme) => ({
 const Publications = ({ publications }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const firstItem = useRef(null);
-    const sectionTitle = useRef(null);
-    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
+    const { titleRef, titleStyle, firstItemProps } = useAntiPageBreakSection();
 
     return (
         publications?.length > 0 && (
             <div className={classes.resumePublications}>
-                <SectionTitle ref={sectionTitle} style={titleStyle}>
+                <SectionTitle ref={titleRef} style={titleStyle}>
                     {intl.formatMessage({ id: 'publications' })}
                 </SectionTitle>
                 <div className={classes.contentWrapper}>
                     <ul className={classes.publications}>
-                        {publications.map((publication) => {
+                        {publications.map((publication, index) => {
                             if (publication) {
                                 const { name, publisher, releaseDate, url, summary } = publication || {};
-
-                                let refProps = {};
-                                if (!firstItem.current) {
-                                    refProps = {
-                                        ref: firstItem,
-                                    };
-                                }
 
                                 const title = [name, publisher].filter(Boolean).join(', ');
 
                                 return (
                                     <li
                                         className={classes.publicationWrapper}
-                                        key={uuid()}
+                                        key={index}
                                         // eslint-disable-next-line react/jsx-props-no-spreading
-                                        {...refProps}
+                                        {...firstItemProps()}
                                     >
                                         <p>
                                             {title &&

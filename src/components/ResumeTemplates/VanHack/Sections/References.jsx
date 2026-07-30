@@ -1,5 +1,3 @@
-import { useRef } from 'react';
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -7,7 +5,7 @@ import { useIntl } from 'gatsby-plugin-react-intl';
 import SectionTitle from './SectionTitle';
 
 // Hooks
-import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
+import useAntiPageBreakSection from '../../../hooks/useAntiPageBreakSection';
 
 const useStyles = makeStyles((theme) => ({
     resumeReferences: {
@@ -43,35 +41,26 @@ const useStyles = makeStyles((theme) => ({
 const References = ({ references }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const firstItem = useRef(null);
-    const sectionTitle = useRef(null);
-    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
+    const { titleRef, titleStyle, firstItemProps } = useAntiPageBreakSection();
 
     return (
         references?.length > 0 && (
             <div className={classes.resumeReferences}>
-                <SectionTitle ref={sectionTitle} style={titleStyle}>
+                <SectionTitle ref={titleRef} style={titleStyle}>
                     {intl.formatMessage({ id: 'references' })}
                 </SectionTitle>
                 <div className={classes.contentWrapper}>
                     <ul className={classes.references}>
-                        {references.map((ref) => {
+                        {references.map((ref, index) => {
                             if (ref) {
                                 const { name, reference } = ref || {};
-
-                                let refProps = {};
-                                if (!firstItem.current) {
-                                    refProps = {
-                                        ref: firstItem,
-                                    };
-                                }
 
                                 return (
                                     <li
                                         className={classes.referenceWrapper}
-                                        key={uuid()}
+                                        key={index}
                                         // eslint-disable-next-line react/jsx-props-no-spreading
-                                        {...refProps}
+                                        {...firstItemProps()}
                                     >
                                         {name && <p className={classes.name}>{name}</p>}
                                         {reference && (

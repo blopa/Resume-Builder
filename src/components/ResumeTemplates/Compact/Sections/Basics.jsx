@@ -1,5 +1,4 @@
 import { Fragment } from 'react';
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -8,7 +7,7 @@ import Section from './Section';
 
 // Utils
 import { mutedColor } from '../styles';
-import { toDisplayUrl } from '../utils';
+import { toDisplayUrl } from '../../../ResumeTemplateShell/utils';
 
 const useStyles = makeStyles((theme) => ({
     resumeBasics: {
@@ -87,7 +86,7 @@ const Basics = ({ basics: { name, label, image, email, phone, url, summary, prof
                     {links.length > 0 && (
                         <p>
                             {links.map(({ href, text }, index) => (
-                                <Fragment key={uuid()}>
+                                <Fragment key={index}>
                                     {index > 0 && ' · '}
                                     {href ? (
                                         <a href={href} target="_blank" rel="noreferrer">

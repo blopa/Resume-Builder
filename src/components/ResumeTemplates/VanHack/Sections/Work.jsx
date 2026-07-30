@@ -1,5 +1,3 @@
-import { useRef } from 'react';
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -8,7 +6,7 @@ import SectionTitle from './SectionTitle';
 import BulletList from './BulletList';
 
 // Hooks
-import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
+import useAntiPageBreakSection from '../../../hooks/useAntiPageBreakSection';
 
 const useStyles = makeStyles((theme) => ({
     resumeWork: {
@@ -49,19 +47,17 @@ const useStyles = makeStyles((theme) => ({
 const Work = ({ work: works }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const firstItem = useRef(null);
-    const sectionTitle = useRef(null);
-    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
+    const { titleRef, titleStyle, firstItemProps } = useAntiPageBreakSection();
 
     return (
         works?.length > 0 && (
             <div className={classes.resumeWork}>
-                <SectionTitle ref={sectionTitle} style={titleStyle}>
+                <SectionTitle ref={titleRef} style={titleStyle}>
                     {intl.formatMessage({ id: 'experience' })}
                 </SectionTitle>
                 <div className={classes.contentWrapper}>
                     <ul className={classes.works}>
-                        {works.map((work) => {
+                        {works.map((work, index) => {
                             if (work) {
                                 const {
                                     name,
@@ -76,22 +72,15 @@ const Work = ({ work: works }) => {
                                     keywords,
                                 } = work || {};
 
-                                let refProps = {};
-                                if (!firstItem.current) {
-                                    refProps = {
-                                        ref: firstItem,
-                                    };
-                                }
-
                                 const title = [position, name].filter(Boolean).join(', ');
                                 const meta = [startDate, endDate, location].filter(Boolean).join(' - ');
 
                                 return (
                                     <li
                                         className={classes.workWrapper}
-                                        key={uuid()}
+                                        key={index}
                                         // eslint-disable-next-line react/jsx-props-no-spreading
-                                        {...refProps}
+                                        {...firstItemProps()}
                                     >
                                         <p>
                                             {title && <span className={classes.position}>{title}</span>}

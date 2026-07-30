@@ -1,5 +1,4 @@
-import { Fragment, useRef } from 'react';
-import { v4 as uuid } from 'uuid';
+import { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -7,7 +6,7 @@ import { useIntl } from 'gatsby-plugin-react-intl';
 import SectionTitle from './SectionTitle';
 
 // Hooks
-import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
+import useAntiPageBreakSection from '../../../hooks/useAntiPageBreakSection';
 
 const useStyles = makeStyles((theme) => ({
     resumeLanguages: {
@@ -25,23 +24,21 @@ const useStyles = makeStyles((theme) => ({
 const Languages = ({ languages }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const firstItem = useRef(null);
-    const sectionTitle = useRef(null);
-    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
+    const { titleRef, titleStyle, firstItemRef } = useAntiPageBreakSection();
 
     const spokenLanguages = languages?.filter((lang) => lang?.language || lang?.fluency) || [];
 
     return (
         spokenLanguages.length > 0 && (
             <div className={classes.resumeLanguages}>
-                <SectionTitle ref={sectionTitle} style={titleStyle}>
+                <SectionTitle ref={titleRef} style={titleStyle}>
                     {intl.formatMessage({ id: 'languages' })}
                 </SectionTitle>
                 <div className={classes.contentWrapper}>
                     {/* the design keeps every language on a single comma separated line */}
-                    <p ref={firstItem}>
+                    <p ref={firstItemRef}>
                         {spokenLanguages.map(({ language, fluency }, index) => (
-                            <Fragment key={uuid()}>
+                            <Fragment key={index}>
                                 {index > 0 && ', '}
                                 {language}
                                 {fluency && <span className={classes.fluency}>{` (${fluency})`}</span>}

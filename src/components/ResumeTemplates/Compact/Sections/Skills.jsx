@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -40,7 +39,7 @@ const Skills = ({ skills }) => {
     return (
         skills?.length > 0 && (
             <Section title={intl.formatMessage({ id: 'skills' })}>
-                {skills.map((skill) => {
+                {skills.map((skill, index) => {
                     if (skill) {
                         const { name, level, keywords } = skill || {};
                         const keywordsText = keywords?.filter(Boolean).join(' · ');
@@ -50,7 +49,7 @@ const Skills = ({ skills }) => {
                         }
 
                         return (
-                            <div className={classes.skill} key={uuid()}>
+                            <div className={classes.skill} key={index}>
                                 {name && (
                                     <p className={classes.skillName}>
                                         {name}

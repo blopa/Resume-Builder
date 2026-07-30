@@ -1,5 +1,4 @@
-import { Fragment, useRef } from 'react';
-import { v4 as uuid } from 'uuid';
+import { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useIntl } from 'gatsby-plugin-react-intl';
 
@@ -7,7 +6,10 @@ import { useIntl } from 'gatsby-plugin-react-intl';
 import SectionTitle from './SectionTitle';
 
 // Hooks
-import useAntiPageBreakTitle from '../../../hooks/useAntiPageBreakTitle';
+import useAntiPageBreakSection from '../../../hooks/useAntiPageBreakSection';
+
+// Utils
+import { toDisplayUrl } from '../../../ResumeTemplateShell/utils';
 
 const useStyles = makeStyles((theme) => ({
     resumeBasics: {
@@ -60,15 +62,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-// the design shows bare domains, e.g. "personalwebsite.com" rather than "https://personalwebsite.com/"
-const toDisplayUrl = (url) => url?.replace(/^https?:\/\//, '').replace(/\/$/, '');
-
 const Basics = ({ basics: { name, label, image, email, phone, url, summary, profiles, location } }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const firstItem = useRef(null);
-    const sectionTitle = useRef(null);
-    const titleStyle = useAntiPageBreakTitle(sectionTitle, firstItem);
+    const { titleRef, titleStyle, firstItemRef } = useAntiPageBreakSection();
     const { address, postalCode, city, countryCode, region } = location || {};
 
     const locationText = [address, city, region, postalCode, countryCode].filter(Boolean).join(', ');
@@ -87,7 +84,7 @@ const Basics = ({ basics: { name, label, image, email, phone, url, summary, prof
                                         {toDisplayUrl(url)}
                                     </a>
                                 )}
-                                {profiles?.map((profile) => {
+                                {profiles?.map((profile, index) => {
                                     const { url: profileUrl, network, username } = profile || {};
                                     const profileText =
                                         toDisplayUrl(profileUrl) || [network, username].filter(Boolean).join('/');
@@ -98,7 +95,7 @@ const Basics = ({ basics: { name, label, image, email, phone, url, summary, prof
 
                                     return profileUrl ? (
                                         <a
-                                            key={uuid()}
+                                            key={index}
                                             href={profileUrl}
                                             title={username}
                                             target="_blank"
@@ -107,7 +104,7 @@ const Basics = ({ basics: { name, label, image, email, phone, url, summary, prof
                                             {profileText}
                                         </a>
                                     ) : (
-                                        <p key={uuid()}>{profileText}</p>
+                                        <p key={index}>{profileText}</p>
                                     );
                                 })}
                             </div>
@@ -123,11 +120,11 @@ const Basics = ({ basics: { name, label, image, email, phone, url, summary, prof
             </div>
             {summary && (
                 <div className={classes.resumeSummary}>
-                    <SectionTitle ref={sectionTitle} style={titleStyle}>
+                    <SectionTitle ref={titleRef} style={titleStyle}>
                         {intl.formatMessage({ id: 'summary' })}
                     </SectionTitle>
                     <div
-                        ref={firstItem}
+                        ref={firstItemRef}
                         className={classes.contentWrapper}
                         dangerouslySetInnerHTML={{ __html: summary }}
                     />
