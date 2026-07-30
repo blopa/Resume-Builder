@@ -96,7 +96,7 @@ Build.jsx   ──> form values ────────────────
 (from scratch)                                                           │        v
 ResumeViewer.jsx ──> fetchGithubResumeJson() ───────────────────────────┘   store (toggleableJsonResume)
                                                                                   │
-                                              Resume.jsx: convertToRegularObject + parseMarkdown
+                                 Resume.jsx / ResumeViewer.jsx: convertToRegularObject + parseMarkdown
                                                                                   │
                                                                                   v
                                                               ResumeTemplates/<Name>/Index.jsx
@@ -110,9 +110,14 @@ Each template is a folder in `src/components/ResumeTemplates/` containing `Index
 
 ### Markdown & sanitization
 
-Markdown is parsed **once, centrally** in `parseMarkdown()` in [Resume.jsx:55](src/pages/Resume.jsx#L55), and only for these keys: `description`, `summary`, `reference`, `coverLetter`. The order is always **`DOMPurify.sanitize()` first, then `marked()`**.
+Markdown is parsed **once, centrally** in `parseMarkdown()` in [src/utils/parse-markdown.js](src/utils/parse-markdown.js), and only for the keys listed there:
 
-Templates then render the result with `dangerouslySetInnerHTML`. That is safe _only_ because sanitization already happened upstream. If you add a markdown-enabled field, add its key to that array in `parseMarkdown` — never call `marked()` inside a template, and never render unsanitized user content.
+-   `blockMarkdownKeys` (`description`, `summary`, `reference`, `coverLetter`) — parsed with `marked()`, so they produce block level HTML (`<p>`, lists).
+-   `inlineMarkdownKeys` (`highlights`, `courses`) — string arrays whose items each render inside one `<li>`, so they are parsed with `marked.parseInline()` to avoid a `<p>` per bullet.
+
+The order is always **`DOMPurify.sanitize()` first, then `marked()`**.
+
+Templates then render the result with `dangerouslySetInnerHTML`. That is safe _only_ because sanitization already happened upstream, so **every path that renders a template must call `parseMarkdown()` first** — both [Resume.jsx](src/pages/Resume.jsx) and [ResumeViewer.jsx](src/pages/ResumeViewer.jsx) do, and the viewer especially needs it because it renders `resume.json` fetched from an arbitrary GitHub account. If you add a markdown-enabled field, add its key to the matching array in `parse-markdown.js` — never call `marked()` inside a template, and never render unsanitized user content.
 
 ### Internationalization
 

@@ -19,6 +19,7 @@ import {
     omitInternalResumeFields,
     resolveToggleableText,
 } from '../utils/utils';
+import { parseMarkdown } from '../utils/parse-markdown';
 
 // Hooks
 import { useDispatch, useSelector } from '../store/StoreProvider';
@@ -102,12 +103,14 @@ const ResumeViewer = ({ params, uri }) => {
                     customTranslations={toggleableObject.__translation__}
                     isPrinting={isPrinting}
                     // TODO maybe just send the JSON directly
-                    jsonResume={omitInternalResumeFields({
-                        ...baseResume,
-                        ...convertToRegularObject(cloneDeep(toggleableObject)),
-                        coverLetter: '',
-                        llmPrompt: resolveToggleableText(toggleableObject.llmPrompt),
-                    })}
+                    jsonResume={parseMarkdown(
+                        omitInternalResumeFields({
+                            ...baseResume,
+                            ...convertToRegularObject(cloneDeep(toggleableObject)),
+                            coverLetter: '',
+                            llmPrompt: resolveToggleableText(toggleableObject.llmPrompt),
+                        })
+                    )}
                     coverLetterVariables={toggleableObject.coverLetter?.value?.variables || []}
                 />,
             ]);
