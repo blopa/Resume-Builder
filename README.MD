@@ -174,13 +174,14 @@ Want to add a new language? Copy `src/intl/en.json` (plus the matching file in e
 
 Templates live in [`src/components/ResumeTemplates/`](src/components/ResumeTemplates), one folder each:
 
-| Template  | Status                                                                              |
-| --------- | ----------------------------------------------------------------------------------- |
-| `Default` | Shipped — the standard layout, and the fallback for the online viewer.              |
-| `Compact` | Shipped — small type and a label-beside-content layout, for fitting more on a page. |
-| `VanHack` | Shipped — print-first single-column layout with uppercase section headings.         |
+| Template            | Status                                                                              |
+| ------------------- | ----------------------------------------------------------------------------------- |
+| `Default`           | Shipped — the standard layout, and the fallback for the online viewer.              |
+| `Compact`           | Shipped — small type and a label-beside-content layout, for fitting more on a page. |
+| `VanHack`           | Shipped — print-first single-column layout with uppercase section headings.         |
+| `PragmaticEngineer` | Shipped — a compact, impact-focused layout inspired by The Pragmatic Engineer.      |
 
-All three are selectable from the sidebar and available at `/view/<template>/<github-user>` in the online viewer.
+All templates are selectable from the sidebar and available at `/view/<template>/<github-user>` in the online viewer.
 
 Everything the templates have in common — locale resolution, the cover letter page, the source-data download link and the LLM prompt — lives in [`src/components/ResumeTemplateShell/`](src/components/ResumeTemplateShell). A template supplies its own styles and section order and renders them as children of `TemplateShell`; it should not re-implement that scaffolding.
 
@@ -428,7 +429,7 @@ The site is then available at `http://localhost:8000` (GraphiQL at `http://local
 src/
 ├── components/
 │   ├── ResumeDrawerItems/   # Sidebar toggles for each resume section
-│   └── ResumeTemplates/     # Default, Compact, VanHack templates
+│   └── ResumeTemplates/     # Default, Compact, VanHack, PragmaticEngineer templates
 ├── intl/                    # UI translations (en, es, pt-br, fr, de, ja, ru)
 ├── pages/                   # Home, Upload, Build, Resume, ResumeViewer
 ├── store/                   # Global state

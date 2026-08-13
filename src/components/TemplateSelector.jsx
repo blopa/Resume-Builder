@@ -33,7 +33,7 @@ const TemplateSelector = ({ onSelect, className }) => {
         <Select className={className} value={resumeTemplate} onChange={handleChange} displayEmpty>
             {TEMPLATES_LIST.map((template) => (
                 <MenuItem key={uuid()} value={template}>
-                    {template}
+                    {template === 'PragmaticEngineer' ? 'Pragmatic Engineer' : template}
                 </MenuItem>
             ))}
         </Select>
