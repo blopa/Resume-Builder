@@ -41,6 +41,7 @@ const importTemplate = (template) => {
         VanHack: import('../components/ResumeTemplates/VanHack/Index'),
         Compact: import('../components/ResumeTemplates/Compact/Index'),
         PragmaticEngineer: import('../components/ResumeTemplates/PragmaticEngineer/Index'),
+        Popular: import('../components/ResumeTemplates/Popular/Index'),
     };
 
     return lazy(() => {
