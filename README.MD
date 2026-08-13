@@ -180,6 +180,8 @@ Templates live in [`src/components/ResumeTemplates/`](src/components/ResumeTempl
 | `Compact`           | Shipped — small type and a label-beside-content layout, for fitting more on a page. |
 | `VanHack`           | Shipped — print-first single-column layout with uppercase section headings.         |
 | `PragmaticEngineer` | Shipped — a compact, impact-focused layout inspired by The Pragmatic Engineer.      |
+| `Popular`           | Shipped — a traditional serif layout with dense, ATS-friendly formatting.           |
+| `Programmer`        | Shipped — a modern two-column layout with an experience-focused main column.        |
 
 All templates are selectable from the sidebar and available at `/view/<template>/<github-user>` in the online viewer.
 
@@ -429,7 +431,7 @@ The site is then available at `http://localhost:8000` (GraphiQL at `http://local
 src/
 ├── components/
 │   ├── ResumeDrawerItems/   # Sidebar toggles for each resume section
-│   └── ResumeTemplates/     # Default, Compact, VanHack, PragmaticEngineer templates
+│   └── ResumeTemplates/     # Shipped resume templates
 ├── intl/                    # UI translations (en, es, pt-br, fr, de, ja, ru)
 ├── pages/                   # Home, Upload, Build, Resume, ResumeViewer
 ├── store/                   # Global state
