@@ -4,6 +4,7 @@ import { useIntl } from 'gatsby-plugin-react-intl';
 
 // Components
 import Section from './Section';
+import BulletList from './BulletList';
 
 // Utils
 import { secondaryTextColor } from '../styles';
@@ -40,10 +41,16 @@ const Education = ({ education = [], certificates = [] }) => {
     const intl = useIntl();
     const hasEducation = education?.length > 0;
     const hasCertificates = certificates?.length > 0;
-    const title =
-        hasEducation && hasCertificates
-            ? intl.formatMessage({ id: 'education_and_certifications' })
-            : intl.formatMessage({ id: hasEducation ? 'education' : 'certificates' });
+    const educationTitle = intl.formatMessage({ id: 'education' });
+    const certificatesTitle = intl.formatMessage({ id: 'certificates' });
+    let title = hasEducation ? educationTitle : certificatesTitle;
+
+    if (hasEducation && hasCertificates) {
+        title = intl.formatMessage(
+            { id: 'education_and_certifications' },
+            { education: educationTitle, certificates: certificatesTitle }
+        );
+    }
 
     return (
         <Section title={title}>
@@ -69,7 +76,9 @@ const Education = ({ education = [], certificates = [] }) => {
                                 {dates && <p className={classes.dates}>{dates}</p>}
                             </div>
                             {courses?.length > 0 && (
-                                <p className={classes.details}>{courses.filter(Boolean).join(', ')}</p>
+                                <div className={classes.details}>
+                                    <BulletList items={courses} />
+                                </div>
                             )}
                         </li>
                     );

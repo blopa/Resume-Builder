@@ -185,9 +185,9 @@ Templates live in [`src/components/ResumeTemplates/`](src/components/ResumeTempl
 
 All templates are selectable from the sidebar and available at `/view/<template>/<github-user>` in the online viewer.
 
-Everything the templates have in common — locale resolution, the cover letter page, the source-data download link and the LLM prompt — lives in [`src/components/ResumeTemplateShell/`](src/components/ResumeTemplateShell). A template supplies its own styles and section order and renders them as children of `TemplateShell`; it should not re-implement that scaffolding.
+Shared template infrastructure — loading, locale resolution, normalized additional-section entries, the cover letter page, the source-data download link and the LLM prompt — lives in [`src/components/ResumeTemplateShell/`](src/components/ResumeTemplateShell). A template supplies its own styles and section order and renders them as children of `TemplateShell`; it should not re-implement that scaffolding.
 
-> **Note:** [gatsby-node.js](gatsby-node.js#L47) treats **every entry** in `src/components/ResumeTemplates/` as a template and generates a `/view/<name>` route for it, which is why shared code lives outside that folder. Incomplete templates are filtered out via the `disabledTemplates` list in [gatsby-node.js](gatsby-node.js#L6). To work on one, remove it from that array and run the dev server. Contributions of new templates are very welcome — see [Contributing](#contributing).
+> **Note:** [gatsby-node.js](gatsby-node.js) treats every subdirectory in `src/components/ResumeTemplates/` as a template and generates a `/view/<name>` route for it. Incomplete templates are filtered out via the `disabledTemplates` set. To work on one, remove its name from that set and run the dev server. Contributions of new templates are very welcome — see [Contributing](#contributing).
 
 ## Example `resume.json`
 

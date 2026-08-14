@@ -31,6 +31,8 @@ const Skills = ({ skills = [], languages = [] }) => {
     const intl = useIntl();
     const hasSkills = skills?.length > 0;
     const hasLanguages = languages?.length > 0;
+    const skillsTitle = intl.formatMessage({ id: 'skills' });
+    const languagesTitle = intl.formatMessage({ id: 'languages' });
     const languagesText = languages
         .filter((item) => item?.language || item?.fluency)
         .map((item) => {
@@ -41,10 +43,14 @@ const Skills = ({ skills = [], languages = [] }) => {
             return item.language || item.fluency;
         })
         .join(', ');
-    const title =
-        hasSkills && hasLanguages
-            ? intl.formatMessage({ id: 'technologies_and_languages' })
-            : intl.formatMessage({ id: hasSkills ? 'skills' : 'languages' });
+    let title = hasSkills ? skillsTitle : languagesTitle;
+
+    if (hasSkills && hasLanguages) {
+        title = intl.formatMessage(
+            { id: 'technologies_and_languages' },
+            { skills: skillsTitle, languages: languagesTitle }
+        );
+    }
 
     return (
         <Section title={title}>

@@ -15,35 +15,38 @@ const useStyles = makeStyles(() => ({
     level: {
         fontStyle: 'italic',
     },
+    name: {
+        fontWeight: 600,
+    },
 }));
 
 const Skills = ({ skills }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const items = skills.flatMap(({ name, level, keywords } = {}) => {
-        const skillKeywords = keywords?.filter(Boolean) || [];
-
-        if (skillKeywords.length > 0) {
-            return skillKeywords;
-        }
-        if (!name) {
-            return [];
-        }
-
-        return [
-            <span key={name}>
-                {name}
-                {level && <span className={classes.level}>{` — ${level}`}</span>}
-            </span>,
-        ];
-    });
 
     return (
         <Section title={intl.formatMessage({ id: 'skills' })}>
             <ul className={classes.list}>
-                {items.map((item, index) => (
-                    <li key={index}>{item}</li>
-                ))}
+                {skills.map((item, index) => {
+                    if (!item) {
+                        return null;
+                    }
+
+                    const { name, level, keywords } = item;
+                    const keywordsText = keywords?.filter(Boolean).join(', ');
+
+                    return (
+                        (name || level || keywordsText) && (
+                            <li key={index}>
+                                {name && <span className={classes.name}>{name}</span>}
+                                {name && (level || keywordsText) && ': '}
+                                {keywordsText}
+                                {keywordsText && level && ' — '}
+                                {level && <span className={classes.level}>{level}</span>}
+                            </li>
+                        )
+                    );
+                })}
             </ul>
         </Section>
     );
