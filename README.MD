@@ -174,17 +174,20 @@ Want to add a new language? Copy `src/intl/en.json` (plus the matching file in e
 
 Templates live in [`src/components/ResumeTemplates/`](src/components/ResumeTemplates), one folder each:
 
-| Template  | Status                                                                              |
-| --------- | ----------------------------------------------------------------------------------- |
-| `Default` | Shipped — the standard layout, and the fallback for the online viewer.              |
-| `Compact` | Shipped — small type and a label-beside-content layout, for fitting more on a page. |
-| `VanHack` | Shipped — print-first single-column layout with uppercase section headings.         |
+| Template            | Status                                                                              |
+| ------------------- | ----------------------------------------------------------------------------------- |
+| `Default`           | Shipped — the standard layout, and the fallback for the online viewer.              |
+| `Compact`           | Shipped — small type and a label-beside-content layout, for fitting more on a page. |
+| `VanHack`           | Shipped — print-first single-column layout with uppercase section headings.         |
+| `PragmaticEngineer` | Shipped — a compact, impact-focused layout inspired by The Pragmatic Engineer.      |
+| `Popular`           | Shipped — a traditional serif layout with dense, ATS-friendly formatting.           |
+| `Programmer`        | Shipped — a modern two-column layout with an experience-focused main column.        |
 
-All three are selectable from the sidebar and available at `/view/<template>/<github-user>` in the online viewer.
+All templates are selectable from the sidebar and available at `/view/<template>/<github-user>` in the online viewer.
 
-Everything the templates have in common — locale resolution, the cover letter page, the source-data download link and the LLM prompt — lives in [`src/components/ResumeTemplateShell/`](src/components/ResumeTemplateShell). A template supplies its own styles and section order and renders them as children of `TemplateShell`; it should not re-implement that scaffolding.
+Shared template infrastructure — loading, locale resolution, normalized additional-section entries, the cover letter page, the source-data download link and the LLM prompt — lives in [`src/components/ResumeTemplateShell/`](src/components/ResumeTemplateShell). A template supplies its own styles and section order and renders them as children of `TemplateShell`; it should not re-implement that scaffolding.
 
-> **Note:** [gatsby-node.js](gatsby-node.js#L47) treats **every entry** in `src/components/ResumeTemplates/` as a template and generates a `/view/<name>` route for it, which is why shared code lives outside that folder. Incomplete templates are filtered out via the `disabledTemplates` list in [gatsby-node.js](gatsby-node.js#L6). To work on one, remove it from that array and run the dev server. Contributions of new templates are very welcome — see [Contributing](#contributing).
+> **Note:** [gatsby-node.js](gatsby-node.js) treats every subdirectory in `src/components/ResumeTemplates/` as a template and generates a `/view/<name>` route for it. Incomplete templates are filtered out via the `disabledTemplates` set. To work on one, remove its name from that set and run the dev server. Contributions of new templates are very welcome — see [Contributing](#contributing).
 
 ## Example `resume.json`
 
@@ -428,7 +431,7 @@ The site is then available at `http://localhost:8000` (GraphiQL at `http://local
 src/
 ├── components/
 │   ├── ResumeDrawerItems/   # Sidebar toggles for each resume section
-│   └── ResumeTemplates/     # Default, Compact, VanHack templates
+│   └── ResumeTemplates/     # Shipped resume templates
 ├── intl/                    # UI translations (en, es, pt-br, fr, de, ja, ru)
 ├── pages/                   # Home, Upload, Build, Resume, ResumeViewer
 ├── store/                   # Global state

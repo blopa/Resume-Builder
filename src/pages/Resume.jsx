@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useState, useRef, useCallback } from 'react';
+import { Suspense, useEffect, useState, useRef, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer } from '@material-ui/core';
 import { navigate, useIntl } from 'gatsby-plugin-react-intl';
@@ -10,6 +10,7 @@ import Layout from '../components/Layout';
 import A4Container from '../components/A4Container';
 import ResumeDrawerItems from '../components/ResumeDrawerItems/ResumeDrawerItems';
 import FloatingButton from '../components/FloatingButton';
+import createLazyResumeTemplate from '../components/ResumeTemplateShell/createLazyResumeTemplate';
 
 // Hooks
 import { useSelector } from '../store/StoreProvider';
@@ -24,7 +25,7 @@ import { selectResumeTemplate, selectToggleableJsonResume } from '../store/selec
 // Hooks
 import useDetectPrint from '../components/hooks/useDetectPrint';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     resumeWrapper: {
         margin: '10px 0',
     },
@@ -34,18 +35,6 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }));
-
-const importTemplate = (template) => {
-    const templates = {
-        Default: import('../components/ResumeTemplates/Default/Index'),
-        VanHack: import('../components/ResumeTemplates/VanHack/Index'),
-        Compact: import('../components/ResumeTemplates/Compact/Index'),
-    };
-
-    return lazy(() => {
-        return templates[template];
-    });
-};
 
 const ResumePage = () => {
     const intl = useIntl();
@@ -67,8 +56,8 @@ const ResumePage = () => {
     }, [hasData]);
 
     useEffect(() => {
-        async function loadTemplate() {
-            const Template = await importTemplate(resumeTemplateName);
+        function loadTemplate() {
+            const Template = createLazyResumeTemplate(resumeTemplateName);
 
             setResumeTemplate([
                 <Template

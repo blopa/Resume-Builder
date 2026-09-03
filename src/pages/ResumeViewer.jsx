@@ -1,6 +1,7 @@
 /* eslint template-curly-spacing: 0, indent: 0 */
 /* globals TEMPLATES_LIST */
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
+import { Suspense, useEffect, useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
 import { navigate, useIntl, RawIntlProvider } from 'gatsby-plugin-react-intl';
 import { v4 as uuid } from 'uuid';
 import { cloneDeep } from 'lodash';
@@ -8,6 +9,7 @@ import { cloneDeep } from 'lodash';
 // Components
 import SEO from '../components/SEO';
 import A4Container from '../components/A4Container';
+import createLazyResumeTemplate from '../components/ResumeTemplateShell/createLazyResumeTemplate';
 
 // Utils
 import { fetchGithubResumeJson, isValidJsonString } from '../utils/gatsby-frontend-helpers';
@@ -27,13 +29,6 @@ import templateIntls from '../intl';
 
 // Selectors
 import { selectToggleableJsonResume } from '../store/selectors';
-
-const importTemplate = (template) =>
-    lazy(() =>
-        import(`../components/ResumeTemplates/${template}/Index`).catch(() =>
-            import('../components/ResumeTemplates/Default/Index')
-        )
-    );
 
 const ResumeViewer = ({ params, uri }) => {
     const intl = useIntl();
@@ -95,7 +90,7 @@ const ResumeViewer = ({ params, uri }) => {
             }
 
             dispatch(setToggleableJsonResume(toggleableObject));
-            const Template = await importTemplate(validTemplate);
+            const Template = createLazyResumeTemplate(validTemplate);
             setResumeTemplate([
                 <Template
                     key={uuid()}
@@ -126,6 +121,13 @@ const ResumeViewer = ({ params, uri }) => {
             </A4Container>
         </RawIntlProvider>
     );
+};
+
+ResumeViewer.propTypes = {
+    params: PropTypes.shape({
+        '*': PropTypes.string,
+    }).isRequired,
+    uri: PropTypes.string.isRequired,
 };
 
 export default ResumeViewer;
